@@ -1,76 +1,136 @@
-.wpo-about-area,.wpo-about-style-2,.wpo-about-style-3{
-  padding: 100px 0;
-}
-.wpo-about-content .wpo-about-icon i{
-  color:#34ccff;
-}
-.wpo-about-content h2{
-  font-size: 30px;
-  font-weight: 700;
-  position: relative;
-  padding-bottom:8px;
-  margin-bottom: 30px;
-}
-.wpo-about-content h2:before{
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 50px;
-  height:5px;
-  background:#34ccff; 
-}
-.sec-p{
-  padding-left: 30px;
-}
-.wpo-about-img img{
-  padding-top: 50px;
-}
-.wpo-about-content p {
-    margin-bottom: 30px;
-}
-.wpo-about-content span{
-  display: block;
-  padding-left: 30px;
-  padding-bottom: 20px;
-  position: relative;
-}
-.wpo-about-content span:before{
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 5px;
-  width: 15px;
-  height:15px;
-  background:#34ccff; 
-}
-.wpo-about-content .wpo-about-icon i:before{
-  font-size: 60px;
-}
-.signature-section {
-    overflow: hidden;
-}
-.si-text {
-    float: left;
-    margin-top: 20px;
-    text-align: start;
-}
-.si-text:lang(ar) {
-  float: right;
+ 
 
+.user-card-full {
+  overflow: hidden
+}
+
+.carddd {
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+  box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+  border: none;
+  margin-bottom: 30px
+}
+
+.m-r-0 {
+  margin-right: 0px
+}
+
+.m-l-0 {
+  margin-left: 0px
+}
+
+.user-card-full .user-profile {
+  border-radius: 5px 0 0 5px
+}
+
+.bg-c-lite-green {
+  /* background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));/ */
+  background: linear-gradient(to right, #274091, #c60874);
+}
+
+.user-profile {
+  padding: 20px 0
+}
+
+.card-block {
+  padding: 1.25rem;
+  text-align: start;
   
 }
-.si-text p {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
+.card-block h6{font-family: 'Cairo-Regular';color:  #274091;}
+
+.m-b-25 {
+  margin-bottom: 25px
 }
-.signature-section img{
-  float: right;
+
+.img-radius {
+  border-radius: 5px
 }
-.wpo-about-icon:lang(ar){
-  text-align: start;
+
+ .nameProfile{    color: white !important;
+  font-family: 'Cairo-Regular';
+  text-transform: capitalize;
+  font-size: 1.5rem;}
+.carddd .card-block p {
+  line-height: 25px
 }
-.signature-section img:lang(ar){
-  float: left;
+.carddd .card-block p.comp{    color: white;}
+.card-block.USerCont{    height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;}
+@media only screen and (min-width: 1400px) {
+  p {
+      font-size: 14px
+  }
+}
+
+.card-block {
+  padding: 1.25rem
+}
+
+.b-b-default {
+  border-bottom:  3px solid #c60874;
+}
+
+.m-b-20 {
+  margin-bottom: 20px
+}
+
+.p-b-5 {
+  padding-bottom: 5px !important
+}
+
+.carddd .card-block p {
+  line-height: 25px
+}
+
+.m-b-10 {
+  margin-bottom: 10px
+}
+
+.text-muted {
+  color: #919aa3 !important
+}
+
+.b-b-default {
+  border-bottom:  3px solid #c60874;
+}
+
+.f-w-600 {
+  font-weight: 600
+}
+
+.m-b-20 {
+  margin-bottom: 20px
+}
+
+.m-t-40 {
+  margin-top: 20px
+}
+
+.p-b-5 {
+  padding-bottom: 5px !important
+}
+
+.m-b-10 {
+  margin-bottom: 10px
+}
+
+.m-t-40 {
+  margin-top: 20px
+}
+
+.user-card-full .social-link li {
+  display: inline-block
+}
+
+.user-card-full .social-link li a {
+  font-size: 20px;
+  margin: 0 10px 0 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out
 }

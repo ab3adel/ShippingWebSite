@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../redux/index'
 import './style.css'
 import { useTranslation } from 'react-i18next';
+import '../../globalVar';
 const Header = () => {
     let history = useHistory();
     const [t, i18n] = useTranslation();
@@ -122,7 +123,7 @@ const Header = () => {
 
         }
     }
-    console.log('userData', userData);
+
     console.log('logged', logged);
     return (
         <header>
