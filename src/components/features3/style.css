@@ -1,0 +1,49 @@
+.wpo-section-style-3{
+  padding: 100px 0;
+}
+.wpo-section-style-3 .wpo-section-item-2 {
+    padding: 0px;
+}
+.wpo-section-style-3 .wpo-section-icon i.fi {
+    margin-top: 25px;
+}
+.wpo-section-style-3 .section-wrap {
+  padding: 15px 10px 30px;
+  background: #f5f5f5;
+}
+.wpo-section-style-3 .wpo-section-content {
+    padding-right: 0;
+}
+.wpo-section-style-3 .wpo-section-content p{
+  margin-bottom: 10px;
+}
+.tr-wrap {
+    padding-left: 30px;
+}
+.t-text h2{
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+.t-text p{
+  font-size: 16px;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
+.tr-s span{
+  font-size: 16px;
+   display: block;
+   padding-bottom: 10px;
+   padding-left: 25px;
+   position: relative;
+}
+.tr-s span:before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 10px;
+  height: 10px;
+  background: #34ccff;
+  border-radius: 50%;
+}

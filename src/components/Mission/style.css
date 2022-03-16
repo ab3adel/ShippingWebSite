@@ -1,0 +1,15 @@
+.service-style-1 .service-content,
+.service-style-1 .service-content2,
+.service-style-1 .service-content3{
+    top: 76%;
+}
+.service-style-1 .wpo-service-single:hover .wpo-service-content,
+.service-style-1 .wpo-service-single:hover .wpo-service-content2,
+.service-style-1 .wpo-service-single:hover .wpo-service-content3{
+    top: 0;
+}
+
+.service-style-1{
+  background: #fff;
+  padding: 100px 0 70px;
+}

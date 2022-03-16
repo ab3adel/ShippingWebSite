@@ -1,0 +1,72 @@
+.FAQsSection {
+  background: url('../../images/about/255.jpg') no-repeat center top / cover;
+
+}
+
+.FAQsSection  .about-wrap{
+ background: rgba(20,36,64,.8);
+ padding: 50px;
+ float: left;
+}
+.FAQsSection  .content{
+ padding: 50px;
+}
+.FAQsSection .wpo-about-content h2 {
+ color:#fff;
+}
+.FAQsSection.wpo-about-content p  {
+   color:#fff;
+}
+.FAQsSection .wpo-about-content span {
+   color:#fff;
+}
+.FAQsSection.si-text p {
+   color:#fff;
+}
+.FAQsSection .si-text span {
+   color:#fff;
+}
+.FAQsSection .wpo-section-item-2 {
+  padding: 25px 0 50px;
+}
+.faqsImg{
+   width: 200px;
+   margin-top: 50px;
+}
+.m-0-auto{
+   margin: 0 auto;
+}
+.MuiAccordionSummary-expandIconWrapper  {
+ 
+   fill: #274091  !important
+} 
+.FAQsSection .MuiAccordionSummary-root .MuiAccordionSummary-content {
+   margin-inline-start: 8px;
+   text-align: start;
+ 
+}
+.FAQsSection .MuiAccordionDetails-root{text-align: start;background: #404e66;
+   text-align: start;
+   border-color: #274091;}
+ .FAQsSection p.MuiTypography-root{
+   color: white;
+   font-family: 'Cairo-Regular';
+transition: all 0.3s ease;
+   
+}
+.FAQsSection .MuiPaper-root.MuiPaper-elevation.MuiAccordion-root{
+   background-color: #343e51;
+   transition: all 0.3s ease;
+}  
+.FAQsSection .MuiCollapse-entered {}
+.FAQsSection .MuiAccordionSummary-root:hover  .MuiAccordionSummary-content p.MuiTypography-root{
+   position: relative;
+padding-inline-start: 10px;
+color: #f5ebf0;
+  
+}
+.FAQsSection .MuiPaper-root.MuiPaper-elevation.MuiAccordion-root:hover {
+   background-color: #343e51;
+   border: 1px solid #ffffff42;
+   box-shadow: 6px 0px 4px -2px #c60874;
+}

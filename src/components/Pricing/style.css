@@ -1,0 +1,80 @@
+.wpo-pricing-area,.wpo-pricing-area{
+  padding: 170px 0 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.wpo-price-item {
+    text-align: center;
+    background: #f6f6f6;
+    transition: all .3s;
+}
+.wpo-price-item:hover{
+  background: #e7f9ff;
+}
+.wpo-pricing-header h3{
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+}
+.wpo-pricing-header {
+    padding: 25px 0 13px;
+    background: #34ccff;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: relative;
+    z-index: 11;
+}
+.wpo-pricing-header:before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 16px;
+    width: 100%;
+    height: 85%;
+    background: url('../../images/pricing/2.png') no-repeat center center / cover;
+    z-index: -1;
+}
+.wpo-price-sub-header {
+    padding: 20px 0 10px;
+}
+.wpo-price-sub-header h4{
+  font-size: 36px;
+  color:#34ccff; 
+}
+.wpo-pricing-table {
+    padding-bottom: 30px;
+}
+.wpo-pricing-table li{
+    padding: 10px;
+    border-top:1px solid #eeeeee; 
+}
+.col-l{
+  padding: 10px;
+}
+.pricing-img {
+    text-align: right;
+    position: relative;
+    margin-top: -28px;
+}
+.pricing-img:before {
+    content: "";
+    position: absolute;
+    left: 64%;
+    top: 96px;
+    width: 65%;
+    height: 84%;
+    border: 10px solid #34ccff;
+    z-index: -1;
+}
+.btn-style-4 {
+    margin-top: 14px;
+}
+.btn-style-4 a {
+    border-radius:0px;
+}

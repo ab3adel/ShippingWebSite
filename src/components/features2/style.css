@@ -1,0 +1,50 @@
+.wpo-section-style-2,.wpo-section-style-3{
+  background: #fff;
+}
+.wpo-section-style-2 .wpo-section-item,.wpo-section-style-3 .wpo-section-item{
+overflow: hidden;
+}
+.wpo-section-style-2 .wpo-section-icon,.wpo-section-style-3 .wpo-section-icon {
+  margin-top: 0;
+  float: left;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
+.wpo-section-style-2 .wpo-section-icon:lang(ar),.wpo-section-style-3 .wpo-section-icon:lang(ar) {
+  
+  float: right;
+ 
+
+}
+.wpo-section-style-2 .wpo-section-content p a:hover,.wpo-section-style-3 .wpo-section-content p a:hover {
+  color: #34ccff;
+}
+.wpo-section-style-2 .wpo-section-content,.wpo-section-style-3 .wpo-section-content {
+  text-align: start;
+  overflow: hidden;
+  padding-inline-end: 60px;
+}
+.wpo-section-style-2 .wpo-section-content span,.wpo-section-style-3 .wpo-section-content span {
+  font-size: 16px;
+  color: #777;
+}
+.wpo-section-style-2 .wpo-section-icon i.fi,.wpo-section-style-3 .wpo-section-icon i.fi {
+  padding: 0;
+  width: 90px;
+  height: 90px;
+  background: #34ccff;
+  border-radius: 50%;
+  line-height: 75px;
+  text-align: center;
+  margin-top: 35px;
+  margin-inline-end: 20px;
+  color:#fff;
+  border:6px solid #d4f1fa;
+}
+
+.wpo-section-style-2 .wpo-section-content, 
+.wpo-section-style-3 .wpo-section-content {
+  padding-inline-end: 24px;
+}

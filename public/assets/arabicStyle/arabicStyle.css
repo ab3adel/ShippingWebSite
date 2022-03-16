@@ -1,0 +1,14 @@
+/* hi Arabic */
+@font-face {
+    font-family: 'Cairo-Regular';
+    src: url('Cairo-Regular.ttf') format('ttf'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+     url('Cairo-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+  }  
+  body{
+    /* font-family: 'Cairo-Regular' !important; */
+  }
+  .logoinlogin{position: absolute;
+    width: 125px;
+    top: 15px;
+    right:unset;
+    left: 15px;}

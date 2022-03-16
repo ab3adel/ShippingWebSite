@@ -1,0 +1,121 @@
+
+.track h3 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  font-family: 'Cairo-Regular';
+  color: #fff;
+  text-align: start;
+}
+
+.wpo-track-section{
+  padding: 15px 0 20px;
+  background: url('../../images/news/bg.jpg') no-repeat center center / cover;
+}
+
+.wpo-track-section .track form {
+  position: relative;
+}
+.wpo-track-section .track button {
+  background:#c60874;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  /* position: absolute;
+  left:15px;
+  top: 0; */
+  width: 200px;
+  height: 50px;
+  transition: all .3s;
+}
+.wpo-track-section .track button:hover{
+background:#274091;
+}
+.wpo-track-section .track input {
+  background: #fff;
+  height: 50px;
+  font-size: 17px;
+  color: #333;
+  padding: 6px 80px 6px 30px;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.wpo-track-section .track input:lang(ar) {
+  
+  padding: 6px 30px 6px 80px;
+ 
+}
+
+
+.form-control {
+border-radius:0px;
+}
+
+
+.sendCArgo{
+  background: #c60874;
+  box-shadow: 0px 0px 0px 39px #c60874;
+  transition: all 0.4s ease-in-out;
+}
+.sendCArgo:hover {
+  background: #c6087499;
+  box-shadow: -3px 3px 4px 18px #c6087499;
+}
+.wpo-track-section .track button.sendCargobt {
+  background: #274091;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  width: 238px;
+  height: 50px;
+  margin: 0 auto;
+  
+  position: relative;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+.wpo-track-section .track button.sendCargobt:hover {
+  background: #fff;
+  color: #274091;
+ 
+}
+.sendLogo{    position: absolute;
+  max-width: 100%;
+  display: block;
+  height: 1px;
+  opacity: 0;
+  top: -40px;
+  transform: rotate3d(1, 0, 0, 600deg);
+  transition: all 0.5s ease;}
+  .wpo-track-section .track button.sendCargobt:hover .sendLogo {
+    height: 20px;
+    opacity: 1;
+    top: unset;
+    transform: rotate3d(0, 0, 0, 180deg);
+   
+  }
+  @media(max-width:992px){
+    .sendCArgo{
+      padding-bottom: 17px;
+      box-shadow: none;
+ 
+    }
+    .sendCArgo:hover {
+      
+      box-shadow: none ;
+    }
+    .track h3 {padding-top: 15px;
+      }
+
+
+  }
+  @media(max-width: 575px){
+    .sendCArgo {
+      margin-top: 20px;
+  }
+
+  .wpo-track-section .track button{margin: 0 auto;
+  display: block;
+  width: 250px;}
+  }

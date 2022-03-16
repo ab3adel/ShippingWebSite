@@ -1,0 +1,56 @@
+
+.TabsSection {
+    background: #274091;
+    top: -30px;
+    position: relative;
+ transition: all 0.2s ease-in-out;
+}
+.singleTabCont{
+    position: relative;
+    text-align: center;padding: 0;
+    border: 10px solid white;transition: all 0.2s ease-in-out;
+ 
+}
+.singleTabCont.activeCont,.singleTabCont:hover{   max-width: 24%;
+    flex: 1 0 26.666667%;
+    box-shadow: 0px -5px 0px 0px white;transition: all 0.2s ease-in-out;}
+.tabLink {
+    color: white;
+    background: #274091;
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding: 1.1rem 0;
+transition: all 0.2s ease-in-out;
+}
+.tabLink.ActiveTabLInk ,.tabLink:hover{
+    color: white;
+    background: #c60874;
+   
+   transition: all 0.2s ease-in-out;
+}
+.singleTabCont.activeCont::before {
+    content: '';
+    display: block;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    background: #c60874;
+    bottom: 7px;
+    
+    left: 42%;
+    transform: rotate(-45deg)translate(-50%, 50%);
+}
+.tabLink i{margin-inline-end: 6px;
+    font-size: 1.4rem;
+    transition: all 0.2s ease-in-out;}
+    .tabLink:hover i{
+        margin-inline-end:9px;
+      transform: scale(1.2)
+    }
+
+    .bellICon{
+        position: relative;
+        top: 1px;
+    }
+ 

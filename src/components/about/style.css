@@ -1,0 +1,76 @@
+.wpo-about-area,.wpo-about-style-2,.wpo-about-style-3{
+  padding: 100px 0;
+}
+.wpo-about-content .wpo-about-icon i{
+  color:#34ccff;
+}
+.wpo-about-content h2{
+  font-size: 30px;
+  font-weight: 700;
+  position: relative;
+  padding-bottom:8px;
+  margin-bottom: 30px;
+}
+.wpo-about-content h2:before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height:5px;
+  background:#34ccff; 
+}
+.sec-p{
+  padding-left: 30px;
+}
+.wpo-about-img img{
+  padding-top: 50px;
+}
+.wpo-about-content p {
+    margin-bottom: 30px;
+}
+.wpo-about-content span{
+  display: block;
+  padding-left: 30px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.wpo-about-content span:before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 15px;
+  height:15px;
+  background:#34ccff; 
+}
+.wpo-about-content .wpo-about-icon i:before{
+  font-size: 60px;
+}
+.signature-section {
+    overflow: hidden;
+}
+.si-text {
+    float: left;
+    margin-top: 20px;
+    text-align: start;
+}
+.si-text:lang(ar) {
+  float: right;
+
+  
+}
+.si-text p {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.signature-section img{
+  float: right;
+}
+.wpo-about-icon:lang(ar){
+  text-align: start;
+}
+.signature-section img:lang(ar){
+  float: left;
+}

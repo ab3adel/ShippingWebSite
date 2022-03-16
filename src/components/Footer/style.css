@@ -1,0 +1,104 @@
+.wpo-footer-area{
+    background: #142440;
+  }
+  .wpo-footer-area h3:lang(ar) {
+   
+    font-family: 'Cairo-Regular';
+}
+  .wpo-footer-top{
+    padding: 60px 0;
+    text-align: start;
+  }
+  .wpo-footer-logo{
+    margin-bottom: 10px;
+  }
+  .wpo-footer-logo img{
+    height: 55px;
+  }
+  .social li a {
+      display: block;
+      height: 45px;
+      width: 45px;
+      background: #fff;
+      color: #333;
+      line-height: 45px;
+      border-radius: 50%;
+      text-align: center;
+      margin-right: 10px;
+      transition: all .3s;
+      margin-top: 5px;
+  }
+  .social li a:hover{
+    background:#34ccff;
+    color:#fff;
+  }
+  .wpo-footer-top p {
+      color: #fff;
+      margin-bottom: 14px;
+  }
+  .wpo-footer-top a{
+    color:#fff;
+  }
+  .Recent-News-area p{
+    margin-bottom: 10px;
+  }
+  .Recent-News-area span{
+    color:#bbb; 
+  }
+  .Recent-News-area span i{
+    padding-inline-end: 10px;
+    color: #34ccff;
+  }
+  .resent-sub{
+    margin-bottom: 35px;
+  }
+  .instagram ul {
+      flex-wrap: wrap;
+      padding-inline-start:15px ;
+      margin: 0px -3px;
+  }
+  
+  .instagram ul li {
+      -ms-flex: 0 0 33.33%;
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      margin-bottom: 5px;
+      padding: 0px 3px;
+  }
+  
+  .instagram ul li img {
+      width: 100%;
+  }
+  .footer-widget.instagram{
+    margin-top: 0;
+  }
+  .footer-widget.instagram h3{
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+  .footer-link ul li a{
+    padding-top: 10px;
+    display: block;
+  }
+  .footer-link ul  {
+    padding-inline-start:15px  
+  }
+  .wpo-footer-top h3{
+    font-size: 25px;
+    color:#fff;
+    margin-bottom: 20px;
+  }
+  
+  .wpo-footer-bottom{
+    background: #274091;
+    padding: 30px 0;
+  
+  }
+  .wpo-footer-bottom-content {
+      text-align: center;
+  }
+  .wpo-footer-bottom-content span{
+    color:#fff;
+    font-size: 16px;
+    text-align: center;
+  }

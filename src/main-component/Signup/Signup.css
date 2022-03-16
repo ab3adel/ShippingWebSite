@@ -1,0 +1,112 @@
+.signupSection{
+    background: url("./1.jpg") center center/cover no-repeat local;
+    position:relative
+}
+.signupSection::before{
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: block;
+    background: #5457609e;
+     
+}
+.signupRow{
+    padding-top: 5rem;  
+    padding-bottom: 1rem;  
+   min-height: 800px;
+    align-items: center;
+    justify-content: center;
+}
+.signupFormCol .ant-form-vertical .ant-form-item-label,
+.signupFormCol .ant-col-24.ant-form-item-label,
+.signupFormCol  .ant-col-xl-24.ant-form-item-label {
+   text-align: start;
+}
+.signupFormCol .ant-form-item-explain-error {
+    color: #ff4d4f;
+    text-align: start;}
+.signupFormCol{
+position: relative;
+    padding: 1rem;
+    background: #274091c2;
+    border: 1px solid #2a478c;
+    box-shadow: 27px 28px 12px -9px #c608747a;
+    border-radius: 4px;
+    backdrop-filter: blur(2px);
+    transition: all 0.5s ease-in-out;
+}
+.signupFormCol  input[type='text'],
+ .signupFormCol  input[type='password'],
+ .signupFormCol   input[type='number'],
+  .signupFormCol   textarea {
+    /* font-size: 1rem; */
+
+}
+
+   .signupFormCol  .ant-form-item-label > label {
+        height: auto;
+        color: white;
+        /* font-size: 1rem; */
+    }
+    .signupFormCol  .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+         margin-right: unset;
+        margin-inline-end: 8px;}
+
+        .signupFormCol     .ant-btn-primary {
+            color: #ffffff;
+            border-color: #c60874;
+            background: #c60874;
+   
+        }
+        .signupFormCol .ant-btn-primary:hover,
+        .signupFormCol .ant-btn-primary:active,
+        .signupFormCol .ant-btn-primary:focus {
+            font-size: 1rem;
+
+            color: #274091;
+            border-color: #274091;
+            background: #ffffff;
+        }
+        .signupFormCol .createLabel .ant-form-item-control-input-content {text-align: start;}
+        .signupFormCol .createLabel .ant-form-item-control-input-content label {color:  #e3d6df;
+            font-size: 0.8rem;}
+        .signupLiink{    color: white;
+             }
+            .signupLiink:hover {    color: white;
+                text-decoration: none;
+                display: inline-flex;
+                padding-inline: 8px;
+                transform: scale(1.1);}
+ @keyframes swing {
+                    0%, 100% { transform:  rotate(359deg); opacity: 1;}
+                    20% {    transform: scale(.6);opacity: 0.4; }
+                    50% {transform: rotate(354deg);  opacity: 0.6;}
+                    80% {transform:scale(.8);opacity: 0.8;}
+                  }
+                  .ant-alert-message {
+                    color: rgb(255 77 79);
+                    text-align: start;
+                    padding-inline-start: 7px;
+                }               
+
+.signupFormCol .loginImg{
+    position: absolute;
+    bottom: 10px;
+    right:10px;
+   height: 33px;
+    animation: swing 5s infinite ease-in-out;
+}
+.signupFormCol .loginImg:lang(ar){
+    right:unset;
+    left: 10px;
+  
+   
+}
+.signupFormCol:hover{
+    box-shadow: 11px 17px 24px -10px #efefef1a;
+    backdrop-filter: blur(5px);
+}
+.signupFormCol:hover .loginImg{
+    animation:none
+}

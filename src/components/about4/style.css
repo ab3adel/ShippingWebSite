@@ -1,0 +1,49 @@
+.wpo-about-style-4 {
+   background: url('../../images/about/22.jpg') no-repeat center top / cover;
+   overflow: hidden;
+ }
+ 
+ .wpo-about-style-4  .about-wrap{
+  background: rgba(20,36,64,.8);
+  padding: 50px;
+   
+ }
+ .wpo-about-style-4:lang(ar) {
+    
+   direction: rtl;
+   text-align: start;
+   font-family: 'Cairo-Regular' !important;
+}
+.wpo-about-content22 h2:lang(ar)::before { 
+   left: unset;
+   bottom: 0;
+   right: 0;
+   width: 50px;
+   height: 5px;
+   background: #34ccff;
+}
+.wpo-about-content22 h2:lang(ar)   { 
+   font-family: 'Cairo-Regular' !important;
+   direction: rtl;
+   text-align: start;
+}
+ .wpo-about-style-4  .content{
+  padding: 50px;
+ }
+ .wpo-about-style-4 .wpo-about-content22 h2 {
+   text-transform: capitalize;
+  color:#fff;
+ }
+ .wpo-about-style-4 .wpo-about-content22 p  {
+    color:#fff;
+ }
+ 
+ .wpo-about-style-4 .si-text p {
+    color:#fff;
+ }
+ .wpo-about-style-4 .si-text span {
+    color:#fff;
+ }
+ .wpo-section-item-4 {
+   padding: 25px 0 50px;
+ }
