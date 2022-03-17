@@ -270,6 +270,10 @@ display: none;
 .hero {
     height: 600px;
   }
+  ::-webkit-scrollbar-thumb {
+    background: none;}
+    ::-webkit-scrollbar-track {
+       box-shadow: none;}
 .hero .slide {
     height: 600px;
   }
@@ -673,7 +677,10 @@ display: none;
 /* small mobile :576px. */
 
 @media (min-width: 576px) and (max-width: 767px) {
-
+    ::-webkit-scrollbar-thumb {
+        background: none;}
+        ::-webkit-scrollbar-track {
+           box-shadow: none;}
 .hero {
     height: 600px;
   }
@@ -1030,10 +1037,24 @@ display: none;
 .header-top-1 .btn-style {
     text-align: center;
 }
+.logImg {
+    height: 61px;
+    margin: 8px 0;
 }
+.profileButton.ant-btn-primary {
+    height: fit-content;
+     
+    max-height: fit-content;}
+}
+ 
 /* extra small mobile 320px. */
 
 @media (max-width: 575px) {
+    .profileButton.ant-btn-primary {
+        height: fit-content;
+         
+        max-height: fit-content;}
+     
   .hero {
     height: 450px;
   }
@@ -1061,7 +1082,12 @@ display: none;
 } 
 .logImg {
     height: 53px;
+    margin-inline-start: 15px;
 }
+::-webkit-scrollbar-thumb {
+    background: none;}
+    ::-webkit-scrollbar-track {
+       box-shadow: none;}
  .header-area {
     padding: 20px 0;
  } 
@@ -1710,7 +1736,7 @@ display: block;
     top: 102%;
 }
 .account_login-area{
-    display: unset!important;
+    /* display: unset!important; */
     flex-wrap: wrap;
 }
 .header-top-1 .btn-style {

@@ -234,7 +234,7 @@ const SignupForm = () => {
 
 
                 </div>
-                <div className='col-md-4'>
+                {/* <div className='col-md-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `اسم البنك` : `Bank Name`}
                         name="customer[bank_name]"
@@ -266,7 +266,7 @@ const SignupForm = () => {
                     </Form.Item>
 
 
-                </div>
+                </div> */}
 
 
 

@@ -32,6 +32,7 @@
 .user-profile {
   padding: 20px 0
 }
+.d-flex:lang(ar){direction: rtl;}
 
 .card-block {
   padding: 1.25rem;
@@ -62,6 +63,11 @@
   flex-direction: column;
   justify-content: center;
   row-gap: 1rem;}
+  .profileSection .ant-carousel .slick-slide img {
+    display: block;
+    margin: 0 auto;
+}
+.profileSection .ant-carousel {padding-bottom: 1rem;}
 @media only screen and (min-width: 1400px) {
   p {
       font-size: 14px
@@ -75,7 +81,29 @@
 .b-b-default {
   border-bottom:  3px solid #c60874;
 }
-
+.profileButton.ant-btn-primary  {
+  /* height: 100px; */
+      font-size: 1.1rem;
+  border: 1px solid white;
+  display: block;
+  max-height: 50px;
+  width: -webkit-fill-available;
+  margin: 0 auto;
+  background: linear-gradient(to right, #c6087459, #27409187);
+  backdrop-filter: blur(1px);
+}
+.profileButton.ant-btn-primary:hover {   
+  border: 1px solid white;
+  box-shadow: 0px 0px 1px 1px white;
+   background: linear-gradient(to right, #3a398d, #b60d77);}
+.profileButton.ant-btn-primary i {
+  margin-inline-end: 7px;
+  font-size: 1.4rem;
+  position: relative;
+  top: 0.2rem;
+  transition: all 0.7s ease-in-out;
+}
+.profileButton.ant-btn-primary:hover i{transform: rotate(720deg);  margin-inline-end: 10px;}
 .m-b-20 {
   margin-bottom: 20px
 }

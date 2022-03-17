@@ -18,3 +18,13 @@ export const clearProfile = () => {
 
     };
 }
+export const refreshProfile = () => {
+    return (dispatch) => {
+
+        dispatch({
+            type: "REFRESH_PROFILE",
+            payload: null,
+        })
+
+    };
+}

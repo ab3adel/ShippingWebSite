@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
+import { Carousel, Button } from 'antd';
 import '../../globalVar';
-
+import UpdateProfile from './UpdateProfile'
 import './style.css'
 
 const ProfileInfo = () => {
@@ -12,128 +13,173 @@ const ProfileInfo = () => {
     const userToken = JSON.parse(tokenString);
     const profile = useSelector((state) => state.profile.profile)
     const [t, i18n] = useTranslation();
+    const carousel = useRef();
+
+
+    const handleNext = () => carousel.current.next();
+
+    const handlePrev = () => carousel.current.prev();
     useEffect(() => {
         !userToken && history.push('/')
     })
     console.log('profileStateReduxProfilePAge', profile)
     return (
-        <div className="section">
+        <div className="section profileSection">
             {profile &&
-                <div className='container'>
-                    <div className="row  d-flex justify-content-center">
-                        <div className=" col-md-12">
-                            <div className="carddd user-card-full">
-                                <div className="row m-l-0 m-r-0">
-                                    <div className="col-sm-4 bg-c-lite-green user-profile">
-                                        <div className="card-block text-center text-white USerCont">
-                                            <div className=" ">
-                                                <img src="https://img.icons8.com/bubbles/100/000000/user.png" className="img-radius" alt="User-Profile-Image" /> </div>
-                                            <h6 className="f-w-600 nameProfile ">
-                                                {profile.name}
-                                            </h6>
-                                            <p className='comp'>  {profile.customer.company ? profile.customer.company :
-                                                i18n.language == 'ar' ? 'الشركة غير معرفة' : 'No Company'}</p>
-                                            <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-8">
-                                        <div className="card-block">
-                                            <h6 className="m-b-20 p-b-5 b-b-default f-w-600">
+                <Carousel ref={carousel} dots={false}>
+                    <div className=' d-flex '>
 
-                                                {i18n.language == 'ar' ? `معلومات الحساب` : `Account Information`}
-                                            </h6>
-                                            <div className="row">
-                                                <div className="col-sm-6">
-                                                    <p className="m-b-10 f-w-600">
 
-                                                        {i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
-                                                    </p>
-                                                    <h6 className="text-muted f-w-400">{profile.email}</h6>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <p className="m-b-10 f-w-600">
-                                                        {i18n.language == 'ar' ? `هاتف` : `Phone`}
-
-                                                    </p>
-                                                    <h6 className="text-muted f-w-400">
-                                                        {profile.customer.phone ? profile.customer.phone : '-'}
+                        <div className='container'>
+                            <div className="row  d-flex justify-content-center">
+                                <div className=" col-md-12">
+                                    <div className="carddd user-card-full">
+                                        <div className="row m-l-0 m-r-0">
+                                            <div className="col-sm-4 bg-c-lite-green user-profile">
+                                                <div className="card-block text-center text-white USerCont">
+                                                    <div className=" ">
+                                                        <img src="https://img.icons8.com/bubbles/100/000000/user.png" className="img-radius" alt="User-Profile-Image" /> </div>
+                                                    <h6 className="f-w-600 nameProfile ">
+                                                        {profile.name}
                                                     </h6>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <p className="m-b-10 f-w-600">
-                                                        {i18n.language == 'ar' ? `العنوان` : `Address`}
+                                                    <p className='comp'>  {profile.customer && profile.customer.company ? profile.customer.company :
+                                                        i18n.language == 'ar' ? 'الشركة غير معرفة' : 'No Company'}</p>
+                                                    <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleNext() }} >
+                                                        <i className="fa fa-pencil-square-o" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `تعديل` : `Update`}
 
-                                                    </p>
-                                                    <h6 className="text-muted f-w-400">
-                                                        {profile.customer.address ? profile.customer.address : '-'}
-                                                    </h6>
+                                                    </Button>
+
+
                                                 </div>
                                             </div>
-                                            <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
-                                                {i18n.language == 'ar' ? `معلومات مصرفية` : `Banking Information`}</h6>
-                                            <div className="row">
-                                                <div className="col-sm-4">
-                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `اسم البنك` : `Bank Name`}</p>
-                                                    <h6 className="text-muted f-w-400">
-                                                        {profile.customer.address ? profile.customer.bank_name : '-'}
+                                            <div className="col-sm-8">
+                                                <div className="card-block">
+                                                    <h6 className="m-b-20 p-b-5 b-b-default f-w-600">
+
+                                                        {i18n.language == 'ar' ? `معلومات الحساب` : `Account Information`}
                                                     </h6>
-                                                </div>
-                                                <div className="col-sm-4">
-                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `رقم الحساب` : `Account Number`}</p>
-                                                    <h6 className="text-muted f-w-400">
-                                                        {profile.customer.address ? profile.customer.bank_account_number : '-'}
-                                                    </h6>
-                                                </div>
-
-                                                <div className="col-sm-4">
-                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `رقم IBAN` : `IBAN Number`}</p>
-                                                    <h6 className="text-muted f-w-400">
-                                                        {profile.customer.address ? profile.customer.IBAN_number : '-'}
-                                                    </h6>
-                                                </div>
-
-                                            </div>
-                                            {profile.customer.attachments.length > 0 ?
-                                                <>
-
-                                                    <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
-                                                        {i18n.language == 'ar' ? `معلومات اضافية` : `Extra Information`}</h6>
-
                                                     <div className="row">
+                                                        <div className="col-sm-6">
+                                                            <p className="m-b-10 f-w-600">
 
-                                                        {profile.customer.attachments.map((item) => {
-                                                            return (
-                                                                <div key={item.id} className="col-sm-4">
-                                                                    <p className="m-b-10 f-w-600">{item.key}</p>
-                                                                    <h6 className="text-muted f-w-400">
-                                                                        {item.file == 0 ? item.value :
-                                                                            <>
-                                                                                <a href={`${global.apiUrl + item.value}`} target="_blank">
-                                                                                    {i18n.language == 'ar' ? `رابط الملف` : `File URL`}
-                                                                                </a>
-                                                                            </>
+                                                                {i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
+                                                            </p>
+                                                            <h6 className="text-muted f-w-400">{profile.email}</h6>
+                                                        </div>
+                                                        <div className="col-sm-6">
+                                                            <p className="m-b-10 f-w-600">
+                                                                {i18n.language == 'ar' ? `هاتف` : `Phone`}
 
-                                                                        }
-                                                                    </h6>
-                                                                </div>
+                                                            </p>
+                                                            <h6 className="text-muted f-w-400">
+                                                                {profile.customer && profile.customer.phone ? profile.customer.phone : '-'}
+                                                            </h6>
+                                                        </div>
+                                                        <div className="col-sm-12">
+                                                            <p className="m-b-10 f-w-600">
+                                                                {i18n.language == 'ar' ? `العنوان` : `Address`}
 
+                                                            </p>
+                                                            <h6 className="text-muted f-w-400">
+                                                                {profile.customer && profile.customer.address ? profile.customer.address : '-'}
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
+                                                        {i18n.language == 'ar' ? `معلومات مصرفية` : `Banking Information`}</h6>
+                                                    <div className="row">
+                                                        <div className="col-sm-4">
+                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `اسم البنك` : `Bank Name`}</p>
+                                                            <h6 className="text-muted f-w-400">
+                                                                {profile.customer && profile.customer.bank_name ? profile.customer.bank_name : '-'}
+                                                            </h6>
+                                                        </div>
+                                                        <div className="col-sm-4">
+                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `رقم الحساب` : `Account Number`}</p>
+                                                            <h6 className="text-muted f-w-400">
+                                                                {profile.customer && profile.customer.bank_account_number ? profile.customer.bank_account_number : '-'}
+                                                            </h6>
+                                                        </div>
 
-
-                                                            )
-                                                        })}
+                                                        <div className="col-sm-4">
+                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `رقم IBAN` : `IBAN Number`}</p>
+                                                            <h6 className="text-muted f-w-400">
+                                                                {profile.customer && profile.customer.IBAN_number ? profile.customer.IBAN_number : '-'}
+                                                            </h6>
+                                                        </div>
 
                                                     </div>
-                                                </>
-                                                :
-                                                null}
+                                                    {profile.customer && profile.customer.attachments.length > 0 ?
+                                                        <>
+
+                                                            <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
+                                                                {i18n.language == 'ar' ? `معلومات اضافية` : `Extra Information`}</h6>
+
+                                                            <div className="row">
+
+                                                                {profile.customer.attachments.map((item) => {
+                                                                    return (
+                                                                        <div key={item.id} className="col-sm-4">
+                                                                            <p className="m-b-10 f-w-600">{item.key}</p>
+                                                                            <h6 className="text-muted f-w-400">
+                                                                                {item.file == 0 ? item.value :
+                                                                                    <>
+                                                                                        <a href={`${global.apiUrl + item.value}`} target="_blank">
+                                                                                            {i18n.language == 'ar' ? `رابط الملف` : `File URL`}
+                                                                                        </a>
+                                                                                    </>
+
+                                                                                }
+                                                                            </h6>
+                                                                        </div>
+
+
+
+                                                                    )
+                                                                })}
+
+                                                            </div>
+                                                        </>
+                                                        :
+                                                        null}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>}
+
+                    <div className=' d-flex '>
+                        <div className='container'>
+                            <div className="row  d-flex justify-content-center">
+                                <div className="col-sm-4 bg-c-lite-green user-profile">
+                                    <div className="card-block text-center text-white USerCont">
+                                        <div className=" ">
+                                            <img src="https://img.icons8.com/bubbles/100/000000/user.png" className="img-radius" alt="User-Profile-Image" /> </div>
+                                        <h6 className="f-w-600 nameProfile ">
+                                            {profile.name}
+                                        </h6>
+                                        <p className='comp'>  {profile.customer && profile.customer.company ? profile.customer.company :
+                                            i18n.language == 'ar' ? 'الشركة غير معرفة' : 'No Company'}</p>
+                                        <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleNext() }} >
+                                            <i className="fa fa-undo" aria-hidden="true"  ></i>
+                                            {i18n.language == 'ar' ? `رجوع` : `Back`}
+
+                                        </Button>
+
+                                    </div>
+                                </div>
+                                <div className=" col-md-8 registerFormCol">
+                                    <UpdateProfile />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Carousel>
+            }
         </div>
 
     )
