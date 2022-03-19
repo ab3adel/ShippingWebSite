@@ -270,10 +270,14 @@ display: none;
 .hero {
     height: 600px;
   }
-  ::-webkit-scrollbar-thumb {
+.mobileMenu.show::-webkit-scrollbar-thumb {
     background: none;}
-    ::-webkit-scrollbar-track {
+.mobileMenu.show::-webkit-scrollbar-track {
        box-shadow: none;}
+       .mobileMenu.show::-webkit-scrollbar {
+        width: 0px;
+        border-radius: 1px;
+      }
 .hero .slide {
     height: 600px;
   }

@@ -83,7 +83,13 @@ a:focus {
 .features-padding {
   padding: 100px 0;
 }
-
+.ant-form-vertical .ant-form-item-label, .ant-col-24.ant-form-item-label, .ant-col-xl-24.ant-form-item-label {
+ 
+  text-align: start;
+}
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+ 
+  margin-inline-end: 4px;}
 @media (max-width: 991px) {
   .features-padding {
     padding: 90px 0;
