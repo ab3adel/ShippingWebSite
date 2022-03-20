@@ -1,0 +1,40 @@
+
+.offersContainer {
+    .detailsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding:1rem;
+        .detail {
+            display: flex;
+            justify-content: space-evenly;
+            text-transform: uppercase;
+            .bold {
+                font-size: large;
+                font-weight: bold;
+                display: flex;
+                margin :0 10px;
+            }
+            
+        }
+      
+    }
+}
+.whiteColor {
+    background-color: white;
+}
+.offerContainer {
+    .offerDetail {
+        display: flex;
+        justify-content: flex-end;
+        margin:10px 0;
+        p{
+            margin:0 1rem;
+        }
+        .bold {
+            margin:0 1rem;
+            font-weight: bold;
+        }
+    }
+}
