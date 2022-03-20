@@ -239,33 +239,29 @@ const SignupForm = () => {
                         label={i18n.language == 'ar' ? `اسم البنك` : `Bank Name`}
                         name="customer[bank_name]"
                     >
-
                         <Input placeholder={i18n.language == 'ar' ? `اسم البنك` : `Bank Name`} />
                     </Form.Item>
-
-
                 </div>
                 <div className='col-md-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `رقم الحساب البنكي` : `Bank Account Number`}
                         name="customer[bank_account_number]"
                     >
-
                         <Input placeholder={i18n.language == 'ar' ? `رقم الحساب البنكي` : `Bank Account Number`} />
                     </Form.Item>
-
-
                 </div>
                 <div className='col-md-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `رقم IBAN` : `IBAN Number`}
                         name="customer[IBAN_number]"
                     >
-
                         <Input placeholder={i18n.language == 'ar' ? `رقم IBAN` : `IBAN Number`} />
                     </Form.Item>
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 020d688709a61424bc6e32bd749a673d8218e87d
                 </div> */}
 
 

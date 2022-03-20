@@ -18,6 +18,22 @@ export const clearProfile = () => {
 
     };
 }
+export const setCountries= (data)=>{
+    return (dispatch)=>{
+        dispatch({
+            type:'SET_COUNTRIES',
+            paylaod:data
+        })
+    }
+}
+export const setCities= (data)=>{
+    return (dispatch)=>{
+        dispatch({
+            type:'SET_CITIES',
+            paylaod:data
+        })
+    }
+}
 export const refreshProfile = () => {
     return (dispatch) => {
 

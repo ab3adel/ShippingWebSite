@@ -25,7 +25,8 @@ i18n
       whitelist:languages,
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
-    }
+    },
+   
   });
   i18n.on('languageChanged', (lng) => {
     document.documentElement.setAttribute('lang', lng);
