@@ -18,7 +18,6 @@ export const clearProfile = () => {
 
     };
 }
-<<<<<<< HEAD
 export const setCountries= (data)=>{
     return (dispatch)=>{
         dispatch({
@@ -35,7 +34,6 @@ export const setCities= (data)=>{
         })
     }
 }
-=======
 export const refreshProfile = () => {
     return (dispatch) => {
 
@@ -46,4 +44,3 @@ export const refreshProfile = () => {
 
     };
 }
->>>>>>> 020d688709a61424bc6e32bd749a673d8218e87d
