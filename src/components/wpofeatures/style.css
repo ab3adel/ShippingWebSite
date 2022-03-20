@@ -42,7 +42,8 @@ color:#34ccff;
   display: inline-block;
 }
 .wpo-feature-wrap{
-margin-bottom: 35px;
+  margin-bottom: 15px;
+  min-height: 310px;
 }
 .wpo-features-area{
 position: relative;

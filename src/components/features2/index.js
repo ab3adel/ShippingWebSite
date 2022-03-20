@@ -19,9 +19,9 @@ const Features2 = () => {
                                 <p><Link to="/ocean">{t('Ocean Freight')}</Link></p>
                                 <span>
                                     {i18n.language == 'ar' ?
-                                        "هذا النص للاختبار ويجب تغييره بما يناسب توجهات الشركة"
+                                        "شحن البضائع القيّمة الخاصّة بك الى وجهاتها في الموعد المحدد"
                                         :
-                                        " There are many variations of passages of Lorem Ipsum"
+                                        "Ship your valuable goods to their destinations on time"
                                     }
 
                                 </span>
@@ -37,9 +37,9 @@ const Features2 = () => {
                                 <p> <Link to="/road">{t('Road Freight')}</Link></p>
                                 <span>
                                     {i18n.language == 'ar' ?
-                                        "هذا النص للاختبار ويجب تغييره بما يناسب توجهات الشركة"
+                                        "تقديم خدمات الشحن البري الدولي على أفضل صورة"
                                         :
-                                        " There are many variations of passages of Lorem Ipsum"
+                                        "Providing international road freight services in the best way"
                                     }
 
                                 </span>
@@ -55,9 +55,9 @@ const Features2 = () => {
                                 <p> <Link to="/freight">{t('Air Freight')}</Link></p>
                                 <span>
                                     {i18n.language == 'ar' ?
-                                        "هذا النص للاختبار ويجب تغييره بما يناسب توجهات الشركة"
+                                        "استلم الشحنة عبر الشحن الجوي من خلال حلول تعمل على توفير الوقت والمال"
                                         :
-                                        " There are many variations of passages of Lorem Ipsum"
+                                        "The service of transferring the shipment from the sender's door to the recipient's door easily and  quickly"
                                     }
 
                                 </span>

@@ -43,10 +43,10 @@ const WpoFeatures = () => {
                                         </h3>
                                         <p>
                                             {i18n.language == 'ar' ?
-                                                "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية لوريم إيبسوم لوريم إيبسوم"
+                                                "خدمات عالية المستوى في تولي الإشراف على الشحنات و تحميلها و تفريغها و نقلها بالمعدات و الآليات المعدة خصيصاً لذلك"
 
                                                 :
-                                                "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text"
+                                                "High-level services in supervising shipments, loading, unloading and transporting them with equipment and mechanisms specially prepared for that."
                                             }
 
 
@@ -69,10 +69,10 @@ const WpoFeatures = () => {
                                         </h3>
                                         <p>
                                             {i18n.language == 'ar' ?
-                                                "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية لوريم إيبسوم لوريم إيبسوم"
+                                                "يقدم خبراء الشحن البحري لدينا مجموعة متكاملة من الحلول اللوجستية الدولية، والمُعدّة خصيصاً وفقاً لاحتياجات العملاء "
 
                                                 :
-                                                "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text"
+                                                "Our sea freight experts offer a full range of international logistics solutions, tailored to customer needs"
                                             }
 
 
@@ -107,10 +107,10 @@ const WpoFeatures = () => {
                                         </h3>
                                         <p>
                                             {i18n.language == 'ar' ?
-                                                "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية لوريم إيبسوم لوريم إيبسوم"
+                                                "قادرين على التعامل مع المركبات و البضائع و نقلها من أي مكان في جميع أنحاء قارات أوروبا و افريقيا و أمريكا و آسيا و استراليا, بما يتماشى مع متطلبات العملاء"
 
                                                 :
-                                                "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text"
+                                                "Able to deal with vehicles and goods and transport them from anywhere throughout the continents of Europe, Africa, America, Asia and Australia, in line with customer requirements"
                                             }
 
 
@@ -134,10 +134,10 @@ const WpoFeatures = () => {
                                         </h3>
                                         <p>
                                             {i18n.language == 'ar' ?
-                                                "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية لوريم إيبسوم لوريم إيبسوم"
+                                                "يدير خبرائنا في قطاع النقل جميع العمليات من خلال أنظمة تقنية وبرمجية للتخطيط والمتابعة ولضمان الشفافية أمام عملائنا والالتزام بتسليم واستلام الشحنات في المكان المحدد والوقت المطلوب."
 
                                                 :
-                                                "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text"
+                                                "Our experts in the transportation sector manage all operations through technical and software systems for planning and follow-up and to ensure transparency in front of our customers and a commitment to deliver and receive shipments at the specified place and the required time."
                                             }
 
 

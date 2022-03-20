@@ -18,17 +18,17 @@ const CounterSection = (props) => {
                         <div className="wpo-counter-content">
                             <h2>
                                 {i18n.language == 'ar' ?
-                                    "لدينا بعض الأشياء المهمة التي سوف ترضيك ..."
+                                    " تمتع بضمان تسليم شحنتك في الوقت المحدد"
                                     :
-                                    "Our Some Important Things That will Satisfite You..."
+                                    "Get a Guarantee That Your Shipment Will Be Delivered On Time"
                                 }
 
                             </h2>
                             <p>
                                 {i18n.language == 'ar' ?
-                                    "هذا النص تجريبي ويجب تغييره بما يناسب توجهات الشركة ، هذا النص تجريبي ويجب تغييره بما يناسب توجهات الشركة هذا النص تجريبي ويجب تغييره بما يناسب توجهات الشركة ، هذا النص تجريبي ويجب تغييره بما يناسب توجهات الشركة"
+                                    "نهدف الى خدمة أصحاب المشاريع الصغيرة و المتوسطة في خدمة الشحن الخارجي و التوصيل الداخلي , حيث نقدم ربط آلي مع شركات الشحن الدولية فتساعدك بذلك خدماتنا على النمو بشركتك بأسعار شحن تنافسية مصممة لتلائم احتياجاتك"
                                     :
-                                    "  Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.Many desktop publishing packages and web page editors now"
+                                    "We aim to serve the owners of small and medium enterprises in the service of external shipping and internal delivery, where we provide automatic linkage with international shipping companies, so that our services help you to grow your company at competitive shipping prices designed to suit your needs"
                                 }
                             </p>
                             <div className="btns">

@@ -33,8 +33,12 @@ const SimpleSlider = () => {
                             <div className="row">
                                 <div className="col col-lg-9 slide-caption">
                                     <h2>
-                                        <span> {i18n.language == 'ar' ? 'نحن نقدم أفضل الحلول' : 'We Provide the Best Solution'}</span><br></br>
-                                        <span> {i18n.language == 'ar' ? 'من أجل نقلياتك.' : 'For Your Transport.'}</span></h2>
+                                        <span> {i18n.language == 'ar' ?
+                                            'مستعدون لتلبية جميع احتياجاتك'
+                                            :
+                                            'We Are Ready To Meet All Your'}
+                                        </span><br></br>
+                                        <span> {i18n.language == 'ar' ? 'الخاصة بالشحن.' : 'Shipping Needs.'}</span></h2>
                                     <div className="btns">
                                         <div className="btn-style"><Link to="/">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
                                     </div>
@@ -47,8 +51,12 @@ const SimpleSlider = () => {
                             <div className="row">
                                 <div className="col col-lg-9 slide-caption">
                                     <h2>
-                                        <span> {i18n.language == 'ar' ? 'نحن نقدم أفضل الحلول' : 'We Provide the Best Solution'}</span><br></br>
-                                        <span> {i18n.language == 'ar' ? 'من أجل نقلياتك.' : 'For Your Transport.'}</span></h2>
+                                        <span> {i18n.language == 'ar' ?
+                                            'مستعدون لتلبية جميع احتياجاتك'
+                                            :
+                                            'We Are Ready To Meet All Your'}
+                                        </span><br></br>
+                                        <span> {i18n.language == 'ar' ? 'الخاصة بالشحن.' : 'Shipping Needs.'}</span></h2>
                                     <div className="btns">
                                         <div className="btn-style"><Link to="/">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
                                     </div>
@@ -61,8 +69,12 @@ const SimpleSlider = () => {
                             <div className="row">
                                 <div className="col col-lg-9 slide-caption">
                                     <h2>
-                                        <span> {i18n.language == 'ar' ? 'نحن نقدم أفضل الحلول' : 'We Provide the Best Solution'}</span><br></br>
-                                        <span> {i18n.language == 'ar' ? 'من أجل نقلياتك.' : 'For Your Transport.'}</span></h2>
+                                        <span> {i18n.language == 'ar' ?
+                                            'مستعدون لتلبية جميع احتياجاتك'
+                                            :
+                                            'We Are Ready To Meet All Your'}
+                                        </span><br></br>
+                                        <span> {i18n.language == 'ar' ? 'الخاصة بالشحن.' : 'Shipping Needs.'}</span></h2>
                                     <div className="btns">
                                         <div className="btn-style"><Link to="/">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
                                     </div>

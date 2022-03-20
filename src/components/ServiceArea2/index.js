@@ -52,9 +52,9 @@ const ServiceArea2 = (props) => {
                                     </h3>
                                     <p>
                                         {i18n.language == 'ar' ?
-                                            "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية ،"
+                                            "خدمة نقل الشحنة من باب المرسل الى باب المستلم بسهولة و سرعة فائقة"
                                             :
-                                            "There are many variations of passages of Lorem Ipsum available, but the majority ,"
+                                            "The service of transferring the shipment from the sender's door to the recipient's door easily and  quickly"
                                         }
                                     </p>
                                     {/* <Link to="/servicesingle">See More...</Link>ظ */}
@@ -78,9 +78,9 @@ const ServiceArea2 = (props) => {
                                     </h3>
                                     <p>
                                         {i18n.language == 'ar' ?
-                                            "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية ،"
+                                            "يتلقى عدد هائل من خبراء الشحن البحري في شبكتنا العالمية أي نوع من طلباتك وأوامرك ويتعامل معها بمرونة و عناية"
                                             :
-                                            "There are many variations of passages of Lorem Ipsum available, but the majority ,"
+                                            "A huge number of sea freight experts in our global network receive any type of your requests and orders and deal with them with flexibility and care"
                                         }
                                     </p>
                                     {/* <Link to="/servicesingle">See More...</Link> */}
@@ -104,9 +104,9 @@ const ServiceArea2 = (props) => {
                                     </h3>
                                     <p>
                                         {i18n.language == 'ar' ?
-                                            "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية ،"
+                                            "نعي تماماً أن الشحن الجوي خدمة غالية ومكلفة لذلك يساعدك الأخصائيون لدينا في توفير المال من خلال حلول تركز على العبور السريع في وقت قصير"
                                             :
-                                            "There are many variations of passages of Lorem Ipsum available, but the majority ,"
+                                            "We are fully aware that air freight is an expensive service, so our specialists help you save money with solutions that focus on express transit in a short time"
                                         }
                                     </p>
                                     {/* <Link to="/servicesingle">See More...</Link> */}
@@ -131,9 +131,9 @@ const ServiceArea2 = (props) => {
                                     </h3>
                                     <p>
                                         {i18n.language == 'ar' ?
-                                            "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية ،"
+                                            "تعتبر خدمات التخليص الجمركي من أهم الحلول اللوجستية التي نقدمها لعملائنا المستوردين والمصدرين لدينا ، من خلال مجموعة من الخبراء والمتخصصين."
                                             :
-                                            "There are many variations of passages of Lorem Ipsum available, but the majority ,"
+                                            "Customs clearance services are one of the most important logistical solutions that we offer to our clients, importers and exporters, through a group of experts and specialists."
                                         }
                                     </p>
                                     {/* <Link to="/servicesingle">See More...</Link> */}
@@ -157,9 +157,9 @@ const ServiceArea2 = (props) => {
                                     </h3>
                                     <p>
                                         {i18n.language == 'ar' ?
-                                            "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية ،"
+                                            "​ لدينا مجموعة شاملة من المركبات و وسائل النقل العالية الجودة بما في ذلك الشاحنات المجهزة بالتجهيزات القياسية لتلبية جميع المتطلبات."
                                             :
-                                            "There are many variations of passages of Lorem Ipsum available, but the majority ,"
+                                            "We have a comprehensive range of high quality vehicles and transportation including trucks equipped with standard equipment to meet all requirements."
                                         }
                                     </p>
                                     {/* <Link to="/servicesingle">See More...</Link> */}
@@ -183,9 +183,9 @@ const ServiceArea2 = (props) => {
                                     </h3>
                                     <p>
                                         {i18n.language == 'ar' ?
-                                            "هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم ، ولكن الغالبية ،"
+                                            "نقدم خدمات النقل التي تتناسب مع نوع الشحن الذي يتم شحنه، مثل خدمات التجميد والتبريد للبضائع، التي تتطلب التحكم في درجة الحرارة، والخدمات التي تضمن عناية خاصة عند نقل الأشياء القيّمة، والأدوات الدقيقة "
                                             :
-                                            "There are many variations of passages of Lorem Ipsum available, but the majority ,"
+                                            "We provide transportation services that are appropriate to the type of freight being shipped,freezing and cooling services for goods, which require temperature control"
                                         }
                                     </p>
                                     {/* <Link to="/servicesingle">See More...</Link> */}

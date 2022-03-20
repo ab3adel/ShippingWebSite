@@ -208,7 +208,7 @@
     border-right-width: 1px;
     outline: 0;
 }
-.ant-form-item-control-input-content {
+.attachModal .ant-form-item-control-input-content {
  
   text-align: start;
 }
@@ -241,6 +241,7 @@
 .attachModal  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
   background-color: #c60874;
 }
+/* .attachModal  */
 .attachModal  .ant-radio-button-wrapper {
   width: 73px;
   text-align: center;}

@@ -22,17 +22,17 @@ const FooterSection = () => {
                             </div>
                             <p>
                                 {i18n.language == 'ar' ?
-                                    "هناك العديد من الأشكال المتوفرة لنصوص لنصوص لنصوص لنصوص لوريم إيبسوم ، للتغيير"
+                                    " إن خبرائنا ذوي المهارات العالية المتمركزين في الفروع في جميع أنحاء العالم على أهبة الاستعداد لتلبية أي متطلبات محتملة متعلقة بالشحن."
                                     :
-                                    "There are many variations of passages of Lorem Ipsum available, but the majority have"
+                                    "Our highly skilled experts stationed in branches all over the world are ready to meet any potential freight related requirements."
                                 }
                             </p>
                             <p>
-                                {i18n.language == 'ar' ?
+                                {/* {i18n.language == 'ar' ?
                                     "هناك العديد من لوريم للتغيير"
                                     :
                                     "By injected hum or randomised"
-                                }
+                                } */}
                             </p>
                             <div className="social">
                                 <ul className="d-flex">
