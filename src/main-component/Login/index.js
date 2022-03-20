@@ -14,7 +14,7 @@ const Login = () => {
     const [t, i18n] = useTranslation();
     return (
         <div>
-            {/* <Navbar /> */}
+
             <div className={'section loginSection'}>
                 <div className='container'>
                     <div className='row loginRow'>

@@ -32,6 +32,7 @@
 .user-profile {
   padding: 20px 0
 }
+.d-flex:lang(ar){direction: rtl;}
 
 .card-block {
   padding: 1.25rem;
@@ -62,6 +63,11 @@
   flex-direction: column;
   justify-content: center;
   row-gap: 1rem;}
+  .profileSection .ant-carousel .slick-slide img {
+    display: block;
+    margin: 0 auto;
+}
+.profileSection .ant-carousel {padding-bottom: 1rem;}
 @media only screen and (min-width: 1400px) {
   p {
       font-size: 14px
@@ -75,7 +81,31 @@
 .b-b-default {
   border-bottom:  3px solid #c60874;
 }
-
+.profileButton.ant-btn-primary  {
+  /* height: 100px; */
+      font-size: 1.1rem;
+  border: 1px solid white;
+  display: block;
+  max-height: 50px;
+  width: -webkit-fill-available;
+  margin: 0 auto;
+  background: linear-gradient(to right, #c6087459, #27409187);
+  backdrop-filter: blur(1px);
+}
+.profileButton.ant-btn-primary:hover ,.profileButton.ant-btn-primary:active
+,.profileButton.ant-btn-primary:focus
+{   
+  border: 1px solid white;
+  box-shadow: 0px 0px 1px 1px white;
+   background: linear-gradient(to right, #3a398d, #b60d77);}
+.profileButton.ant-btn-primary i {
+  margin-inline-end: 7px;
+  font-size: 1.4rem;
+  position: relative;
+  top: 0.2rem;
+  transition: all 0.7s ease-in-out;
+}
+.profileButton.ant-btn-primary:hover i{transform: rotate(720deg);  margin-inline-end: 10px;}
 .m-b-20 {
   margin-bottom: 20px
 }
@@ -134,3 +164,84 @@
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out
 }
+.attachModal .ant-modal-title {
+   text-align: start;
+  color: rgb(39 64 145);
+  font-family: 'Cairo-Regular';}
+  .attachModal .ant-modal-close:focus,.attachModal  .ant-modal-close:hover {
+ 
+    outline: none;
+    border: none;
+}
+.ant-modal-close:lang(ar) {
+   right: unset;
+  left: 0;}
+.attachModal .ant-modal-content {padding: 0 12px;}
+.attachModal .ant-modal-header  {  border-bottom: 2px solid #c60874;}
+.attachModal .ant-modal-footer {  border-top: 2px solid #c60874;
+  text-align: end;
+  direction: ltr;}
+  .uploadBTN{font-family: 'Cairo-Regular';
+    width: fit-content;
+    min-width: 200px;
+    font-weight: 500;}
+    .uploadBTN i{margin-inline-end: 8px;
+      position: relative;
+      font-size: 1.1rem;
+      color: #c50874; }
+      .attachModal  .ant-form-vertical .ant-form-item-label > label, 
+      .attachModal   .ant-col-24.ant-form-item-label > label,
+      .attachModal  .ant-col-xl-24.ant-form-item-label > label ,
+      .attachModal .ant-input
+      {
+      
+        font-family: 'Cairo-Regular';
+    }
+
+      .attachModal   .ant-input:hover, .attachModal  .uploadBTN:hover {
+        border-color: #274091;
+        border-right-width: 1px;
+    }
+  .attachModal .ant-input:focus,.attachModal  .ant-input-focused, .attachModal  .uploadBTN:focus {
+    border-color: #274091;
+    box-shadow: 0 0 0 1px rgb(39 64 145);
+    border-right-width: 1px;
+    outline: 0;
+}
+.ant-form-item-control-input-content {
+ 
+  text-align: start;
+}
+.attachModal .ant-btn-primary {
+  color: #fff;
+  border-color: #274091;
+  background: #274091;}
+  .attachModal .saveBtn:hover ,.attachModal .saveBtn:active 
+  ,.attachModal .saveBtn:focus {
+   
+    border-color: #c50874;
+    background: #c50874;}
+    .ant-btn.ant-btn-default.cancelBTN {
+      border: 1px solid #c60874;
+      color: #c60874;
+  }
+  .attachModal .ant-radio-button-wrapper-checked {
+    /* border-right-color: #c60874; */
+    border-right:   solid #c60874 !important;
+    border-left:   solid #c60874 !important;
+    border: 1px solid #c60874 !important;
+    border-radius: 1px !important;
+    color:#c60874 !important;
+}
+.attachModal .ant-form label {
+  font-size: 14px;
+  margin-inline-end: 10px;
+ 
+}
+.attachModal  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+  background-color: #c60874;
+}
+.attachModal  .ant-radio-button-wrapper {
+  width: 73px;
+  text-align: center;}
+ 

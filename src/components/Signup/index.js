@@ -257,6 +257,11 @@ const SignupForm = () => {
                     >
                         <Input placeholder={i18n.language == 'ar' ? `رقم IBAN` : `IBAN Number`} />
                     </Form.Item>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 020d688709a61424bc6e32bd749a673d8218e87d
                 </div> */}
 
 

@@ -50,7 +50,7 @@ const Header = () => {
                     console.log('response', response);
 
                     if (response.success == true) {
-                        // setUserData(response.payload)
+
                         setProfile(response.payload)
                         setLogged(true)
                     }
@@ -65,8 +65,7 @@ const Header = () => {
             clearProfile()
             setLogged(false)
         }
-
-    }, [localStorage.getItem("token")])
+    }, [localStorage.getItem("token"), profile.refreshProfile])
     const handleLogout = async () => {
         try {
             const responsee = await fetch(
@@ -168,11 +167,7 @@ const Header = () => {
 
                                         <li className="active">
                                             <Link to="/">{t('Home')}</Link>
-                                            {/* <ul className="submenu">
-                                                <li className="active"><Link to="/">Home One</Link></li>
-                                                <li><Link to="/home2">Home Two</Link></li>
-                                                <li><Link to="/home3">Home Three</Link></li>
-                                            </ul> */}
+
                                         </li>
 
 
