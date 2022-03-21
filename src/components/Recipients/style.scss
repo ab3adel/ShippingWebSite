@@ -268,13 +268,15 @@
     }
     .rECIPIENTCARD{
       position:relative;
-      .actionsCont{    padding: 0;
+      
+      .actionsCont {    padding: 0;
         padding-inline-start: 30px;
         position: absolute;
         bottom: 27px;
         opacity: 0;
         right:-40px;
         z-index: -1;
+       
         transition :all 0.2s  ease-in-out;
     .profileButton{font-size: 0.9rem;height: 40px;}
     .deleteBtn.profileButton{   background: #c60874;  }
@@ -299,7 +301,7 @@
   }
   
   }
-
+  .actionsCont:lang(en){ padding-inline-start:0px;}
     }
 
 
@@ -313,7 +315,14 @@
       }
       
     }
+    .card-block.recepBloc {
+        transition :all 0.2s ease-in-out;}
+  .card-block.recepBloc:hover{ 
+    box-shadow: -2px -2px 2px 4px #c60874;
+     transition :all 0.2s ease-in-out;
+    cursor: pointer;
   
+  }
     @media(max-width:767px){
        .card-block.USerCont {
          

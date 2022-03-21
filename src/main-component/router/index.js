@@ -9,7 +9,7 @@ import ServiceSingle from '../ServiceSingle'
 import AirFreight from '../AirFreight'
 import RoadFreight from '../RoadFreight'
 import OceanFreight from '../OceanFreight'
-import PricingPage from '../PricingPage' 
+import PricingPage from '../PricingPage'
 import TeamPage from '../TeamPage'
 import ContactPage from '../ContactPage'
 import BlogPageSidebar from '../BlogPageSidebar'
@@ -21,11 +21,11 @@ import Login from '../Login'
 import Signup from '../Signup'
 import Navbar from '../../components/Navbar'
 import Profile from '../Profile'
- 
+import Recipient from '../Recipient'
 import Recipients from '../Recipients'
- 
+
 import ShippingRequest from '../ShippingRequestPage/ndex'
- 
+
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse">
@@ -82,13 +82,13 @@ const AllRoute = () => {
             <Route path='/Login' component={Login} />
             <Route path='/Register' component={Signup} />
             <Route path='/Profile' component={Profile} />
- 
+
             <Route path='/Recipients' component={Recipients} />
+            <Route path='/Recipient/:id' component={Recipient} />
 
 
- 
             <Route Path='/shippingrequest' component={ShippingRequest} />
- 
+
           </Switch>
 
         </Router>
