@@ -41,7 +41,7 @@
   "Shipment Type":"Shipment Type",
   "Width":"Width",
   "Height":"Height",
-  "Lenght":"Lenght",
+  "Length":"Lenght",
   "Weight":"Weight",
   "Required":"This field is required !",
   "Food":"Food",
@@ -59,6 +59,11 @@
   "Next" :"Next",
   "Done":"Done",
   "Choose":"Choose",
-  "Price":"Price"
+  "Price":"Price",
+  "Previous":"Previous",
+  "Recipient":"Recipient",
+  "Add Recipient":"Add Recipient",
+  "Main":"main",
+  "Extra":"extra"
 
 }

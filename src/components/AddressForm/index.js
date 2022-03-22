@@ -13,7 +13,7 @@ import '../../globalVar'
 import {useDispatch,useSelector} from 'react-redux'
 import {setCountries} from '../../redux/actions'
 const NewAddress =(props)=>{
-    let {visible,setVisible,userToken}=props
+    let {visible,setVisible,userToken,isSender,type}=props
     const [t, i18n] = useTranslation();
 
     const [loadingCities,setLoadingCites]=React.useState(false)
@@ -33,7 +33,7 @@ const NewAddress =(props)=>{
         setVisible(false)
     }
     const handleOk=(values)=>{
-        console.log(values)
+        console.log(values,"ok")
     }
    const fetchCountries=async ()=>{
         await fetch(
@@ -93,16 +93,22 @@ const NewAddress =(props)=>{
        
        fetchCities(obj.Code)
    }
+
     return (
         <Modal 
-        title={t("New Addrses")}
+        title={type==="Address"? t("New Address"):t('Add Recipient')}
         visible={visible}
-        onOk={handleOk}
+        onOk={()=>{
+            form.
+            validateFields()
+            .then(values=>{
+                handleOk(values)
+            })
+        }}
         onCancel={handleCancel}
         >
             <Form 
             form={form}
-            onFinish={handleOk}
             autoComplete={false}
             labelCol={{
                 span:32
@@ -116,7 +122,7 @@ const NewAddress =(props)=>{
             layout="vertical"
             >
               <div className='row'>
-                <div className='col-md-6'>
+               {!isSender && type ==="Recipient" &&(<div className='col-md-6'>
                     <Form.Item
                      name="name"
                      label={t('Name')}
@@ -129,7 +135,7 @@ const NewAddress =(props)=>{
                     >
                       <Input placeholder={t('Name')}/>
                     </Form.Item>
-                </div>
+                </div>)}
                 <div className='col-md-6'>
                     <Form.Item
                      name="type"
@@ -141,9 +147,15 @@ const NewAddress =(props)=>{
                          }
                      ]}
                     >
-                      <Select placeholder={t('Type')}>
+                      <Select placeholder={t('Type')} direction={i18n.language==="ar"?'rtl':'ltr'}>
                           {types.map((ele,index)=>{
-                              return (<Option value={ele} key={index} >{ele}</Option>)
+                              return (
+                                  <Option value={ele} key={index} >
+                                    <div className={i18n.language==="ar"?'toRight':""}>
+                                                     {ele}
+                                    </div>
+
+                                  </Option>)
                           })}
                       </Select>
                     </Form.Item>
@@ -159,9 +171,18 @@ const NewAddress =(props)=>{
                          }
                      ]}
                     >
-                      <Select placeholder={t('Main Address')}>
-                          <Option value={'main'}>main</Option>
-                          <Option value={'extra'}>extra</Option>
+                      <Select placeholder={t('Main Address')} direction={i18n.language==="ar"?'rtl':'ltr'}>
+                          <Option value={'main'}> 
+                                   <div className={i18n.language==="ar"?'toRight':""}>
+                                                     {t('Main')}
+                                    </div>
+                                    </Option>
+                          <Option value={'extra'}>
+                          <div className={i18n.language==="ar"?'toRight':""}>
+
+                            {t('Extra')}
+                          </div>
+                          </Option>
                       </Select>
                     </Form.Item>
                 </div>
@@ -176,7 +197,9 @@ const NewAddress =(props)=>{
                          }
                      ]}
                     >
-                        <Select onChange={(e)=>handleCountryChange(e)} placeholder={t('Country')}>
+                        <Select onChange={(e)=>handleCountryChange(e)} 
+                               placeholder={t('Country')}
+                               direction={i18n==="ar"?'rtl':'ltr'}>
                             {countries.map((ele,index)=>{
                                 return (<Option  key={index} value={ele.Name}>{ele.Name}</Option>)
                             })}
@@ -194,7 +217,10 @@ const NewAddress =(props)=>{
                          }
                      ]}
                     >
-                        <Select placeholder={t('City')} loading={loadingCities} disabled={disableCities}>
+                        <Select placeholder={t('City')} 
+                                loading={loadingCities} 
+                                disabled={disableCities}
+                                direction={i18n.language==="ar"?'rtl':'ltr'}>
                         {cities.map((ele,index)=>{
                                 return (<Option  key={index} value={ele}>{ele}</Option>)
                             })}

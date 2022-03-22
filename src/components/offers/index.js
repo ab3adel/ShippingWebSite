@@ -6,7 +6,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import {Company} from './company'
 const Offers = (props) =>{
-    let {handleStage}=props
+    let {handleStage,handleFields}=props
     const [t, i18n] = useTranslation();
     let data=[{image:dhl,companyName:'dhl',price:130},
                {image:ups,companyName:'ups',price:200},
@@ -27,8 +27,11 @@ return (
                          companyName={ele.companyName}
                          price={ele.price}
                          image={ele.image}
-                             whiteBackground={whiteBackground}
-                             lightWitheBackground={lightWitheBackground}
+                            whiteBackground={whiteBackground}
+                            lightWitheBackground={lightWitheBackground}
+                            handleFields={handleFields}
+                            key={index}
+
                          />)
        })}
        

@@ -1,8 +1,8 @@
 import './offers.scss'
 import ups from '../../images/shipping-request/ups.svg'
 import React from 'react'
-export const Offer = () =>{
-
+export const Offer = (props) =>{
+const {formFields}=props
 
     return (
 
@@ -17,34 +17,58 @@ export const Offer = () =>{
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                 <div className='offerDetail '>
                     Name
-                    <div className='bold'>ups</div>
+                    <div className='bold'>{formFields['CompanyName']}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                 <div className='offerDetail '>
                     Price
-                    <div className='bold'>130$</div>
+                    <div className='bold'>{formFields['OfferPrice']}$</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                 <div className='offerDetail '>
                     Sender
-                    <div className='bold'>The Sender</div>
+                    <div className='bold'>{formFields['SenderAddress']}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                  <div className='offerDetail '>
                     Recipient
-                    <div className='bold'>The Recipient</div>
+                    <div className='bold'>{formFields['RecipientAddress']}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                   <div className='offerDetail '>
                     Shippment Type
-                    <div className='bold'>The Type</div>
+                    <div className='bold'>{formFields['Type']}</div>
                 </div>
               </div>
               
+              <div className="col-md-6 col-sm-12 d-flex justify-content-center">
+                  <div className='offerDetail '>
+                    Width
+                    <div className='bold'>{formFields['Width']}cm</div>
+                </div>
+              </div>
+              <div className="col-md-6 col-sm-12 d-flex justify-content-center">
+                  <div className='offerDetail '>
+                     Height
+                    <div className='bold'>{formFields['Height']}cm</div>
+                </div>
+              </div>
+              <div className="col-md-6 col-sm-12 d-flex justify-content-center">
+                  <div className='offerDetail '>
+                     Date
+                    <div className='bold'>{formFields['Date']}</div>
+                </div>
+              </div>
+              <div className="col-md-6 col-sm-12 d-flex justify-content-center">
+                  <div className='offerDetail '>
+                     Weight
+                    <div className='bold'>{formFields['Weight']}Kg</div>
+                </div>
+              </div>
            </div>
 
         </div>
