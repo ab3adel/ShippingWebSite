@@ -161,21 +161,7 @@ const RecipientInfo = () => {
         setFileList([])
     }
 
-    const showPopconfirm = () => {
-        setVisible(true);
-    };
 
-    const handleOkMod = () => {
-        message.success({
-            duration: 1000,
-            content: i18n.language == 'ar' ? "تم حذف مستلم" : "Recipient deleted",
-            style: {
-                marginTop: '20vh',
-            },
-        });
-
-
-    };
 
     const { confirm } = Modal;
     function showDeleteConfirm() {
@@ -251,6 +237,10 @@ const RecipientInfo = () => {
 
                                                         <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleNext() }} >
                                                             <i className="fa fa-pencil-square-o" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `تعديل` : `Update`}
+
+                                                        </Button>
+                                                        <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleNext() }} >
+                                                            <i className="fa fa-map-marker" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `إضافة عنوان` : `Add Address`}
 
                                                         </Button>
 

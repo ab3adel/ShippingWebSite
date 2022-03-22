@@ -163,6 +163,7 @@ const AddNewRecipientForm = () => {
     };
     function onChangeCountry(value) {
         setCountry(value)
+        setCity('')
         value != '' ? fetchCities(value) : setCities([])
     }
     function onChangeCity(value) {

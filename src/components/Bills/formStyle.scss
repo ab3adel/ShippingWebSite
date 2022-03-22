@@ -1,0 +1,123 @@
+.recipientsSection{
+    .registerFormCol .ant-form-vertical .ant-form-item-label,
+.registerFormCol .ant-col-24.ant-form-item-label,
+.registerFormCol  .ant-col-xl-24.ant-form-item-label {
+   text-align: start;
+}
+  .ant-form-item-explain-error {
+    color: #ff4d4f;
+    text-align: start;}
+.registerFormCol{
+position: relative;
+    padding: 1rem;
+    background: #274091c2;
+    border: 1px solid #2a478c;
+   
+     
+    backdrop-filter: blur(2px);
+    transition: all 0.5s ease-in-out;
+}
+  .ant-alert-message {
+    color: #274091;
+ 
+}
+.registerFormCol  input[type='text'],
+ .registerFormCol  input[type='password'],
+ .registerFormCol   input[type='number'],
+  .registerFormCol   textarea {
+    /* font-size: 1rem; */
+
+}
+.USerCont p.comp{color:white}
+.updateFormTitle{
+    font-size: 1.2rem;
+    color: white;
+    text-align: start;
+    font-family: 'Cairo-Regular';
+    padding-bottom: 5px;
+    border-bottom: 1px solid #c60874;}
+   .registerFormCol  .ant-form-item-label > label {
+        height: auto;
+        color: white;
+        /* font-size: 1rem; */
+    }
+    .registerFormCol  .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+         margin-right: unset;
+        margin-inline-end: 8px;}
+
+        .registerFormCol     .ant-btn-primary {
+            color: #ffffff;
+            border-color: #c60874;
+            background: #c60874;
+   
+        }
+        .registerFormCol .ant-btn-primary:hover,
+        .registerFormCol .ant-btn-primary:active,
+        .registerFormCol .ant-btn-primary:focus {
+            font-size: 1rem;
+
+            color: #274091;
+            border-color: #274091;
+            background: #ffffff;
+        }
+        .registerFormCol .createLabel .ant-form-item-control-input-content {text-align: start;}
+        .registerFormCol .createLabel .ant-form-item-control-input-content label {color:  #e3d6df;
+            font-size: 0.8rem;}
+        .signupLiink{    color: white;
+             }
+            .signupLiink:hover {    color: white;
+                text-decoration: none;
+                display: inline-flex;
+                padding-inline: 8px;
+                transform: scale(1.1);}
+ @keyframes swing {
+                    0%, 100% { transform:  rotate(359deg); opacity: 1;}
+                    20% {    transform: scale(.6);opacity: 0.4; }
+                    50% {transform: rotate(354deg);  opacity: 0.6;}
+                    80% {transform:scale(.8);opacity: 0.8;}
+                  }
+                  .ant-alert-error  .ant-alert-message {
+                    color: rgb(255 77 79);
+                    text-align: start;
+                    padding-inline-start: 7px;
+                }               
+
+.registerFormCol .loginImg{
+    position: absolute;
+    bottom: 10px;
+    right:10px;
+   height: 33px;
+    animation: swing 5s infinite ease-in-out;
+}
+.registerFormCol .loginImg:lang(ar){
+    right:unset;
+    left: 10px;
+  
+   
+}
+.registerFormCol:hover{
+    box-shadow: 11px 17px 24px -10px #efefef1a;
+    backdrop-filter: blur(5px);
+}
+.registerFormCol:hover .loginImg{
+    animation:none
+}
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+    padding-right: 0px;
+    padding-inline-end: 18px;
+}
+.ant-select-arrow:lang(ar) { 
+    top: 50%;
+    right:unset;
+    left: 11px;}
+    .ant-form-item .ant-select:lang(ar), .ant-form-item .ant-cascader-picker:lang(ar) {
+         
+        direction: rtl;
+        text-align: start;
+    }
+    .rc-virtual-list-holder-inner .ant-select-item-option-content { 
+        text-align: start;
+    }
+    
+
+}

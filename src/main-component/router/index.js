@@ -21,11 +21,12 @@ import Login from '../Login'
 import Signup from '../Signup'
 import Navbar from '../../components/Navbar'
 import Profile from '../Profile'
-import Recipient from '../Recipient'
-import Recipients from '../Recipients'
-
+// import Recipient from '../Recipient'
+// import Recipients from '../Recipients'
 import ShippingRequest from '../ShippingRequestPage/ndex'
-
+const Recipients = React.lazy(() => import('../Recipients'));
+const Recipient = React.lazy(() => import('../Recipient'));
+const Bills = React.lazy(() => import('../Bills'));
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse">
@@ -85,7 +86,7 @@ const AllRoute = () => {
 
             <Route path='/Recipients' component={Recipients} />
             <Route path='/Recipient/:id' component={Recipient} />
-
+            <Route path='/Bills' component={Bills} />
 
             <Route Path='/shippingrequest' component={ShippingRequest} />
 

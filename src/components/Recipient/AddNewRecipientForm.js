@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef, useMemo } from 'react';
+import React, { Component, useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
@@ -10,8 +10,9 @@ import { actionCreators } from '../../redux/index'
 import Fade from 'react-reveal/Fade';
 import './formStyle.scss'
 import "../../globalVar"
+// import { setCities } from '../../redux/actions';
 
-const AddNewRecipientForm = () => {
+const UpdateRecipientForm = () => {
     let history = useHistory();
     const { Option } = Select;
     const [t, i18n] = useTranslation();
@@ -22,18 +23,21 @@ const AddNewRecipientForm = () => {
     const [succesAdd2, setSuccessAdd2] = useState();
     const [loading2, setLoading2] = useState('')
     const [animat2, setAnimat2] = useState(false)
-    // const [countries, setCountries] = useState([])
-    const UpdateCustomerForm = useRef();
+    const [countries, setCountries] = useState([])
+    const [cities, setCities] = useState([])
+    const [country, setCountry] = useState('')
+    const [city, setCity] = useState('')
+    const UpdateRecipientForm = useRef();
     const dispatch = useDispatch()
     const { refreshProfile, setProfile } = bindActionCreators(actionCreators, dispatch)
 
-    const [formCustomer] = Form.useForm();
+    const [useformRecip] = Form.useForm();
 
 
     const onFinishCustomer = (values) => {
         console.log('Success:', values);
 
-        onSubmitCustomer(values)
+        onSubmitRecipient(values)
 
     };
 
@@ -43,7 +47,7 @@ const AddNewRecipientForm = () => {
     const profile = useSelector((state) => state.profile.profile)
     const onFill = () => {
 
-        UpdateCustomerForm.current.setFieldsValue({
+        UpdateRecipientForm.current.setFieldsValue({
 
             _method: 'put',
             company: profile.customer.company,
@@ -55,45 +59,64 @@ const AddNewRecipientForm = () => {
 
         });
     };
-    const countries = useMemo(async () => {
+    useLayoutEffect(() => {
 
         // onFill()
-        // const fetchCountries = async (e) => {
-        try {
-            const responsee = await fetch(
-                `${global.apiUrl}api/shipping/countries`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: "Bearer " + userToken,
-                        Accept: "application/json",
-                    },
+        const fetchCountries = async (e) => {
+            try {
+                const responsee = await fetch(
+                    `${global.apiUrl}api/shipping/countries`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: "Bearer " + userToken,
+                            Accept: "application/json",
+                        },
+                    }
+                );
+                const response = await responsee.json();
+                if (response.success) {
+                    setCountries(response.payload)
                 }
-            );
-            const response = await responsee.json();
-            if (response.success) {
-                return (response.payload)
-            }
-            if (response.message && response.message == "Unauthenticated.") {
-                localStorage.removeItem("token");
-                localStorage.clear()
-                history.push("/");
-            }
-        } catch (err) { console.log(err); }
-        // }
+                if (response.message && response.message == "Unauthenticated.") {
+                    localStorage.removeItem("token");
+                    localStorage.clear()
+                    history.push("/");
+                }
+            } catch (err) { console.log(err); }
+        }
 
-        //   fetchCountries()
+        fetchCountries()
     }, [])
 
-    const onSubmitCustomer = async (data) => {
-        console.log(JSON.stringify({ data }))
+    const onSubmitRecipient = async (values) => {
+
         setErrorMessage2('')
         setSuccessAdd2('')
         setLoading2(true)
 
+        const data = {
+            customer_id: profile.customer.id,
+            name_ar: values.name_ar,
+            name_en: values.name_en,
+            addresses: [
+                {
+                    city: values.city,
+                    country_code: values.country_code,
+                    line_1: values.line_1,
+                    line_2: values.line_2 ? values.line_2 : '',
+                    line_3: values.line_3 ? values.line_3 : '',
+                    main: values.main,
+                    post_code: values.post_code,
+                    state_code: values.state_code,
+                    type: values.type
+                }
+            ]
+        }
+
         try {
             const responsee = await fetch(
-                `${global.apiUrl}api/customers/${profile.customer.id}?_method=put`,
+                `${global.apiUrl}api/reciepients`,
                 {
                     method: "POST",
                     headers: {
@@ -110,10 +133,12 @@ const AddNewRecipientForm = () => {
             const response = await responsee.json();
             if (response.success) {
                 setAnimat2(!animat2)
-                setSuccessAdd2(i18n.language == 'ar' ? `تم تعديل المعلومات بنجاح` : `Information has been modified successfully`)
+                setSuccessAdd2(i18n.language == 'ar' ? `تم إضافة مستلم بنجاح` : `New Recipient added successfully`)
                 setLoading2(false)
-                // form.resetFields();
-                refreshProfile()
+                useformRecip.resetFields();
+                setCountry('')
+                setCity('')
+
                 // setProfile(response.payload)
                 const timer = setTimeout(() => { setSuccessAdd2('') }, 8000);
                 return () => clearTimeout(timer);
@@ -122,7 +147,7 @@ const AddNewRecipientForm = () => {
             else {
                 setLoading2(false)
                 setAnimat2(!animat2)
-                setErrorMessage2(response.errors)
+                setErrorMessage2(response.messages)
 
 
                 const timerr = setTimeout(() => { setErrorMessage2('') }, 8000);
@@ -136,6 +161,37 @@ const AddNewRecipientForm = () => {
         setLoading2(false)
         // reset({})
     };
+    function onChangeCountry(value) {
+        setCountry(value)
+        value != '' ? fetchCities(value) : setCities([])
+    }
+    function onChangeCity(value) {
+        setCity(value)
+
+    }
+    const fetchCities = async (state_code) => {
+        let respons = await fetch(
+            `${global.apiUrl}api/shipping/cities?code=${state_code}`,
+            {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            },
+        )
+            .then(res => res.json())
+            .then(res => {
+
+                setCities(res.payload)
+            }
+            )
+            .catch(err => console.log(err))
+
+    }
+
+    function onSearch(val) {
+        console.log('search:', val);
+    }
     return (<>
 
         <Form
@@ -151,10 +207,10 @@ const AddNewRecipientForm = () => {
             }}
             onFinish={onFinishCustomer}
             onFinishFailed={onFinishFailedCustomer}
-            form={formCustomer}
+            form={useformRecip}
             autoComplete="off"
             layout="vertical"
-            ref={UpdateCustomerForm}
+            ref={UpdateRecipientForm}
         >
 
 
@@ -166,31 +222,7 @@ const AddNewRecipientForm = () => {
                 </h4>
 
                 </div> */}
-                <Fade top spy={animat2} duration={1000} >
-                    <div className='col-md-12'>
 
-                        {succesAdd2 && <>
-
-                            <Alert message={succesAdd2} type="success" showIcon />
-                        </>
-
-                        }
-                    </div>
-                </Fade>
-                <Fade top spy={animat2} duration={1000} >
-                    <div className='col-md-12'>
-
-                        {errorMessage2 && <>
-
-                            {Object.keys(errorMessage2).map((item, i) => (
-                                <Alert message={errorMessage2[item]} type="error" showIcon />
-                            ))}
-
-                        </>
-
-                        }
-                    </div>
-                </Fade>
                 <div className='col-md-6'>   <Form.Item
                     label={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
                     name="name_en"
@@ -272,7 +304,7 @@ const AddNewRecipientForm = () => {
 
 
                 </div>
-            
+
                 <div className='col-md-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `الدولة` : `Country`}
@@ -289,15 +321,15 @@ const AddNewRecipientForm = () => {
                             // style={{ width: 200 }}
                             placeholder={i18n.language == 'ar' ? `الدولة` : `Country`}
                             optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            filterSort={(optionA, optionB) =>
-                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                            }
+                            value={country}
+                            onChange={onChangeCountry}
+                            onSearch={onSearch}
                             listItemHeight={10} listHeight={250}
                         >
-                            <Option value="1">Not Identified</Option>
+                            {countries && countries.map((item) => {
+                                return (<Option key={item.country_code} value={item.country_code}>{item.country_name_en}{' / '}{item.country_code}</Option>)
+                            })}
+
 
                         </Select>
                     </Form.Item>
@@ -320,15 +352,14 @@ const AddNewRecipientForm = () => {
                             // style={{ width: 200 }}
                             placeholder={i18n.language == 'ar' ? `المدينة` : `City`}
                             optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            filterSort={(optionA, optionB) =>
-                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                            }
+                            value={city}
+                            onChange={onChangeCity}
+                            onSearch={onSearch}
                             listItemHeight={10} listHeight={250}
                         >
-                            <Option value="1">Not Identified</Option>
+                            {cities.map((ele, index) => {
+                                return (<Option key={index} value={ele}>{ele}</Option>)
+                            })}
 
                         </Select>
                     </Form.Item>
@@ -338,7 +369,7 @@ const AddNewRecipientForm = () => {
                 <div className=' col-md-4 col-lg-2'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `رمز الولاية` : `State Code`}
-                        name="state_code" 
+                        name="state_code"
                     >
                         <Input placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
 
@@ -348,54 +379,54 @@ const AddNewRecipientForm = () => {
                 </div>
                 <div className='col-lg-2'>
                     <Form.Item
-                        label={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`} 
-                        name="postal_code" 
+                        label={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`}
+                        name="post_code"
                     >
                         <Input placeholder={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`} />
- </Form.Item>
+                    </Form.Item>
 
 
                 </div>
-            
-     
-             
+
+
+
                 <div className=' col-md-4 col-lg-2'>
                     <Form.Item
-                        label={i18n.language == 'ar' ? `الحالة` : `Status`} 
-                        name="status" 
+                        label={i18n.language == 'ar' ? `الحالة` : `Status`}
+                        name="main"
                         rules={[
                             {
                                 required: true,
                                 message: i18n.language == 'ar' ? `الرجاء ادخل حقل حالة العنوان` : 'Please Input Address Status!',
-                            }]} 
+                            }]}
                     >
-                          <Select     placeholder={i18n.language == 'ar' ? `الحالة` : `Status`}   >
+                        <Select placeholder={i18n.language == 'ar' ? `الحالة` : `Status`}   >
                             <Option value="1"> {i18n.language == 'ar' ? `رئيسي` : `Main `}  </Option>
-                            <Option value="0"> {i18n.language == 'ar' ? `ثانوي` : `Secondary`}   </Option>
+                            <Option value="0"> {i18n.language == 'ar' ? `إضافي` : `Extra`}   </Option>
 
                         </Select>
- </Form.Item>
+                    </Form.Item>
 
 
                 </div>
 
                 <div className=' col-md-4 col-lg-2'>
                     <Form.Item
-                        label={i18n.language == 'ar' ? `النوع` : `Type`} 
+                        label={i18n.language == 'ar' ? `النوع` : `Type`}
                         name="type"
                         rules={[
                             {
                                 required: true,
                                 message: i18n.language == 'ar' ? `الرجاء ادخل حقل نوع العنوان` : 'Please Input Address Type!',
-                            }]} 
+                            }]}
                     >
-                          <Select     placeholder={i18n.language == 'ar' ? `النوع` : `Type`}   >
+                        <Select placeholder={i18n.language == 'ar' ? `النوع` : `Type`}   >
                             <Option value="home"> {i18n.language == 'ar' ? `منزل` : `Home`}  </Option>
                             <Option value="work"> {i18n.language == 'ar' ? `عمل` : `Work`}   </Option>
                             <Option value="other"> {i18n.language == 'ar' ? `آخر` : `Other`}   </Option>
 
                         </Select>
- </Form.Item>
+                    </Form.Item>
 
 
                 </div>
@@ -404,7 +435,31 @@ const AddNewRecipientForm = () => {
 
 
 
+            <Fade top spy={animat2} duration={1000} >
+                <div className='col-md-12 mb-1'>
 
+                    {succesAdd2 && <>
+
+                        <Alert message={succesAdd2} type="success" showIcon />
+                    </>
+
+                    }
+                </div>
+            </Fade>
+            <Fade top spy={animat2} duration={1000} >
+                <div className='col-md-12 mb-1'>
+
+                    {errorMessage2 && <>
+
+                        {Object.keys(errorMessage2).map((item, i) => (
+                            <Alert message={errorMessage2[item]} type="error" showIcon />
+                        ))}
+
+                    </>
+
+                    }
+                </div>
+            </Fade>
 
 
             <Form.Item
@@ -414,7 +469,7 @@ const AddNewRecipientForm = () => {
                 // }}
                 className='text-center'
             >
-                <Button type="primary" htmlType="submit" className='col-md-4' disabled={loading2}>
+                <Button type="primary" htmlType="submit" className='col-md-4 mb-1' disabled={loading2}>
                     {i18n.language == 'ar' ? `حفظ` : `Save`}
                     {loading2 && <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></>}
                 </Button>
@@ -429,7 +484,4 @@ const AddNewRecipientForm = () => {
     )
 
 }
-
-
-
-export default AddNewRecipientForm;
+export default UpdateRecipientForm
