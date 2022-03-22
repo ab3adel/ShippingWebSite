@@ -3,8 +3,15 @@ import {Button} from 'antd'
 import { useTranslation } from 'react-i18next';
 export const Company =(props)=>{
     const [t, i18n] = useTranslation();
-    let {image,companyName,price,handleStage,whiteBackground,lightWitheBackground}=props
+    let {image,companyName,price,handleStage,whiteBackground,lightWitheBackground,handleFields}=props
+    const handleOffer = ()=>{
+        let data ={'OfferPrice':price,'CompanyName':companyName}
+       Object.keys(data).map(ele=>{
+           handleFields(ele,data[ele])
+       })
 
+        handleStage("Next")
+    }
     return (
         <div className="col-md-12 row"  onMouseOver={(e)=>whiteBackground(e)}
                         onMouseLeave={(e)=>lightWitheBackground(e)}>
@@ -26,7 +33,7 @@ export const Company =(props)=>{
                 </div>
                 <div className="col-md-4 d-flex flex-column justify-content-center">
                         <div className="buttonContainer">
-                           <Button onClick={()=>handleStage()}>{t('Choose')}</Button>
+                           <Button onClick={()=>handleOffer()}>{t('Choose')}</Button>
                         </div>
                 </div>
         </div>

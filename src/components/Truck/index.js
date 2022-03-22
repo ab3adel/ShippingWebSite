@@ -2,8 +2,7 @@ import React from 'react';
 import logo from '../../images/logo/logo33.png'
 import './style.css'
 import { useTranslation } from 'react-i18next';
-import { Link, useHistory } from 'react-router-dom'
-  
+import {useHistory} from 'react-router-dom'
 const TruckArea = (props) => {
 
     let history = useHistory();
@@ -76,7 +75,8 @@ const TruckArea = (props) => {
                                 }
 
                             </h3>
-                            <button type="submit" className='sendCargobt' onClick={()=>{history.push('/shippingrequest')}}>
+                            <button type="submit" className='sendCargobt'
+                             onClick={()=>history.push('/shippingrequest')}>
                                 <img src={logo} alt="" className='sendLogo' />
                                 {i18n.language == 'ar' ?
                                     "ارسل شحنة"

@@ -10,13 +10,13 @@ import "../../globalVar"
 
 
 export const ShippingRequestForm =(props) =>{
-    const {setVisible} = props
+    const {handleFields,formFields,handleAddressForm} = props
     let history = useHistory();
     const [t, i18n] = useTranslation();
     const [errorMessage, setErrorMessage] = useState();
     const [succesAdd, setSuccessAdd] = useState();
     const [animat, setAnimat] = useState(false)
-    const [loading,setLoading]=React.useState(false)
+    const [newRecipient,setNewRecipient]=React.useState(false)
     const {Option} = Select
     const typesArr =[t('Food'),t('Tyres'),t("Cloths")]
     const addressArr=["Address 1","Address 2","Address 3"]
@@ -25,86 +25,36 @@ export const ShippingRequestForm =(props) =>{
         handleSubmit,
         formState: { errors }, reset } = useForm();
     const [form] = Form.useForm();
-    const onFinish = (values) => {
-        console.log('Success:', values);
-        if (values.password != values.password_confirmation) {
-            setAnimat(!animat)
-            setErrorMessage({
-                credentials: i18n.language == 'ar' ?
-                    `كلمة المرور وتأكيد كلمة المرور غير متطابقين`
-                    :
-                    `Password and confirm password don't match`
-            })
 
-
-            const timer = setTimeout(() => { setErrorMessage('') }, 8000);
-            return () => clearTimeout(timer);
-        }
-        else {
-            onSubmit(values)
-        }
-
-    };
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    const onSubmit = async (data) => {
-        console.log(JSON.stringify({ data }))
-        setErrorMessage('')
-        setSuccessAdd('')
-        setLoading(true)
+    const onFinish = (values) => {
+        console.log('Success:', values);
+       
 
-        try {
-            const responsee = await fetch(
-                `${global.apiUrl}api/register`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        'Access-Control-Allow-Origin': 'https://localhost:3000',
-                        'Access-Control-Allow-Credentials': 'true',
-                        Accept: "application/json",
-                    },
-                    body: JSON.stringify(data),
-
-                }
-            );
-            const response = await responsee.json();
-            if (response.success) {
-                setAnimat(!animat)
-                setSuccessAdd(i18n.language == 'ar' ? `نجاح` : `Success`)
-                setLoading(false)
-                form.resetFields();
-
-                const timer = setTimeout(() => { setSuccessAdd('') }, 8000);
-                await localStorage.setItem(
-                    "token",
-                    JSON.stringify(response.payload.access_token)
-                );
-                history.push('/')
-                return () => clearTimeout(timer);
-
-            }
-            else {
-                setLoading(false)
-                setAnimat(!animat)
-                setErrorMessage(response.errors)
-
-
-                const timer = setTimeout(() => { setErrorMessage('') }, 8000);
-                return () => clearTimeout(timer);
-
-            }
-        } catch (err) {
-            console.log(err);
-        }
-
-        setLoading(false)
-        // reset({})
     };
+const handleChange=(e,v)=>{
+    let input =e.target
+    handleFields(input.name,input.value)
+   
+}
+const handleSelect=(e,v,n)=>{
+    handleFields(n,v.children)
+}
+const handleAddress =(type,isSender)=>{
+    handleAddressForm(type,isSender)
+    setNewRecipient(true)
+}
+let btnName=t("Add Recipient")
+let type="Recipient"
 
+if (Boolean(formFields['Recipient'])) {
+    btnName=t("Add New Address")
+    type="Address"
+}
     return (
         <Form
             name="basic"
@@ -122,6 +72,7 @@ export const ShippingRequestForm =(props) =>{
             form={form}
             autoComplete="off"
             layout="vertical"
+            onChange={onFinish}
         >
             <Fade top spy={animat} duration={1000} >
                 <div>
@@ -165,29 +116,44 @@ export const ShippingRequestForm =(props) =>{
 
                             ]}
                             className={'halfWidth'}
+                            validateStatus={formFields['SenderAddressError'] ? "error":""}
                         >
                             {/* type='email' */}
-                            <Select placeholder={t('Sender Address')} >
+                            <Select placeholder={t('Sender Address')}
+                             name="SenderAddress"
+                             value={formFields["SenderAddress"]}
+                            onChange={(e,v)=>handleSelect(e,v,'SenderAddress')} 
+                            direction={i18n.language==="ar"?"rtl":"ltr"}
+                           >
                             {addressArr.map((ele,index)=>{
-                                return (<Option key={index} vlaue={ele}>{ele}</Option>)
+                                return (
+                                    <Option key={index} vlaue={ele}>
+                                    <div className={i18n.language==="ar"?'toRight':""}>
+                                                     {ele}
+                                    </div>
+                                </Option>)
                             })}
                             </Select>
                         </Form.Item>
                 
                     <div className=" buttonContainer">
 
-                            <Button onClick={()=>setVisible(true)} >{t('Add New Address')}</Button>
+                            <Button onClick={()=>handleAddress('Address',true)} >
+                            {t('Add New Address')
+                            }</Button>
                     </div>
                         
                 
                 </div>
                
-                <div className=' col-md-12 centerContent'>
+           
+                       <Divider orientation='horizonal col-md-6'/> 
+         
+                       <div className='col-md-6'>
 
-                      
                         <Form.Item
-                            label={t('Recipient Address')}
-                            name="RecipientAddress"
+                            label={t('Recipient')}
+                            name="Recipient"
                             type='text'
                             className={'halfWidth'}
                             rules={[
@@ -198,28 +164,75 @@ export const ShippingRequestForm =(props) =>{
                                 },
 
                             ]}
+                            validateStatus={formFields['RecipientError'] ? "error":""}
                         >
-                            {/* type='email' */}
-                            <Select placeholder={t('Sender Address')} >
+                        
+                            <Select 
+                            value={formFields["Recipient"]}
+                            placeholder={t('Recipient')} 
+                            onChange={(e,v)=>handleSelect(e,v,'Recipient')} 
+                            direction={i18n.language==="ar"?"rtl":"ltr"}>
                             {addressArr.map((ele,index)=>{
-                                return (<Option key={index} vlaue={ele}>{ele}</Option>)
+                                return (
+                                    <Option key={index} vlaue={ele}>
+                                    <div className={i18n.language==="ar"?'toRight':""}>
+                                                     {ele}
+                                    </div>
+                                </Option>)
                             })}
                             </Select>
-                        </Form.Item>
                         
-
-                    
-            
-                       <div className='buttonContainer'>
-
-                          <Button  onClick={()=>setVisible(true)} >{t('Add New Address')}</Button>
+                        </Form.Item>
                        </div>
                     
-                 
-               </div>
-         
 
-                    
+                       <div className='col-md-6'>
+
+                        <Form.Item
+                            label={t('Recipient')}
+                            name="RecipientAddress"
+                            type='text'
+                            className={''}
+                            rules={[
+                                {
+                                    // type: 'email',
+                                    required: true,
+                                    message: t('Required'),
+                                },
+
+                            ]}
+                            validateStatus={formFields['RecipientAddressError'] ? "error":""}
+                        >
+                           
+                                <Select 
+                                disabled={!Boolean(formFields['Recipient'])}
+                            value={formFields["RecipientAddress"]}
+                            placeholder={t('Recipient Address')} 
+                            onChange={(e,v)=>handleSelect(e,v,'RecipientAddress')} 
+                            direction={i18n.language==="ar"?"rtl":"ltr"}>
+                            {addressArr.map((ele,index)=>{
+                                return (
+                                    <Option key={index} vlaue={ele}>
+                                    <div className={i18n.language==="ar"?'toRight':""}>
+                                                     {ele}
+                                    </div>
+                                </Option>)
+                            })}
+                            </Select>
+                            
+                        </Form.Item>
+                       </div>
+                       
+
+                        <div className='buttonContainer col-md-6'>
+
+                            <Button  onClick={()=>handleAddress(type,false)} >
+                                {btnName}
+                            </Button>
+                        </div>
+                      
+                      <Divider orientation='horizonal col-md-6'/>
+
                         <div className="col-md-6">
 
                             <Form.Item
@@ -231,11 +244,25 @@ export const ShippingRequestForm =(props) =>{
                                         message:t('Required'),
                                     },
                                 ]}
-                            >
+                                validateStatus={formFields['TypeError'] ? "error":""}
+                        >
+                            
 
-                                <Select placeholder={t('Shipment Type')} >
+                                <Select placeholder={t('Shipment Type')}
+                                 value={formFields["Type"]}
+                                  onChange={(e,v)=>handleSelect(e,v,'Type')} 
+                                 
+                                  >
                                 {typesArr.map((ele,index)=>{
-                                    return (<Option key={index} vlaue={ele}>{ele}</Option>)
+                                    return (<Option 
+                                                  
+                                                   key={index} 
+                                                   vlaue={ele}>
+                                                     
+                                                   <div className={i18n.language==="ar"?'toRight':""}>
+                                                     {ele}
+                                                   </div>
+                                                   </Option>)
                                 })}
                                 </Select>
                             </Form.Item>
@@ -243,16 +270,22 @@ export const ShippingRequestForm =(props) =>{
                         <div className='col-md-6'>
                            <Form.Item
                                 label={t('Sending Date')}
-                                name="SendingDate"
+                               
                                 rules={[
                                     {
                                         required: true,
                                         message:t('Required'),
                                     },
                                 ]}
-                            >
+                                validateStatus={formFields['DateError'] ? "error":""}
+                        >
+                            
 
-                               <Input type="date" />
+                               <Input 
+                                name="Date"
+                               type="date" 
+                               value={formFields["Date"]}
+                                onChange={handleChange} />
                             </Form.Item>
                         </div>
                  
@@ -261,16 +294,23 @@ export const ShippingRequestForm =(props) =>{
                     <div className='col-md-6'>
                         <Form.Item
                             label={t('Width')}
-                            name="Width"
+                           
                             rules={[
                                 {
                                     required: true,
                                     message:t('Required'),
                                 },
                             ]}
+                            validateStatus={formFields['WidthError'] ? "error":""}
                         >
+                        
 
-                            <Input placeholder={t('Width')} />
+                            <Input 
+                             type="number"
+                             name="Width"
+                             value={formFields["Width"]}
+                            placeholder={t('Width')}  
+                            onChange={handleChange} />
                         </Form.Item>
 
 
@@ -279,10 +319,17 @@ export const ShippingRequestForm =(props) =>{
                     <div className='col-md-6'>
                         <Form.Item
                             label={t('Height')}
-                            name="Height"
+                            validateStatus={formFields['HeightError'] ? "error":""}
                         >
+                           
+                        
 
-                            <Input placeholder={t('Height')} />
+                            <Input 
+                             value={formFields["Height"]}
+                             type="number"
+                             name="Height"
+                            placeholder={t('Height')} 
+                             onChange={handleChange} />
                         </Form.Item>
 
 
@@ -292,21 +339,32 @@ export const ShippingRequestForm =(props) =>{
                     <div className='col-md-6'>
                         <Form.Item
                             label={t('Weight')}
-                            name="customer[company]"
+                            validateStatus={formFields['WeightError'] ? "error":""}
                         >
+                           
+                        
 
-                            <Input placeholder={t('Weight')} />
+                            <Input  type="number"
+                             name="Weight"
+                             value={formFields["Weight"]}
+                             placeholder={t('Weight')}  onChange={handleChange} />
                         </Form.Item>
 
 
                     </div>
                     <div className='col-md-6'>
                         <Form.Item
-                            label={t('Lenght')}
-                            name="Lenght"
+                            label={t('Length')}
+                            validateStatus={formFields['LengthError'] ? "error":""}
+                            validateTrigger={t('Required')}
+                           
                         >
 
-                            <Input placeholder={t('Lenght')} />
+                            <Input type="number" 
+                            placeholder={t('Length')} 
+                            value={formFields["Length"]}
+                            name="Length" 
+                            onChange={handleChange} />
                         </Form.Item>
 
 
@@ -315,13 +373,6 @@ export const ShippingRequestForm =(props) =>{
                    
 
             </div>
-
-
-
-
-
-
-           
         </Form>
 
     )

@@ -13,21 +13,63 @@ import { useTranslation } from 'react-i18next';
 
  const ShippingRequest =() =>{
      const [visible,setVisible]=React.useState(false)
+     const [formFields,setFormFields]=useState({
+         SenderAddress:'',RecipientAddress:''
+         ,Type:'',Date:'',Width:'',Length:'',Recipient:"",
+         Height:'',Weight:'',SenderAddressError:false,
+         RecipientAddressError:false,TypeError:false,
+         DateError:false,WidthError:false,LengthError:false,
+         HeightError:false,WeightError:false,RecipientError:false
+        
+     })
+     const [addressFormType,setAddressFormType]=useState({type:"address",isSender:true})
      let [stage,setStage]=useState(1)
      const tokenString = localStorage.getItem("token");
      const userToken = JSON.parse(tokenString);
      const [t, i18n] = useTranslation();
      let backImages=[back,pack]
 
-     const handleStage =()=>{
-         console.log(stage)
+     const handleStage =(type)=>{
+        if(checkError()) return
          let collection =document.querySelectorAll('.stage')
-        
-         if (stage ===3) return
-         setStage(++stage)
-         collection[stage-1].classList.add('currentStage')
+        if (type=== "Next"){
+
+            if (stage ===3) return
+            setStage(++stage)
+            collection[stage-1].classList.add('currentStage')
+        }
+        if (type==="Previous") {
+            if (stage ===1) return
+            setStage(--stage)
+            collection[stage].classList.remove('currentStage')
+        }
          
      }
+     const handleFields=(name,value)=>{
+ 
+         let newFormFields={...formFields}
+         newFormFields[name]=value
+         setFormFields(pre => ({...pre,...newFormFields}))
+     }
+     const checkError=()=>{
+         
+        let newFormFields={...formFields}
+        let emptyVal=Object.keys(newFormFields)
+           .filter(ele=>!newFormFields[ele] && !ele.includes('Error'))
+
+        if (emptyVal.length===0) return false
+        emptyVal.forEach(ele=>{
+            newFormFields[`${ele}Error`]=true 
+            
+        })
+        setFormFields(newFormFields)
+        return true
+       
+     }
+    const handleAddressForm=(type,isSender) =>{
+        setAddressFormType(pre=>({...pre,type,isSender}))
+        setVisible(true)
+    }
     return (
         <div>
         {/* <Navbar /> */}
@@ -43,19 +85,19 @@ import { useTranslation } from 'react-i18next';
                         </div>
                     </div>
                    <div className=" col-md-12 row ">
-                       <div className=" col-md-4  horizonal-align currentStage stage"
+                       <div className=" col-md-4 horizonal-align currentStage stage "
                          >
-                        <div className="shipping-icon">
+                        <div className="shipping-icon  d-flex align-times-center">
 
                           <i class="fa fa-id-card-o" aria-hidden="true"></i>
                         </div>
-                          <p>
+                          <p  className="d-flex justify-content-center ">
                           {t('Fill Your Form')}
                           </p> 
                        </div>
                        <div className=" col-md-4 horizonal-align stage">
                            <div className='shipping-icon'>
-                              <i class="fa fa-bus" aria-hidden="true"></i>
+                           <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                            </div>
                            <p>
 
@@ -79,22 +121,29 @@ import { useTranslation } from 'react-i18next';
                      >
                    {stage ===1 &&(
 
-                        <ShippingRequestForm setVisible={setVisible} />
+                        <ShippingRequestForm 
+                        
+                        handleFields={handleFields}
+                        formFields={formFields}
+                        handleAddressForm={handleAddressForm}
+                        />
                         
                    )}
                    {
-                       stage===2 && (<Offers handleStage={handleStage} />)
+                       stage===2 && (<Offers handleStage={handleStage}  handleFields={handleFields}/>)
                    }
                    {
-                       stage===3 && (<Offer />)
+                       stage===3 && (<Offer formFields={formFields} />)
                    }
                        <img src={abimg2} className='loginImg'></img>
                     </div>
                    
                 </div>
                 
-         
-               <RequestButton stage={stage} handleStage={handleStage}/>
+                <div className="row nextStage col-md-12">
+                   <RequestButton Type="Next" stage={stage} handleStage={handleStage}/>
+                   <RequestButton Type="Previous" stage={stage} handleStage={handleStage}/>
+               </div>
             
             </div>
 
@@ -102,7 +151,12 @@ import { useTranslation } from 'react-i18next';
 
         <FooterSection />
         {visible && (
-            <NewAddress userToken={userToken} visible={visible} setVisible={setVisible}/>
+            <NewAddress 
+            isSender={addressFormType.isSender}
+            type={addressFormType.type}
+            userToken={userToken} 
+            visible={visible} 
+            setVisible={setVisible}/>
         )}
     </div>
     )
