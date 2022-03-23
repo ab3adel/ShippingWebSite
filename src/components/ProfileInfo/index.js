@@ -26,10 +26,12 @@ const ProfileInfo = () => {
     const carousel = useRef();
     const attachmentFormRef = useRef();
     const [attachmentForm] = Form.useForm();
+    const passFormRef = useRef();
+    const [passForm] = Form.useForm();
     const [uploading, setUploading] = useState(false)
     const [fileList, setFileList] = useState([])
     const [attachType, setAttachType] = useState('file')
-
+    const [passwordModal, setPasswordModal] = useState(false)
     useEffect(() => { !userToken && history.push('/') })
     const uploadConfig = {
         onRemove: file => {
@@ -68,6 +70,8 @@ const ProfileInfo = () => {
         setAddAttachModal(true)
         setFileList([])
     }
+
+
     const onSubmitAddAtachment = async (values) => {
         setErrorMessage('')
         setSuccessAdd('')
@@ -127,6 +131,44 @@ const ProfileInfo = () => {
         setAttachType('file')
         setFileList([])
     }
+    const handleOpenPassModal = () => {
+        passForm.resetFields();
+        setPasswordModal(true)
+        setErrorMessage('')
+        setSuccessAdd('')
+    }
+    const handleClosePassModal = () => {
+        passForm.resetFields();
+        setPasswordModal(false)
+        setErrorMessage('')
+        setSuccessAdd('')
+    }
+    const onFinishPass = (values) => {
+        console.log('Success:', values);
+
+        if (values.new_password != values.password_confirmation) {
+            setAnimat(!animat)
+            setErrorMessage({
+                credentials: i18n.language == 'ar' ?
+                    `كلمة المرور وتأكيد كلمة المرور غير متطابقين`
+                    :
+                    `Password and confirm password don't match`
+            })
+
+
+            const timer = setTimeout(() => { setErrorMessage('') }, 8000);
+            return () => clearTimeout(timer);
+        }
+        else {
+            // onSubmitPasswordChange(values)
+            handleClosePassModal()
+        }
+
+    };
+
+    const onFinishFailedPass = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
 
     return (
         <div className="section profileSection">
@@ -276,6 +318,10 @@ const ProfileInfo = () => {
                                             </h6>
                                             <p className='comp'>  {profile.customer && profile.customer.company ? profile.customer.company :
                                                 i18n.language == 'ar' ? 'الشركة غير معرفة' : 'No Company'}</p>
+                                            <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleOpenPassModal() }} >
+                                                <i className="fa fa-lock" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `تغيير كلمة المرور` : `Change Password`}
+
+                                            </Button>
                                             <Button type="primary" className='col-md-8 profileButton' onClick={() => { handlePrev() }} >
                                                 <i className="fa fa-undo" aria-hidden="true"  ></i>
                                                 {i18n.language == 'ar' ? `رجوع` : `Back`}
@@ -438,6 +484,149 @@ const ProfileInfo = () => {
                                         </Form.Item>
                                     </div>
                                 }
+
+
+
+
+                            </div>
+
+                        </Form>
+                    </Modal>
+
+
+
+                    <Modal
+                        wrapClassName='attachModal'
+                        title={i18n.language == 'ar' ? `تغيير كلمة المرور` : `change Password`}
+                        centered
+                        visible={passwordModal}
+                        // onOk={() => handleSaveAttach()}
+                        onCancel={() => handleClosePassModal()}
+                        footer={[
+                            <Button className='cancelBTN' key="back" onClick={() => handleClosePassModal()}>
+                                {i18n.language == 'ar' ? `الغاء` : `Cancel`}
+                            </Button>,
+                            <Button key="bsack" type="primary" htmlType="submit" className='col-5 col-xs-5 col-sm-5 col-md-5 saveBtn'
+                                onClick={() => passForm.submit()} disabled={loading}>
+                                {i18n.language == 'ar' ? `حفظ` : `Save`}
+                                {loading && <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></>}
+                            </Button>
+                        ]}
+                    >
+                        <Form
+                            name="basic"
+                            labelCol={{
+                                span: 30,
+                            }}
+                            wrapperCol={{
+                                span: 32,
+                            }}
+                            initialValues={{
+                                remember: true,
+                            }}
+                            onFinish={onFinishPass}
+                            onFinishFailed={onFinishFailedPass}
+                            form={passForm}
+                            autoComplete="off"
+                            layout="vertical"
+                            ref={passFormRef}
+                        >
+
+
+                            <div className='row'>
+                                {/* <div className='col-md-12'>
+                                    <h4 className='updateFormTitle'>
+
+                                        {i18n.language == 'ar' ? `تعديل الحساب` : `Update Account`}
+
+                                    </h4>
+
+                                </div> */}
+                                <Fade top spy={animat} duration={1000} >
+                                    <div className='col-md-12' >
+
+                                        {succesAdd && <>
+
+                                            <Alert message={succesAdd} type="success" showIcon />
+                                        </>
+
+                                        }
+                                    </div >
+                                </Fade>
+                                <Fade top spy={animat} duration={1000} >
+                                    <div className='col-md-12'>
+
+                                        {errorMessage && <>
+
+                                            {Object.keys(errorMessage).map((item, i) => (
+                                                <Alert message={errorMessage[item]} type="error" showIcon />
+                                            ))}
+
+                                        </>
+
+                                        }
+                                    </div>
+                                </Fade>
+
+
+                                <div className='col-md-12'>
+                                    <Form.Item
+                                        label={i18n.language == 'ar' ? `كلمة المرور` : `Password`}
+                                        name="password"
+                                        // type='email' 
+                                        autoComplete='off'
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: i18n.language == 'ar' ? `الرجاء ادخل كلمة المرور الحالية!` : 'Please input Your Password!',
+                                            },
+
+                                        ]}
+                                    >
+
+                                        <Input.Password placeholder='********' autoComplete='off' />
+                                    </Form.Item>
+                                </div>
+                                <div className='col-md-12'>
+                                    <Form.Item
+                                        label={i18n.language == 'ar' ? `كلمة المرور الجديدة` : `New Password`}
+                                        name="new_password"
+                                        // type='email'
+                                        autoComplete='off'
+
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: i18n.language == 'ar' ? `الرجاء ادخل كلمة المرور الجديدة!` : 'Please input New Password!',
+                                            },
+
+                                        ]}
+                                    >
+
+
+                                        <Input.Password placeholder='********' autoComplete='off' />
+                                    </Form.Item>
+                                </div>
+                                <div className='col-md-12'>
+                                    <Form.Item
+                                        label={i18n.language == 'ar' ? `تأكيد كلمة المرور` : `New Password Confirmation`}
+                                        name="password_confirmation"
+                                        autoComplete='off'
+                                        // type='email'
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: i18n.language == 'ar' ? `الرجاء ادخل تأكيد كلمة المرور` : 'Please input New Password Confirmation!',
+                                            },
+
+                                        ]}
+                                    >
+
+                                        <Input.Password placeholder='********' autoComplete='off' />
+                                    </Form.Item>
+                                </div>
+
+
 
 
 
