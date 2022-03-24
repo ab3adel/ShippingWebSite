@@ -10,9 +10,9 @@ import { actionCreators } from '../../redux/index'
 import Fade from 'react-reveal/Fade';
 import './formStyle.scss'
 import "../../globalVar"
-// import { setCities } from '../../redux/actions';
+import { setCities } from '../../redux/actions';
 
-const UpdateRecipientForm = () => {
+const AddressesForm = () => {
     let history = useHistory();
     const { Option } = Select;
     const [t, i18n] = useTranslation();
@@ -163,6 +163,7 @@ const UpdateRecipientForm = () => {
     };
     function onChangeCountry(value) {
         setCountry(value)
+        setCity('')
         value != '' ? fetchCities(value) : setCities([])
     }
     function onChangeCity(value) {
@@ -215,47 +216,7 @@ const UpdateRecipientForm = () => {
 
 
             <div className='row'>
-                {/* <div className='col-md-12'> <h4 className='updateFormTitle'>
 
-                    {i18n.language == 'ar' ? `معلومات المستلم` : `Recipient Information`}
-
-                </h4>
-
-                </div> */}
-
-                <div className='col-md-6'>   <Form.Item
-                    label={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
-                    name="name_en"
-                    // type='email'
-                    rules={[
-                        {
-                            required: true,
-                            message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة الانكليزية!` : 'Please Input English Recipient Name!',
-                        },
-
-                    ]}
-                >
-                    {/* type='email' */}
-                    <Input placeholder={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`} />
-                </Form.Item>
-                </div>
-                <div className='col-md-6'>
-                    <Form.Item
-                        label={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`}
-                        name="name_ar"
-                        // type='email'
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة العربية!` : 'Please Input Arabic Recipient Name!',
-                            },
-
-                        ]}
-                    >
-                        {/* type='email' */}
-                        <Input placeholder={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`} />
-                    </Form.Item>
-                </div>
                 <div className='col-md-12'> <h4 className='updateFormTitle'>
 
                     {i18n.language == 'ar' ? `معلومات العنوان` : `Address Information`}
@@ -484,4 +445,7 @@ const UpdateRecipientForm = () => {
     )
 
 }
-export default UpdateRecipientForm
+
+
+
+export default AddressesForm;

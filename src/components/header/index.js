@@ -213,7 +213,8 @@ const Header = () => {
                                                         <li><Link to="/freight">Air Freight</Link></li>
                                                         <li><Link to="/road">Road Freight</Link></li> */}
                                                         <li><Link to="/Profile">{i18n.language == 'ar' ? `الملف الشخصي` : `Profile`}</Link></li>
-
+                                                        <li><Link to="/Recipients">{i18n.language == 'ar' ? `المستلمين` : `Recipients`}</Link></li>
+                                                        <li><Link to="/Bills">{i18n.language == 'ar' ? `الفواتير` : `Bills`}</Link></li>
                                                         <li><Link onClick={() => handleLogout()}>
                                                             {i18n.language == 'ar' ? `تسجيل الخروج` : `Logout`}</Link></li>
                                                         <li><Link onClick={() => handleLogoutall()}>
@@ -245,7 +246,13 @@ const Header = () => {
                             </ul>
                         </div> */}
                         <div className="col-md-1 col-sm-1 col-2">
-                            <MobileMenu />
+                            <MobileMenu
+                                logged={logged}
+                                handleLogout={handleLogout}
+                                handleLogoutall={handleLogoutall}
+                                profile={profile}
+                            />
+
                         </div>
                     </div>
                 </div>

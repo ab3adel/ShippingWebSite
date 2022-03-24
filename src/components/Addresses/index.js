@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Link, useHistory, useParams } from 'react-router-dom'
-import { Modal, Carousel, Form, Input, Button, Alert, Upload, Radio, Popconfirm, message } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Link, useHistory } from 'react-router-dom'
+import { Modal, Carousel, Form, Input, Button, Alert, Upload, Radio, message } from 'antd';
+
 import { UploadOutlined } from '@ant-design/icons';
 
 import Fade from 'react-reveal/Fade';
 import '../../globalVar';
-import AddNewRecipientForm from './AddNewRecipientForm'
+import AddressesForm from './AddressesForm'
 import './style.scss'
 
-const RecipientInfo = () => {
-    const { id } = useParams();
+const AddresesInfo = () => {
     const { TextArea } = Input;
     let history = useHistory();
     const tokenString = localStorage.getItem("token");
@@ -30,18 +29,15 @@ const RecipientInfo = () => {
     const [uploading, setUploading] = useState(false)
     const [fileList, setFileList] = useState([])
     const [attachType, setAttachType] = useState('file')
-    const [recipient, setRecipient] = useState('')
-    const [visible, setVisible] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
-
+    const [reciepients, setRecipients] = useState([])
     useEffect(() => { !userToken && history.push('/') })
     useEffect(async () => {
 
 
-        const fetchRecipient = async (e) => {
+        const fetchRecipients = async (e) => {
             try {
                 const responsee = await fetch(
-                    `${global.apiUrl}api/reciepients/${id}`,
+                    `${global.apiUrl}api/reciepients`,
                     {
                         method: "GET",
                         headers: {
@@ -52,7 +48,7 @@ const RecipientInfo = () => {
                 );
                 const response = await responsee.json();
                 if (response.success) {
-                    setRecipient(response.payload)
+                    setRecipients(response.payload)
                 }
                 if (response.message && response.message == "Unauthenticated.") {
                     localStorage.removeItem("token");
@@ -62,7 +58,7 @@ const RecipientInfo = () => {
             } catch (err) { console.log(err); }
         }
 
-        fetchRecipient()
+        fetchRecipients()
     }, [])
     const uploadConfig = {
         onRemove: file => {
@@ -161,60 +157,9 @@ const RecipientInfo = () => {
         setFileList([])
     }
 
-
-
-    const { confirm } = Modal;
-    function showDeleteConfirm() {
-
-
-
-        confirm({
-            wrapClassName: 'deletemodal',
-            title: i18n.language == 'ar' ? `هل انت متأكد من حذف المستلم ${recipient.name_ar}`
-                :
-                `Are you sure you want to delete  recipient ${recipient.name_en}`,
-            icon: <ExclamationCircleOutlined />,
-            content: '',
-            okText: i18n.language == 'ar' ? "حذف" : "Delete",
-            okType: 'danger',
-            cancelText: i18n.language == 'ar' ? "الغاء" : "Cancel",
-            onOk() {
-                return new Promise(async (resolve, reject) => {
-                    const responsee = await fetch(
-                        `${global.apiUrl}api/reciepients/${recipient.id}`,
-                        {
-                            method: "DELETE",
-                            headers: {
-                                Authorization: "Bearer " + userToken,
-                                Accept: "application/json",
-                            },
-                        }
-                    );
-                    const response = await responsee.json();
-                    if (response.success) {
-                        resolve()
-                        history.push("/Recipients")
-
-                    }
-                    if (response.message && response.message == "Unauthenticated.") {
-                        localStorage.removeItem("token");
-                        localStorage.clear()
-                        history.push("/");
-                        resolve()
-                    }
-
-                }).catch(() => console.log('Oops errors!'));
-
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
-        });
-    }
-    // console.log('match', match.params);
     return (
-        <div className="section recipientSection">
-            {profile && recipient &&
+        <div className="section AddresesSection">
+            {profile &&
                 <>
                     <Carousel ref={carousel} dots={false} touch={false} pauseOnHover={true}
                         touchMove={false}
@@ -228,126 +173,75 @@ const RecipientInfo = () => {
                                     <div className=" col-md-12">
                                         <div className="carddd user-card-full">
                                             <div className="row m-l-0 m-r-0">
-                                                <div className="col-md-12 col-lg-4 bg-c-lite-green user-profile">
+                                                <div className="col-md-12 col-lg-12 bg-c-lite-green user-profile">
                                                     <div className="card-block text-center text-white USerCont">
 
                                                         <h6 className="f-w-600 nameProfile ">
-                                                            {i18n.language == 'ar' ? recipient.name_ar : recipient.name_en}
+                                                            {i18n.language == 'ar' ? `كل العناوين` : `All Addresses`}
                                                         </h6>
 
-                                                        <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleNext() }} >
-                                                            <i className="fa fa-pencil-square-o" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `تعديل` : `Update`}
+                                                        <Button type="primary" className='col-md-4 profileButton'
+                                                            onClick={() => { handleNext() }}
+                                                        >
+                                                            <i className="fa fa-plus" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `إضافة عنوان جديد` : `Add New Address`}
 
                                                         </Button>
-                                                        <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleNext() }} >
-                                                            <i className="fa fa-map-marker" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `إضافة عنوان` : `Add Address`}
+                                                        {/* <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleOpenAttachModal() }} >
+                                                            <i className="fa fa-paperclip" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `اضافة مرفق` : `Add Attachment`}
 
-                                                        </Button>
-
-
-
-                                                        <Button type="primary" className='col-md-8 profileButton' onClick={() => { showDeleteConfirm() }} >
-                                                            <i className="fa fa-trash" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `حذف المستلم` : `Remove Recipient`}
-
-                                                        </Button>
-
-
-
+                                                        </Button> */}
 
 
                                                     </div>
                                                 </div>
-                                                <div className="col-md-12 col-lg-8">
-                                                    <div className="card-block">
-                                                        <h6 className="m-b-20 p-b-5 b-b-default f-w-600">
 
-                                                            {i18n.language == 'ar' ? `معلومات المستلم` : `Recipient Information`}
-                                                        </h6>
-                                                        <div className="row">
-                                                            <div className="col-sm-6">
-                                                                <p className="m-b-10 f-w-600">
 
-                                                                    {i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
-                                                                </p>
-                                                                <h6 className="text-muted f-w-400">{recipient.name_en ? recipient.name_en : '-'}</h6>
+                                                {reciepients && reciepients.map((item, index) => {
+                                                    return (
+                                                        <div key={item.id} className="col-md-12 col-lg-4 mt-2 recipentParent">
+                                                            <div className="card-block recepBloc " onClick={() => { history.push(`/Recipient/${item.id}`) }}>
+                                                                <h6 className="m-b-20 p-b-5 b-b-default f-w-600">
+
+                                                                    {i18n.language == 'ar' ? `مستلم ${(index + 1)}` : `Recipient ${index + 1}`}
+                                                                </h6>
+                                                                <div className="col-sm-12 singleRecipCont">
+                                                                    <div className=' nameKey'>    {i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}</div>
+                                                                    <div className="text-muted f-w-400 nameValue">{item.name_en ? item.name_en : '-'}</div>
+                                                                </div>
+                                                                <div className="col-sm-12 singleRecipCont">
+                                                                    <div className=' nameKey'>    {i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`}</div>
+                                                                    <div className="text-muted f-w-400 nameValue">{item.name_ar ? item.name_ar : "-"}</div>
+                                                                </div>
+
+                                                                {/* <div className="row rECIPIENTCARD">
+                <div className='col-md-12 row actionsCont'>
+                <Button type="primary" className='col-md-3 profileButton updatBtn' onClick={() => { handleNext() }} >
+                {i18n.language == 'ar' ? `تعديل` : `Update`}
+
+            </Button>
+            <Button type="primary" className='col-md-6 profileButton showBtn' onClick={() => { handleNext() }} >
+             {i18n.language == 'ar' ? `عرض` : `Show`} 
+
+            </Button>
+            <Button type="primary" className='col-md-3 profileButton deleteBtn' onClick={() => { handleNext() }} >
+                {i18n.language == 'ar' ? `حذف` : `Remove`}
+
+            </Button>
+                </div>
+            </div> */}
+
+
                                                             </div>
-                                                            <div className="col-sm-6">
-                                                                <p className="m-b-10 f-w-600"> {i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`}   </p>
-                                                                <h6 className="text-muted f-w-400">  {recipient.name_ar ? recipient.name_ar : '-'}   </h6>
-                                                            </div>
-
                                                         </div>
-                                                        {recipient.addresses && recipient.addresses.map((address, index) => {
-                                                            return (
-
-                                                                <React.Fragment key={address.id}>
-                                                                    <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
-                                                                        {i18n.language == 'ar' ? `العنوان ${(index + 1)}` : `Address ${(index + 1)}`}</h6>
-                                                                    <div className="row">
-                                                                        <div className="col-md-3">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `رمز الدولة` : `Country Code`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.country_code}
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-3">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `المدينة` : `City`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.city}
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-3">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.post_code ? address.post_code : '-'}
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-3">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `رمز الولاية` : `State Code`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.state_code ? address.state_code : '-'}
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-3">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `النوع` : `Type`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.type ? address.type : '-'}
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-3">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `الحالة` : `Status`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.main == 0 ?
-                                                                                i18n.language == 'ar' ? `إضافي` : `Extra`
-                                                                                :
-                                                                                i18n.language == 'ar' ? `رئيسي` : `Main`
-                                                                            }
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `السطر 1` : `Line 1`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.line_1}
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `السطر 2` : `Line 2`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.line_2 ? address.line_2 : '-'}
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `السطر 3` : `Line 3`}</p>
-                                                                            <h6 className="text-muted f-w-400">{address.line_2 ? address.line_2 : '-'}
-                                                                            </h6>
-                                                                        </div>
+                                                    )
+                                                })}
 
 
 
 
-                                                                    </div>
-                                                                </React.Fragment>
-                                                            )
-                                                        })
 
 
-                                                        }
 
-
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -360,10 +254,10 @@ const RecipientInfo = () => {
                                 <div className="row  d-flex justify-content-center">
                                     <div className='col-md-12'>
                                         <div className="col-md-12 col-lg-12 bg-c-lite-green user-profile">
-                                            <div className="card-block text-center text-white USerCont updateForm">
+                                            <div className="card-block text-center text-white USerCont">
 
                                                 <h6 className="f-w-600 nameProfile ">
-                                                    {i18n.language == 'ar' ? `إضافة مستلم جديد` : `Add New Recipient`}
+                                                    {i18n.language == 'ar' ? `إضافة عنوان جديد` : `Add New Address`}
                                                 </h6>
 
                                                 <Button type="primary" className='col-md-3 profileButton' onClick={() => { handlePrev() }} >
@@ -379,7 +273,7 @@ const RecipientInfo = () => {
 
 
                                         <div className=" col-md-12 col-lg-12 registerFormCol">
-                                            <AddNewRecipientForm />
+                                            <AddressesForm />
                                         </div>
                                     </div>
                                 </div>
@@ -550,4 +444,4 @@ const RecipientInfo = () => {
 
 }
 
-export default RecipientInfo;
+export default AddresesInfo;

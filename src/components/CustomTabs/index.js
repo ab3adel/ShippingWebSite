@@ -24,14 +24,14 @@ const CustomTabs = ({ active }) => {
                             {i18n.language == 'ar' ? `المستلمين` : `Recipients`}
                         </Link>
                     </div>
-                    <div className="col-sm-8 col-md-8 col-lg-2 singleTabCont   ">
-                        <Link to='/Profile' className='tabLink  '>
+                    <div className={`col-sm-8 col-md-8 col-lg-2  singleTabCont ${active === 'Bills' ? 'activeCont' : ''}  `}>
+                        <Link to='/Bills' className={`tabLink  ${active === 'Bills' ? 'ActiveTabLInk' : ''}`}>
                             <i class="fa fa-indent bellICon" aria-hidden="true"></i>
                             {i18n.language == 'ar' ? `الفواتير` : `Bills`}
                         </Link>
                     </div>
-                    <div className="col-sm-8 col-md-8 col-lg-2 singleTabCont   ">
-                        <Link to='/Profile' className='tabLink  '>
+                    <div className={`col-sm-8 col-md-8 col-lg-2  singleTabCont ${active === 'Addresses' ? 'activeCont' : ''}  `}>
+                        <Link to='/Addresses' className={`tabLink  ${active === 'Addresses' ? 'ActiveTabLInk' : ''}`}>
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             {i18n.language == 'ar' ? `العناوين` : `Addresses`}
                         </Link>

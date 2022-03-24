@@ -9,7 +9,7 @@
     transition: all 0.3s ease 0s;
     box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
     overflow-x: auto;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 .mobileMenu:lang(ar) {
     right: -280px;
@@ -78,6 +78,7 @@
 
 .responsivemenu li a{
     position: relative;
+    font-size: 0.8rem;
 }
 .responsivemenu li i{
     position: absolute;
@@ -109,7 +110,7 @@
 
 @media (max-width:767px){
     .mobileMenu {
-        width: 240px;
+        width: 210px;
     }
     .hero-style-1 .slide-caption {
         padding: 20px;
