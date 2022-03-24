@@ -100,8 +100,8 @@ if (Boolean(formFields['Recipient'])) {
                 </div>
             </Fade>
 
-            <div className='row'>
-                <div className=' col-md-12 centerContent'>
+            <div className='row padding'>
+                <div className=' col-md-6 '>
 
                     
                         <Form.Item
@@ -113,17 +113,19 @@ if (Boolean(formFields['Recipient'])) {
                                     required: true,
                                     message: t('Required'),
                                 },
-
                             ]}
                             className={'halfWidth'}
                             validateStatus={formFields['SenderAddressError'] ? "error":""}
+                            
+                            
                         >
                             {/* type='email' */}
                             <Select placeholder={t('Sender Address')}
                              name="SenderAddress"
                              value={formFields["SenderAddress"]}
                             onChange={(e,v)=>handleSelect(e,v,'SenderAddress')} 
-                            direction={i18n.language==="ar"?"rtl":"ltr"}
+                            direction={i18n.language==="ar"?"ltr":"rtl"}
+                           className={i18n.language==="ar"?"arabicAlign":"englishAlign"}
                            >
                             {addressArr.map((ele,index)=>{
                                 return (
@@ -136,15 +138,15 @@ if (Boolean(formFields['Recipient'])) {
                             </Select>
                         </Form.Item>
                 
-                    <div className=" buttonContainer">
+                        
+                
+                </div>
+                    <div className=" buttonContainer col-md-6 justifyBtn">
 
                             <Button onClick={()=>handleAddress('Address',true)} >
                             {t('Add New Address')
                             }</Button>
                     </div>
-                        
-                
-                </div>
                
            
                        <Divider orientation='horizonal col-md-6'/> 
@@ -171,7 +173,8 @@ if (Boolean(formFields['Recipient'])) {
                             value={formFields["Recipient"]}
                             placeholder={t('Recipient')} 
                             onChange={(e,v)=>handleSelect(e,v,'Recipient')} 
-                            direction={i18n.language==="ar"?"rtl":"ltr"}>
+                            direction={i18n.language==="ar"?"rtl":"ltr"}
+                            className={i18n.language==="ar"?"arabicAlign":"englishAlign"}>
                             {addressArr.map((ele,index)=>{
                                 return (
                                     <Option key={index} vlaue={ele}>
@@ -189,7 +192,7 @@ if (Boolean(formFields['Recipient'])) {
                        <div className='col-md-6'>
 
                         <Form.Item
-                            label={t('Recipient')}
+                            label={t('Recipient Address')}
                             name="RecipientAddress"
                             type='text'
                             className={''}
@@ -206,10 +209,11 @@ if (Boolean(formFields['Recipient'])) {
                            
                                 <Select 
                                 disabled={!Boolean(formFields['Recipient'])}
-                            value={formFields["RecipientAddress"]}
-                            placeholder={t('Recipient Address')} 
-                            onChange={(e,v)=>handleSelect(e,v,'RecipientAddress')} 
-                            direction={i18n.language==="ar"?"rtl":"ltr"}>
+                                value={formFields["RecipientAddress"]}
+                                placeholder={t('Recipient Address')} 
+                                onChange={(e,v)=>handleSelect(e,v,'RecipientAddress')} 
+                                direction={i18n.language==="ar"?"rtl":"ltr"}
+                                className={i18n.language==="ar"?"arabicAlign":"englishAlign"}>
                             {addressArr.map((ele,index)=>{
                                 return (
                                     <Option key={index} vlaue={ele}>
@@ -251,7 +255,7 @@ if (Boolean(formFields['Recipient'])) {
                                 <Select placeholder={t('Shipment Type')}
                                  value={formFields["Type"]}
                                   onChange={(e,v)=>handleSelect(e,v,'Type')} 
-                                 
+                                  className={i18n.language==="ar"?"arabicAlign":"englishAlign"}
                                   >
                                 {typesArr.map((ele,index)=>{
                                     return (<Option 
@@ -321,9 +325,6 @@ if (Boolean(formFields['Recipient'])) {
                             label={t('Height')}
                             validateStatus={formFields['HeightError'] ? "error":""}
                         >
-                           
-                        
-
                             <Input 
                              value={formFields["Height"]}
                              type="number"

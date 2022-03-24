@@ -1,0 +1,41 @@
+.ant-modal-root {
+    .ant-modal-wrap {
+        z-index: 10000;
+        .ant-modal.myModal {
+            .ant-modal-content {
+                .ant-modal-header {
+                    .ant-modal-title {
+                        padding-left: 1rem;
+                    }
+                }
+                .ant-modal-footer {
+                    button {
+                     
+                        margin-left: 0.5rem;
+                        margin-right: 0.5rem;
+                        color:rgb(250, 109, 109)
+                    }
+                    button.ant-btn-primary {
+                        background-color:#274091 ;
+                        color:white;
+                    }
+                }
+            }
+        }
+        .ant-modal.myModal.arabicAlign {
+            .ant-modal-content {
+                .ant-modal-header {
+                    .ant-modal-title {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+}
+div {
+
+    .ant-select-dropdown{
+        z-index: 10100;
+    }
+}
