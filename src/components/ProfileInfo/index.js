@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
-import { Modal, Carousel, Form, Input, Button, Alert, Upload, Radio, message } from 'antd';
+import { Tag, Modal, Carousel, Form, Input, Button, Alert, Upload, Radio, Select, message } from 'antd';
 
 import { UploadOutlined } from '@ant-design/icons';
 
@@ -12,6 +12,7 @@ import UpdateProfile from './UpdateProfile'
 import './style.css'
 
 const ProfileInfo = () => {
+    const { Option } = Select;
     const { TextArea } = Input;
     let history = useHistory();
     const tokenString = localStorage.getItem("token");
@@ -32,7 +33,42 @@ const ProfileInfo = () => {
     const [fileList, setFileList] = useState([])
     const [attachType, setAttachType] = useState('file')
     const [passwordModal, setPasswordModal] = useState(false)
+    const [categoriesModal, setCategoriesModal] = useState(false)
+    const [categories, setCategories] = useState([])
+    const [selectedCategories, setSelectedtCategories] = useState([])
+    const [categoriesForm] = Form.useForm();
+    const categoriesFormRef = useRef(null);
     useEffect(() => { !userToken && history.push('/') })
+    useEffect(() => {
+
+        // onFill()
+        const fetchCategories = async (e) => {
+            try {
+                const responsee = await fetch(
+                    `${global.apiUrl}api/categories`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: "Bearer " + userToken,
+                            Accept: "application/json",
+                        },
+                    }
+                );
+                const response = await responsee.json();
+                if (response.success) {
+                    setCategories(response.payload)
+                }
+                if (response.message && response.message == "Unauthenticated.") {
+                    localStorage.removeItem("token");
+                    localStorage.clear()
+                    history.push("/");
+                }
+            } catch (err) { console.log(err); }
+        }
+
+        fetchCategories()
+    }, [])
+
     const uploadConfig = {
         onRemove: file => {
 
@@ -170,6 +206,39 @@ const ProfileInfo = () => {
         console.log('Failed:', errorInfo);
     };
 
+    const handleCloseCategoriesModal = () => {
+        setSelectedtCategories([])
+        categoriesForm.resetFields();
+        setCategoriesModal(false)
+        setErrorMessage('')
+        setSuccessAdd('')
+    }
+    const onFinishFailedCategories = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+    const onFinishCategories = (values) => {
+        console.log('Success:', values);
+        // onSubmitPasswordChange(values)
+        handleCloseCategoriesModal()
+
+
+    };
+    const handleOpenCategoriesModal = () => {
+        categoriesForm.resetFields();
+        setSelectedtCategories([])
+        setCategoriesModal(true)
+        setErrorMessage('')
+        setSuccessAdd('')
+    }
+    function handleCategoryChange(value) {
+        console.log('handleCategoryChange:', value);
+        setSelectedtCategories(value)
+    }
+
+    function preventDefault(e) {
+        e.preventDefault();
+        console.log('Clicked! But prevent default.');
+    }
     return (
         <div className="section profileSection">
             {profile &&
@@ -199,10 +268,17 @@ const ProfileInfo = () => {
                                                             <i className="fa fa-pencil-square-o" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `تعديل` : `Update`}
 
                                                         </Button>
+                                                        <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleOpenCategoriesModal() }} >
+                                                            <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+                                                            {i18n.language == 'ar' ? `إضافة تصنيفات` : `Add Categories`}
+
+                                                        </Button>
+
                                                         <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleOpenAttachModal() }} >
                                                             <i className="fa fa-paperclip" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `اضافة مرفق` : `Add Attachment`}
 
                                                         </Button>
+
 
 
                                                     </div>
@@ -264,6 +340,36 @@ const ProfileInfo = () => {
                                                             </div>
 
                                                         </div>
+                                                        {profile.customer && profile.customer.categories.length > 0 ?
+                                                            <>
+
+                                                                <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
+                                                                    {i18n.language == 'ar' ? `التصنيفات` : `Categories`}</h6>
+
+                                                                <div className="row">
+                                                                    <div className="col-md-12  d-flex tagsCont ">
+                                                                        {profile.customer.categories.map((item) => {
+                                                                            return (
+
+                                                                                <div key={item.id} className='tagParent'>
+                                                                                    <Tag closable onClose={preventDefault}
+                                                                                        closeIcon={<>     <i className="fa fa-trash" aria-hidden="true"  ></i></>}
+                                                                                    >
+                                                                                        {i18n.language == 'ar' ? item.name_ar : item.name_en}
+                                                                                    </Tag>
+                                                                                </div>
+
+
+
+
+
+                                                                            )
+                                                                        })}
+                                                                    </div>
+                                                                </div>
+                                                            </>
+                                                            :
+                                                            null}
                                                         {profile.customer && profile.customer.attachments.length > 0 ?
                                                             <>
 
@@ -625,6 +731,126 @@ const ProfileInfo = () => {
                                         <Input.Password placeholder='********' autoComplete='off' />
                                     </Form.Item>
                                 </div>
+
+
+
+
+
+
+                            </div>
+
+                        </Form>
+                    </Modal>
+                    <Modal
+                        wrapClassName='attachModal'
+                        title={i18n.language == 'ar' ? `إضافة تصنيات` : `Add Categories`}
+                        centered
+                        visible={categoriesModal}
+                        // onOk={() => handleSaveAttach()}
+                        onCancel={() => handleCloseCategoriesModal()}
+                        footer={[
+                            <Button className='cancelBTN' key="back" onClick={() => handleCloseCategoriesModal()}>
+                                {i18n.language == 'ar' ? `الغاء` : `Cancel`}
+                            </Button>,
+                            <Button key="bsack" type="primary" htmlType="submit" className='col-5 col-xs-5 col-sm-5 col-md-5 saveBtn'
+                                onClick={() => categoriesForm.submit()} disabled={loading}>
+                                {i18n.language == 'ar' ? `حفظ` : `Save`}
+                                {loading && <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></>}
+                            </Button>
+                        ]}
+                    >
+                        <Form
+                            name="basicc"
+                            labelCol={{
+                                span: 30,
+                            }}
+                            wrapperCol={{
+                                span: 32,
+                            }}
+                            initialValues={{
+                                remember: true,
+                            }}
+                            onFinish={onFinishCategories}
+                            onFinishFailed={onFinishFailedCategories}
+                            form={categoriesForm}
+                            autoComplete="off"
+                            layout="vertical"
+                            ref={categoriesFormRef}
+                        >
+
+
+                            <div className='row'>
+                                {/* <div className='col-md-12'>
+                                    <h4 className='updateFormTitle'>
+
+                                        {i18n.language == 'ar' ? `تعديل الحساب` : `Update Account`}
+
+                                    </h4>
+
+                                </div> */}
+                                <Fade top spy={animat} duration={1000} >
+                                    <div className='col-md-12' >
+
+                                        {succesAdd && <>
+
+                                            <Alert message={succesAdd} type="success" showIcon />
+                                        </>
+
+                                        }
+                                    </div >
+                                </Fade>
+                                <Fade top spy={animat} duration={1000} >
+                                    <div className='col-md-12'>
+
+                                        {errorMessage && <>
+
+                                            {Object.keys(errorMessage).map((item, i) => (
+                                                <Alert message={errorMessage[item]} type="error" showIcon />
+                                            ))}
+
+                                        </>
+
+                                        }
+                                    </div>
+                                </Fade>
+
+
+                                <div className='col-md-12'>
+                                    <Form.Item
+                                        label={i18n.language == 'ar' ? `التصنيفات` : `Categories`}
+                                        name="password"
+                                        // type='email' 
+                                        autoComplete='off'
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: i18n.language == 'ar' ? `الرجاء اختر تصنيف!` : 'Please Select Category!',
+                                            },
+
+                                        ]}
+                                    >
+                                        <Select
+                                            mode="multiple"
+                                            style={{ width: '100%' }}
+                                            placeholder={i18n.language == 'ar' ? `اختر التصنيفات` : `Select Categories`}
+
+                                            value={selectedCategories}
+                                            onChange={handleCategoryChange}
+                                        // optionLabelProp="label"
+                                        >
+                                            {categories && categories.map((item) => {
+                                                return (
+                                                    <Option key={item.id} value={item.id}  >
+                                                        {i18n.language == 'ar' ? item.name_ar : item.name_en}
+                                                    </Option>
+                                                )
+                                            })}
+
+
+                                        </Select>
+                                    </Form.Item>
+                                </div>
+
 
 
 

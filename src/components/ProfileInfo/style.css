@@ -245,4 +245,47 @@
 .attachModal  .ant-radio-button-wrapper {
   width: 73px;
   text-align: center;}
+  .tagParent .ant-tag { 
+    margin-right: 0;
+    margin-inline-end: 15px;
+    padding: 8px 10px;
+    padding-inline-start: 30px;
+    font-size: 1rem;
+    font-family: 'Cairo-Regular';
+  
+    background: #ffffff;
+    border: 1px solid #274091;
+   
+}
+.tagsCont {
+  flex-flow: wrap;
+  row-gap: 15px;
+}
+.tagParent .ant-tag i{ font-size: 21px;
+  position: relative;
+  opacity: 0; 
+  transform: rotate(45deg);
+  color: #c60874;
+  transition: all 0.2s ease-in-out; }
+  .tagParent:hover .ant-tag i{ 
+    opacity: 1;
+    transform: rotate(0deg);
+    transition: all 0.2s ease-in-out; 
+  }
+  .tagParent:hover .ant-tag {
+  color:  #274091;
+    border: 1px solid #c60974;
+}
+  .tagParent .ant-tag .ant-tag-close-icon {
+    margin-left: 0px;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-inline-end: -6px;
+    margin-inline-start: 10px;
+}
+.ant-select-item-option-content {
  
+  text-align: start;
+}
