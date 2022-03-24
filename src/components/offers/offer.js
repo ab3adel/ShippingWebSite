@@ -1,9 +1,10 @@
 import './offers.scss'
 import ups from '../../images/shipping-request/ups.svg'
 import React from 'react'
+import {useTranslation} from 'react-i18next'
 export const Offer = (props) =>{
 const {formFields}=props
-
+const {i18n,t} =useTranslation()
     return (
 
         <div className="offerContainer">
@@ -16,56 +17,56 @@ const {formFields}=props
            <div className= "row col-md-12">
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                 <div className='offerDetail '>
-                    Name
+                   {t('Name')}
                     <div className='bold'>{formFields['CompanyName']}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                 <div className='offerDetail '>
-                    Price
+                    {t('Price')}
                     <div className='bold'>{formFields['OfferPrice']}$</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                 <div className='offerDetail '>
-                    Sender
+                    {t('Sender Address')}
                     <div className='bold'>{formFields['SenderAddress']}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                  <div className='offerDetail '>
-                    Recipient
+                    {t('Recipient Address')}
                     <div className='bold'>{formFields['RecipientAddress']}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                   <div className='offerDetail '>
-                    Shippment Type
+                  { t("Shipment Type")}
                     <div className='bold'>{formFields['Type']}</div>
                 </div>
               </div>
               
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                   <div className='offerDetail '>
-                    Width
+                   {t("Width")}
                     <div className='bold'>{formFields['Width']}cm</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                   <div className='offerDetail '>
-                     Height
+                   {t("Height")}
                     <div className='bold'>{formFields['Height']}cm</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                   <div className='offerDetail '>
-                     Date
+                     {t("Date")}
                     <div className='bold'>{formFields['Date']}</div>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12 d-flex justify-content-center">
                   <div className='offerDetail '>
-                     Weight
+                     {t("Weight")}
                     <div className='bold'>{formFields['Weight']}Kg</div>
                 </div>
               </div>

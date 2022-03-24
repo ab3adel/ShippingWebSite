@@ -65,29 +65,20 @@
                 border-radius: 4px;
                 backdrop-filter: blur(2px);
                 transition: all 0.5s ease-in-out;
-                //background-image: url('../../images/shipping-request/back.jpg') ;
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
-                // .ant-select-selector {
-                //     background: #274091c2;
-                //     color:white;
-                // }
-                // input {
-                //     background: #274091c2;
-                //     opacity: 1;
-                //}
+                 opacity: 1;
+               
                 .row {
-                    .centerContent{
-                        justify-content: space-evenly;
+                   
+                    .buttonContainer.justifyBtn {
+                        justify-content: flex-end;
+                        align-items: center;
                         display: flex;
-                        .halfWidth{
-                            width:45%
-                        }
-                        .buttonContainer {
-                            display: flex;
-                            align-items: center;
-                        }
+                    }
+                    .ant-divider {
+                        background-color:#274091 ;
                     }
                 }
 
@@ -138,4 +129,57 @@
 .toRight {
     display: flex;
     justify-content: flex-start;
+}
+.ant-select.arabicAlign{
+
+    .ant-select-selector {
+        .ant-select-selection-placeholder {
+            text-align: right;
+        }
+    }
+    .ant-select-arrow {
+        right:auto;
+        left:11px
+    }
+}
+@media  only screen  and (max-width:501px) {
+    .shippingRequestSection {
+        .container.padding-top {
+            padding-top: 5rem;
+            .shippingRequestRow {
+                padding:5px;
+                .shippingRequestCol {
+                    .row {
+                        .buttonContainer.justifyBtn {
+                            display: block;
+                        }
+                        
+                    }
+                }
+            }
+            .row.nextStage {
+                align-items: center;
+                .buttonContainer {
+                    button {
+                        padding:10px;
+                        font-size: large;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width:501px) and (max-width:1024px) {
+    .shippingRequestSection {
+        .container.padding-top {
+            .shippingRequestIntro {
+                .currentStage {
+                    p {
+
+                        font-size: large;
+                    }
+                }
+            }
+        }
+    }
 }

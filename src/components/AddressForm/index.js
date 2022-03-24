@@ -1,4 +1,5 @@
 import React from 'react'
+import './addressform.scss'
 import 
 {
     Modal
@@ -18,11 +19,13 @@ const NewAddress =(props)=>{
 
     const [loadingCities,setLoadingCites]=React.useState(false)
     const [disableCities,setDisableCities]=React.useState(true)
+    const [countryCode,setCountryCode]=React.useState(-1)
     const [form] =Form.useForm()
     const {Option} =Select
     const types=['Work','Home','Others']
     const dispatch =useDispatch()
     const {cities,countries}=useSelector((state)=>state.address)
+    const {profile} =useSelector((state)=>state.profile)
    
     React.useEffect(()=>{
 
@@ -34,10 +37,46 @@ const NewAddress =(props)=>{
     }
     const handleOk=(values)=>{
         console.log(values,"ok")
+        if (!isSender ) {
+            if (type==="Recipient") {
+                addRecipeint(values)
+            }
+        }
+    }
+    const addRecipeint=async(values)=>{
+        let form ={
+            name_en:values.name,
+            name_ar:values.name,
+            customer_id:profile.id,
+            addresses:[
+                {line_1:values.address_line1
+                    ,line_2:values.address_line2
+                    ,line_3:values.address_line3
+                    ,city:values.city
+                    ,country:values.country
+                    ,post_code:values.post_code
+                    ,state_code:values.state_code
+                    ,country_code:countryCode
+                    ,type:values.type
+                    ,main:values.main ==="main"?0:1
+                }
+            ]
+        }
+        await fetch ( `${global.apiUrl}api/reciepients`,
+        {
+            method:"POST",
+            headers:{
+             'Authorization': `Bearer ${userToken}`
+            },
+            body:{...form}
+            
+        }
+
+        )
     }
    const fetchCountries=async ()=>{
         await fetch(
-           `${global.apiUrl}api/shipping/countries`,
+           `https://Backend.wodex.online/api/shipping/countries`,
            {
                method:"GET",
                headers:{
@@ -61,9 +100,9 @@ const NewAddress =(props)=>{
        
 
    }
-   const fetchCities=async (state_code)=>{
+   const fetchCities=async (id)=>{
        let respons = await fetch(
-           `${global.apiUrl}api/shipping/cities?code=${state_code}`,
+           `${global.apiUrl}api/shipping/cities?country_id=${id}`,
            {
                method:"GET",
                headers:{
@@ -88,12 +127,12 @@ const NewAddress =(props)=>{
    }
    const handleCountryChange=(e)=>{
        setLoadingCites(true)
-       let obj = countries.filter(ele=>ele.Name ===e)[0]
+       let obj = countries.filter(ele=>ele.country_name_en ===e)[0]
        if (!obj) return
-       
-       fetchCities(obj.Code)
+       setCountryCode(obj.country_code)
+       fetchCities(obj.id)
    }
-
+console.log(cities)
     return (
         <Modal 
         title={type==="Address"? t("New Address"):t('Add Recipient')}
@@ -106,6 +145,8 @@ const NewAddress =(props)=>{
             })
         }}
         onCancel={handleCancel}
+       className={i18n.language === "ar"?"myModal arabicAlign":"myModal"}
+       
         >
             <Form 
             form={form}
@@ -119,6 +160,7 @@ const NewAddress =(props)=>{
             initialValues={{
                 remember:true
             }}
+        
             layout="vertical"
             >
               <div className='row'>
@@ -147,7 +189,9 @@ const NewAddress =(props)=>{
                          }
                      ]}
                     >
-                      <Select placeholder={t('Type')} direction={i18n.language==="ar"?'rtl':'ltr'}>
+                      <Select placeholder={t('Type')}
+                       className={i18n.language==="ar"?"arabicAlign":"englishAlign"}
+                       direction={i18n.language==="ar"?'rtl':'ltr'}>
                           {types.map((ele,index)=>{
                               return (
                                   <Option value={ele} key={index} >
@@ -171,7 +215,9 @@ const NewAddress =(props)=>{
                          }
                      ]}
                     >
-                      <Select placeholder={t('Main Address')} direction={i18n.language==="ar"?'rtl':'ltr'}>
+                      <Select placeholder={t('Main Address')} 
+                       className={i18n.language==="ar"?"arabicAlign":"englishAlign"}
+                      direction={i18n.language==="ar"?'rtl':'ltr'}>
                           <Option value={'main'}> 
                                    <div className={i18n.language==="ar"?'toRight':""}>
                                                      {t('Main')}
@@ -199,9 +245,10 @@ const NewAddress =(props)=>{
                     >
                         <Select onChange={(e)=>handleCountryChange(e)} 
                                placeholder={t('Country')}
-                               direction={i18n==="ar"?'rtl':'ltr'}>
+                               direction={i18n==="ar"?'rtl':'ltr'}
+                               className={i18n.language==="ar"?"arabicAlign":"englishAlign"}>
                             {countries.map((ele,index)=>{
-                                return (<Option  key={index} value={ele.Name}>{ele.Name}</Option>)
+                                return (<Option  key={index} value={ele.country_name_en}>{ele.country_name_en}</Option>)
                             })}
                         </Select>
                     </Form.Item>
@@ -220,9 +267,10 @@ const NewAddress =(props)=>{
                         <Select placeholder={t('City')} 
                                 loading={loadingCities} 
                                 disabled={disableCities}
-                                direction={i18n.language==="ar"?'rtl':'ltr'}>
+                                direction={i18n.language==="ar"?'rtl':'ltr'}
+                                className={i18n.language==="ar"?"arabicAlign":"englishAlign"}>
                         {cities.map((ele,index)=>{
-                                return (<Option  key={index} value={ele}>{ele}</Option>)
+                                return (<Option  key={index} value={ele.name_en}>{ele.name_en}</Option>)
                             })}
                         </Select>
                     </Form.Item>

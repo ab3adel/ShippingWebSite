@@ -75,7 +75,7 @@ import { useTranslation } from 'react-i18next';
         {/* <Navbar /> */}
         <div className={'section shippingRequestSection '} 
              style={{backgroundImage:`url(${backImages[stage-1]})`}}>
-            <div className='container'>
+            <div className='container padding-top'>
                 
                 <div className='row shippingRequestIntro'>
                     <div className="row">
