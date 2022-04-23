@@ -3,7 +3,7 @@ import { Collapse, CardBody, Card } from 'reactstrap';
 import { Link } from 'react-router-dom'
 
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
+import bgIMG from '../../images/blog/33.jpg'
 import './style.css';
 import { useTranslation } from 'react-i18next';
 
@@ -137,88 +137,64 @@ const MobileMenu = ({ logged, handleLogout, handleLogoutall, profile }) => {
 
     return (
         <div>
-            <PerfectScrollbar >
-                <div className={`mobileMenu ${isMenuShow ? 'show' : ''}`}>
-                    {/* <div className="clox" onClick={this.menuHandler}>Close Me</div> */}
+            {/* <PerfectScrollbar > */}
 
-                    <ul className="responsivemenu">
-                        {menus.map(item => {
-                            return (
-                                <li key={item.id}>
-                                    {item.submenu ? <p onClick={setIsOpenn(item.id)}>
-                                        {i18n.language == 'ar' ? item.title_ar : item.title}
+            <div className={`mobileMenu ${isMenuShow ? 'mobileMenu show' : 'mobileMenu'}`}>
+                {/* <div className="clox" onClick={() => menuHandler()}>Close Me</div> */}
+                {/* <img src={bgIMG} className='bg-img' ></img> */}
+                {/* <div className='divBack'></div> */}
+                <ul className="responsivemenu">
 
-                                        {item.submenu ? <i className={`fa fa-angle-${i18n.language == 'ar' ? `left` : `right`}`} aria-hidden="true"></i> : ''}
-                                    </p>
-                                        : <Link onClick={() => setIsMenuShow(false)} to={item.link}>  {i18n.language == 'ar' ? item.title_ar : item.title}</Link>}
-                                    {item.submenu ?
-                                        <Collapse isOpen={item.id === isOpen}>
-                                            <Card>
-                                                <CardBody>
-                                                    <ul className='subUL'>
-                                                        {item.submenu.map(submenu => (
-                                                            <li key={submenu.id}>
+                    {menus.map(item => {
+                        return (
+                            <li key={item.id}>
+                                {item.submenu ? <p onClick={setIsOpenn(item.id)}>
+                                    {i18n.language == 'ar' ? item.title_ar : item.title}
 
-                                                                <Link className="active" onClick={() => setIsMenuShow(false)} to={submenu.link}>{submenu.title}</Link></li>
-                                                        ))}
-                                                    </ul>
-                                                </CardBody>
-                                            </Card>
-                                        </Collapse>
-                                        : ''}
-                                </li>
-                            )
-                        })}
-                        {logged && profile.profile ?
-
-
-                            <li >
-                                <p onClick={setIsOpenn(552)}>
-                                    {profile.profile.name}
-                                    <i className={`fa fa-angle-${i18n.language == 'ar' ? `left` : `right`}`} aria-hidden="true"></i>
+                                    {item.submenu ? <i className={`fa fa-angle-${i18n.language == 'ar' ? `left` : `right`}`} aria-hidden="true"></i> : ''}
                                 </p>
+                                    : <Link onClick={() => setIsMenuShow(false)} to={item.link}>  {i18n.language == 'ar' ? item.title_ar : item.title}</Link>}
+                                {item.submenu ?
+                                    <Collapse isOpen={item.id === isOpen}>
+                                        <Card>
+                                            <CardBody>
+                                                <ul className='subUL'>
+                                                    {item.submenu.map(submenu => (
+                                                        <li key={submenu.id}>
 
-                                <Collapse isOpen={552 === isOpen}>
-                                    <Card>
-                                        <CardBody>
-                                            <ul className='subUL'>
-
-
-                                                <li><Link to="/Profile" onClick={() => { setIsMenuShow(false); setIsOpen(0) }}>{i18n.language == 'ar' ? `الملف الشخصي` : `Profile`}</Link></li>
-                                                <li><Link to="/Recipients" onClick={() => { setIsMenuShow(false); setIsOpen(0) }}>{i18n.language == 'ar' ? `المستلمين` : `Recipients`}</Link></li>
-                                                <li><Link to="/Bills" onClick={() => { setIsMenuShow(false); setIsOpen(0) }}>{i18n.language == 'ar' ? `الفواتير` : `Bills`}</Link></li>
-                                                <li><Link onClick={() => { handleLogout(); setIsMenuShow(false); setIsOpen(0) }}>
-                                                    {i18n.language == 'ar' ? `تسجيل الخروج` : `Logout`}</Link></li>
-                                                <li><Link onClick={() => { handleLogoutall(); setIsMenuShow(false); setIsOpen(0) }}>
-                                                    {i18n.language == 'ar' ? `تسجيل الخروج من كافة الأجهزة` : `Logout From All devices`}</Link></li>
-
-
-
-
-                                            </ul>
-                                        </CardBody>
-                                    </Card>
-                                </Collapse>
-
+                                                            <Link className="active" onClick={() => setIsMenuShow(false)} to={submenu.link}>{submenu.title}</Link></li>
+                                                    ))}
+                                                </ul>
+                                            </CardBody>
+                                        </Card>
+                                    </Collapse>
+                                    : ''}
                             </li>
-                            :
-                            <li><Link to="/Login" onClick={() => setIsMenuShow(false)}>{i18n.language == 'ar' ? `تسجيل الدخول` : `Login`}</Link></li>
+                        )
+                    })}
+                    {logged && profile.profile ?
 
-
-                        }
 
                         <li >
-                            <p onClick={setIsOpenn(55)}>
-                                {i18n.language == 'ar' ? `اللغة` : `Lang`}
+                            <p onClick={setIsOpenn(552)}>
+                                {profile.profile.name}
                                 <i className={`fa fa-angle-${i18n.language == 'ar' ? `left` : `right`}`} aria-hidden="true"></i>
                             </p>
 
-                            <Collapse isOpen={55 === isOpen}>
+                            <Collapse isOpen={552 === isOpen}>
                                 <Card>
                                     <CardBody>
                                         <ul className='subUL'>
-                                            <li><Link onClick={() => { setIsMenuShow(false); langChange('en'); }}>{i18n.language == 'ar' ? `الانكليزية` : `English`}</Link></li>
-                                            <li><Link onClick={() => { setIsMenuShow(false); langChange('ar'); }} >{i18n.language == 'ar' ? `العربية` : `Arabic`}</Link></li>
+
+
+                                            <li><Link to="/Profile" onClick={() => { setIsMenuShow(false); setIsOpen(0) }}>{i18n.language == 'ar' ? `الملف الشخصي` : `Profile`}</Link></li>
+                                            <li><Link to="/Addresses" onClick={() => { setIsMenuShow(false); setIsOpen(0) }}>{i18n.language == 'ar' ? `عنواني` : `My Address`}</Link></li>
+                                            <li><Link to="/Recipients" onClick={() => { setIsMenuShow(false); setIsOpen(0) }}>      {t('Recipients')}</Link></li>
+                                            <li><Link to="/Bills" onClick={() => { setIsMenuShow(false); setIsOpen(0) }}>{i18n.language == 'ar' ? `الفواتير` : `Bills`}</Link></li>
+                                            <li><Link onClick={() => { handleLogout(); setIsMenuShow(false); setIsOpen(0) }}>
+                                                {i18n.language == 'ar' ? `تسجيل الخروج` : `Logout`}</Link></li>
+                                            <li><Link onClick={() => { handleLogoutall(); setIsMenuShow(false); setIsOpen(0) }}>
+                                                {i18n.language == 'ar' ? `تسجيل الخروج من كافة الأجهزة` : `Logout From All devices`}</Link></li>
 
 
 
@@ -229,9 +205,37 @@ const MobileMenu = ({ logged, handleLogout, handleLogoutall, profile }) => {
                             </Collapse>
 
                         </li>
-                    </ul>
-                </div>
-            </PerfectScrollbar>
+                        :
+                        <li><Link to="/Login" onClick={() => setIsMenuShow(false)}>{i18n.language == 'ar' ? `تسجيل الدخول` : `Login`}</Link></li>
+
+
+                    }
+
+                    <li >
+                        <p onClick={setIsOpenn(55)}>
+                            {i18n.language == 'ar' ? `اللغة` : `Lang`}
+                            <i className={`fa fa-angle-${i18n.language == 'ar' ? `left` : `right`}`} aria-hidden="true"></i>
+                        </p>
+
+                        <Collapse isOpen={55 === isOpen}>
+                            <Card>
+                                <CardBody>
+                                    <ul className='subUL'>
+                                        <li><Link onClick={() => { setIsMenuShow(false); langChange('en'); }}>{i18n.language == 'ar' ? `الانكليزية` : `English`}</Link></li>
+                                        <li><Link onClick={() => { setIsMenuShow(false); langChange('ar'); }} >{i18n.language == 'ar' ? `العربية` : `Arabic`}</Link></li>
+
+
+
+
+                                    </ul>
+                                </CardBody>
+                            </Card>
+                        </Collapse>
+
+                    </li>
+                </ul>
+            </div>
+            {/* </PerfectScrollbar> */}
             <div className="showmenu" onClick={menuHandler}><i className="fa fa-bars" aria-hidden="true"></i></div>
         </div>
     )

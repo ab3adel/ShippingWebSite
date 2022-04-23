@@ -18,19 +18,19 @@ export const clearProfile = () => {
 
     };
 }
-export const setCountries= (data)=>{
-    return (dispatch)=>{
+export const setCountries = (data) => {
+    return (dispatch) => {
         dispatch({
-            type:'SET_COUNTRIES',
-            paylaod:data
+            type: 'SET_COUNTRIES',
+            paylaod: data
         })
     }
 }
-export const setCities= (data)=>{
-    return (dispatch)=>{
+export const setCities = (data) => {
+    return (dispatch) => {
         dispatch({
-            type:'SET_CITIES',
-            paylaod:data
+            type: 'SET_CITIES',
+            paylaod: data
         })
     }
 }
@@ -44,3 +44,14 @@ export const refreshProfile = () => {
 
     };
 }
+export const setTypes = (data) => {
+    return (dispatch) => {
+
+        dispatch({
+            type: "SET_TYPES",
+            payload: data,
+        })
+
+    };
+}
+

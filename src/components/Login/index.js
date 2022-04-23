@@ -6,6 +6,9 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { Alert } from 'antd';
 import Fade from 'react-reveal/Fade';
 import "../../globalVar"
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../redux/index'
 
 
 const LoginForm = () => {
@@ -15,6 +18,9 @@ const LoginForm = () => {
     const [succesAdd, setSuccessAdd] = useState();
     const [loading, setLoading] = useState('')
     const [animat, setAnimat] = useState(false)
+    const dispatch = useDispatch()
+    const { clearProfile, setProfile } = bindActionCreators(actionCreators, dispatch)
+
     const tokenString = localStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
     const {
@@ -36,6 +42,13 @@ const LoginForm = () => {
         setErrorMessage('')
         setSuccessAdd('')
         setLoading(true)
+        console.log(data.inputReg.split('@'))
+        let dataLogin = data
+
+        data.inputReg.split('@').length > 1 ?
+            dataLogin = { ...dataLogin, email: dataLogin.inputReg }
+            :
+            dataLogin = { ...dataLogin, phone: dataLogin.inputReg }
 
         try {
             const responsee = await fetch(
@@ -48,7 +61,7 @@ const LoginForm = () => {
                         'Access-Control-Allow-Credentials': 'true',
                         Accept: "application/json",
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(dataLogin),
 
                 }
             );
@@ -56,10 +69,11 @@ const LoginForm = () => {
             if (response.success) {
                 setLoading(false)
                 form.resetFields();
-                await localStorage.setItem(
+                localStorage.setItem(
                     "token",
                     JSON.stringify(response.payload.access_token)
                 );
+                setProfile(response.payload)
                 history.push('/')
 
 
@@ -105,8 +119,8 @@ const LoginForm = () => {
 
                     {errorMessage && <>
 
-                        {Object.keys(errorMessage).map((item, i) => (
-                            <Alert message={errorMessage[item]} type="error" showIcon />
+                        {Object.keys(errorMessage).map((item, index) => (
+                            <Alert message={errorMessage[item]} key={index} type="error" showIcon />
                         ))}
 
                     </>
@@ -116,24 +130,20 @@ const LoginForm = () => {
             </Fade>
 
             <Form.Item
-                label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
-                name="email"
+                label={i18n.language == 'ar' ? `البريد الالكتروني أو رقم الهاتف` : `Email Or Phone Number`}
+                name="inputReg"
                 // type='email'
                 rules={[
                     {
                         // type: 'email',
                         required: true,
-                        message: i18n.language == 'ar' ? `الرجاء ادخل بريدك الالكتروني !` : 'Please input your Email!',
+                        message: i18n.language == 'ar' ? `الرجاء ادخل بريدك الالكتروني أو رقم الهاتف` : 'Please input your Email or Phone Number!',
                     },
-                    // {
-                    //     type: 'email',
 
-                    //     message: i18n.language == 'ar' ? `الرجاء ادخل بريد الكتروني صحيح!` : 'Please enter a valid email',
-                    // },
                 ]}
             >
-                {/* type='email' */}
-                <Input placeholder='email@example.com' />
+
+                <Input placeholder='email@example.com Or phone Number ' />
             </Form.Item>
 
             <Form.Item

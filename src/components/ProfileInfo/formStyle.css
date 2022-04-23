@@ -3,6 +3,10 @@
 .registerFormCol  .ant-col-xl-24.ant-form-item-label {
    text-align: start;
 }
+.registerFormCol .ant-upload.ant-upload-select {
+    display: inline-block;
+    width: 100%;
+}
 .registerFormCol .ant-form-item-explain-error {
     color: #ff4d4f;
     text-align: start;}
@@ -97,3 +101,4 @@ position: relative;
 .registerFormCol:hover .loginImg{
     animation:none
 }
+

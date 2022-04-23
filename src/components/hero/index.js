@@ -40,7 +40,7 @@ const SimpleSlider = () => {
                                         </span><br></br>
                                         <span> {i18n.language == 'ar' ? 'الخاصة بالشحن.' : 'Shipping Needs.'}</span></h2>
                                     <div className="btns">
-                                        <div className="btn-style"><Link to="/">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
+                                        <div className="btn-style"><Link to="/contact">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@ const SimpleSlider = () => {
                                         </span><br></br>
                                         <span> {i18n.language == 'ar' ? 'الخاصة بالشحن.' : 'Shipping Needs.'}</span></h2>
                                     <div className="btns">
-                                        <div className="btn-style"><Link to="/">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
+                                        <div className="btn-style"><Link to="/contact">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ const SimpleSlider = () => {
                                         </span><br></br>
                                         <span> {i18n.language == 'ar' ? 'الخاصة بالشحن.' : 'Shipping Needs.'}</span></h2>
                                     <div className="btns">
-                                        <div className="btn-style"><Link to="/">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
+                                        <div className="btn-style"><Link to="/contact">{i18n.language == 'ar' ? 'اتصل بنا الآن' : 'Contact us now'}</Link></div>
                                     </div>
                                 </div>
 

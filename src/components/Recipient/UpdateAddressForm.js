@@ -12,7 +12,7 @@ import './formStyle.scss'
 import "../../globalVar"
 // import { setCities } from '../../redux/actions';
 
-const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refreshRecipints, reseter }) => {
+const UpdateAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refreshRecipint, reseter, countries, activeAddress, recipientID }) => {
     let history = useHistory();
     const { Option } = Select;
     const [t, i18n] = useTranslation();
@@ -23,15 +23,16 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
     const [succesAdd2, setSuccessAdd2] = useState();
     const [loading2, setLoading2] = useState('')
     const [animat2, setAnimat2] = useState(false)
-    const [countries, setCountries] = useState([])
+
     const [cities, setCities] = useState([])
     const [country, setCountry] = useState('')
     const [city, setCity] = useState('')
-    const UpdateRecipientForm = useRef();
+    const AddressFormRef = useRef();
     const dispatch = useDispatch()
     const { refreshProfile, setProfile } = bindActionCreators(actionCreators, dispatch)
 
-    const [useformRecip] = Form.useForm();
+    const [useAddressForm] = Form.useForm();
+
 
 
     const onFinishCustomer = (values) => {
@@ -47,7 +48,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
     const profile = useSelector((state) => state.profile.profile)
     const onFill = () => {
 
-        UpdateRecipientForm.current.setFieldsValue({
+        AddressFormRef.current.setFieldsValue({
 
             _method: 'put',
             company: profile.customer.company,
@@ -59,55 +60,64 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
 
         });
     };
-    useLayoutEffect(() => {
+    useEffect(async () => {
+        if (activeAddress) {
 
-        // onFill()
-        const fetchCountries = async (e) => {
-            try {
-                const responsee = await fetch(
-                    `${global.apiUrl}api/countries`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: "Bearer " + userToken,
-                            Accept: "application/json",
-                        },
-                    }
-                );
-                const response = await responsee.json();
-                if (response.success) {
-                    setCountries(response.payload)
-                }
-                if (response.message && response.message == "Unauthenticated.") {
-                    localStorage.removeItem("token");
-                    localStorage.clear()
-                    history.push("/");
-                }
-            } catch (err) { console.log(err); }
+
+            await setCountryDetails({
+                postalCode: activeAddress.city.country.postal_aware !== 0,
+                stateCode: activeAddress.city.country.state_or_province !== 0
+            })
+            setCountry(activeAddress.city.country_id)
+            await fetchCities(activeAddress.city.country_id)
+            if (activeAddress.city.country_id === 117) {
+                await AddressFormRef.current.setFieldsValue({
+
+                    country_id: activeAddress.city.country_id,
+                    area: JSON.parse(activeAddress.line_1).Area,
+                    Block: JSON.parse(activeAddress.line_1).Block,
+                    jaddah: JSON.parse(activeAddress.line_1).Jaddah,
+                    street: JSON.parse(activeAddress.line_2).Street,
+                    building: JSON.parse(activeAddress.line_2).Building,
+                    floor: JSON.parse(activeAddress.line_3).Floor,
+                    flat: JSON.parse(activeAddress.line_3).Flat,
+                    PCAIID: JSON.parse(activeAddress.line_3).PCAIID,
+                    city_id: activeAddress.city_id,
+                    post_code: activeAddress.post_code,
+                    state_code: activeAddress.state_code,
+                });
+            }
+            else {
+                await AddressFormRef.current.setFieldsValue({
+                    line_1: activeAddress.line_1,
+                    line_2: activeAddress.line_2,
+                    line_3: activeAddress.line_3,
+                    country_id: activeAddress.city.country_id,
+                    city_id: activeAddress.city_id,
+                    post_code: activeAddress.post_code,
+                    state_code: activeAddress.state_code,
+                });
+            }
+
         }
+        else {
+            useAddressForm.resetFields();
+            setCountryDetails({ postalCode: false, stateCode: false })
+            setCountry('')
+            setCity('')
+        }
+    }, [activeAddress])
 
-        countries.length == 0 && fetchCountries()
-    }, [userToken])
-    useEffect(() => {
-        useformRecip.resetFields();
-        setCountryDetails({ postalCode: false, stateCode: false })
-        setCountry('')
-        setCity('')
-    }, [reseter])
     const onSubmitRecipient = async (values) => {
 
         setErrorMessage2('')
         setSuccessAdd2('')
         setLoading2(true)
-
         const data = {
-            customer_id: profile.customer.id,
-            outgoing: false,
-            recipient_id: null,
-            recipient_name_en: values.recipient_name_en,
-            recipient_name_ar: values.recipient_name_ar,
-            recipient_phone: values.recipient_phone,
-            email: values.email,
+            // customer_id: profile.customer.id,
+            // outgoing: false,
+            // recipient_id: recipientID,
+
             address: {
                 city_id: values.city_id,
                 // country_code: values.country_code,
@@ -132,9 +142,10 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
 
         }
 
+
         try {
             const responsee = await fetch(
-                `${global.apiUrl}api/address`,
+                `${global.apiUrl}api/address/${activeAddress.id}?_method=put`,
                 {
                     method: "POST",
                     headers: {
@@ -151,13 +162,13 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
             const response = await responsee.json();
             if (response.success) {
                 setAnimat2(!animat2)
-                setSuccessAdd2(i18n.language == 'ar' ? `تم إضافة مرسل إليه بنجاح` : `New Recipient added successfully`)
+                setSuccessAdd2(i18n.language == 'ar' ? `تم تعديل عنوان بنجاح` : `Address Updated successfully`)
                 setLoading2(false)
-                useformRecip.resetFields();
-                setCountryDetails({ postalCode: false, stateCode: false })
-                setCountry('')
-                setCity('')
-                refreshRecipints()
+                // useAddressForm.resetFields();
+                // setCountryDetails({ postalCode: false, stateCode: false })
+                // setCountry('')
+                // setCity('')
+                refreshRecipint()
                 // setProfile(response.payload)
                 const timer = setTimeout(() => { setSuccessAdd2('') }, 8000);
                 return () => clearTimeout(timer);
@@ -184,10 +195,11 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
     function onChangeCountry(value) {
         const cont = countries.filter(item => item.id == value)[0]
         setCountryDetails({ postalCode: cont.postal_aware !== 0, stateCode: cont.state_or_province !== 0 })
-        cont.postal_aware == 0 && UpdateRecipientForm.current.setFieldsValue({ post_code: '', });
-        cont.state_or_province == 0 && UpdateRecipientForm.current.setFieldsValue({ state_code: '', });
-        setCountry(value)
+        cont.postal_aware == 0 && AddressFormRef.current.setFieldsValue({ post_code: '', });
+        cont.state_or_province == 0 && AddressFormRef.current.setFieldsValue({ state_code: '', });
+        AddressFormRef.current.setFieldsValue({ city_id: '' });
         setCity('')
+        setCountry(value)
         setSliderHeightTrigger(!sliderHeightTrigger)
         value != '' ? fetchCities(value) : setCities([])
     }
@@ -195,28 +207,29 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
         setCity(value)
 
     }
+    const [prevCount, setPrevCount] = useState()
     const fetchCities = async (id) => {
-        let respons = await fetch(
-            `${global.apiUrl}api/cities/getCityByCountryId?country_id=${id}`,
-            {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            },
-        )
-            .then(res => res.json())
-            .then(res => { setCities(res.payload) })
-            .catch(err => console.log(err))
-
+        setPrevCount(id);
+        if (id !== prevCount) {
+            setPrevCount(id);
+            let respons = await fetch(
+                `${global.apiUrl}api/cities/getCityByCountryId?country_id=${id}`,
+                {
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${userToken}`
+                    }
+                },
+            )
+                .then(res => res.json())
+                .then(res => { setCities(res.payload) })
+                .catch(err => console.log(err))
+        }
     }
-
 
     function onSearch(val) {
         console.log('search:', val);
     }
-    console.log('countryDetails:', countryDetails);
-
     return (<>
 
         <Form
@@ -232,10 +245,10 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
             }}
             onFinish={onFinishCustomer}
             onFinishFailed={onFinishFailedCustomer}
-            form={useformRecip}
+            form={useAddressForm}
             autoComplete="off"
             layout="vertical"
-            ref={UpdateRecipientForm}
+            ref={AddressFormRef}
         >
 
 
@@ -248,73 +261,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
 
                 </div> */}
 
-                <div className='col-md-6 col-lg-4'>   <Form.Item
-                    label={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
-                    name="recipient_name_en"
-                    // type='email'
-                    rules={[
-                        {
-                            required: true,
-                            message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة الانكليزية!` : 'Please Input English Recipient Name!',
-                        },
 
-                    ]}
-                >
-                    {/* type='email' */}
-                    <Input placeholder={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`} />
-                </Form.Item>
-                </div>
-                <div className='col-md-6 col-lg-4'>
-                    <Form.Item
-                        label={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`}
-                        name="recipient_name_ar"
-                        // type='email'
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة العربية!` : 'Please Input Arabic Recipient Name!',
-                            },
-
-                        ]}
-                    >
-                        {/* type='email' */}
-                        <Input placeholder={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`} />
-                    </Form.Item>
-                </div>
-                <div className='col-md-6 col-lg-4'>
-                    <Form.Item
-                        label={i18n.language == 'ar' ? `الهاتف` : `Phone`}
-                        name="recipient_phone"
-                        // type='email'
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل رقم هاتف المستلم!` : 'Please Input Recipient Phone Number!',
-                            },
-
-                        ]}
-                    >
-                        {/* type='email' */}
-                        <Input placeholder={i18n.language == 'ar' ? `الهاتف` : `Phone`} />
-                    </Form.Item>
-                </div>
-                <div className='col-md-6 col-lg-4'>
-                    <Form.Item
-                        label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
-                        name="email"
-                        type='email'
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل البريد الالكتروني للمستلم!` : 'Please Input Recipient Email!',
-                            },
-
-                        ]}
-                    >
-                        {/* type='email' */}
-                        <Input type='email' placeholder={`email@example.com`} />
-                    </Form.Item>
-                </div>
                 <div className='col-md-12'> <h4 className='updateFormTitle'>
 
                     {i18n.language == 'ar' ? `معلومات العنوان` : `Address Information`}
@@ -325,7 +272,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                 <div className='col-md-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `الدولة` : `Country`}
-                        name="country_code"
+                        name="country_id"
                         rules={[
                             {
                                 required: true,
@@ -389,7 +336,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                         name="state_code"
                         rules={[
                             {
-                                required: countryDetails.postalCode,
+                                required: countryDetails.stateCode,
                                 message: i18n.language == 'ar' ? `الرجاء ادخل حقل رمز الولاية` : 'Please Input State Code!',
                             },
                         ]}
@@ -418,7 +365,6 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
 
                 </div>
 
-
                 {country === 117 ?
                     <>
                         <div className='col-md-6 col-lg-2'>
@@ -445,7 +391,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                                 <Input placeholder={t(`Block`)} />
                             </Form.Item>
                         </div>
-                        <div className='col-md-6 col-lg-3'>
+                        <div className='col-md-6 col-lg-2'>
                             <Form.Item
                                 label={t(`Jaddah`)}
                                 // rules={[{
@@ -469,7 +415,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                                 <Input placeholder={t(`Street`)} />
                             </Form.Item>
                         </div>
-                        <div className='col-md-6 col-lg-2'>
+                        <div className='col-md-6 col-lg-3'>
                             <Form.Item
                                 label={t(`Building`)}
                                 rules={[{
@@ -497,9 +443,9 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                             <Form.Item
                                 label={t(`Flat`)}
                                 // rules={[{
-                                //     required: true,
+                                //    required: true,
                                 //     message: i18n.language == 'ar' ? `الرجاء ادخل حقل الشقة` : 'Please Input Address Flat !',
-                                // },]}
+                                // },]} 
                                 name="flat"
                             >
                                 <Input placeholder={t(`Flat`)} />
@@ -568,50 +514,6 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
 
 
 
-
-
-                {/* 
-                <div className=' col-md-4 col-lg-2'>
-                    <Form.Item
-                        label={i18n.language == 'ar' ? `الحالة` : `Status`}
-                        name="main"
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل حقل حالة العنوان` : 'Please Input Address Status!',
-                            }]}
-                    >
-                        <Select placeholder={i18n.language == 'ar' ? `الحالة` : `Status`}   >
-                            <Option value="1"> {i18n.language == 'ar' ? `رئيسي` : `Main `}  </Option>
-                            <Option value="0"> {i18n.language == 'ar' ? `إضافي` : `Extra`}   </Option>
-
-                        </Select>
-                    </Form.Item>
-
-
-                </div>
-
-                <div className=' col-md-4 col-lg-2'>
-                    <Form.Item
-                        label={i18n.language == 'ar' ? `النوع` : `Type`}
-                        name="type"
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل حقل نوع العنوان` : 'Please Input Address Type!',
-                            }]}
-                    >
-                        <Select placeholder={i18n.language == 'ar' ? `النوع` : `Type`}   >
-                            <Option value="home"> {i18n.language == 'ar' ? `منزل` : `Home`}  </Option>
-                            <Option value="work"> {i18n.language == 'ar' ? `عمل` : `Work`}   </Option>
-                            <Option value="other"> {i18n.language == 'ar' ? `آخر` : `Other`}   </Option>
-
-                        </Select>
-                    </Form.Item>
-
-
-                </div> */}
-
             </div>
 
 
@@ -665,7 +567,4 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
     )
 
 }
-
-
-
-export default AddNewRecipientForm;
+export default UpdateAddressForm

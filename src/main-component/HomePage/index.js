@@ -1,4 +1,4 @@
-import React from  'react';
+import React from 'react';
 
 // components
 import Navbar from '../../components/Navbar'
@@ -16,11 +16,11 @@ import BlogSection from '../../components/BlogSection'
 import Newsletter from '../../components/Newsletter'
 import FooterSection from '../../components/Footer'
 
-
 const Homepage = () => {
-    return(
-       <div>
-           <Navbar/>
+    return (
+        <div>
+
+            {/* <Navbar/>
            <SimpleSlider/>
            <Features/>
            <AboutSection/>
@@ -33,8 +33,8 @@ const Homepage = () => {
            <TeamSection/>
            <BlogSection/>
            <Newsletter/>
-           <FooterSection/>
-       </div>
+           <FooterSection/> */}
+        </div>
     )
 }
 

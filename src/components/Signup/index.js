@@ -1,24 +1,52 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
-import { Row, Col, Form, Input, Button, Checkbox } from 'antd';
+import { Row, Col, Upload, Form, Input, Button, Checkbox, Select } from 'antd';
 import { Alert } from 'antd';
 import Fade from 'react-reveal/Fade';
 import "../../globalVar"
 
 const SignupForm = () => {
+    const { Option } = Select;
     let history = useHistory();
     const [t, i18n] = useTranslation();
     const [errorMessage, setErrorMessage] = useState();
     const [succesAdd, setSuccessAdd] = useState();
     const [loading, setLoading] = useState('')
     const [animat, setAnimat] = useState(false)
+    const [fileList, setFileList] = useState([])
+    const [fileList2, setFileList2] = useState([])
+    const [categories, setCategories] = useState([])
     const {
         register,
         handleSubmit,
         formState: { errors }, reset } = useForm();
     const [form] = Form.useForm();
+    useEffect(() => {
+
+        // onFill()
+        const fetchCategories = async (e) => {
+            try {
+                const responsee = await fetch(
+                    `${global.apiUrl}api/categories`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Accept: "application/json",
+                        },
+                    }
+                );
+                const response = await responsee.json();
+                if (response.success) {
+                    setCategories(response.payload)
+                }
+
+            } catch (err) { console.log(err); }
+        }
+
+        fetchCategories()
+    }, [])
     const onFinish = (values) => {
         console.log('Success:', values);
         if (values.password != values.password_confirmation) {
@@ -43,12 +71,61 @@ const SignupForm = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const uploadConfig = {
+        onRemove: file => {
 
+            const index = fileList.indexOf(file);
+            const newFileList = fileList.slice();
+            newFileList.splice(index, 1);
+            setFileList([])
+            return false
+
+
+
+        },
+        beforeUpload: file => {
+            setFileList([file])
+
+            return false;
+        },
+        fileList,
+    };
+    const uploadConfig2 = {
+        onRemove: file => {
+
+            const index = fileList2.indexOf(file);
+            const newFileList = fileList2.slice();
+            newFileList.splice(index, 1);
+            setFileList2([])
+            return false
+
+
+
+        },
+        beforeUpload: file => {
+            setFileList2([file])
+
+            return false;
+        },
+        fileList2,
+    };
     const onSubmit = async (data) => {
         console.log(JSON.stringify({ data }))
         setErrorMessage('')
         setSuccessAdd('')
         setLoading(true)
+        var regData = new FormData()
+
+
+        regData.append('IDPhoto_face', fileList[0])
+        regData.append('IDPhoto_back', fileList2[0])
+        regData.append('email', data.email)
+        regData.append('name', data.name)
+        regData.append('password', data.password)
+        regData.append('password_confirmation', data.password_confirmation)
+        regData.append('customer[phone]', data[`customer[phone]`])
+        regData.append('customer[company]', data[`customer[company]`])
+        regData.append('category_id', data.category_id)
 
         try {
             const responsee = await fetch(
@@ -56,28 +133,30 @@ const SignupForm = () => {
                 {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        'Access-Control-Allow-Origin': 'https://localhost:3000',
-                        'Access-Control-Allow-Credentials': 'true',
                         Accept: "application/json",
                     },
-                    body: JSON.stringify(data),
-
+                    body: regData,
                 }
             );
             const response = await responsee.json();
             if (response.success) {
                 setAnimat(!animat)
-                setSuccessAdd(i18n.language == 'ar' ? `نجاح` : `Success`)
+                setSuccessAdd({
+                    msg1: i18n.language == 'ar' ? `تم تسجيل الحساب بنجاح` : `Account has been successfully registered`,
+                    msg2: i18n.language == 'ar' ? `انتظر تفعيل الحساب من قبل المسؤول` : `Wait for the account to be activated by the administrator`
+
+                })
+
                 setLoading(false)
                 form.resetFields();
-
-                const timer = setTimeout(() => { setSuccessAdd('') }, 8000);
-                await localStorage.setItem(
-                    "token",
-                    JSON.stringify(response.payload.access_token)
-                );
-                history.push('/')
+                setFileList([])
+                setFileList2([])
+                const timer = setTimeout(() => { setSuccessAdd('') }, 10000);
+                // await localStorage.setItem(
+                //     "token",
+                //     JSON.stringify(response.payload.access_token)
+                // );
+                // history.push('/')
                 return () => clearTimeout(timer);
 
             }
@@ -121,8 +200,11 @@ const SignupForm = () => {
                 <div>
 
                     {succesAdd && <>
+                        {Object.keys(succesAdd).map((item, i) => (
+                            <Alert message={succesAdd[item]} type="success" showIcon />
+                        ))}
 
-                        <Alert message={succesAdd} type="success" showIcon />
+
                     </>
 
                     }
@@ -160,25 +242,28 @@ const SignupForm = () => {
                     <Input placeholder={i18n.language == 'ar' ? `الاسم` : `Name`} />
                 </Form.Item>
                 </div>
-                <div className='col-md-6'>   <Form.Item
-                    label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
-                    name="email"
-                    type='email'
-                    rules={[
-                        {
-                            // type: 'email',
-                            required: true,
-                            message: i18n.language == 'ar' ? `الرجاء ادخل بريدك الالكتروني !` : 'Please input your Email!',
-                        },
+                <div className='col-md-6'>
+                    <Form.Item
+                        autoComplete='off'
+                        label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
+                        name="email"
+                        type='email'
+                    // rules={[
+                    //     {
+                    //         // type: 'email',
+                    //         required: true,
+                    //         message: i18n.language == 'ar' ? `الرجاء ادخل بريدك الالكتروني !` : 'Please input your Email!',
+                    //     },
 
-                    ]}
-                >
-                    {/* type='email' */}
-                    <Input placeholder='email@example.com' />
-                </Form.Item>
+                    // ]}
+                    >
+                        {/* type='email' */}
+                        <Input placeholder='email@example.com' autoComplete='off' />
+                    </Form.Item>
                 </div>
                 <div className='col-md-6'>
                     <Form.Item
+                        autoComplete='off'
                         label={i18n.language == 'ar' ? `كلمة المرور` : `Password`}
                         name="password"
                         rules={[
@@ -189,13 +274,14 @@ const SignupForm = () => {
                         ]}
                     >
 
-                        <Input.Password placeholder='********' />
+                        <Input.Password placeholder='********' autoComplete='off' />
                     </Form.Item>
 
 
                 </div>
                 <div className='col-md-6'>
                     <Form.Item
+                        autoComplete='off'
                         label={i18n.language == 'ar' ? `تأكيد كلمة المرور` : `Password Confirmation`}
                         name="password_confirmation"
                         rules={[
@@ -206,16 +292,23 @@ const SignupForm = () => {
                         ]}
                     >
 
-                        <Input.Password placeholder='********' />
+                        <Input.Password placeholder='********' autoComplete='off' />
                     </Form.Item>
 
 
                 </div>
 
+
                 <div className='col-md-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `رقم الهاتف` : `Phone Number`}
                         name="customer[phone]"
+                        rules={[
+                            {
+                                required: true,
+                                message: i18n.language == 'ar' ? `الرجاء ادخل رقم هاتفك !` : 'Please input your phone number !',
+                            },
+                        ]}
                     >
 
                         <Input placeholder={i18n.language == 'ar' ? `رقم الهاتف` : `Phone Number`} />
@@ -232,6 +325,114 @@ const SignupForm = () => {
                         <Input placeholder={i18n.language == 'ar' ? `الشركة` : `Company`} />
                     </Form.Item>
 
+
+                </div>
+                <div className='col-md-4'>
+                    <Form.Item
+                        label={i18n.language == 'ar' ? `التصنيف` : `Category`}
+                        name="category_id"
+                        // type='email' 
+                        autoComplete='off'
+                        rules={[
+                            {
+                                required: true,
+                                message: i18n.language == 'ar' ? `الرجاء اختر تصنيف!` : 'Please Select Category!',
+                            },
+
+                        ]}
+                    >
+                        <Select
+                            // mode="multiple"
+                            style={{ width: '100%' }}
+                            placeholder={i18n.language == 'ar' ? `اختر تصنيف` : `Select Category`}
+
+
+
+                        // optionLabelProp="label"
+                        >
+                            {categories && categories.map((item) => {
+                                return (
+                                    <Option key={item.id} value={item.id}  >
+                                        {i18n.language == 'ar' ? item.name_ar : item.name_en}
+                                    </Option>
+                                )
+                            })}
+
+
+                        </Select>
+                    </Form.Item>
+                </div>
+                <div className='col-md-4'>
+                    <Form.Item
+                        label={i18n.language == 'ar' ? `صورة الهوية (وجه أمامي)` : `ID Photo (Face)`}
+                        required
+                        name="IDPhoto_face"
+                        rules={[
+                            {
+
+                                required: true,
+                                message: i18n.language == 'ar' ? `الرجاء رفع صورة الهوية!` : 'Please upload ID Image!',
+                            },
+
+                        ]}
+                    >
+                        <Upload accept='image/*' className=' ' {...uploadConfig} required multiple={false} fileList={fileList} value={fileList}>
+                            <Button className='col-md-12 uploadBTN idPhoto'  >
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                {"  "}{i18n.language == 'ar' ? `رفع صورة` : `Upload Image`}</Button>
+                        </Upload>
+
+                    </Form.Item>
+                </div>
+                <div className='col-md-4'>
+                    <Form.Item
+                        label={i18n.language == 'ar' ? `صورة الهوية (وجه خلفي)` : `ID Photo (Back)`}
+                        required
+                        name="IDPhoto_back"
+                        rules={[
+                            {
+
+                                required: true,
+                                message: i18n.language == 'ar' ? `الرجاء رفع صورة الهوية!` : 'Please upload ID Image!',
+                            },
+
+                        ]}
+                    >
+                        <Upload accept='image/*' className=' ' {...uploadConfig2} required multiple={false} fileList={fileList2} value={fileList2}>
+                            <Button className='col-md-12 uploadBTN idPhoto'  >
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                {"  "}{i18n.language == 'ar' ? `رفع صورة` : `Upload Image`}</Button>
+                        </Upload>
+
+                    </Form.Item>
+                </div>
+                <div className='col-md-12 agreeDiv'>
+                    <Form.Item
+                        name="agreement"
+                        valuePropName="checked"
+                        rules={[
+                            {
+                                validator: (_, value) =>
+                                    value ? Promise.resolve()
+                                        : Promise.reject(new Error(
+                                            i18n.language == 'ar' ? "يجب الموافقة على الشروط والأحكام"
+                                                :
+                                                "You must agree to the terms and conditions"
+                                        )),
+                            },
+                        ]}
+
+                    >
+                        <Checkbox>
+                            {i18n.language == 'ar' ? ` أوافق على` : `I Agree To `}
+
+                            <Link to="/terms-Conditions">
+                                {i18n.language === 'ar' ?
+                                    `الشروط و الأحكام`
+                                    :
+                                    `The Terms and Conditions`}</Link>
+                        </Checkbox>
+                    </Form.Item>
 
                 </div>
                 {/* <div className='col-md-4'>

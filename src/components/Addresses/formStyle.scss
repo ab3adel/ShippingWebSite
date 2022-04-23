@@ -1,15 +1,10 @@
-.AddresesSection{
+.recipientsSection{
     .registerFormCol .ant-form-vertical .ant-form-item-label,
 .registerFormCol .ant-col-24.ant-form-item-label,
 .registerFormCol  .ant-col-xl-24.ant-form-item-label {
    text-align: start;
 }
-.ant-select-item-option-content {
-  
-    text-align: start !important;
- 
-}
-  .ant-form-item-explain-error {
+.registerFormCol .ant-form-item-explain-error {
     color: #ff4d4f;
     text-align: start;}
 .registerFormCol{
@@ -21,10 +16,6 @@ position: relative;
      
     backdrop-filter: blur(2px);
     transition: all 0.5s ease-in-out;
-}
-  .ant-alert-message {
-    color: #274091;
- 
 }
 .registerFormCol  input[type='text'],
  .registerFormCol  input[type='password'],
@@ -81,7 +72,7 @@ position: relative;
                     50% {transform: rotate(354deg);  opacity: 0.6;}
                     80% {transform:scale(.8);opacity: 0.8;}
                   }
-                  .ant-alert-error  .ant-alert-message {
+                  .ant-alert-message {
                     color: rgb(255 77 79);
                     text-align: start;
                     padding-inline-start: 7px;
@@ -120,9 +111,8 @@ position: relative;
         direction: rtl;
         text-align: start;
     }
-    .rc-virtual-list-holder-inner .ant-select-item-option-content { 
+    .ant-select-item-option-content { 
         text-align: start;
     }
-    
 
 }

@@ -20,8 +20,8 @@ const CustomTabs = ({ active }) => {
                     <div className={`col-sm-8 col-md-8 col-lg-2  singleTabCont ${active === 'Recipients' ? 'activeCont' : ''}  `}>
                         <Link to='/Recipients' className={`tabLink  ${active === 'Recipients' ? 'ActiveTabLInk' : ''}`}>
                             <i class="fa fa-users" aria-hidden="true"></i>
+                            {t('Recipients')}
 
-                            {i18n.language == 'ar' ? `المستلمين` : `Recipients`}
                         </Link>
                     </div>
                     <div className={`col-sm-8 col-md-8 col-lg-2  singleTabCont ${active === 'Bills' ? 'activeCont' : ''}  `}>
@@ -33,7 +33,8 @@ const CustomTabs = ({ active }) => {
                     <div className={`col-sm-8 col-md-8 col-lg-2  singleTabCont ${active === 'Addresses' ? 'activeCont' : ''}  `}>
                         <Link to='/Addresses' className={`tabLink  ${active === 'Addresses' ? 'ActiveTabLInk' : ''}`}>
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            {i18n.language == 'ar' ? `العناوين` : `Addresses`}
+
+                            {i18n.language == 'ar' ? `عنواني` : `My Address`}
                         </Link>
                     </div>
                 </div>

@@ -32,6 +32,7 @@ const Header = () => {
     }
     useEffect(() => {
         if (userToken) {
+            setLogged(true)
             const getUser = async () => {
 
                 try {
@@ -52,7 +53,7 @@ const Header = () => {
                     if (response.success == true) {
 
                         setProfile(response.payload)
-                        setLogged(true)
+
                     }
                 } catch (err) {
                     console.log(err);
@@ -126,7 +127,7 @@ const Header = () => {
     console.log('logged', logged);
     return (
         <header>
-            <div className="header-top-1" >
+            {/* <div className="header-top-1" >
                 <div className="container">
                     <div className="row">
                         <div className="col-md-9 col-sm-12 col-12">
@@ -149,7 +150,7 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="header-style-1">
                 <div className="container">
                     <div className="row">
@@ -213,7 +214,8 @@ const Header = () => {
                                                         <li><Link to="/freight">Air Freight</Link></li>
                                                         <li><Link to="/road">Road Freight</Link></li> */}
                                                         <li><Link to="/Profile">{i18n.language == 'ar' ? `الملف الشخصي` : `Profile`}</Link></li>
-                                                        <li><Link to="/Recipients">{i18n.language == 'ar' ? `المستلمين` : `Recipients`}</Link></li>
+                                                        <li><Link to="/Addresses">{i18n.language == 'ar' ? `عنواني` : `My Address`}</Link></li>
+                                                        <li><Link to="/Recipients">      {t('Recipients')}</Link></li>
                                                         <li><Link to="/Bills">{i18n.language == 'ar' ? `الفواتير` : `Bills`}</Link></li>
                                                         <li><Link onClick={() => handleLogout()}>
                                                             {i18n.language == 'ar' ? `تسجيل الخروج` : `Logout`}</Link></li>

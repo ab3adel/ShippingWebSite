@@ -5,7 +5,7 @@ import './style.css'
 import { useTranslation } from 'react-i18next';
 
 const AboutSection2 = () => {
-    const [t, i18n] = useTranslation();
+    const [i18n] = useTranslation();
     return (
         <div className="wpo-about-style-2">
             <div className="container">
@@ -15,7 +15,7 @@ const AboutSection2 = () => {
                             <div className="wpo-about-icon">
                                 <i className="fi flaticon-travel"></i>
                             </div>
-                            <h2>  {i18n.language == 'ar' ?
+                            <h2>  {i18n.language === 'ar' ?
                                 "من نحن ؟"
                                 :
                                 "Who We Are?"
@@ -23,7 +23,7 @@ const AboutSection2 = () => {
 
                             </h2>
                             <p>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "هذا النص للاختبار ويجب تغييره بما يناسب توجهات الشركة هذا النص للاختبار ويجب تغييره بما يناسب توجهات الشركة"
 
                                     :
@@ -31,7 +31,7 @@ const AboutSection2 = () => {
                                 }
                             </p>
                             <p>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "هذا النص للاختبار ويجب تغييره بما يناسب توجهات الشركة هذا النص للاختبار ويجب تغييره بما يناسب توجهات الشركة"
 
                                     :
@@ -40,7 +40,7 @@ const AboutSection2 = () => {
 
                             </p>
                             <span>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "هذا النص للاختبار ويجب تغييره"
 
                                     :
@@ -48,7 +48,7 @@ const AboutSection2 = () => {
                                 }
                             </span>
                             <span>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "هذا النص للاختبار ويجب تغييره"
 
                                     :
@@ -56,7 +56,7 @@ const AboutSection2 = () => {
                                 }
                             </span>
                             <span>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "هذا النص للاختبار ويجب تغييره"
 
                                     :
@@ -67,14 +67,14 @@ const AboutSection2 = () => {
                         <div className="signature-section">
                             <div className="si-text">
                                 <p>
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "اسم الموظف"
                                         :
                                         "Ketty Raigott"
                                     }
                                 </p>
                                 <span>
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "رئيس مجلس الإدارة & الرئيس التنفيذي"
                                         :
                                         "Chairman & Chief Executive Officer"

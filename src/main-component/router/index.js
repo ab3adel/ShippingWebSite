@@ -21,19 +21,31 @@ import Login from '../Login'
 import Signup from '../Signup'
 import Navbar from '../../components/Navbar'
 import Profile from '../Profile'
+// import Terms from '../Terms'
+import logo from '../../images/logo/logo.png'
 // import Recipient from '../Recipient'
 // import Recipients from '../Recipients'
-import ShippingRequest from '../ShippingRequestPage/ndex'
+// import ShippingRequest from '../ShippingRequestPage/ndex';
+const ShippingRequest = React.lazy(() => import('../ShippingRequestPage/ndex'));
+const Terms = React.lazy(() => import('../Terms'));
 const Recipients = React.lazy(() => import('../Recipients'));
 const Recipient = React.lazy(() => import('../Recipient'));
 const Bills = React.lazy(() => import('../Bills'));
 const Addresses = React.lazy(() => import('../Addresses'));
+
 const loading = (
-  <div className="pt-3 text-center">
+  <div className="pt-3 text-center loader">
     <div className="sk-spinner sk-spinner-pulse">
-      <i className="fa fa-spinner fa-spin" ></i>
+      {/* <i className="fa fa-spinner fa-spin" ></i> */}
+      <img src={logo} alt="" className='logoLoder  ' />
     </div>
   </div>
+
+  // <div className="pt-3 text-center">
+  //   <div className="sk-spinner sk-spinner-pulse">
+  //     <i className="fa fa-spinner fa-spin" ></i>
+  //   </div>
+  // </div>
 )
 
 
@@ -84,13 +96,12 @@ const AllRoute = () => {
             <Route path='/Login' component={Login} />
             <Route path='/Register' component={Signup} />
             <Route path='/Profile' component={Profile} />
-
             <Route path='/Recipients' component={Recipients} />
             <Route path='/Recipient/:id' component={Recipient} />
             <Route path='/Bills' component={Bills} />
             <Route path='/Addresses' component={Addresses} />
-
-            <Route Path='/shippingrequest' component={ShippingRequest} />
+            <Route path='/shippingrequest' component={ShippingRequest} />
+            <Route path='/terms-Conditions' component={Terms} />
 
           </Switch>
 

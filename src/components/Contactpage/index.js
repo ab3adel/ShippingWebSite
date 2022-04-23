@@ -12,9 +12,9 @@ const Contactpage = () => {
                 <div className="row">
                     <div className="col-lg-5 col-md-12">
                         <div className="contact-page-item">
-                            <h2>{i18n.language == 'ar' ? `معلومات التواصل` : `Contact Information`}</h2>
+                            <h2>{i18n.language === 'ar' ? `معلومات التواصل` : `Contact Information`}</h2>
                             <p>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     `خلافًا للاعتقاد الشائع ، فإن لوريم إيبسوم ليس مجرد نص عشوائي.
                                      لها جذور في قطعة من الأدب اللاتيني الكلاسيكي من 45 قبل الميلاد ، مما يجعلها أكثر من 2000 عام.`
                                     :
@@ -24,28 +24,28 @@ const Contactpage = () => {
 
                             </p>
                             <div className="adress">
-                                <h3>{i18n.language == 'ar' ? `العنوان` : `Address`}</h3>
+                                <h3>{i18n.language === 'ar' ? `العنوان` : `Address`}</h3>
                                 <span>
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         `الكويت ,الكويت ,شارع 150 ,جادة 434`
                                         :
                                         ` 245 King Street, Touterie Victoria 8520 Australia`}
                                 </span>
                             </div>
                             <div className="phone">
-                                <h3>{i18n.language == 'ar' ? `هاتف` : `Phone`}</h3>
+                                <h3>{i18n.language === 'ar' ? `هاتف` : `Phone`}</h3>
                                 <span>0-123-456-7890</span>
                                 <span>0-123-456-7890</span>
                             </div>
                             <div className="email">
-                                <h3>{i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}</h3>
+                                <h3>{i18n.language === 'ar' ? `البريد الالكتروني` : `Email`}</h3>
                                 <span>sample@gmail.com</span>
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-7 col-md-12">
                         <div className="contact-area contact-area-2 contact-area-3">
-                            <h2>{i18n.language == 'ar' ? `نموذج الاتصال السريع` : `Quick Contact Form`}</h2>
+                            <h2>{i18n.language === 'ar' ? `نموذج الاتصال السريع` : `Quick Contact Form`}</h2>
                             <ContactForm2 />
                         </div>
                     </div>

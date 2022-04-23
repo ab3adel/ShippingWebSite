@@ -13,7 +13,7 @@ const BlogSection2 = () => {
                 <div className="col-l2">
                     <div className="wpo-section-title wpo-section-title-3 text-center">
                         <span>
-                            {i18n.language == 'ar' ?
+                            {i18n.language === 'ar' ?
                                 "الأخبار"
                                 :
                                 "News"
@@ -21,7 +21,7 @@ const BlogSection2 = () => {
 
                         </span>
                         <h2>
-                            {i18n.language == 'ar' ?
+                            {i18n.language === 'ar' ?
                                 "آخر الأخبار"
                                 :
                                 "Our Latest News"
@@ -43,7 +43,7 @@ const BlogSection2 = () => {
                             </div>
                             <div className="wpo-blog-content">
                                 <h3><Link  >
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "يمكننا أن نضمن لك التسليم الآمن"
                                         :
                                         "We can ensure you about the safe delevery"
@@ -51,7 +51,7 @@ const BlogSection2 = () => {
                                 </Link></h3>
                                 <p>
 
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "هناك العديد من الأشكال المتوفرة لنصوص لوريم إيبسوم ، لكن الغالبية تعرضت للتغيير"
                                         :
                                         "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration"
@@ -65,7 +65,7 @@ const BlogSection2 = () => {
                         <div className="wpo-blog-item">
                             <div className="wpo-blog-content">
                                 <h3><Link  >
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "يمكننا أن نضمن لك التسليم الآمن"
                                         :
                                         "We can ensure you about the safe delevery"
@@ -73,7 +73,7 @@ const BlogSection2 = () => {
                                 </Link></h3>
                                 <p>
 
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "هناك العديد من الأشكال المتوفرة لنصوص لوريم إيبسوم ، لكن الغالبية تعرضت للتغيير"
                                         :
                                         "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration"
@@ -105,14 +105,14 @@ const BlogSection2 = () => {
                             </div>
                             <div className="wpo-blog-content">
                                 <h3><Link  >
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "يمكننا أن نضمن لك التسليم الآمن"
                                         :
                                         "We can ensure you about the safe delevery"
                                     }</Link></h3>
                                 <p>
 
-                                    {i18n.language == 'ar' ?
+                                    {i18n.language === 'ar' ?
                                         "هناك العديد من الأشكال المتوفرة لنصوص لوريم إيبسوم ، لكن الغالبية تعرضت للتغيير"
                                         :
                                         "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration"

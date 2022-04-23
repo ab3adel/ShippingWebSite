@@ -1,6 +1,7 @@
  .recipientSection{
     
-
+  .ant-carousel {
+    padding-bottom: 2rem;}
 .user-card-full {
   overflow: hidden
 }
@@ -58,12 +59,17 @@
   line-height: 25px
 }
 .carddd .card-block p.comp{    color: white;}
-.card-block.USerCont{    height: 100%;
+.card-block.USerCont{   
+  height:  fit-content;
   display: flex;
   width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  row-gap: 1rem;}
+  flex-direction: row;
+  justify-content: space-between;
+  grid-row-gap: 1rem;
+  align-items: center;
+  row-gap: 1rem;
+
+}
   .profileSection .ant-carousel .slick-slide img {
     display: block;
     margin: 0 auto;
@@ -83,13 +89,13 @@
   border-bottom:  3px solid #c60874;
 }
 .profileButton.ant-btn-primary  {
-  /* height: 100px; */
+   height: 100px; 
       font-size: 1.1rem;
   border: 1px solid white;
   display: block;
   max-height: 50px;
   width: -webkit-fill-available;
-  margin: 0 auto;
+  margin: 0  ;
   background: linear-gradient(to right, #c6087459, #27409187);
   backdrop-filter: blur(1px);
 }
@@ -106,7 +112,42 @@
   top: unset;
   transition: all 0.7s ease-in-out;
 }
-.profileButton.ant-btn-primary:hover i{transform: rotate(720deg);  margin-inline-end: 10px;}
+.profileButton.ant-btn-primary:hover i{transform: rotate(360deg);  margin-inline-end: 10px;}
+.profileButton.ant-btn-primary.deleteAdressBtn {background: white;
+  color: #c60874;
+  height: 34px;
+ 
+  border: 1px solid;
+  min-height: 17px;
+  padding: 0px;
+} 
+.addressTitle_row{
+  align-items: center;
+  border-bottom: 2px solid #c60874;
+  border-top: 2px solid #c608740d;
+  margin-bottom: 0.8rem;
+  margin-top: 0.8rem;
+  padding: 0.6rem 0 0.6rem;
+ h6 {
+   
+  margin: 0px;
+  padding: 0px;
+  border: none;
+}
+.butonsParent{    place-content: space-between; row-gap:15px;margin: 0 auto;}
+}
+.profileButton.ant-btn-primary.updateAdressBtn {
+  background: white;
+  color: #274091;
+  height: 34px;
+ 
+  border: 1px solid;
+  min-height: 17px;
+  padding: 0px;
+}
+.profileButton.ant-btn-primary.deleteAdressBtn i {  margin-inline-end: 0;}
+.profileButton.ant-btn-primary.deleteAdressBtn :hover i.delI
+{transform: rotate(360deg) !important;  margin-inline-end: 10px;}
 .m-b-20 {
   margin-bottom: 20px
 }
@@ -158,6 +199,7 @@
 .user-card-full .social-link li {
   display: inline-block
 }
+.phone:lang(ar){text-align: end;}
 
 .user-card-full .social-link li a {
   font-size: 20px;
@@ -266,12 +308,30 @@
   }
   }
  
-  @media(max-width:767px){
+//   .ant-carousel .slick-slide {
+   
+//       min-height: fit-content;}
+//  .ant-carousel .slick-slider .slick-list {
+//        height: fit-content !important;
+//        min-height: fit-content !important;
+//       }
+  @media(max-width:991px){
+    .card-block.USerCont {
+      
+      flex-direction: column;}
     .card-block.USerCont.updateForm {
       
      flex-direction: column;}
+   .addressPArent  {padding:0px}
  }
+
+ @media(   min-width:768px )and (max-width:991px){
+  .card-block.USerCont .nameProfile { }
+  
+}
+ 
  }
+
 
  .deletemodal .ant-modal-confirm-body .ant-modal-confirm-title {
   text-align: start;}
@@ -298,5 +358,9 @@
   margin-top: 24px;
 }
   }
+  .ant-modal-confirm .ant-btn > .ant-btn-loading-icon .anticon {
+    padding-inline-end: 15px;
+    position: relative;
+    top: -3px;}
 
  

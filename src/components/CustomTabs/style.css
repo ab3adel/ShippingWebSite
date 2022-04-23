@@ -37,7 +37,7 @@ transition: all 0.2s ease-in-out;
     position: absolute;
     background: #c60874;
     bottom: 7px;
-    
+    border-top-right-radius: 109px;
     left: 42%;
     transform: rotate(-45deg)translate(-50%, 50%);
 }

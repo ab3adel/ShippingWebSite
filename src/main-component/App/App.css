@@ -10,24 +10,76 @@ URL:            https://themeforest.net/user/wpoceans
   Fonts
 ----------------------------*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Roboto:300,400,500,700');
+
 /*--------------------------------------------------------------
 #0.1    Theme Reset Style
 --------------------------------------------------------------*/
 @font-face {
   font-family: 'Cairo-Regular';
-  src: url('Cairo-Regular.ttf') format('ttf'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-   url('Cairo-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-}  
+  src: url('Cairo-Regular.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('Cairo-Regular.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
 body {
-  font-family: 'Roboto', sans-serif!important;
+  font-family: 'Roboto', sans-serif !important;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  color:#333;
+  color: #333;
 }
-body:lang(ar){
+
+body:lang(ar) {
   font-family: 'Cairo-Regular' !important;
+}
+
+.loader {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  place-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 0px !important;
+}
+
+.logoLoder {
+  width: 35%;
+  min-width: 131px;
+  max-width: 500px;
+  animation: jelly 3s infinite;
+}
+
+@keyframes jelly {
+  0% {
+    -webkit-transform: translateY(-50%);
+  }
+
+
+  15% {
+    -webkit-transform: translateY(-40%) scale(0.9, 0.9)
+  }
+
+  25% {
+    -webkit-transform: translateY(-30%) scale(1, 1.2);
+  }
+
+  35% {
+    -webkit-transform: translateY(-10%) scale(1, 1.0);
+  }
+
+  50% {
+    -webkit-transform: translateY(-20%) scale(1, 0.9);
+  }
+
+  80% {
+    -webkit-transform: translateY(-30%) scale(1.3, 1.3);
+  }
+
+  100% {
+    -webkit-transform: translateY(-50%);
+  }
 }
 
 @media (max-width: 767px) {
@@ -39,7 +91,7 @@ body:lang(ar){
 p {
   color: #666;
   line-height: 30px;
-  font-size:16px;
+  font-size: 16px;
 }
 
 h1,
@@ -55,7 +107,7 @@ h6 {
 ul {
   list-style-type: none;
   padding-left: 0;
-  margin: 0!important;
+  margin: 0 !important;
   margin-bottom: 0;
 }
 
@@ -69,7 +121,7 @@ a {
 }
 
 a:hover {
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
 
 img {
@@ -80,16 +132,23 @@ button,
 a:focus {
   outline: none;
 }
+
 .features-padding {
   padding: 100px 0;
 }
-.ant-form-vertical .ant-form-item-label, .ant-col-24.ant-form-item-label, .ant-col-xl-24.ant-form-item-label {
- 
+
+.ant-form-vertical .ant-form-item-label,
+.ant-col-24.ant-form-item-label,
+.ant-col-xl-24.ant-form-item-label {
+
   text-align: start;
 }
-.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
- 
-  margin-inline-end: 4px;}
+
+.ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+
+  margin-inline-end: 4px;
+}
+
 @media (max-width: 991px) {
   .features-padding {
     padding: 90px 0;
@@ -102,13 +161,15 @@ a:focus {
   }
 }
 
-.features-padding{
+.features-padding {
   padding: 100px 0;
 }
-.section-padding{
+
+.section-padding {
   padding: 100px 0;
 }
-.ptb-100-70{
+
+.ptb-100-70 {
   padding: 100px 0 70px;
 }
 
@@ -118,42 +179,52 @@ a:focus {
   position: relative;
   z-index: 5555;
 }
+
 .fixed-navbar.active .header-style-1,
 .fixed-navbar.active .header-style-2,
-.fixed-navbar.active .header-style-3{
+.fixed-navbar.active .header-style-3 {
   position: fixed;
   z-index: 555;
   top: 0;
   left: 0;
   width: 100%;
-  background: #274091;;
+  background: #274091;
+  ;
   border: none;
   border-bottom: 1px solid #c60874;
 
   box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
-    -moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
-    -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
-    transition: all 1s ease;
+  -moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
+  transition: all 1s ease;
 }
+
 .fixed-navbar.active .header-style-2,
-.fixed-navbar.active .header-style-3{
+.fixed-navbar.active .header-style-3 {
   background: #231b0e;
 }
-input:-internal-autofill-selected {background-color: white;background: white}
+
+input:-internal-autofill-selected {
+  background-color: white;
+  background: white
+}
 
 ::-webkit-scrollbar {
   width: 15px;
   border-radius: 1px;
 }
+
 /* Handle */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #274091;
   border-radius: 1px;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #274091;
   border-radius: 1px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #c60874;
 }

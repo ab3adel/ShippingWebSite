@@ -1,8 +1,8 @@
 
 .hero {
   position: relative;
-  height: 67vh;
-  min-height: 437px;
+  height: 73vh;
+  min-height: 477px;
   overflow: hidden;
 }
 .slide {
@@ -28,8 +28,8 @@
     padding-bottom: 20px;
 }
 .hero .slide {
-  height: 67vh;
-  min-height: 437px;
+  height: 74vh;
+  min-height: 477px;
   position: relative;
   background-repeat: no-repeat;
   display: flex!important;

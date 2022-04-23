@@ -18,7 +18,7 @@ const Recipients = () => {
 
     return (
         <div>
-            <Breadcumb bdsub={i18n.language == 'ar' ? `المستلمين` : `Recipients`} />
+            <Breadcumb bdsub={t('Recipients')} />
             <CustomTabs active={'Recipients'} />
             <RecipientsInfo />
             <FooterSection />

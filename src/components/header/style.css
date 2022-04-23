@@ -33,6 +33,13 @@
   z-index: 99;
   background-color: rgba(255, 255, 255, 0.10);
   border-bottom: 1px solid rgba(255, 255, 255, 0.30);
+  background: linear-gradient(45deg, #ffffff, transparent);
+  backdrop-filter: blur(15px);
+}
+.header-style-1:lang(ar) {
+ 
+  background: linear-gradient(-45deg, #ffffff, transparent);
+  
 }
 .header-style-1 .main-menu,.header-style-2 .main-menu,.header-style-3 .main-menu  {
   

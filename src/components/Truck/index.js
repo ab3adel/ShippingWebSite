@@ -2,9 +2,10 @@ import React from 'react';
 import logo from '../../images/logo/logo33.png'
 import './style.css'
 import { useTranslation } from 'react-i18next';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 const TruckArea = (props) => {
-
+    const tokenString = localStorage.getItem("token");
+    const userToken = JSON.parse(tokenString);
     let history = useHistory();
     const [t, i18n] = useTranslation();
     const submitHandler = (e) => {
@@ -18,7 +19,7 @@ const TruckArea = (props) => {
                     <div className="col-lg-7">
                         <div className="track">
                             <h3>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "أدخل رقم التتبع وتتبع شحنتك"
                                     :
                                     "Enter Tracking Number and Track Your Cargo"
@@ -52,7 +53,7 @@ const TruckArea = (props) => {
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-6" style={{ textAlign: 'start' }}>
                                             <button type="submit">
-                                                {i18n.language == 'ar' ?
+                                                {i18n.language === 'ar' ?
                                                     "تتبع شحنتك"
                                                     :
                                                     "Track Your Cargo"
@@ -68,7 +69,7 @@ const TruckArea = (props) => {
                         <div className="track">
 
                             <h3 style={{ textAlign: 'center' }}>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "يمكنك إرسال شحنة"
                                     :
                                     "You Can Send a Shipment"
@@ -76,9 +77,9 @@ const TruckArea = (props) => {
 
                             </h3>
                             <button type="submit" className='sendCargobt'
-                             onClick={()=>history.push('/shippingrequest')}>
+                                onClick={() => history.push(userToken ? '/shippingrequest' : '/Login')}>
                                 <img src={logo} alt="" className='sendLogo' />
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     "ارسل شحنة"
                                     :
                                     "Send a Cargo"

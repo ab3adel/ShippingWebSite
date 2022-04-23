@@ -16,7 +16,7 @@ const Features2 = () => {
                                 <i className="fi flaticon-ship"></i>
                             </div>
                             <div className="wpo-section-content">
-                                <p><Link to="/ocean">{t('Ocean Freight')}</Link></p>
+                                <p><Link to="/">{t('Ocean Freight')}</Link></p>
                                 <span>
                                     {i18n.language == 'ar' ?
                                         "شحن البضائع القيّمة الخاصّة بك الى وجهاتها في الموعد المحدد"
@@ -34,7 +34,7 @@ const Features2 = () => {
                                 <i className="fi flaticon-truck"></i>
                             </div>
                             <div className="wpo-section-content">
-                                <p> <Link to="/road">{t('Road Freight')}</Link></p>
+                                <p> <Link to="/">{t('Road Freight')}</Link></p>
                                 <span>
                                     {i18n.language == 'ar' ?
                                         "تقديم خدمات الشحن البري الدولي على أفضل صورة"
@@ -52,7 +52,7 @@ const Features2 = () => {
                                 <i className="fi flaticon-plane"></i>
                             </div>
                             <div className="wpo-section-content">
-                                <p> <Link to="/freight">{t('Air Freight')}</Link></p>
+                                <p> <Link to="/">{t('Air Freight')}</Link></p>
                                 <span>
                                     {i18n.language == 'ar' ?
                                         "استلم الشحنة عبر الشحن الجوي من خلال حلول تعمل على توفير الوقت والمال"

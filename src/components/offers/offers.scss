@@ -1,44 +1,51 @@
-
 .offersContainer {
     .detailsContainer {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding:1rem;
+        padding: 1rem;
+
         .detail {
             display: flex;
             justify-content: space-evenly;
             text-transform: uppercase;
+            align-items: center;
+
             .bold {
                 font-size: large;
                 font-weight: bold;
                 display: flex;
-                margin :0 10px;
+                margin: 0 10px;
             }
-            
+
         }
-      
+
     }
 }
+
 .whiteColor {
     background-color: white;
 }
+
 .offerContainer {
     .offerDetail {
         display: flex;
         justify-content: flex-end;
-        margin:10px 0;
-        p{
-            margin:0 1rem;
+        margin: 10px 0;
+
+        p {
+            margin: 0 1rem;
         }
+
         .bold {
-            margin:0 1rem;
+            margin: 0 1rem;
             font-weight: bold;
         }
     }
 }
-@media only screen  and (max-width:500px){
+
+@media only screen and (max-width:500px) {
     .offersContainer {
         .buttonContainer {
             justify-content: center;
@@ -46,6 +53,7 @@
         }
     }
 }
+
 @media only screen and (min-width:501px) and (max-width:1024px) {
     .offerContainer {
         .offerDetail {

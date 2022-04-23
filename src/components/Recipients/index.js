@@ -30,6 +30,11 @@ const ProfileInfo = () => {
     const [fileList, setFileList] = useState([])
     const [attachType, setAttachType] = useState('file')
     const [reciepients, setRecipients] = useState([])
+    const [refresh, setRefresh] = useState(false)
+    const [reseter, setReseter] = useState(false)
+    const [sliderHeightTrigger, setSliderHeightTrigger] = useState(false)
+
+    const refreshRecipints = () => { setRefresh(!refresh) }
     useEffect(() => { !userToken && history.push('/') })
     useEffect(async () => {
 
@@ -37,7 +42,7 @@ const ProfileInfo = () => {
         const fetchRecipients = async (e) => {
             try {
                 const responsee = await fetch(
-                    `${global.apiUrl}api/reciepients`,
+                    `${global.apiUrl}api/address/${profile.customer.id}?incoming=1`,
                     {
                         method: "GET",
                         headers: {
@@ -58,8 +63,8 @@ const ProfileInfo = () => {
             } catch (err) { console.log(err); }
         }
 
-        fetchRecipients()
-    }, [])
+        userToken && profile && fetchRecipients()
+    }, [refresh, profile])
     const uploadConfig = {
         onRemove: file => {
 
@@ -79,8 +84,8 @@ const ProfileInfo = () => {
         },
         fileList,
     };
-    const handleNext = () => carousel.current.next();
-    const handlePrev = () => carousel.current.prev();
+    const handleNext = () => { carousel.current.next(); setReseter(!reseter) };
+    const handlePrev = () => { carousel.current.prev(); setReseter(!reseter) };
     const onFinish = (values) => {
         console.log('Success:', values);
 
@@ -181,7 +186,7 @@ const ProfileInfo = () => {
                                                         </h6>
 
                                                         <Button type="primary" className='col-md-4 profileButton' onClick={() => { handleNext() }} >
-                                                            <i className="fa fa-plus" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `إضافة مستلم جديد` : `Add New Recipient`}
+                                                            <i className="fa fa-plus" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `إضافة مرسل إليه` : `Add New Recipient`}
 
                                                         </Button>
                                                         {/* <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleOpenAttachModal() }} >
@@ -200,7 +205,7 @@ const ProfileInfo = () => {
                                                             <div className="card-block recepBloc " onClick={() => { history.push(`/Recipient/${item.id}`) }}>
                                                                 <h6 className="m-b-20 p-b-5 b-b-default f-w-600">
 
-                                                                    {i18n.language == 'ar' ? `مستلم ${(index + 1)}` : `Recipient ${index + 1}`}
+                                                                    {i18n.language == 'ar' ? `مرسل إليه ${(index + 1)}` : `Recipient ${index + 1}`}
                                                                 </h6>
                                                                 <div className="col-sm-12 singleRecipCont">
                                                                     <div className=' nameKey'>    {i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}</div>
@@ -209,6 +214,14 @@ const ProfileInfo = () => {
                                                                 <div className="col-sm-12 singleRecipCont">
                                                                     <div className=' nameKey'>    {i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`}</div>
                                                                     <div className="text-muted f-w-400 nameValue">{item.name_ar ? item.name_ar : "-"}</div>
+                                                                </div>
+                                                                <div className="col-sm-12 singleRecipCont">
+                                                                    <div className=' nameKey'>    {i18n.language == 'ar' ? `هاتف` : `Phone`}</div>
+                                                                    <div className="text-muted f-w-400 nameValue" style={{ direction: 'ltr' }}>{item.phone}</div>
+                                                                </div>
+                                                                <div className="col-sm-12 singleRecipCont">
+                                                                    <div className=' nameKey'>    {i18n.language == 'ar' ? `ايميل` : `Email`}</div>
+                                                                    <div className="text-muted f-w-400 nameValue" style={{ direction: 'ltr' }}>{item.email ? item.email : "-"}</div>
                                                                 </div>
 
                                                                 {/* <div className="row rECIPIENTCARD">
@@ -255,7 +268,7 @@ const ProfileInfo = () => {
                                             <div className="card-block text-center text-white USerCont">
 
                                                 <h6 className="f-w-600 nameProfile ">
-                                                    {i18n.language == 'ar' ? `إضافة مستلم جديد` : `Add New Recipient`}
+                                                    {i18n.language == 'ar' ? `إضافة مرسل إليه` : `Add New Recipient`}
                                                 </h6>
 
                                                 <Button type="primary" className='col-md-3 profileButton' onClick={() => { handlePrev() }} >
@@ -271,7 +284,10 @@ const ProfileInfo = () => {
 
 
                                         <div className=" col-md-12 col-lg-12 registerFormCol">
-                                            <AddNewRecipientForm />
+                                            <AddNewRecipientForm
+                                                sliderHeightTrigger={sliderHeightTrigger}
+                                                setSliderHeightTrigger={setSliderHeightTrigger}
+                                                refreshRecipints={refreshRecipints} reseter={reseter} />
                                         </div>
                                     </div>
                                 </div>

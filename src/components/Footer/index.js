@@ -21,7 +21,7 @@ const FooterSection = () => {
                                 <img src={logo} alt="" />
                             </div>
                             <p>
-                                {i18n.language == 'ar' ?
+                                {i18n.language === 'ar' ?
                                     " إن خبرائنا ذوي المهارات العالية المتمركزين في الفروع في جميع أنحاء العالم على أهبة الاستعداد لتلبية أي متطلبات محتملة متعلقة بالشحن."
                                     :
                                     "Our highly skilled experts stationed in branches all over the world are ready to meet any potential freight related requirements."
@@ -44,15 +44,15 @@ const FooterSection = () => {
                         </div>
                         <div className="col-lg-3 col-md-6 col-sm-6 footer-t">
                             <div className="footer-link">
-                                <h3>{i18n.language == 'ar' ? `رابط سريع` : `Quick Link`}</h3>
+                                <h3>{i18n.language === 'ar' ? `رابط سريع` : `Quick Link`}</h3>
                                 <ul>
                                     <li><Link to="/">{t('Home')}</Link></li>
-                                    <li><Link to="/about">{i18n.language == 'ar' ? `من نحن` : `About Us`} </Link></li>
-                                    <li><Link to="/">Service</Link></li>
+                                    <li><Link to="/about">{i18n.language === 'ar' ? `من نحن` : `About Us`} </Link></li>
+                                    <li><Link style={{ textTransform: 'unset' }} to="/terms-Conditions">{i18n.language === 'ar' ? `الشروط والأحكام` : `Terms and Conditions`} </Link></li>
                                     <li><Link style={{ textTransform: 'unset' }} to="/FAQs">{i18n.language == 'ar' ? `الأسئلة المكررة` : `FAQs`}</Link></li>
                                     <li><Link to="/">Testimonial</Link></li>
-                                    <li><Link to="/contact">{i18n.language == 'ar' ? `تواصل معنا` : `Contact`} </Link></li>
-                                    <li><Link to="/">Blog</Link></li>
+                                    <li><Link to="/contact">{i18n.language === 'ar' ? `تواصل معنا` : `Contact`} </Link></li>
+
                                 </ul>
                             </div>
                         </div>

@@ -11,13 +11,13 @@ const WpoFeatures = () => {
         <div className="wpo-features-area">
             <div className="container">
                 <div className="wpo-section-title text-center">
-                    <span>    {i18n.language == 'ar' ?
+                    <span>    {i18n.language === 'ar' ?
                         "نحن نقدم الأفضل"
                         :
                         "We Provide the Best"
                     }</span>
                     <h2>
-                        {i18n.language == 'ar' ?
+                        {i18n.language === 'ar' ?
                             "ميزاتنا الرائعة"
                             :
                             "Our Awesome Features"
@@ -35,14 +35,14 @@ const WpoFeatures = () => {
                                     </div>
                                     <div className="wpo-features-text">
                                         <h3>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "أول شحن جوي"
                                                 :
                                                 "First Air Freight"
                                             }
                                         </h3>
                                         <p>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "خدمات عالية المستوى في تولي الإشراف على الشحنات و تحميلها و تفريغها و نقلها بالمعدات و الآليات المعدة خصيصاً لذلك"
 
                                                 :
@@ -61,14 +61,14 @@ const WpoFeatures = () => {
                                     </div>
                                     <div className="wpo-features-text">
                                         <h3>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "أول شحن بري"
                                                 :
                                                 "First Ground Freight"
                                             }
                                         </h3>
                                         <p>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "يقدم خبراء الشحن البحري لدينا مجموعة متكاملة من الحلول اللوجستية الدولية، والمُعدّة خصيصاً وفقاً لاحتياجات العملاء "
 
                                                 :
@@ -98,7 +98,7 @@ const WpoFeatures = () => {
                                     </div>
                                     <div className="wpo-features-text">
                                         <h3>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "الشحن الأسرع"
                                                 :
                                                 " Quickest Cargo"
@@ -106,7 +106,7 @@ const WpoFeatures = () => {
 
                                         </h3>
                                         <p>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "قادرين على التعامل مع المركبات و البضائع و نقلها من أي مكان في جميع أنحاء قارات أوروبا و افريقيا و أمريكا و آسيا و استراليا, بما يتماشى مع متطلبات العملاء"
 
                                                 :
@@ -125,7 +125,7 @@ const WpoFeatures = () => {
                                     </div>
                                     <div className="wpo-features-text">
                                         <h3>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "التسليم في الوقت"
                                                 :
                                                 "Timely Delivery"
@@ -133,7 +133,7 @@ const WpoFeatures = () => {
 
                                         </h3>
                                         <p>
-                                            {i18n.language == 'ar' ?
+                                            {i18n.language === 'ar' ?
                                                 "يدير خبرائنا في قطاع النقل جميع العمليات من خلال أنظمة تقنية وبرمجية للتخطيط والمتابعة ولضمان الشفافية أمام عملائنا والالتزام بتسليم واستلام الشحنات في المكان المحدد والوقت المطلوب."
 
                                                 :

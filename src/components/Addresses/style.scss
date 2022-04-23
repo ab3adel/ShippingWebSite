@@ -1,339 +1,359 @@
- .AddresesSection{
-  
-  .user-card-full {
-    overflow: hidden
-  }
-  .row.m-l-0.m-r-0{padding-bottom: 30px;}
-  .carddd {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    border: none;
-    margin-bottom: 30px
-  }
-  
-  .m-r-0 {
-    margin-right: 0px
-  }
-  
-  .m-l-0 {
-    margin-left: 0px
-  }
-  
-  .user-card-full .user-profile {
-    border-radius: 5px 0 0 5px
-  }
-  
-  .bg-c-lite-green {
-    /* background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));/ */
-    background: linear-gradient(to right, #274091, #c60874);
-  }
-  
-  .user-profile {
-    padding: 20px 0
-  }
-  .d-flex:lang(ar){direction: rtl;}
-  
-  .card-block {
-    padding: 1.25rem;
-    text-align: start;
+ .recipientSection{
     
-  }
-  .card-block h6{font-family: 'Cairo-Regular';color:  #274091;}
-   .card-block h6.nameProfile  {
-    font-family: "Cairo-Regular";
-    margin: 0;
-    color: #274091;
-    display: flex;
-    align-self: center;
+  .ant-carousel {
+    padding-bottom: 2rem;}
+.user-card-full {
+  overflow: hidden
 }
-  .m-b-25 {
-    margin-bottom: 25px
-  }
+
+.carddd {
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+  box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+  border: none;
+  margin-bottom: 30px
+}
+
+.m-r-0 {
+  margin-right: 0px
+}
+
+.m-l-0 {
+  margin-left: 0px
+}
+
+.user-card-full .user-profile {
+  border-radius: 5px 0 0 5px
+}
+
+.bg-c-lite-green {
+  /* background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));/ */
+  background: linear-gradient(to right, #274091, #c60874);
+}
+
+.user-profile {
+  padding: 20px 0
+}
+.d-flex:lang(ar){direction: rtl;}
+
+.card-block {
+  padding: 1.25rem;
+  text-align: start;
   
-  .img-radius {
-    border-radius: 5px
+}
+.card-block h6{font-family: 'Cairo-Regular';color:  #274091;}
+
+.m-b-25 {
+  margin-bottom: 25px
+}
+
+.img-radius {
+  border-radius: 5px
+}
+
+ .nameProfile{    color: white !important;
+  font-family: 'Cairo-Regular';
+  text-transform: capitalize;
+  font-size: 1.5rem;}
+.carddd .card-block p {
+  line-height: 25px
+}
+.carddd .card-block p.comp{    color: white;}
+.card-block.USerCont{   
+  height:  fit-content;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  grid-row-gap: 1rem;
+  align-items: center;
+  row-gap: 1rem;
+
+}
+  .profileSection .ant-carousel .slick-slide img {
+    display: block;
+    margin: 0 auto;
+}
+.profileSection .ant-carousel {padding-bottom: 1rem;}
+@media only screen and (min-width: 1400px) {
+  p {
+      font-size: 14px
   }
-  
-   .nameProfile{    color: white !important;
-    font-family: 'Cairo-Regular';
-    text-transform: capitalize;
-    font-size: 1.5rem;}
-  .carddd .card-block p {
-    line-height: 25px
+}
+
+.card-block {
+  padding: 1.25rem
+}
+
+.b-b-default {
+  border-bottom:  3px solid #c60874;
+}
+.profileButton.ant-btn-primary  {
+   height: 100px; 
+      font-size: 1.1rem;
+  border: 1px solid white;
+  display: block;
+  max-height: 50px;
+  width: -webkit-fill-available;
+  margin: 0  ;
+  background: linear-gradient(to right, #c6087459, #27409187);
+  backdrop-filter: blur(1px);
+}
+.profileButton.ant-btn-primary:hover ,.profileButton.ant-btn-primary:active
+,.profileButton.ant-btn-primary:focus
+{   
+  border: 1px solid white;
+  box-shadow: 0px 0px 1px 1px white;
+   background: linear-gradient(to right, #3a398d, #b60d77);}
+.profileButton.ant-btn-primary i {
+  margin-inline-end: 7px;
+  font-size: 1.4rem;
+  position: relative;
+  top: unset;
+  transition: all 0.7s ease-in-out;
+}
+.profileButton.ant-btn-primary:hover i{transform: rotate(360deg);  margin-inline-end: 10px;}
+.profileButton.ant-btn-primary.deleteAdressBtn {background: white;
+  color: #c60874;
+  height: 34px;
+ 
+  border: 1px solid;
+  min-height: 17px;
+  padding: 0px;
+} 
+.addressTitle_row{
+  align-items: center;
+  border-bottom: 2px solid #c60874;
+  border-top: 2px solid #c608740d;
+  margin-bottom: 0.8rem;
+  margin-top: 0.8rem;
+  padding: 0.6rem 0 0.6rem;
+ h6 {
+   
+  margin: 0px;
+  padding: 0px;
+  border: none;
+}
+.butonsParent{    place-content: space-between; row-gap:15px;margin: 0 auto;}
+}
+.profileButton.ant-btn-primary.updateAdressBtn {
+  background: white;
+  color: #274091;
+  height: 34px;
+ 
+  border: 1px solid;
+  min-height: 17px;
+  padding: 0px;
+}
+.profileButton.ant-btn-primary.deleteAdressBtn i {  margin-inline-end: 0;}
+.profileButton.ant-btn-primary.deleteAdressBtn :hover i.delI
+{transform: rotate(360deg) !important;  margin-inline-end: 10px;}
+.m-b-20 {
+  margin-bottom: 20px
+}
+
+.p-b-5 {
+  padding-bottom: 5px !important
+}
+
+.carddd .card-block p {
+  line-height: 25px
+}
+
+.m-b-10 {
+  margin-bottom: 10px
+}
+
+.text-muted {
+  color: #919aa3 !important
+}
+
+.b-b-default {
+  border-bottom:  3px solid #c60874;
+}
+
+.f-w-600 {
+  font-weight: 600
+}
+
+.m-b-20 {
+  margin-bottom: 20px
+}
+
+.m-t-40 {
+  margin-top: 20px
+}
+
+.p-b-5 {
+  padding-bottom: 5px !important
+}
+
+.m-b-10 {
+  margin-bottom: 10px
+}
+
+.m-t-40 {
+  margin-top: 20px
+}
+
+.user-card-full .social-link li {
+  display: inline-block
+}
+.phone:lang(ar){text-align: end;}
+
+.user-card-full .social-link li a {
+  font-size: 20px;
+  margin: 0 10px 0 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out
+}
+.attachModal .ant-modal-title {
+   text-align: start;
+  color: rgb(39 64 145);
+  font-family: 'Cairo-Regular';}
+  .attachModal .ant-modal-close:focus,.attachModal  .ant-modal-close:hover {
+ 
+    outline: none;
+    border: none;
+}
+.ant-modal-close:lang(ar) {
+   right: unset;
+  left: 0;}
+.attachModal .ant-modal-content {padding: 0 12px;}
+.attachModal .ant-modal-header  {  border-bottom: 2px solid #c60874;}
+.attachModal .ant-modal-footer {  border-top: 2px solid #c60874;
+  text-align: end;
+  direction: ltr;}
+  .uploadBTN{font-family: 'Cairo-Regular';
+    width: fit-content;
+    min-width: 200px;
+    font-weight: 500;}
+    .uploadBTN i{margin-inline-end: 8px;
+      position: relative;
+      font-size: 1.1rem;
+      color: #c50874; }
+      .attachModal  .ant-form-vertical .ant-form-item-label > label, 
+      .attachModal   .ant-col-24.ant-form-item-label > label,
+      .attachModal  .ant-col-xl-24.ant-form-item-label > label ,
+      .attachModal .ant-input
+      {
+      
+        font-family: 'Cairo-Regular';
+    }
+
+      .attachModal   .ant-input:hover, .attachModal  .uploadBTN:hover {
+        border-color: #274091;
+        border-right-width: 1px;
+    }
+  .attachModal .ant-input:focus,.attachModal  .ant-input-focused, .attachModal  .uploadBTN:focus {
+    border-color: #274091;
+    box-shadow: 0 0 0 1px rgb(39 64 145);
+    border-right-width: 1px;
+    outline: 0;
+}
+.attachModal .ant-form-item-control-input-content {
+ 
+  text-align: start;
+}
+.attachModal .ant-btn-primary {
+  color: #fff;
+  border-color: #274091;
+  background: #274091;}
+  .attachModal .saveBtn:hover ,.attachModal .saveBtn:active 
+  ,.attachModal .saveBtn:focus {
+   
+    border-color: #c50874;
+    background: #c50874;}
+    .ant-btn.ant-btn-default.cancelBTN {
+      border: 1px solid #c60874;
+      color: #c60874;
   }
-  .carddd .card-block p.comp{    color: white;}
-  .card-block.USerCont{    height: 100%;
+  .attachModal .ant-radio-button-wrapper-checked {
+    /* border-right-color: #c60874; */
+    border-right:   solid #c60874 !important;
+    border-left:   solid #c60874 !important;
+    border: 1px solid #c60874 !important;
+    border-radius: 1px !important;
+    color:#c60874 !important;
+}
+.attachModal .ant-form label {
+  font-size: 14px;
+  margin-inline-end: 10px;
+ 
+}
+.attachModal  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+  background-color: #c60874;
+}
+/* .attachModal  */
+.attachModal  .ant-radio-button-wrapper {
+  width: 73px;
+  text-align: center;}
+  .card-block.USerCont.updateForm{    height: 100%;
     display: flex;
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
     row-gap: 1rem;
-    padding: 0 1rem;}
-   .ant-carousel .slick-slide img {
-      display: block;
-      margin: 0 auto;
+    padding: 0 1rem;
+    .profileButton.ant-btn-primary {
+      height: 100px;
+    margin: 0;}
+      .nameProfile {
+      color: white !important;
+      font-family: "Cairo-Regular";
+      text-transform: capitalize;
+      font-size: 1.5rem;
+      margin: 0;
+      align-self: center;
   }
- .ant-carousel {padding-bottom: 1rem;}
-  @media only screen and (min-width: 1400px) {
-    p {
-        font-size: 14px
-    }
   }
-  
-  .card-block {
-    padding: 1.25rem
-  }
-  
-  .b-b-default {
-    border-bottom:  3px solid #c60874;
-  }
-  .profileButton.ant-btn-primary  {
-    height: 54px;
-    font-size: 1.1rem;
-    border: 1px solid white;
-    display: block;
-    max-height: 50px;
-    width: -webkit-fill-available;
-    margin: 0 0;
-    background: linear-gradient(to right, #c6087459, #27409187);
-    backdrop-filter: blur(1px);
-  }
-  .profileButton.ant-btn-primary:hover ,.profileButton.ant-btn-primary:active
-  ,.profileButton.ant-btn-primary:focus
-  {   
-    border: 1px solid white;
-    box-shadow: 0px 0px 1px 1px white;
-     background: linear-gradient(to right, #3a398d, #b60d77);}
-  .profileButton.ant-btn-primary i {
-    margin-inline-end: 7px;
-    font-size: 1.4rem;
-    position: relative;
-    top: 0.2rem;
-    transition: all 0.7s ease-in-out;
-  }
-  .profileButton.ant-btn-primary:hover i{transform: rotate( 360deg);  margin-inline-end: 10px;}
-  .m-b-20 {
-    margin-bottom: 20px
-  }
-  
-  .p-b-5 {
-    padding-bottom: 5px !important
-  }
-  
-  .carddd .card-block p {
-    line-height: 25px
-  }
-  
-  .m-b-10 {
-    margin-bottom: 10px
-  }
-  
-  .text-muted {
-    color: #919aa3 !important
-  }
-  
-  .b-b-default {
-    border-bottom:  3px solid #c60874;
-  }
-  
-  .f-w-600 {
-    font-weight: 600
-  }
-  
-  .m-b-20 {
-    margin-bottom: 20px
-  }
-  
-  .m-t-40 {
-    margin-top: 20px
-  }
-  
-  .p-b-5 {
-    padding-bottom: 5px !important
-  }
-  
-  .m-b-10 {
-    margin-bottom: 10px
-  }
-  
-  .m-t-40 {
-    margin-top: 20px
-  }
-  
-  .user-card-full .social-link li {
-    display: inline-block
-  }
-  
-  .user-card-full .social-link li a {
-    font-size: 20px;
-    margin: 0 10px 0 0;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out
-  }
-  .attachModal .ant-modal-title {
-     text-align: start;
-    color: rgb(39 64 145);
-    font-family: 'Cairo-Regular';}
-    .attachModal .ant-modal-close:focus,.attachModal  .ant-modal-close:hover {
-   
-      outline: none;
-      border: none;
-  }
-  .ant-modal-close:lang(ar) {
-     right: unset;
-    left: 0;}
-  .attachModal .ant-modal-content {padding: 0 12px;}
-  .attachModal .ant-modal-header  {  border-bottom: 2px solid #c60874;}
-  .attachModal .ant-modal-footer {  border-top: 2px solid #c60874;
-    text-align: end;
-    direction: ltr;}
-    .uploadBTN{font-family: 'Cairo-Regular';
-      width: fit-content;
-      min-width: 200px;
-      font-weight: 500;}
-      .uploadBTN i{margin-inline-end: 8px;
-        position: relative;
-        font-size: 1.1rem;
-        color: #c50874; }
-        .attachModal  .ant-form-vertical .ant-form-item-label > label, 
-        .attachModal   .ant-col-24.ant-form-item-label > label,
-        .attachModal  .ant-col-xl-24.ant-form-item-label > label ,
-        .attachModal .ant-input
-        {
-        
-          font-family: 'Cairo-Regular';
-      }
-  
-        .attachModal   .ant-input:hover, .attachModal  .uploadBTN:hover {
-          border-color: #274091;
-          border-right-width: 1px;
-      }
-    .attachModal .ant-input:focus,.attachModal  .ant-input-focused, .attachModal  .uploadBTN:focus {
-      border-color: #274091;
-      box-shadow: 0 0 0 1px rgb(39 64 145);
-      border-right-width: 1px;
-      outline: 0;
-  }
-  .attachModal .ant-form-item-control-input-content {
-   
-    text-align: start;
-  }
-  .attachModal .ant-btn-primary {
-    color: #fff;
-    border-color: #274091;
-    background: #274091;}
-    .attachModal .saveBtn:hover ,.attachModal .saveBtn:active 
-    ,.attachModal .saveBtn:focus {
-     
-      border-color: #c50874;
-      background: #c50874;}
-      .ant-btn.ant-btn-default.cancelBTN {
-        border: 1px solid #c60874;
-        color: #c60874;
-    }
-    .attachModal .ant-radio-button-wrapper-checked {
-      /* border-right-color: #c60874; */
-      border-right:   solid #c60874 !important;
-      border-left:   solid #c60874 !important;
-      border: 1px solid #c60874 !important;
-      border-radius: 1px !important;
-      color:#c60874 !important;
-  }
-  .attachModal .ant-form label {
-    font-size: 14px;
-    margin-inline-end: 10px;
-   
-  }
-  .attachModal  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
-    background-color: #c60874;
-  }
-  /* .attachModal  */
-  .attachModal  .ant-radio-button-wrapper {
-    width: 73px;
-    text-align: center;}
-   .singleRecipCont {
-     display: flex;
-     
-    padding-inline-start: 21px;
-      row-gap: 12px;
-      column-gap: 7px;
-      font-family: 'Cairo-Regular';
-    .nameKey{
-      min-width: 93px;
-      font-weight: 700;   }
-
-    .nameValue{ }
-    
-    }
-    .rECIPIENTCARD{
-      position:relative;
+ 
+  @media(max-width:991px){
+    .card-block.USerCont {
       
-      .actionsCont {    padding: 0;
-        padding-inline-start: 30px;
-        position: absolute;
-        bottom: 27px;
-        opacity: 0;
-        right:-40px;
-        z-index: -1;
-       
-        transition :all 0.2s  ease-in-out;
-    .profileButton{font-size: 0.9rem;height: 40px;}
-    .deleteBtn.profileButton{   background: #c60874;  }
-    .deleteBtn.profileButton:hover {
-      background: #ffffff;
-      color: red;
-      border: 2px solid;
-  }
-    .showBtn.profileButton {background: linear-gradient(to left, #c60874, #274091); }
-    .showBtn.profileButton:lang(ar){background: linear-gradient(to right, #c60874, #274091); }
-    .showBtn.profileButton:hover {
-      background: white;
-      color: #198d19;
-      border: 2px solid;
-      }
-    .updatBtn.profileButton{    background: #274091; }
-    .updatBtn.profileButton:hover {
-      background: #ffffff;
-      color: #274091;
-      border: 2px solid;
-
-  }
-  
-  }
-  .actionsCont:lang(en){ padding-inline-start:0px;}
-    }
-
-
-    .recepBloc:hover {
-      .rECIPIENTCARD .actionsCont{
-        bottom: -38px;
-        opacity:1;
-        right: 0px;
-        z-index: 5;
-        transition :all 0.2s ease-in-out;
-      }
+      flex-direction: column;}
+    .card-block.USerCont.updateForm {
       
-    }
-    .card-block.recepBloc {
-        transition :all 0.2s ease-in-out;}
-  .card-block.recepBloc:hover{ 
-    box-shadow: -2px -2px 2px 4px #c60874;
-     transition :all 0.2s ease-in-out;
-    cursor: pointer;
-  
-  }
+     flex-direction: column;}
+   .addressPArent  {padding:0px}
+ }
 
-    @media(max-width:767px){
-       .card-block.USerCont {
-         
-        flex-direction: column;}
-    }
+ @media(   min-width:768px )and (max-width:991px){
+  .card-block.USerCont .nameProfile { }
+  
+}
+ 
  }
 
 
- .ant-select-item-option-content {
-  
-  text-align: start;
-
+ .deletemodal .ant-modal-confirm-body .ant-modal-confirm-title {
+  text-align: start;}
+  .deletemodal:lang(ar){
+    .ant-modal-confirm-body > .anticon {
+      float: right;
+      margin-right: 0;
+     
+      margin-left: 22px;
+  }
+  .ant-modal-confirm-body > .anticon {
+    float: right;
+    margin-right: 0;
+   
+    margin-left: 22px;
 }
+.ant-modal-confirm .ant-modal-confirm-btns .ant-btn + .ant-btn {
+  
+  margin-right: 8px;
+  margin-left: 0px;
+}
+.ant-modal-confirm .ant-modal-confirm-btns {
+  float: left;
+  margin-top: 24px;
+}
+  }
+  .ant-modal-confirm .ant-btn > .ant-btn-loading-icon .anticon {
+    padding-inline-end: 15px;
+    position: relative;
+    top: -3px;}
+
+ 
