@@ -185,7 +185,7 @@ const NewAddress = (props) => {
 
             })
             .catch(err => console.log(err))
-        console.log(respons)
+ 
     }
 
     const handleCountryChange = (value) => {
@@ -200,7 +200,7 @@ const NewAddress = (props) => {
             AddressRef.current.setFieldsValue({ city: null, });
         }
     }
-    console.log(cities)
+    console.log(profile)
     return (
         <Modal
             title={type === "Address" ? t("New Address") : t('Add Recipient')}

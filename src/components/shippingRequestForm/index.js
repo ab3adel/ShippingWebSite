@@ -11,7 +11,9 @@ import "../../globalVar"
 
 
 export const ShippingRequestForm = (props) => {
-    const { errorMessage, countries, profile, typesArr, recipients, handleFields, formFields, handleAddressForm, myAddress } = props
+    const { errorMessage, countries, 
+        profile, typesArr, recipients, handleFields, 
+        formFields, handleAddressForm, myAddress } = props
     let history = useHistory();
     const [t, i18n] = useTranslation();
 
@@ -28,6 +30,7 @@ export const ShippingRequestForm = (props) => {
         handleSubmit,
         formState: { errors }, reset } = useForm();
     const [form] = Form.useForm();
+    let DocumentedOptions=[{val:true,item:t('Documented')},{val:false,item:t('NotDocumented')}]
     useEffect(async () => {
         formFields.Recipient && await setAddressArr(recipients ? recipients.filter(item => item.id === formFields.Recipient)[0].addresses : [])
         formRef.current && formRef.current.setFieldsValue({
@@ -447,6 +450,21 @@ export const ShippingRequestForm = (props) => {
                 </div>
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
                     <Form.Item
+                        label={t('ShipmentPurpose')}
+                        name='ٍShipmentPurpose'
+                        rules={[{ required: true, message: t('Required'), },]}
+                        validateStatus={formFields['ٍShipmentPurposeError'] ? "error" : ""}
+                    >
+                        <Input
+                            name="ShipmentPurpose"
+                            type="text"
+                            
+                            value={formFields["ShipmentPurpose"]}
+                            onChange={handleChange} />
+                    </Form.Item>
+                </div>
+                {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
+                    <Form.Item
                         label={`${t('CustomsAmount')}`}
                         name='CustomsAmount'
                         rules={[{ required: true, message: t('Required'), },]}
@@ -461,7 +479,8 @@ export const ShippingRequestForm = (props) => {
                             value={formFields["CustomsAmount"]}
                             onChange={handleChange} />
                     </Form.Item>
-                </div>
+                </div> */}
+              
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
                     <Form.Item
                         label={`${t('UnitPrice')}`}
@@ -502,25 +521,25 @@ export const ShippingRequestForm = (props) => {
                 <div className='col-md-6 col-lg-3'>
 
                     <Form.Item
-                        label={t('provenance country')}
-                        name="Country"
+                        label={t('DocumentShipment')}
+                        name="DocumentShipment"
                         type='text'
                         className={'halfWidth'}
                         rules={[
                             { required: true, message: t('Required'), },]}
-                        validateStatus={formFields['CountryError'] ? "error" : ""}
+                        validateStatus={formFields['DocumentShipmentError'] ? "error" : ""}
                     >
                         <Select
-                            showSearch
+                           
                             optionFilterProp="children"
-                            value={formFields["Country"]}
-                            placeholder={t('provenance country')}
-                            onChange={(e, v) => handleSelect(e, v, 'Country')}
-                            onSearch={onSearch}
+                            value={formFields["DocumentShipment"]}
+                            placeholder={t('DocumentShipment')}
+                            onChange={(e, v) => handleSelect(e, v, 'DocumentShipment')}
+                          
                             listItemHeight={10} listHeight={250}
                         >
-                            {countries && countries.map((item) => {
-                                return (<Option key={item.id} value={item.country_code}>{item.country_name_en}{' / '}{item.country_code}</Option>)
+                            {DocumentedOptions.map((ele,index) => {
+                                return (<Option key={index} value={ele.val}>{ele.item}</Option>)
                             })}
 
 
@@ -609,8 +628,8 @@ export const ShippingRequestForm = (props) => {
 
                         <Input type="number"
                             name="Weight"
-                            min='0'
-                            max='67'
+                            min='0.00'
+                            max='67.00'
                             value={formFields["Weight"]}
                             placeholder={t('Weight')} onChange={handleChange} />
                     </Form.Item>

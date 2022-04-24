@@ -71,10 +71,16 @@
   "PCAIID": "PCAIID",
   "Packaging Type": "نوع التغليف",
   "Category": "التصنيف",
-  "NumberOfPieces": "عدد  القطع",
+  "NumberOfPieces": " قطع البكج الواحد",
   "CustomsAmount": "رسوم جمركية",
   "Hermonized": "رمز التناغم",
   "provenance country": "بلد المنشأ",
   "UnitPrice": "سعر الواحدة",
-  "Delivery Date": "تاريخ التسليم"
+  "Delivery Date": "تاريخ التسليم",
+  "DocumentShipment":"توثيق الشحنة",
+  "ShipmentPurpose":"غرض الشحنة",
+  "Documents":"أوراق /وثائق",
+  "NotDocumented":"غير ورقية",
+  "TypeFirst":"رجاء اختر نوع الشحنة أولا",
+  "AllowedWeightError":"وزن شحنتك يجب الا تتجاوز الوزن "
 }

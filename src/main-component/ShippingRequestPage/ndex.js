@@ -33,11 +33,11 @@ const ShippingRequest = () => {
         RecipientAddress: ''
         , Type: '', Date: '', Width: '', Length: '', Recipient: "",
         Category: "", NumberOfPieces: "",
-        Height: '', Weight: '', CustomsAmount: '', Country: "", Hermonized: "",
-        CountryError: "", HermonizedError: "", Price: "",
-        CustomsAmountError: '', PriceError: "",
+        Height: '', Weight: '',  Hermonized: "",
+        HermonizedError: "", Price: "", PriceError: "",
+        DocumentShipment:"",ShipmentPurpose:"",
         //  SenderAddressError: false,
-
+        DocumentShipmentError:false,ShipmentPurposeError:false,
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
@@ -200,8 +200,30 @@ const ShippingRequest = () => {
             setFormFields({ ...formFields, [name]: value, RecipientAddress: null, [`${name}Error`]: value ? false : true })
 
         }
+        //  if (name === "Weight") {
+            
+        //     let typeObj = types.filter(ele=>ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
+           
+        //     if (typeObj.length === 0) {
+        //         setFormFields(pre=>({...pre,WeightError:true}))
+        //         setErrorMessage(pre=>({...pre,prerequisite:t("TypeFirst")}))
+        //     }
+        //     else {
+        //         if (formFields["Type"] !== "BOX" && value > typeObj[0]["allowed_weight"]) {
+        //             setFormFields(pre=>({...pre,WeightError:true}))
+        //             setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${typeObj[0]["allowed_weight"]} KG`}))
+        //         }
+        //         if (formFields["Type"] === "BOX") {
+                    
+        //         }
+        //         else {
+        //             setFormFields(pre=>({...pre,WeightError:false,Weight:value}))
+        //         }
+        //     }
+        // }
+       
         else {
-            setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value ? false : true })
+            setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value ===false ? false : true })
         }
         // let newFormFields = { ...formFields }
         // newFormFields[name] = value
@@ -213,7 +235,34 @@ const ShippingRequest = () => {
         let emptyVal = Object.keys(newFormFields)
             .filter(ele => !newFormFields[ele] && !ele.includes('Error'))
 
-        if (emptyVal.length === 0) return false
+        if (emptyVal.length === 0) {
+            
+            let typeObj = types.filter(ele=>ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
+            if (formFields["Type"] !== "CARTON" && formFields["Weight"] > typeObj[0]["allowed_weight"]) {
+                            setFormFields(pre=>({...pre,WeightError:true}))
+                            setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${typeObj[0]["allowed_weight"]} KG`}))
+                            
+                            return true
+                        }
+            if  (formFields["Type"] === "CARTON")  {
+                let volumeWeight = (formFields["Height"] * formFields["Width"] * formFields["Length"])/5000
+                let maxWeight = volumeWeight > formFields["Weight"] ? volumeWeight:formFields["Weight"]
+                if (maxWeight >typeObj[0]["allowed_weight"] ) {
+                    setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${typeObj[0]["allowed_weight"]} KG`}))
+                    if (volumeWeight > formFields["Weight"]) {
+                        newFormFields['HeightError']=true
+                        newFormFields['LengthError']=true
+                        newFormFields['WidthError']= true
+                    }
+                    else {
+                        newFormFields['WeightError']=true
+                    }
+                    setFormFields(pre=>({...pre,...newFormFields}))
+                    return true
+                }
+            }           
+            return false
+        }
         emptyVal.forEach(ele => {
             newFormFields[`${ele}Error`] = true
 
@@ -272,10 +321,12 @@ const ShippingRequest = () => {
             recipientAddressId: formFields.RecipientAddress,
             shipDateStamp: formFields.Date,
             NumberOfPieces: formFields.NumberOfPieces,
-            CustomsValueAmount: formFields.CustomsAmount,
-            GoodsOriginCountryCode: formFields.Country,
+            // CustomsValueAmount: formFields.CustomsAmount,
+            // GoodsOriginCountryCode: formFields.Country,
             harmonizedCode: formFields.Hermonized,
             unitPrice: formFields.Price,
+            documentShipment:formFields.DocumentShipment,
+            shipmentPurpose:formFields.ShipmentPurpose,
             requestedPackageLineItems: [
                 {
                     subPackagingType: formFields.Type,
@@ -308,8 +359,9 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-            // console.log("response", response);
+             
             if (response instanceof Array) {
+               
                 setLoading(false)
                 setSuccess(false)
                 setErrorMessage({
@@ -356,7 +408,7 @@ const ShippingRequest = () => {
 
 
     };
-    // console.log("formFields", formFields)
+
     return (
         <div>
             {/* <Navbar /> */}
