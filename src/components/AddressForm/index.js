@@ -189,7 +189,7 @@ const NewAddress = (props) => {
 
             })
             .catch(err => console.log(err))
-        console.log(respons)
+
     }
 
     const handleCountryChange = (value) => {
@@ -204,6 +204,7 @@ const NewAddress = (props) => {
             AddressRef.current.setFieldsValue({ city: null, });
         }
     }
+
     const [phone, setPhone] = useState({ short: 'KW' })
     const handlePhone = (v) => {
         setPhone(v)
@@ -212,6 +213,7 @@ const NewAddress = (props) => {
         else { AddressRef.current.setFieldsValue({ recipient_phone: null }) }
 
     }
+
     return (
         <Modal
             title={type === "Address" ? t("New Address") : t('Add Recipient')}

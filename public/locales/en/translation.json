@@ -71,10 +71,16 @@
   "PCAIID": "PCAIID",
   "Packaging Type": "Packaging Type",
   "Category": "Category",
-  "NumberOfPieces": "Number Of Pieces",
+  "NumberOfPieces": "Pieces of single package",
   "CustomsAmount": "Customs Amount",
   "Hermonized": "Harmonized Code",
   "provenance country": "Provenance Country",
   "UnitPrice": "Unit Price",
-  "Delivery Date":"Delivery Date"
+  "Delivery Date":"Delivery Date",
+  "DocumentShipment":"Document Shipment",
+  "ShipmentPurpose":"Shipment Purpose",
+  "Documented" :"Documents",
+  "NotDocumented":"Others",
+  "TypeFirst":"please select your shipment type first",
+  "AllowedWeightError":"your shipment's weight must not surpass "
 }

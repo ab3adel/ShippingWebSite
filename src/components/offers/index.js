@@ -21,7 +21,7 @@ const Offers = (props) => {
             { image: ups, companyName: 'Aramex', dDate: "", price: rateStatus.Aramex.TotalAmount.Value, success: !rateStatus.Aramex.HasErrors, msg: '' },
             {
                 image: fedex, companyName: 'Fedex', dDate: rateStatus.FedEx.output.rateReplyDetails[0] && rateStatus.FedEx.output.rateReplyDetails[0].operationalDetail && rateStatus.FedEx.output.rateReplyDetails[0].operationalDetail.deliveryDate ? rateStatus.FedEx.output.rateReplyDetails[0].operationalDetail.deliveryDate.slice(0, 10) : "",
-                price: rateStatus.FedEx.output.rateReplyDetails[0].ratedShipmentDetails[0].totalNetCharge,
+                price: rateStatus.FedEx.output.rateReplyDetails[0].ratedShipmentDetails[0].totalNetChargeWithDutiesAndTaxes,
                 success: true, msg: ''
             }])
         }
