@@ -204,3 +204,7 @@
     padding-inline-end: 18px;
 
 }
+
+.ant-alert-success .ant-alert-message {
+    color: rgb(78 141 47);
+}

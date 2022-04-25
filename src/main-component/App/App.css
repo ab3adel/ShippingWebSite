@@ -209,6 +209,35 @@ input:-internal-autofill-selected {
   background: white
 }
 
+.ant-alert-success .ant-alert-message {
+  color: rgb(78 141 47);
+}
+
+.antd-country-phone-input {
+  padding: 0px;
+  height: 32px;
+}
+
+.antd-country-phone-input .ant-select-arrow:lang(ar) {
+  left: unset !important;
+  right: 11px !important;
+}
+
+.antd-country-phone-input .ant-input-prefix {
+  margin-right: 0px;
+  width: 80px;
+}
+
+.antd-country-phone-input .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+.antd-country-phone-input .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+
+  direction: ltr;
+}
+
+.d-flex {
+  pointer-events: all;
+}
+
 ::-webkit-scrollbar {
   width: 15px;
   border-radius: 1px;

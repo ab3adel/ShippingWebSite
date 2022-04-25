@@ -29,7 +29,7 @@ const Terms = () => {
                     }
                 );
                 const response = await responsee.json();
-                console.log('fetchAbout', response);
+
                 if (response.success) {
                     setData(response.payload[0])
                 }

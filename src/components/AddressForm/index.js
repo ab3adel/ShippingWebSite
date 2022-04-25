@@ -1,4 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
+import CountryPhoneInput, { ConfigProvider, } from 'antd-country-phone-input';
+import en from '../Signup/world.json';
+
+import 'flagpack/dist/flagpack.css';
 import './addressform.scss'
 import {
     Modal
@@ -110,7 +114,7 @@ const NewAddress = (props) => {
             );
             const response = await responsee.json();
             if (response.success) {
-
+                setPhone({ short: 'KW' })
                 // useAddressForm.resetFields();
                 // setCountryDetails({ postalCode: false, stateCode: false })
                 // setCountry('')
@@ -200,7 +204,14 @@ const NewAddress = (props) => {
             AddressRef.current.setFieldsValue({ city: null, });
         }
     }
-    console.log(cities)
+    const [phone, setPhone] = useState({ short: 'KW' })
+    const handlePhone = (v) => {
+        setPhone(v)
+        // { phone: '32', code: 965, short: 'KW' }
+        if (v.phone) { AddressRef.current.setFieldsValue({ recipient_phone: `${v.code}${v.phone}` }) }
+        else { AddressRef.current.setFieldsValue({ recipient_phone: null }) }
+
+    }
     return (
         <Modal
             title={type === "Address" ? t("New Address") : t('Add Recipient')}
@@ -283,7 +294,19 @@ const NewAddress = (props) => {
                                     ]}
                                 >
                                     {/* type='email' */}
-                                    <Input placeholder={i18n.language == 'ar' ? `الهاتف` : `Phone`} />
+                                    <ConfigProvider locale={en} areaMapper={(area) => {
+                                        return Object.assign(Object.assign({}, area), { emoji: <span className={`fp ${area.short.toLowerCase()}`} /> });
+                                    }}>
+                                        <CountryPhoneInput
+                                            dir='ltr'
+                                            style={{ direction: "ltr" }}
+                                            value={phone}
+                                            // value='+964235245425'
+                                            onChange={(v) => {
+                                                handlePhone(v)
+                                            }} />
+                                    </ConfigProvider>
+                                    {/* <Input placeholder={i18n.language == 'ar' ? `الهاتف` : `Phone`} /> */}
                                 </Form.Item>
                             </div>
                             <div className='col-md-6'>
@@ -363,6 +386,7 @@ const NewAddress = (props) => {
                     </div> */}
                     <div className='col-md-6'>
                         <Form.Item
+                            autoComplete='none'
                             name="country"
                             label={t('Country')}
                             rules={[
@@ -373,6 +397,7 @@ const NewAddress = (props) => {
                             ]}
                         >
                             <Select
+                                autoComplete='none'
                                 disabled={isSender && type === "Address"}
                                 showSearch
                                 optionFilterProp="children"
@@ -392,6 +417,7 @@ const NewAddress = (props) => {
                     </div>
                     <div className='col-md-6'>
                         <Form.Item
+                            autoComplete='none'
                             name="city"
                             label={t('City')}
                             rules={[
@@ -402,6 +428,7 @@ const NewAddress = (props) => {
                             ]}
                         >
                             <Select placeholder={t('City')}
+                                autoComplete='none'
                                 showSearch
                                 optionFilterProp="children"
                                 listItemHeight={10} listHeight={250}

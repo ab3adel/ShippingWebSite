@@ -1,7 +1,11 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
+import CountryPhoneInput, { ConfigProvider, } from 'antd-country-phone-input';
+import en from './world.json';
+
+import 'flagpack/dist/flagpack.css';
 import { Row, Col, Upload, Form, Input, Button, Checkbox, Select } from 'antd';
 import { Alert } from 'antd';
 import Fade from 'react-reveal/Fade';
@@ -23,6 +27,7 @@ const SignupForm = () => {
         handleSubmit,
         formState: { errors }, reset } = useForm();
     const [form] = Form.useForm();
+    const formRef = useRef(null)
     useEffect(() => {
 
         // onFill()
@@ -146,11 +151,12 @@ const SignupForm = () => {
                     msg2: i18n.language == 'ar' ? `انتظر تفعيل الحساب من قبل المسؤول` : `Wait for the account to be activated by the administrator`
 
                 })
-
-                setLoading(false)
+                setPhone({ short: 'KW' })
                 form.resetFields();
                 setFileList([])
                 setFileList2([])
+                setLoading(false)
+
                 const timer = setTimeout(() => { setSuccessAdd('') }, 10000);
                 // await localStorage.setItem(
                 //     "token",
@@ -177,7 +183,23 @@ const SignupForm = () => {
         setLoading(false)
         // reset({})
     };
+    const getFlag = (short) => {
+        const data = require(`world_countries_lists/data/flags/24x24/${short.toLowerCase()}.png`);
+        // for dumi
+        if (typeof data === 'string') {
+            return data;
+        }
+        // for CRA
+        return data.default;
+    };
+    const [phone, setPhone] = useState({ short: 'KW' })
+    const handlePhone = (v) => {
+        setPhone(v)
+        // { phone: '32', code: 965, short: 'KW' }
+        if (v.phone) { formRef.current.setFieldsValue({ "customer[phone]": `${v.code}${v.phone}` }) }
+        else { formRef.current.setFieldsValue({ "customer[phone]": null }) }
 
+    }
     return (
         <Form
             name="basic"
@@ -193,37 +215,11 @@ const SignupForm = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             form={form}
+            ref={formRef}
             autoComplete="off"
             layout="vertical"
         >
-            <Fade top spy={animat} duration={1000} >
-                <div>
 
-                    {succesAdd && <>
-                        {Object.keys(succesAdd).map((item, i) => (
-                            <Alert message={succesAdd[item]} type="success" showIcon />
-                        ))}
-
-
-                    </>
-
-                    }
-                </div>
-            </Fade>
-            <Fade top spy={animat} duration={1000} >
-                <div>
-
-                    {errorMessage && <>
-
-                        {Object.keys(errorMessage).map((item, i) => (
-                            <Alert message={errorMessage[item]} type="error" showIcon />
-                        ))}
-
-                    </>
-
-                    }
-                </div>
-            </Fade>
 
             <div className='row'>
                 <div className='col-md-6'>   <Form.Item
@@ -244,7 +240,7 @@ const SignupForm = () => {
                 </div>
                 <div className='col-md-6'>
                     <Form.Item
-                        autoComplete='off'
+                        autoComplete='none'
                         label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
                         name="email"
                         type='email'
@@ -258,12 +254,12 @@ const SignupForm = () => {
                     // ]}
                     >
                         {/* type='email' */}
-                        <Input placeholder='email@example.com' autoComplete='off' />
+                        <Input placeholder='email@example.com' autoComplete='none' />
                     </Form.Item>
                 </div>
                 <div className='col-md-6'>
                     <Form.Item
-                        autoComplete='off'
+                        autoComplete='none'
                         label={i18n.language == 'ar' ? `كلمة المرور` : `Password`}
                         name="password"
                         rules={[
@@ -274,7 +270,7 @@ const SignupForm = () => {
                         ]}
                     >
 
-                        <Input.Password placeholder='********' autoComplete='off' />
+                        <Input.Password placeholder='********' autoComplete='none' />
                     </Form.Item>
 
 
@@ -310,8 +306,19 @@ const SignupForm = () => {
                             },
                         ]}
                     >
-
-                        <Input placeholder={i18n.language == 'ar' ? `رقم الهاتف` : `Phone Number`} />
+                        <ConfigProvider locale={en} areaMapper={(area) => {
+                            return Object.assign(Object.assign({}, area), { emoji: <span className={`fp ${area.short.toLowerCase()}`} /> });
+                        }}>
+                            <CountryPhoneInput
+                                dir='ltr'
+                                style={{ direction: "ltr" }}
+                                value={phone}
+                                // value='+964235245425'
+                                onChange={(v) => {
+                                    handlePhone(v)
+                                }} />
+                        </ConfigProvider>
+                        {/* <Input placeholder={i18n.language == 'ar' ? `رقم الهاتف` : `Phone Number`} /> */}
                     </Form.Item>
 
 
@@ -468,7 +475,35 @@ const SignupForm = () => {
 
 
 
+            <Fade top spy={animat} duration={1000} >
+                <div className='col-md-12 mb-1'>
 
+                    {succesAdd && <>
+                        {Object.keys(succesAdd).map((item, i) => (
+                            <Alert message={succesAdd[item]} type="success" showIcon />
+                        ))}
+
+
+                    </>
+
+                    }
+
+                </div>
+            </Fade>
+            <Fade top spy={animat} duration={1000} >
+                <div className='col-md-12'>
+
+                    {errorMessage && <>
+
+                        {Object.keys(errorMessage).map((item, i) => (
+                            <Alert message={errorMessage[item]} type="error" showIcon />
+                        ))}
+
+                    </>
+
+                    }
+                </div>
+            </Fade>
 
 
             <Form.Item

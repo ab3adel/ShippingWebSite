@@ -124,7 +124,7 @@ const Header = () => {
         }
     }
 
-    console.log('logged', logged);
+
     return (
         <header>
             {/* <div className="header-top-1" >

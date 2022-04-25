@@ -8,6 +8,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../redux/index'
 import Fade from 'react-reveal/Fade';
+import CountryPhoneInput, { ConfigProvider, } from 'antd-country-phone-input';
+import en from '../Signup/world.json';
+
+import 'flagpack/dist/flagpack.css';
+// import './addressform.scss'
 import './formStyle.scss'
 import "../../globalVar"
 // import { setCities } from '../../redux/actions';
@@ -93,6 +98,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
         setCountryDetails({ postalCode: false, stateCode: false })
         setCountry('')
         setCity('')
+        setPhone({ short: 'KW' })
     }, [reseter])
     const onSubmitRecipient = async (values) => {
 
@@ -154,6 +160,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                 setSuccessAdd2(i18n.language == 'ar' ? `تم إضافة مرسل إليه بنجاح` : `New Recipient added successfully`)
                 setLoading2(false)
                 useformRecip.resetFields();
+                setPhone({ short: 'KW' })
                 setCountryDetails({ postalCode: false, stateCode: false })
                 setCountry('')
                 setCity('')
@@ -215,7 +222,14 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
     function onSearch(val) {
         console.log('search:', val);
     }
-    console.log('countryDetails:', countryDetails);
+    const [phone, setPhone] = useState({ short: 'KW' })
+    const handlePhone = (v) => {
+        setPhone(v)
+        // { phone: '32', code: 965, short: 'KW' }
+        if (v.phone) { UpdateRecipientForm.current.setFieldsValue({ recipient_phone: `${v.code}${v.phone}` }) }
+        else { UpdateRecipientForm.current.setFieldsValue({ recipient_phone: null }) }
+
+    }
 
     return (<>
 
@@ -295,7 +309,19 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                         ]}
                     >
                         {/* type='email' */}
-                        <Input placeholder={i18n.language == 'ar' ? `الهاتف` : `Phone`} />
+                        <ConfigProvider locale={en} areaMapper={(area) => {
+                            return Object.assign(Object.assign({}, area), { emoji: <span className={`fp ${area.short.toLowerCase()}`} /> });
+                        }}>
+                            <CountryPhoneInput
+                                dir='ltr'
+                                style={{ direction: "ltr" }}
+                                value={phone}
+                                // value='+964235245425'
+                                onChange={(v) => {
+                                    handlePhone(v)
+                                }} />
+                        </ConfigProvider>
+                        {/* <Input placeholder={i18n.language == 'ar' ? `الهاتف` : `Phone`} /> */}
                     </Form.Item>
                 </div>
                 <div className='col-md-6 col-lg-4'>
@@ -331,6 +357,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                                 required: true,
                                 message: i18n.language == 'ar' ? `الرجاء ادخل حقل دولة المستلم` : 'Please Input Recipient Country !',
                             }]}
+                        autoComplete='none'
                     >
 
                         <Select
@@ -339,6 +366,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                             placeholder={i18n.language == 'ar' ? `الدولة` : `Country`}
                             optionFilterProp="children"
                             value={country}
+                            autoComplete='none'
                             onChange={onChangeCountry}
                             onSearch={onSearch}
                             listItemHeight={10} listHeight={250}
@@ -355,6 +383,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                 </div>
                 <div className='col-md-4 col-lg-4'>
                     <Form.Item
+                        autoComplete='none'
                         label={i18n.language == 'ar' ? `المدينة` : `City`}
                         name="city_id"
                         rules={[
@@ -365,6 +394,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                     >
 
                         <Select
+                            autoComplete='none'
                             showSearch
                             // style={{ width: 200 }}
                             placeholder={i18n.language == 'ar' ? `المدينة` : `City`}
