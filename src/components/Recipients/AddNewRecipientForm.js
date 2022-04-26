@@ -213,7 +213,13 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
             },
         )
             .then(res => res.json())
-            .then(res => { setCities(res.payload) })
+            .then(res => {
+
+                setCities(res.payload)
+                // setCity
+                if (res.payload.length === 1) { UpdateRecipientForm.current.setFieldsValue({ city_id: res.payload[0].id }) }
+                else { UpdateRecipientForm.current.setFieldsValue({ city_id: null }) }
+            })
             .catch(err => console.log(err))
 
     }
@@ -396,6 +402,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                         <Select
                             autoComplete='none'
                             showSearch
+                            disabled={cities.length <= 1}
                             // style={{ width: 200 }}
                             placeholder={i18n.language == 'ar' ? `المدينة` : `City`}
                             optionFilterProp="children"

@@ -167,7 +167,7 @@ const NewAddress = (props) => {
 
     }
     const fetchCities = async (id) => {
-        setDisableCities(false)
+
         let respons = await fetch(
             `${global.apiUrl}api/cities/getCityByCountryId?country_id=${id}`,
             {
@@ -185,8 +185,15 @@ const NewAddress = (props) => {
                     type: 'SET_CITIES',
                     payload: res.payload
                 })
+                if (res.payload.length === 1) {
+                    setDisableCities(true)
+                    AddressRef.current.setFieldsValue({ city: res.payload[0].id })
+                }
+                else {
+                    AddressRef.current.setFieldsValue({ city: null })
+                    setDisableCities(false)
+                }
                 setLoadingCites(false)
-
             })
             .catch(err => console.log(err))
 
@@ -195,7 +202,6 @@ const NewAddress = (props) => {
     const handleCountryChange = (value) => {
         setLoadingCites(true)
         setCountry(value)
-        fetchCities(value)
         if (!isSender) {
             const cont = countries.filter(item => item.id == value)[0]
             setCountryDetails({ postalCode: cont.postal_aware !== 0, stateCode: cont.state_or_province !== 0 })
@@ -203,6 +209,8 @@ const NewAddress = (props) => {
             cont.state_or_province == 0 && AddressRef.current.setFieldsValue({ state_code: '', });
             AddressRef.current.setFieldsValue({ city: null, });
         }
+        fetchCities(value)
+
     }
 
     const [phone, setPhone] = useState({ short: 'KW' })

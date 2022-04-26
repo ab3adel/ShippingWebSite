@@ -176,7 +176,11 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
             },
         )
             .then(res => res.json())
-            .then(res => { setCities(res.payload) })
+            .then(res => {
+                setCities(res.payload)
+                if (res.payload.length === 1) { AddressFormRef.current.setFieldsValue({ city_id: res.payload[0].id }) }
+                else { AddressFormRef.current.setFieldsValue({ city_id: null }) }
+            })
             .catch(err => console.log(err))
 
     }
@@ -236,7 +240,7 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
 
                         <Select
                             showSearch
-                            // style={{ width: 200 }}
+                            autoComplete="none"
                             placeholder={i18n.language == 'ar' ? `الدولة` : `Country`}
                             optionFilterProp="children"
                             value={country}
@@ -267,10 +271,11 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
 
                         <Select
                             showSearch
-                            // style={{ width: 200 }}
+                            disabled={cities.length <= 1}
                             placeholder={i18n.language == 'ar' ? `المدينة` : `City`}
                             optionFilterProp="children"
                             value={city}
+                            autoComplete="none"
                             onChange={onChangeCity}
                             onSearch={onSearch}
                             listItemHeight={10} listHeight={250}
