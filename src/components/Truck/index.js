@@ -1,17 +1,56 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import logo from '../../images/logo/logo33.png'
+import { Row, Col, Upload, Form, Input, Button, Checkbox, Select } from 'antd';
 import './style.css'
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom'
 const TruckArea = (props) => {
+    const { Option } = Select;
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false)
+    const formRef = useRef(null)
     const tokenString = localStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
     let history = useHistory();
     const [t, i18n] = useTranslation();
-    const submitHandler = (e) => {
-        e.preventDefault()
-    }
 
+    const onFinish = (values) => {
+        console.log('Success:', values);
+
+        onSubmit(values)
+
+
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+    const onSubmit = async (data) => {
+
+        setLoading(true)
+        try {
+            const responsee = await fetch(
+                `${global.apiUrl}api/shipping/tracking?company_name=${data.cName}&shipment_tracking_id=${data.id}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                    },
+
+                }
+            );
+            const response = await responsee.json();
+            if (response.success) {
+                setLoading(false)
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+
+        setLoading(false)
+
+    };
     return (
         <section className="wpo-track-section">
             <div className="container">
@@ -27,9 +66,103 @@ const TruckArea = (props) => {
 
                             </h3>
                             <div className="wpo-tracking-form">
-                                <form onSubmit={submitHandler}>
+                                <Form
+                                    name="basic"
+                                    labelCol={{
+                                        span: 30,
+                                    }}
+                                    wrapperCol={{
+                                        span: 32,
+                                    }}
+
+                                    onFinish={onFinish}
+                                    onFinishFailed={onFinishFailed}
+                                    form={form}
+                                    ref={formRef}
+                                    autoComplete="off"
+                                    layout="vertical"
+                                >
+
+
+                                    <div className='row'>
+
+                                        <div className='col-md-4'>
+                                            <Form.Item
+                                                name="id"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: i18n.language == 'ar' ? `أدخل رقم التتبع` : 'Enter Tracking Number',
+                                                    },
+
+                                                ]}
+                                            >
+
+                                                <Input placeholder={i18n.language == 'ar' ?
+                                                    "رقم التتبع"
+                                                    :
+                                                    "Tracking Number"
+                                                } />
+                                            </Form.Item>
+
+
+                                        </div>
+                                        <div className='col-md-3'>
+                                            <Form.Item
+
+                                                name="cName"
+                                                // type='email' 
+                                                autoComplete='off'
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: i18n.language == 'ar' ? `الرجاء اختر شركة!` : 'Please Select Company!',
+                                                    },
+
+                                                ]}
+                                            >
+                                                <Select
+
+                                                    style={{ width: '100%' }}
+                                                    placeholder={i18n.language == 'ar' ? `الشركة` : `Company`}
+
+                                                >
+                                                    <Option value={'Aramex'}  >  {i18n.language == 'ar' ? "آراميكس" : "Aramex"} </Option>
+                                                    <Option value={'DHL'}  >  {i18n.language == 'ar' ? "دي إتش إل" : "DHL"} </Option>
+                                                    <Option value={'FedEx'}  >  {i18n.language == 'ar' ? "فيديكس" : "FedEx"} </Option>
+
+
+
+                                                </Select>
+                                            </Form.Item>
+                                        </div>
+
+
+
+
+
+
+                                        <div className="col-lg-3 col-md-6 col-sm-6" style={{ textAlign: 'start' }}>
+
+                                            <Form.Item
+                                                // wrapperCol={{
+                                                //     // offset: 24,
+                                                //     span: 25,
+                                                // }}
+                                                className='text-center'
+                                            >
+                                                <Button htmlType='submit' disabled={loading}>
+                                                    {i18n.language === 'ar' ? "تتبع شحنتك" : "Track Your Cargo"}
+                                                    {loading && <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></>}
+                                                </Button>
+                                            </Form.Item>
+                                        </div>
+                                    </div>
+                                </Form>
+
+                                {/* <form onSubmit={submitHandler}>
                                     <div className="row">
-                                        {/* <div className="col-lg-4 col-md-4 col-sm-6">
+                                        <div className="col-lg-4 col-md-4 col-sm-6">
                                             <div className="form-group">
                                                 <input type="text" className="form-control"
 
@@ -39,8 +172,8 @@ const TruckArea = (props) => {
                                                         "Email"
                                                     } />
                                             </div>
-                                        </div> */}
-                                        <div className="col-lg-6 col-md-6 col-sm-6">
+                                        </div>
+                                        <div className="col-lg-4 col-md-6 col-sm-6">
                                             <div className="form-group">
                                                 <input type="text" className="form-control"
                                                     placeholder={i18n.language == 'ar' ?
@@ -51,7 +184,7 @@ const TruckArea = (props) => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-6" style={{ textAlign: 'start' }}>
+                                        <div className="col-lg-3 col-md-6 col-sm-6" style={{ textAlign: 'start' }}>
                                             <button type="submit">
                                                 {i18n.language === 'ar' ?
                                                     "تتبع شحنتك"
@@ -61,7 +194,7 @@ const TruckArea = (props) => {
                                             </button>
                                         </div>
                                     </div>
-                                </form>
+                                </form> */}
                             </div>
                         </div>
                     </div>
@@ -91,8 +224,8 @@ const TruckArea = (props) => {
                     </div>
 
                 </div>
-            </div>
-        </section>
+            </div >
+        </section >
     )
 
 }
