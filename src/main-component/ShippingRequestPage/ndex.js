@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../redux/index'
-
+import {notification} from 'antd'
 
 
 const ShippingRequest = () => {
@@ -26,6 +26,7 @@ const ShippingRequest = () => {
     const { setTypes, setCountries } = bindActionCreators(actionCreators, dispatch)
     const [visible, setVisible] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
+    const [disableButton, setDisableButton] = React.useState(false)
     const [success, setSuccess] = React.useState()
     const [errorMessage, setErrorMessage] = useState();
     const [formFields, setFormFields] = useState({
@@ -41,7 +42,7 @@ const ShippingRequest = () => {
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
-        , NumberOfPiecesError: ""
+        , NumberOfPiecesError: "",GroupPackageCount:'',GroupPackageCountError:false
 
     })
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
@@ -200,55 +201,34 @@ const ShippingRequest = () => {
             setFormFields({ ...formFields, [name]: value, RecipientAddress: null, [`${name}Error`]: value ? false : true })
 
         }
-        //  if (name === "Weight") {
-            
-        //     let typeObj = types.filter(ele=>ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
-           
-        //     if (typeObj.length === 0) {
-        //         setFormFields(pre=>({...pre,WeightError:true}))
-        //         setErrorMessage(pre=>({...pre,prerequisite:t("TypeFirst")}))
-        //     }
-        //     else {
-        //         if (formFields["Type"] !== "BOX" && value > typeObj[0]["allowed_weight"]) {
-        //             setFormFields(pre=>({...pre,WeightError:true}))
-        //             setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${typeObj[0]["allowed_weight"]} KG`}))
-        //         }
-        //         if (formFields["Type"] === "BOX") {
-                    
-        //         }
-        //         else {
-        //             setFormFields(pre=>({...pre,WeightError:false,Weight:value}))
-        //         }
-        //     }
-        // }
+      
        
         else {
             setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value ===false ? false : true })
         }
-        // let newFormFields = { ...formFields }
-        // newFormFields[name] = value
-        // setFormFields(pre => ({ ...pre, ...newFormFields }))
+ 
     }
     const checkError = () => {
 
         let newFormFields = { ...formFields }
         let emptyVal = Object.keys(newFormFields)
-            .filter(ele => !newFormFields[ele] && !ele.includes('Error'))
+            .filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
 
         if (emptyVal.length === 0) {
             
             let typeObj = types.filter(ele=>ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
-            if (formFields["Type"] !== "CARTON" && formFields["Weight"] > typeObj[0]["allowed_weight"]) {
+            let allowed_weight=typeObj[0]["allowed_weight"] *formFields.GroupPackageCount
+            if (formFields["Type"] !== "CARTON" && formFields["Weight"] > allowed_weight ) {
                             setFormFields(pre=>({...pre,WeightError:true}))
-                            setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${typeObj[0]["allowed_weight"]} KG`}))
+                            setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${allowed_weight} KG`}))
                             
                             return true
                         }
             if  (formFields["Type"] === "CARTON")  {
-                let volumeWeight = (formFields["Height"] * formFields["Width"] * formFields["Length"])/5000
+                let volumeWeight = ((formFields["Height"] * formFields["Width"] * formFields["Length"])/5000)*formFields.GroupPackageCount
                 let maxWeight = volumeWeight > formFields["Weight"] ? volumeWeight:formFields["Weight"]
-                if (maxWeight >typeObj[0]["allowed_weight"] ) {
-                    setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${typeObj[0]["allowed_weight"]} KG`}))
+                if (maxWeight >allowed_weight ) {
+                    setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${allowed_weight} KG`}))
                     if (volumeWeight > formFields["Weight"]) {
                         newFormFields['HeightError']=true
                         newFormFields['LengthError']=true
@@ -289,32 +269,7 @@ const ShippingRequest = () => {
         setErrorMessage('')
         let collection = document.querySelectorAll('.stage')
 
-        // const data = {
-        //     "category_id": "2",
-        //     "xLocale": "ar_AE",
-        //     "recipientAddressId": "15",
-        //     "shipDateStamp": "2022-04-24",
-        //     "NumberOfPieces": "4",
-        //     "CustomsValueAmount": "4",
-        //     "GoodsOriginCountryCode": "CN",
-        //     "harmonizedCode": "080211",
-        //     "unitPrice": "1",
-        //     "requestedPackageLineItems": [
-        //         {
-        //             "subPackagingType": "BAG",
-        //             "weight": {
-        //                 "units": "KG",
-        //                 "value": "18"
-        //             },
-        //             "dimensions": {
-        //                 "length": "1",
-        //                 "width": "1",
-        //                 "height": "1",
-        //                 "units": "CM"
-        //             }
-        //         }
-        //     ]
-        // }
+    
         const data = {
             category_id: formFields.Category,
             xLocale: i18n.language === "ar" ? "ar_AE" : "en_US",
@@ -332,14 +287,15 @@ const ShippingRequest = () => {
                     subPackagingType: formFields.Type,
                     weight: {
                         units: "KG",
-                        value: formFields.Weight,
+                    value: formFields.Weight,
                     },
                     dimensions: {
-                        length: formFields.Length,
-                        width: formFields.Width,
-                        height: formFields.Height,
+                        length: Number(formFields.Length),
+                        width: Number(formFields.Width),
+                        height: Number(formFields.Height),
                         units: "CM"
-                    }
+                    },
+                    groupPackageCount:formFields.GroupPackageCount
                 }
             ]
         }
@@ -359,46 +315,35 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-             
-            if (response instanceof Array) {
-               
-                setLoading(false)
-                setSuccess(false)
-                setErrorMessage({
-                    Cat: i18n.language == 'ar' ?
-                        `التصنيف غير مدعوم`
-                        :
-                        `Category Not Supported`
-                })
-                const timerr = setTimeout(() => { setErrorMessage('') }, 8000);
-                return () => clearTimeout(timerr);
-            }
-            else if (!response.messages && !response.FedEx.errors) {
+             console.log(response)
+          
+             if (!response.messages ) {
                 setRateStatus(response)
                 setSuccess(true)
-                // console.log("resRate", response)
+                
                 setLoading(false)
                 setStage(++stage)
                 collection[stage - 1].classList.add('currentStage')
                 goTostart("offersDIV")
 
             }
-            else if (response && response.FedEx && response.FedEx.errors) {
-                setLoading(false)
-                setSuccess(false)
-                setErrorMessage(response.FedEx.errors[0])
-                const timerr2 = setTimeout(() => { setErrorMessage('') }, 10000);
-                return () => clearTimeout(timerr2);
-            }
-            else if (response.messages) {
-                setLoading(false)
-                setSuccess(false)
-                setErrorMessage(response.messages)
-                const timerr3 = setTimeout(() => { setErrorMessage('') }, 10000);
-                return () => clearTimeout(timerr3);
-            }
+            // else if (response && response.FedEx && response.FedEx.errors) {
+            //     setLoading(false)
+            //     setSuccess(false)
+            //     setErrorMessage(response.FedEx.errors[0])
+            //     const timerr2 = setTimeout(() => { setErrorMessage('') }, 10000);
+            //     return () => clearTimeout(timerr2);
+            // }
+            // else if (response.messages) {
+            //     setLoading(false)
+            //     setSuccess(false)
+            //     setErrorMessage(response.messages)
+            //     const timerr3 = setTimeout(() => { setErrorMessage('') }, 10000);
+            //     return () => clearTimeout(timerr3);
+            // }
             else {
                 setLoading(false)
+                setErrorMessage(response.messages)
                 setSuccess(false)
 
             }
@@ -408,6 +353,77 @@ const ShippingRequest = () => {
 
 
     };
+    const saveOffer = () =>{
+        setLoading(true)
+        let formData = {
+            company_id:formFields.company_id,serviceType:formFields.serviceType,
+            serviceName:formFields.serviceName,serviceCode:formFields.serviceCode,
+            serviceId:formFields.serviceId,ship_date:formFields.Date,
+            width:formFields.Width,height:formFields.Height,length:formFields.Length,
+            subPackagingType:formFields.Type,documentShipment:formFields.DocumentShipment,
+            shipmentPurpose:formFields.ShipmentPurpose,harmonizedCode:formFields.Hermonized,
+            unitPrice:formFields.Price,totalNetCharge:formFields.totalNetCharge,
+            required_documents:formFields.required_documents,delivery_date_time:formFields.delivery_date_time,
+            NumberOfPieces:formFields.NumberOfPieces,groupPackageCount:formFields.GroupPackageCount,
+            weight:formFields.Weight,signatureOptionType:formFields.signatureOptionType,
+            recipient_address_id:formFields.RecipientAddress,category_id:formFields.Category,
+            customer_id:profile.customer.id,commodityName:formFields.commodityName,
+            addedCharges:[]
+        }
+
+         fetch(global.apiUrl+'api/offers', {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + userToken,
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(res =>{
+            setLoading(false)
+           
+        return  res.json()
+        })
+        .then(res=>{
+        
+            if (res.success&& formFields.Weight <= 3) {
+                notification.success({
+                    message:t('SuccessfullRequest'),
+                    description:i18n.language ==='en' ? 
+                    "your request has been added successfully":
+                    "تمت اضافة العرض بنجاح",
+                    duration:5,
+                    placement:'bottomRight'
+                })
+                setDisableButton(true)
+            }
+            else if (res.success && formFields.Weight > 3) {
+               
+
+                    notification.info({
+                        message:t('InProgress'),
+                        description:i18n.language === "en"?
+                        "we are proccessing your request ,will let you know when succeed":
+                        "نحن نعالج الطلب , سنعلمك عند نجاح الطلب",
+                        duration:5,
+                        placement:'bottomRight'
+                    })
+                    setDisableButton(true)
+                
+            }
+            else {
+                notification.error ({
+                    message:"we are soory",
+                    description:"something wrong went ",
+                
+                    duration:5,
+                    placement:'bottomRight'
+                })
+            }
+        })
+        .catch(err=>console.log(err))
+    }
 
     return (
         <div>
@@ -476,10 +492,16 @@ const ShippingRequest = () => {
                             {
                                 stage === 2 && (<Offers
                                     setActiveOffer={setActiveOffer} rateStatus={rateStatus} success={success}
-                                    handleStage={handleStage} handleFields={handleFields} />)
+                                    handleStage={handleStage} handleFields={setFormFields} 
+                                       
+                                    />)
                             }
                             {
-                                stage === 3 && (<Offer activeOffer={activeOffer} formFields={formFields} />)
+                                stage === 3 && (<Offer activeOffer={activeOffer} 
+                                                       handleFields={setFormFields} 
+                                                      formFields={formFields} 
+                                                      disableButton={disableButton}
+                                                      />)
                             }
                             <img src={abimg2} className='loginImg'></img>
                         </div>
@@ -487,7 +509,13 @@ const ShippingRequest = () => {
                     </div>
 
                     {myAddress && myAddress != 'EMPTY' && <div className="row nextStage col-md-12 m-0">
-                        <RequestButton Type="Next" loading={loading} stage={stage} handleStage={handleStage} />
+                        <RequestButton
+                        saveOffer={saveOffer}
+                         Type="Next" 
+                        loading={loading} 
+                        stage={stage} 
+                        disableButton={disableButton}
+                        handleStage={handleStage} />
                         <RequestButton Type="Previous" stage={stage} handleStage={handleStage} />
                     </div>}
 

@@ -29,7 +29,7 @@ const LoginForm = () => {
         formState: { errors }, reset } = useForm();
     const [form] = Form.useForm();
     const onFinish = (values) => {
-        console.log('Success:', values);
+       
         onSubmit(values)
     };
 
@@ -38,11 +38,11 @@ const LoginForm = () => {
     };
 
     const onSubmit = async (data) => {
-        console.log(JSON.stringify({ data }))
+ 
         setErrorMessage('')
         setSuccessAdd('')
         setLoading(true)
-        console.log(data.inputReg.split('@'))
+      
         let dataLogin = data
 
         data.inputReg.split('@').length > 1 ?

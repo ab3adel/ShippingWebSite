@@ -1,9 +1,13 @@
 import React from 'react'
 import { Button } from 'antd'
 import { useTranslation } from 'react-i18next';
+import { PersonPinSharp } from '@mui/icons-material';
 export const Company = (props) => {
     const [t, i18n] = useTranslation();
-    let { deliveryDate, setActiveOffer, success, msg, image, companyName, price, handleStage, whiteBackground, lightWitheBackground, handleFields } = props
+    let { deliveryDate, setActiveOffer, 
+        success, msg, image, companyName, price
+        , handleStage, whiteBackground, lightWitheBackground
+        , handleFields } = props
     const handleOffer = async () => {
         setActiveOffer({
             'image': image,
@@ -14,8 +18,27 @@ export const Company = (props) => {
         // await Object.keys(data).map(async (ele) => {
         //     await handleFields(ele, data[ele])
         // })
+        handleFields(pre=>
+            (
+                {
+                    ...pre
+                ,company_id:props.company_id
+                ,serviceType:props.serviceType
+                ,serviceName:props.serviceName
+                ,serviceId:props.serviceId
+                ,serviceCode:props.serviceCode
+                ,delivery_date_time:deliveryDate
+                ,signatureOptionType:props.signatureOptionType
+                ,required_documents:props.required_documents
+                ,totalNetCharge:price
+                
+            }
+                
+                )
+            )
 
         handleStage("Next")
+        
     }
     return (
         <div className="col-md-12 row p-0 m-0" onMouseOver={(e) => whiteBackground(e)}
@@ -45,7 +68,7 @@ export const Company = (props) => {
                         :
                         <div className='detail'>
 
-                            <div className='bold'>{msg} </div>
+                            <div className='bold'>{t("NoResponse")} </div>
                         </div>
                     }
                 </div>
