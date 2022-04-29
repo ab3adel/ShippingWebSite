@@ -135,6 +135,38 @@
 
 }
 
+.modalMessage:lang(ar) {
+  .ant-modal-confirm-body>.anticon {
+    float: right;
+    margin-left: 16px;
+    margin-right: 0px;
+    font-size: 22px;
+  }
+
+  .ant-modal-confirm-body .ant-modal-confirm-title {
+    display: block;
+    text-align: start;
+    margin-inline-start: 0px;
+  }
+
+  p {
+
+    text-align: start;
+  }
+
+
+}
+
+.modalMessage {
+  p.nameR {
+    font-size: 13px;
+  }
+
+  .ant-modal-confirm .ant-modal-body {
+    padding: 32px 20px 24px;
+  }
+}
+
 @media(max-width: 575px) {
   .sendCArgo {
     margin-top: 20px;

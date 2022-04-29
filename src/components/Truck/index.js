@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import logo from '../../images/logo/logo33.png'
-import { Row, Col, Upload, Form, Input, Button, Checkbox, Select } from 'antd';
-import './style.css'
+import { Row, Col, Upload, Form, Input, Button, Checkbox, Modal, Select } from 'antd';
+import './style.scss'
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom'
 const TruckArea = (props) => {
@@ -40,8 +40,12 @@ const TruckArea = (props) => {
                 }
             );
             const response = await responsee.json();
-            if (response.success) {
+            if (response.shipments) {
                 setLoading(false)
+                success(response.shipments[0])
+            }
+            else {
+                error(response.errors)
             }
 
         } catch (err) {
@@ -51,6 +55,58 @@ const TruckArea = (props) => {
         setLoading(false)
 
     };
+
+    function success(info) {
+        Modal.success({
+            direction: i18n.language === 'ar' ? 'rtl' : 'ltr',
+            className: '',
+            wrapClassName: "modalMessage",
+            okText: i18n.language === 'ar' ? "اغلاق" : "Close",
+            title: i18n.language === 'ar' ? "نجاح" : "Success",
+            content: (<div  >
+
+                <p className='nameR mb-1'><b>{i18n.language === 'ar' ? "المرسل إليه :" : "Recipient :"}</b> {info.receiverDetails.name}</p>
+                <p className='nameR mb-1'><b>{i18n.language === 'ar' ? "عنوان الاستلام:" : "Recipient Address :"}</b> {info.receiverDetails.postalAddress.countryCode + " /"}
+                    {info.receiverDetails.postalAddress.cityName + " /"}
+                    {info.receiverDetails.postalAddress.countyName}
+                </p>
+
+                <p className='nameR mb-1'><b>{i18n.language === 'ar' ? "الوصف :" : "Description :"}</b> {info.description} {" / "}
+                    <b>{i18n.language === 'ar' ? "عدد القطع :" : "Number Of Pieces :"}</b> {info.numberOfPieces}
+                </p>
+                <p className='nameR mb-1'><b>{i18n.language === 'ar' ? "تاريخ :" : "Date :"}</b> {info.shipmentTimestamp.slice(0, 10)} {" / "}
+                    <b>{i18n.language === 'ar' ? "الوزن :" : "Weight :"}</b> {info.totalWeight} {" "} {i18n.language === 'ar' ? "(كجم)" : "(KG)"}
+                </p>
+
+
+            </div>),
+        });
+    }
+
+    function error(messages) {
+        Modal.error({
+            direction: i18n.language === 'ar' ? 'rtl' : 'ltr',
+            className: '',
+            wrapClassName: "modalMessage",
+            okText: i18n.language === 'ar' ? "اغلاق" : "Close",
+            title: i18n.language === 'ar' ? "حدث خطأ" : "Error",
+            content: (
+
+                <div>
+                    {Object.keys(messages).map((item, i) => (
+
+                        <p key={item} >{messages[item]}</p>
+
+                    ))}
+
+                </div>
+            ),
+        });
+    }
+
+
+
+
     return (
         <section className="wpo-track-section">
             <div className="container">
