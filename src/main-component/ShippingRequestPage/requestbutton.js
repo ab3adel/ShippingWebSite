@@ -2,9 +2,18 @@ import React from 'react'
 import { Button } from 'antd'
 import { useTranslation } from 'react-i18next';
 export const RequestButton = (props) => {
-    let { stage, handleStage, Type, loading } = props
+    let { stage, handleStage, Type, loading ,saveOffer,disableButton} = props
     const [t, i18n] = useTranslation();
     let icon = "";
+const handleButtonFunction= (type) =>{
+    if (stage !== 3 ){
+        handleStage(type)
+    }
+    else {
+        saveOffer()
+    }
+
+}
     if (Type === "Next") {
 
         icon = <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -16,18 +25,19 @@ export const RequestButton = (props) => {
 
         if (i18n.language === 'en') icon = <i class="fa fa-arrow-left" aria-hidden="true"></i>
     }
-    if (stage === 2 && Type === "Next") return null
+    if (stage === 2 && Type === "Next")   return null
+    
     if (stage === 1 && Type === "Previous") return null
 
     return (
 
         <div className='col-md-4 buttonContainer'>
 
-            <Button onClick={() => handleStage(Type)} className='col-md-12' disabled={loading}>
+            <Button onClick={() => handleButtonFunction(Type)} className='col-md-12' disabled={loading || disableButton}>
                 {stage === 3 ? Type === "Next" ?
                     <>
 
-                        {t("Done")} <i class="fa fa-check" aria-hidden="true"></i>
+                        {t("Save")}{loading ? <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></> :  <i class="fa fa-check" aria-hidden="true"></i>}
                     </> :
                     <>
                         {t(Type)} {loading ? <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></> : icon}

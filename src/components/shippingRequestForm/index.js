@@ -8,6 +8,8 @@ import { Alert } from 'antd';
 import Fade from 'react-reveal/Fade';
 import MyAddress from './MyAddress';
 import "../../globalVar"
+import {InfoLabel} from '../InfoLabel/infolabel'
+import {OptionRemovable} from '../OptionRemovable/optionremovable'
 
 
 export const ShippingRequestForm = (props) => {
@@ -24,13 +26,23 @@ export const ShippingRequestForm = (props) => {
     // const typesArr = [t('Food'), t('Tyres'), t("Cloths")]
     let [addressArr, setAddressArr] = useState([])
     let [activeAddress, setActiveAddress] = useState()
+    let [btnTypeName,setBtnTypeName]= useState({type:"Recipient",btnName:t("Add Recipient")})
+    let [selectedIndex,setSelectedIndex]= useState(-1)
     const formRef = useRef();
     const {
         register,
         handleSubmit,
         formState: { errors }, reset } = useForm();
     const [form] = Form.useForm();
+// Select components arrays 
     let DocumentedOptions = [{ val: true, item: t('Documented') }, { val: false, item: t('NotDocumented') }]
+    let shipmentPurposes =[{val:"GIFT",item:t("GIFT")},{val:"NOT_SOLD",item:t("NOT_SOLD")}
+                           ,{val:"PERSONAL_EFFECTS",item:t("PERSONAL_EFFECTS")}
+                           ,{val:"REPAIR_AND_RETURN",item:t("REPAIR_AND_RETURN")}
+                        ,{val:"SAMPLE",item:t("SAMPLE")},{val:"SOLD",item:t("SOLD")}
+                        ,{val:"COMMERCIAL",item:t("COMMERCIAL")},{val:"RETURN_AND_REPAIR",item:t("RETURN_AND_REPAIR")}
+                        ,{val:"PERSONAL_USE",item:t('PERSONAL_USE')}]
+                    
     useEffect(async () => {
         formFields.Recipient && await setAddressArr(recipients ? recipients.filter(item => item.id === formFields.Recipient)[0].addresses : [])
         formRef.current && formRef.current.setFieldsValue({
@@ -45,13 +57,28 @@ export const ShippingRequestForm = (props) => {
 
         })
     })
-
+useEffect (()=>{
+  
+    if (Boolean(formFields['Recipient'])) {
+       let btnName = `${t("Add New Address")} ${i18n.language === 'ar' ? "للمرسل إليه" : "To Recipient"}`
+       let type = "Address"
+        setBtnTypeName(pre=>({...pre,btnName,type}))
+    }
+    else {
+        let type="Recipient"
+        let btnName = t("Add Recipient")
+        
+        setBtnTypeName(pre=>({...pre,type,btnName}))
+    }
+  
+    
+},[formFields])
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+      
 
 
     };
@@ -62,6 +89,7 @@ export const ShippingRequestForm = (props) => {
     }
     const handleSelect = async (e, v, n) => {
         // handleFields(n, v.children)
+      
         await handleFields(n, v.value)
         if (n && n === "Recipient") {
             await setAddressArr(recipients ? recipients.filter(item => item.id === v.value)[0].addresses : [])
@@ -73,10 +101,11 @@ export const ShippingRequestForm = (props) => {
             })
             setActiveAddress()
 
+
         }
         if (n && n === "RecipientAddress" && v.value !== '') {
             setActiveAddress(addressArr.filter(item => item.id == v.value)[0])
-            console.log("RecipientAddress", addressArr.filter(item => item.id == v.value)[0])
+           
         }
 
     }
@@ -87,13 +116,8 @@ export const ShippingRequestForm = (props) => {
         handleAddressForm(type, isSender)
         setNewRecipient(true)
     }
-    let btnName = t("Add Recipient")
-    let type = "Recipient"
-
-    if (Boolean(formFields['Recipient'])) {
-        btnName = `${t("Add New Address")} ${i18n.language === 'ar' ? "للمرسل إليه" : "To Recipient"}`
-        type = "Address"
-    }
+ 
+  
     return (
         <Form
             name="basic"
@@ -234,30 +258,24 @@ export const ShippingRequestForm = (props) => {
                             onChange={(e, v) => handleSelect(e, v, 'Recipient')}
                             onSearch={onSearch}
                             listItemHeight={10} listHeight={250}
+                           
+
                         >
-                            {recipients && recipients !== "EMPTY" && recipients.map((item) => {
-                                return (<Option key={item.id} value={item.id}>
-                                    {i18n.language === 'ar' ? item.name_ar : item.name_en}{' / '}{item.phone}
-                                </Option>)
+                            {recipients && recipients !== "EMPTY" && recipients.map((item,index) => {
+                                return (
+                                    <Option key={item.id} value={item.id} >
+                                        <OptionRemovable 
+                                            option={i18n.language === 'ar' ? item.name_ar : item.name_en+' / '+item.phone}
+                                            show={formFields['Recipient']&&index===selectedIndex}
+                                            fun={()=>handleFields('Recipient',"")}
+                                            setSelectedIndex={()=>setSelectedIndex(index)}
+                                        />
+                                    </Option>)
                             })}
 
 
                         </Select>
-                        {/* <Select
-                            value={formFields["Recipient"]}
-                            placeholder={t('Recipient')}
-                            onChange={(e, v) => handleSelect(e, v, 'Recipient')}
-                            direction={i18n.language === "ar" ? "rtl" : "ltr"}
-                            className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}>
-                            {addressArr.map((ele, index) => {
-                                return (
-                                    <Option key={index} vlaue={ele}>
-                                        <div className={i18n.language === "ar" ? 'toRight' : ""}>
-                                            {ele}
-                                        </div>
-                                    </Option>)
-                            })}
-                        </Select> */}
+                      
 
                     </Form.Item>
                 </div>
@@ -312,7 +330,7 @@ export const ShippingRequestForm = (props) => {
 
                         <Button className="col-md-7 addInFormBTN"
                             onClick={() =>
-                                handleAddress(type, false)
+                                handleAddress(btnTypeName.type, false)
                                 //     history.push(
                                 //     !Boolean(formFields['Recipient']) ?
                                 //         '/Recipients'
@@ -321,7 +339,7 @@ export const ShippingRequestForm = (props) => {
                                 // )
 
                             } >
-                            {btnName}
+                            {btnTypeName.btnName}
                         </Button>
                     </div>
                     {/* <Button onClick={() => handleAddress(type, false)} >
@@ -344,7 +362,7 @@ export const ShippingRequestForm = (props) => {
 
                 </div>
 
-                <div className=" col-6 col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                <div className=" col-6 col-xs-6 col-sm-6 col-md-6 col-lg-4">
 
                     <Form.Item
                         label={t('Packaging Type')}
@@ -395,7 +413,7 @@ export const ShippingRequestForm = (props) => {
                         </Select> */}
                     </Form.Item>
                 </div>
-                <div className=" col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3">
+                <div className=" col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4">
 
                     <Form.Item
                         label={t('Category')}
@@ -419,13 +437,16 @@ export const ShippingRequestForm = (props) => {
                         </Select>
                     </Form.Item>
                 </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('NumberOfPieces')}
                         name='NumberOfPieces'
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['NumberOfPiecesError'] ? "error" : ""}
+                        help={ <InfoLabel 
+                                 infoText={t('NumberOfPiecesDescription')}/>}
                     >
+                    
                         <Input
                             name="NumberOfPieces"
                             type="number"
@@ -434,8 +455,28 @@ export const ShippingRequestForm = (props) => {
                             value={formFields["NumberOfPieces"]}
                             onChange={handleChange} />
                     </Form.Item>
+                    
                 </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
+                    <Form.Item
+                        label={t('groupPackageCount')}
+                        name='GroupPackageCount'
+                        rules={[{ required: true, message: t('Required'), },]}
+                        validateStatus={formFields['GroupPackgeCount'] ? "error" : ""}
+                       
+                    >
+                    
+                        <Input
+                            name="GroupPackageCount"
+                            type="number"
+                            min="1"
+                            placeholder={t('groupPackageCount')}
+                            value={formFields["GroupPackageCount"]}
+                            onChange={handleChange} />
+                    </Form.Item>
+                    
+                </div>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('Hermonized')}
                         name='Hermonized'
@@ -449,19 +490,27 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
                 </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('ShipmentPurpose')}
                         name='ShipmentPurpose'
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['ShipmentPurposeError'] ? "error" : ""}
                     >
-                        <Input
-                            name="ShipmentPurpose"
-                            type="text"
-                            placeholder={t('Hermonized')}
-                            value={formFields["ShipmentPurpose"]}
-                            onChange={handleChange} />
+                              <Select
+                                placeholder={t('ShipmentPurpose')}
+                                value={formFields["ShipmentPurpose"]}
+                                onChange={(e, v) => handleSelect(e, v, 'ShipmentPurpose')}
+                                listItemHeight={10} listHeight={250}
+                        >
+                            {shipmentPurposes.map((ele,index) => {
+                                return (<Option key={index} value={ele.val}>
+                                          {ele.item}
+                                        </Option>)
+                            })}
+
+
+                        </Select>
                     </Form.Item>
                 </div>
                 {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
@@ -482,7 +531,7 @@ export const ShippingRequestForm = (props) => {
                     </Form.Item>
                 </div> */}
 
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={`${t('UnitPrice')}`}
                         name='Price'
@@ -498,7 +547,7 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
                 </div>
-                <div className='  col-md-6 col-lg-3'>
+                <div className='  col-md-6 col-lg-4 col-sm-6'>
                     <Form.Item
                         label={t('Sending Date')}
                         name='Date'
@@ -519,7 +568,7 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
                 </div>
-                <div className='col-md-6 col-lg-3'>
+                <div className='col-md-6 col-lg-4 col-sm-6'>
 
                     <Form.Item
                         label={t('DocumentShipment')}
@@ -623,6 +672,7 @@ export const ShippingRequestForm = (props) => {
                         label={`${t('Weight')} (${i18n.language === 'ar' ? "كجم" : "KG"})`}
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['WeightError'] ? "error" : ""}
+                        help={<InfoLabel infoText={t("WeightDescription")} />}
                     >
 
 

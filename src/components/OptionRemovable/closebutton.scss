@@ -1,0 +1,20 @@
+.closeButton {
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    i.fa-window-close {
+        border-radius: 50%;
+        background-color: transparent;
+        color: white;
+    }
+    i.fa-window-close::before {
+        background-color: black;
+
+    }
+}
+.closeButton:hover {
+    i.fa-window-close {
+    border-radius: 10%;
+
+    }
+}
