@@ -1,0 +1,28 @@
+.resDiv {
+    background-image: url('./img.jpg');
+    background-size: cover;
+    background-position: center;
+
+    .ant-result {
+        padding: 12rem 32px 11rem;
+        background: #2740919c;
+        backdrop-filter: blur(3px);
+
+        .ant-result-title {
+            color: rgb(255 255 255);
+            font-size: 1.6rem;
+            line-height: 1.8;
+            text-align: center;
+            font-weight: 700;
+            font-family: 'Cairo-Regular';
+        }
+
+        .ant-result-subtitle {
+            color: rgb(255 255 255);
+            font-size: 1rem;
+            font-family: 'Cairo-Regular';
+            line-height: 1.6;
+            text-align: center;
+        }
+    }
+}

@@ -21,6 +21,7 @@ import Login from '../Login'
 import Signup from '../Signup'
 import Navbar from '../../components/Navbar'
 import Profile from '../Profile'
+import Success from '../succes'
 // import Terms from '../Terms'
 import logo from '../../images/logo/logo.png'
 // import Recipient from '../Recipient'
@@ -100,6 +101,7 @@ const AllRoute = () => {
             <Route path='/Recipient/:id' component={Recipient} />
             <Route path='/Bills' component={Bills} />
             <Route path='/Addresses' component={Addresses} />
+            <Route path='/Payment/Success' component={Success} />
             <Route path='/shippingrequest' component={ShippingRequest} />
             <Route path='/terms-Conditions' component={Terms} />
 
