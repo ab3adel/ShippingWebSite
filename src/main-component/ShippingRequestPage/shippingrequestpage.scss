@@ -284,3 +284,12 @@
 .ant-modal-mask::-webkit-scrollbar {
     width: 0;
 }
+
+.ant-notification:lang(ar) {
+    direction: ltr;
+
+    .ant-notification-notice-with-icon .ant-notification-notice-message,
+    .ant-notification-notice-with-icon .ant-notification-notice-description {
+        text-align: end;
+    }
+}

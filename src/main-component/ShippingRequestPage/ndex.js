@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../redux/index'
-import {notification} from 'antd'
+import { notification } from 'antd'
 
 
 const ShippingRequest = () => {
@@ -34,15 +34,15 @@ const ShippingRequest = () => {
         RecipientAddress: ''
         , Type: '', Date: '', Width: '', Length: '', Recipient: "",
         Category: "", NumberOfPieces: "",
-        Height: '', Weight: '',  Hermonized: "",
+        Height: '', Weight: '', Hermonized: "",
         HermonizedError: "", Price: "", PriceError: "",
-        DocumentShipment:"",ShipmentPurpose:"",
+        DocumentShipment: "", ShipmentPurpose: "",
         //  SenderAddressError: false,
-        DocumentShipmentError:false,ShipmentPurposeError:false,
+        DocumentShipmentError: false, ShipmentPurposeError: false,
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
-        , NumberOfPiecesError: "",GroupPackageCount:'',GroupPackageCountError:false
+        , NumberOfPiecesError: "", GroupPackageCount: '', GroupPackageCountError: false
 
     })
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
@@ -53,7 +53,7 @@ const ShippingRequest = () => {
     let [activeOffer, setActiveOffer] = useState({
         image: '',
         CompanyName: '',
-        OfferPrice: '',
+        OfferPrice: '', id: ""
     })
     let [refreshMyAddress, setRefreshMyAddress] = useState(false)
     let [refreshRecipients, setRefreshRecipients] = useState(false)
@@ -174,7 +174,9 @@ const ShippingRequest = () => {
             }
         } catch (err) { console.log(err); }
     }
+
     const handleStage = async (type) => {
+
         if (checkError()) return
         let collection = document.querySelectorAll('.stage')
         if (type === "Next") {
@@ -188,11 +190,13 @@ const ShippingRequest = () => {
             if (stage === 3) return
 
         }
+
         if (type === "Previous") {
             if (stage === 1) return
             setStage(--stage)
             collection[stage].classList.remove('currentStage')
         }
+
 
     }
     const handleFields = (name, value) => {
@@ -201,12 +205,12 @@ const ShippingRequest = () => {
             setFormFields({ ...formFields, [name]: value, RecipientAddress: null, [`${name}Error`]: value ? false : true })
 
         }
-      
-       
+
+
         else {
-            setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value ===false ? false : true })
+            setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value === false ? false : true })
         }
- 
+
     }
     const checkError = () => {
 
@@ -215,32 +219,32 @@ const ShippingRequest = () => {
             .filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
 
         if (emptyVal.length === 0) {
-            
-            let typeObj = types.filter(ele=>ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
-            let allowed_weight=typeObj[0]["allowed_weight"] *formFields.GroupPackageCount
-            if (formFields["Type"] !== "CARTON" && formFields["Weight"] > allowed_weight ) {
-                            setFormFields(pre=>({...pre,WeightError:true}))
-                            setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${allowed_weight} KG`}))
-                            
-                            return true
-                        }
-            if  (formFields["Type"] === "CARTON")  {
-                let volumeWeight = ((formFields["Height"] * formFields["Width"] * formFields["Length"])/5000)*formFields.GroupPackageCount
-                let maxWeight = volumeWeight > formFields["Weight"] ? volumeWeight:formFields["Weight"]
-                if (maxWeight >allowed_weight ) {
-                    setErrorMessage (pre=>({WeightError:`${t("AllowedWeightError")} ${allowed_weight} KG`}))
+
+            let typeObj = types.filter(ele => ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
+            let allowed_weight = typeObj[0]["allowed_weight"] * formFields.GroupPackageCount
+            if (formFields["Type"] !== "CARTON" && formFields["Weight"] > allowed_weight) {
+                setFormFields(pre => ({ ...pre, WeightError: true }))
+                setErrorMessage(pre => ({ WeightError: `${t("AllowedWeightError")} ${allowed_weight} KG` }))
+
+                return true
+            }
+            if (formFields["Type"] === "CARTON") {
+                let volumeWeight = ((formFields["Height"] * formFields["Width"] * formFields["Length"]) / 5000) * formFields.GroupPackageCount
+                let maxWeight = volumeWeight > formFields["Weight"] ? volumeWeight : formFields["Weight"]
+                if (maxWeight > allowed_weight) {
+                    setErrorMessage(pre => ({ WeightError: `${t("AllowedWeightError")} ${allowed_weight} KG` }))
                     if (volumeWeight > formFields["Weight"]) {
-                        newFormFields['HeightError']=true
-                        newFormFields['LengthError']=true
-                        newFormFields['WidthError']= true
+                        newFormFields['HeightError'] = true
+                        newFormFields['LengthError'] = true
+                        newFormFields['WidthError'] = true
                     }
                     else {
-                        newFormFields['WeightError']=true
+                        newFormFields['WeightError'] = true
                     }
-                    setFormFields(pre=>({...pre,...newFormFields}))
+                    setFormFields(pre => ({ ...pre, ...newFormFields }))
                     return true
                 }
-            }           
+            }
             return false
         }
         emptyVal.forEach(ele => {
@@ -269,7 +273,7 @@ const ShippingRequest = () => {
         setErrorMessage('')
         let collection = document.querySelectorAll('.stage')
 
-    
+
         const data = {
             category_id: formFields.Category,
             xLocale: i18n.language === "ar" ? "ar_AE" : "en_US",
@@ -280,14 +284,14 @@ const ShippingRequest = () => {
             // GoodsOriginCountryCode: formFields.Country,
             harmonizedCode: formFields.Hermonized,
             unitPrice: formFields.Price,
-            documentShipment:formFields.DocumentShipment,
-            shipmentPurpose:formFields.ShipmentPurpose,
+            documentShipment: formFields.DocumentShipment,
+            shipmentPurpose: formFields.ShipmentPurpose,
             requestedPackageLineItems: [
                 {
                     subPackagingType: formFields.Type,
                     weight: {
                         units: "KG",
-                    value: formFields.Weight,
+                        value: formFields.Weight,
                     },
                     dimensions: {
                         length: Number(formFields.Length),
@@ -295,7 +299,7 @@ const ShippingRequest = () => {
                         height: Number(formFields.Height),
                         units: "CM"
                     },
-                    groupPackageCount:formFields.GroupPackageCount
+                    groupPackageCount: formFields.GroupPackageCount
                 }
             ]
         }
@@ -315,12 +319,12 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-             console.log(response)
-          
-             if (!response.messages ) {
+            console.log(response)
+
+            if (!response.messages) {
                 setRateStatus(response)
                 setSuccess(true)
-                
+
                 setLoading(false)
                 setStage(++stage)
                 collection[stage - 1].classList.add('currentStage')
@@ -353,25 +357,25 @@ const ShippingRequest = () => {
 
 
     };
-    const saveOffer = () =>{
+    const saveOffer = () => {
         setLoading(true)
         let formData = {
-            company_id:formFields.company_id,serviceType:formFields.serviceType,
-            serviceName:formFields.serviceName,serviceCode:formFields.serviceCode,
-            serviceId:formFields.serviceId,ship_date:formFields.Date,
-            width:formFields.Width,height:formFields.Height,length:formFields.Length,
-            subPackagingType:formFields.Type,documentShipment:formFields.DocumentShipment,
-            shipmentPurpose:formFields.ShipmentPurpose,harmonizedCode:formFields.Hermonized,
-            unitPrice:formFields.Price,totalNetCharge:formFields.totalNetCharge,
-            required_documents:formFields.required_documents,delivery_date_time:formFields.delivery_date_time,
-            NumberOfPieces:formFields.NumberOfPieces,groupPackageCount:formFields.GroupPackageCount,
-            weight:formFields.Weight,signatureOptionType:formFields.signatureOptionType,
-            recipient_address_id:formFields.RecipientAddress,category_id:formFields.Category,
-            customer_id:profile.customer.id,commodityName:formFields.commodityName,
-            addedCharges:[]
+            company_id: formFields.company_id, serviceType: formFields.serviceType,
+            serviceName: formFields.serviceName, serviceCode: formFields.serviceCode,
+            serviceId: formFields.serviceId, ship_date: formFields.Date,
+            width: formFields.Width, height: formFields.Height, length: formFields.Length,
+            subPackagingType: formFields.Type, documentShipment: formFields.DocumentShipment,
+            shipmentPurpose: formFields.ShipmentPurpose, harmonizedCode: formFields.Hermonized,
+            unitPrice: formFields.Price, totalNetCharge: formFields.totalNetCharge,
+            required_documents: formFields.required_documents, delivery_date_time: formFields.delivery_date_time,
+            NumberOfPieces: formFields.NumberOfPieces, groupPackageCount: formFields.GroupPackageCount,
+            weight: formFields.Weight, signatureOptionType: formFields.signatureOptionType,
+            recipient_address_id: formFields.RecipientAddress, category_id: formFields.Category,
+            customer_id: profile.customer.id, commodityName: formFields.commodityName,
+            addedCharges: formFields.addedCharges ? formFields.addedCharges : []
         }
 
-         fetch(global.apiUrl+'api/offers', {
+        fetch(global.apiUrl + 'api/offers', {
             method: "POST",
             headers: {
                 Authorization: "Bearer " + userToken,
@@ -380,49 +384,53 @@ const ShippingRequest = () => {
             },
             body: JSON.stringify(formData),
         })
-        .then(res =>{
-            setLoading(false)
-           
-        return  res.json()
-        })
-        .then(res=>{
-        
-            if (res.success&& formFields.Weight <= 3) {
-                notification.success({
-                    message:t('SuccessfullRequest'),
-                    description:i18n.language ==='en' ? 
-                    "your request has been added successfully":
-                    "تمت اضافة العرض بنجاح",
-                    duration:5,
-                    placement:'bottomRight'
-                })
-                setDisableButton(true)
-            }
-            else if (res.success && formFields.Weight > 3) {
-               
+            .then(res => {
+                setLoading(false)
 
-                    notification.info({
-                        message:t('InProgress'),
-                        description:i18n.language === "en"?
-                        "we are proccessing your request ,will let you know when succeed":
-                        "نحن نعالج الطلب , سنعلمك عند نجاح الطلب",
-                        duration:5,
-                        placement:'bottomRight'
+                return res.json()
+            })
+            .then(res => {
+
+                if (res.success && formFields.Weight <= 3) {
+                    notification.success({
+                        message: t('SuccessfullRequest'),
+                        description: i18n.language === 'en' ?
+                            "your request has been added successfully" :
+                            "تمت اضافة العرض بنجاح",
+                        duration: 5,
+                        rtl: i18n.language === 'ar',
+                        placement: 'bottomRight'
                     })
                     setDisableButton(true)
-                
-            }
-            else {
-                notification.error ({
-                    message:"we are soory",
-                    description:"something wrong went ",
-                
-                    duration:5,
-                    placement:'bottomRight'
-                })
-            }
-        })
-        .catch(err=>console.log(err))
+                    setActiveOffer({ ...activeOffer, id: res.payload.id, accepted: res.payload.accepted })
+
+                }
+                else if (res.success && formFields.Weight > 3) {
+
+
+                    notification.info({
+                        message: t('InProgress'),
+                        description: i18n.language === "en" ?
+                            "we are proccessing your request ,will let you know when succeed" :
+                            "نحن نعالج الطلب , سنعلمك عند نجاح الطلب",
+                        duration: 5,
+                        rtl: i18n.language === 'ar',
+                        placement: 'bottomRight'
+                    })
+                    setDisableButton(true)
+
+                }
+                else {
+                    notification.error({
+                        message: "we are soory",
+                        description: "something wrong went ",
+                        rtl: i18n.language === 'ar',
+                        duration: 5,
+                        placement: 'bottomRight'
+                    })
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -492,32 +500,35 @@ const ShippingRequest = () => {
                             {
                                 stage === 2 && (<Offers
                                     setActiveOffer={setActiveOffer} rateStatus={rateStatus} success={success}
-                                    handleStage={handleStage} handleFields={setFormFields} 
-                                       
-                                    />)
+                                    handleStage={handleStage} handleFields={setFormFields}
+
+                                />)
                             }
                             {
-                                stage === 3 && (<Offer activeOffer={activeOffer} 
-                                                       handleFields={setFormFields} 
-                                                      formFields={formFields} 
-                                                      disableButton={disableButton}
-                                                      />)
+                                stage === 3 && (<Offer
+                                    activeOffer={activeOffer}
+                                    handleFields={setFormFields}
+
+                                    formFields={formFields}
+                                    disableButton={disableButton}
+                                />)
                             }
                             <img src={abimg2} className='loginImg'></img>
                         </div>
 
                     </div>
 
-                    {myAddress && myAddress != 'EMPTY' && <div className="row nextStage col-md-12 m-0">
-                        <RequestButton
-                        saveOffer={saveOffer}
-                         Type="Next" 
-                        loading={loading} 
-                        stage={stage} 
-                        disableButton={disableButton}
-                        handleStage={handleStage} />
-                        <RequestButton Type="Previous" stage={stage} handleStage={handleStage} />
-                    </div>}
+                    {myAddress && myAddress != 'EMPTY' &&
+                        <div className="row nextStage col-md-12 m-0">
+                            <RequestButton
+                                saveOffer={saveOffer}
+                                Type="Next"
+                                loading={loading}
+                                stage={stage}
+                                disableButton={disableButton}
+                                handleStage={handleStage} />
+                            <RequestButton Type="Previous" stage={stage} handleStage={handleStage} />
+                        </div>}
 
                 </div>
 

@@ -8,8 +8,8 @@ import { Alert } from 'antd';
 import Fade from 'react-reveal/Fade';
 import MyAddress from './MyAddress';
 import "../../globalVar"
-import {InfoLabel} from '../InfoLabel/infolabel'
-import {OptionRemovable} from '../OptionRemovable/optionremovable'
+import { InfoLabel } from '../InfoLabel/infolabel'
+import { OptionRemovable } from '../OptionRemovable/optionremovable'
 
 
 export const ShippingRequestForm = (props) => {
@@ -26,23 +26,23 @@ export const ShippingRequestForm = (props) => {
     // const typesArr = [t('Food'), t('Tyres'), t("Cloths")]
     let [addressArr, setAddressArr] = useState([])
     let [activeAddress, setActiveAddress] = useState()
-    let [btnTypeName,setBtnTypeName]= useState({type:"Recipient",btnName:t("Add Recipient")})
-    let [selectedIndex,setSelectedIndex]= useState(-1)
+    let [btnTypeName, setBtnTypeName] = useState({ type: "Recipient", btnName: t("Add Recipient") })
+    let [selectedIndex, setSelectedIndex] = useState(-1)
     const formRef = useRef();
     const {
         register,
         handleSubmit,
         formState: { errors }, reset } = useForm();
     const [form] = Form.useForm();
-// Select components arrays 
+    // Select components arrays 
     let DocumentedOptions = [{ val: true, item: t('Documented') }, { val: false, item: t('NotDocumented') }]
-    let shipmentPurposes =[{val:"GIFT",item:t("GIFT")},{val:"NOT_SOLD",item:t("NOT_SOLD")}
-                           ,{val:"PERSONAL_EFFECTS",item:t("PERSONAL_EFFECTS")}
-                           ,{val:"REPAIR_AND_RETURN",item:t("REPAIR_AND_RETURN")}
-                        ,{val:"SAMPLE",item:t("SAMPLE")},{val:"SOLD",item:t("SOLD")}
-                        ,{val:"COMMERCIAL",item:t("COMMERCIAL")},{val:"RETURN_AND_REPAIR",item:t("RETURN_AND_REPAIR")}
-                        ,{val:"PERSONAL_USE",item:t('PERSONAL_USE')}]
-                    
+    let shipmentPurposes = [{ val: "GIFT", item: t("GIFT") }, { val: "NOT_SOLD", item: t("NOT_SOLD") }
+        , { val: "PERSONAL_EFFECTS", item: t("PERSONAL_EFFECTS") }
+        , { val: "REPAIR_AND_RETURN", item: t("REPAIR_AND_RETURN") }
+        , { val: "SAMPLE", item: t("SAMPLE") }, { val: "SOLD", item: t("SOLD") }
+        , { val: "COMMERCIAL", item: t("COMMERCIAL") }, { val: "RETURN_AND_REPAIR", item: t("RETURN_AND_REPAIR") }
+        , { val: "PERSONAL_USE", item: t('PERSONAL_USE') }]
+
     useEffect(async () => {
         formFields.Recipient && await setAddressArr(recipients ? recipients.filter(item => item.id === formFields.Recipient)[0].addresses : [])
         formRef.current && formRef.current.setFieldsValue({
@@ -53,32 +53,32 @@ export const ShippingRequestForm = (props) => {
             Type: formFields.Type != '' ? formFields.Type : null,
             Category: formFields.Category !== '' ? formFields.Category : null,
             DocumentShipment: formFields.DocumentShipment !== '' ? formFields.DocumentShipment : null,
-
+            ShipmentPurpose: formFields.ShipmentPurpose !== '' ? formFields.ShipmentPurpose : null,
 
         })
     })
-useEffect (()=>{
-  
-    if (Boolean(formFields['Recipient'])) {
-       let btnName = `${t("Add New Address")} ${i18n.language === 'ar' ? "للمرسل إليه" : "To Recipient"}`
-       let type = "Address"
-        setBtnTypeName(pre=>({...pre,btnName,type}))
-    }
-    else {
-        let type="Recipient"
-        let btnName = t("Add Recipient")
-        
-        setBtnTypeName(pre=>({...pre,type,btnName}))
-    }
-  
-    
-},[formFields])
+    useEffect(() => {
+
+        if (Boolean(formFields['Recipient'])) {
+            let btnName = `${t("Add New Address")} ${i18n.language === 'ar' ? "للمرسل إليه" : "To Recipient"}`
+            let type = "Address"
+            setBtnTypeName(pre => ({ ...pre, btnName, type }))
+        }
+        else {
+            let type = "Recipient"
+            let btnName = t("Add Recipient")
+
+            setBtnTypeName(pre => ({ ...pre, type, btnName }))
+        }
+
+
+    }, [formFields])
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
     const onFinish = (values) => {
-      
+
 
 
     };
@@ -89,7 +89,7 @@ useEffect (()=>{
     }
     const handleSelect = async (e, v, n) => {
         // handleFields(n, v.children)
-      
+
         await handleFields(n, v.value)
         if (n && n === "Recipient") {
             await setAddressArr(recipients ? recipients.filter(item => item.id === v.value)[0].addresses : [])
@@ -105,7 +105,7 @@ useEffect (()=>{
         }
         if (n && n === "RecipientAddress" && v.value !== '') {
             setActiveAddress(addressArr.filter(item => item.id == v.value)[0])
-           
+
         }
 
     }
@@ -116,8 +116,8 @@ useEffect (()=>{
         handleAddressForm(type, isSender)
         setNewRecipient(true)
     }
- 
-  
+
+
     return (
         <Form
             name="basic"
@@ -258,24 +258,24 @@ useEffect (()=>{
                             onChange={(e, v) => handleSelect(e, v, 'Recipient')}
                             onSearch={onSearch}
                             listItemHeight={10} listHeight={250}
-                           
+
 
                         >
-                            {recipients && recipients !== "EMPTY" && recipients.map((item,index) => {
+                            {recipients && recipients !== "EMPTY" && recipients.map((item, index) => {
                                 return (
                                     <Option key={item.id} value={item.id} >
-                                        <OptionRemovable 
-                                            option={i18n.language === 'ar' ? item.name_ar : item.name_en+' / '+item.phone}
-                                            show={formFields['Recipient']&&index===selectedIndex}
-                                            fun={()=>handleFields('Recipient',"")}
-                                            setSelectedIndex={()=>setSelectedIndex(index)}
+                                        <OptionRemovable
+                                            option={i18n.language === 'ar' ? item.name_ar : item.name_en + ' / ' + item.phone}
+                                            show={formFields['Recipient'] && index === selectedIndex}
+                                            fun={() => handleFields('Recipient', "")}
+                                            setSelectedIndex={() => setSelectedIndex(index)}
                                         />
                                     </Option>)
                             })}
 
 
                         </Select>
-                      
+
 
                     </Form.Item>
                 </div>
@@ -443,10 +443,10 @@ useEffect (()=>{
                         name='NumberOfPieces'
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['NumberOfPiecesError'] ? "error" : ""}
-                        help={ <InfoLabel 
-                                 infoText={t('NumberOfPiecesDescription')}/>}
+                        help={<InfoLabel
+                            infoText={t('NumberOfPiecesDescription')} />}
                     >
-                    
+
                         <Input
                             name="NumberOfPieces"
                             type="number"
@@ -455,7 +455,7 @@ useEffect (()=>{
                             value={formFields["NumberOfPieces"]}
                             onChange={handleChange} />
                     </Form.Item>
-                    
+
                 </div>
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
@@ -463,9 +463,9 @@ useEffect (()=>{
                         name='GroupPackageCount'
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['GroupPackgeCount'] ? "error" : ""}
-                       
+
                     >
-                    
+
                         <Input
                             name="GroupPackageCount"
                             type="number"
@@ -474,7 +474,7 @@ useEffect (()=>{
                             value={formFields["GroupPackageCount"]}
                             onChange={handleChange} />
                     </Form.Item>
-                    
+
                 </div>
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
@@ -497,16 +497,16 @@ useEffect (()=>{
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['ShipmentPurposeError'] ? "error" : ""}
                     >
-                              <Select
-                                placeholder={t('ShipmentPurpose')}
-                                value={formFields["ShipmentPurpose"]}
-                                onChange={(e, v) => handleSelect(e, v, 'ShipmentPurpose')}
-                                listItemHeight={10} listHeight={250}
+                        <Select
+                            placeholder={t('ShipmentPurpose')}
+                            value={formFields["ShipmentPurpose"]}
+                            onChange={(e, v) => handleSelect(e, v, 'ShipmentPurpose')}
+                            listItemHeight={10} listHeight={250}
                         >
-                            {shipmentPurposes.map((ele,index) => {
+                            {shipmentPurposes.map((ele, index) => {
                                 return (<Option key={index} value={ele.val}>
-                                          {ele.item}
-                                        </Option>)
+                                    {ele.item}
+                                </Option>)
                             })}
 
 
@@ -677,11 +677,15 @@ useEffect (()=>{
 
 
 
-                        <Input type="number"
+                        <Input
+                            type="number"
                             name="Weight"
                             min='0.00'
                             max='67.00'
                             value={formFields["Weight"]}
+                            step="0.5"
+
+                            // stringMode
                             placeholder={t('Weight')} onChange={handleChange} />
                     </Form.Item>
 
