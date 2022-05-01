@@ -175,7 +175,7 @@ export const Offer = (props) => {
       </div>
       {activeOffer.id &&
         <>
-          <div className='row col-md-12 justify-content-center m-0 text-center'>
+          <div className='row col-md-12 justify-content-center text-center'>
             <div className='col-md-12 pt-1 pb-1 '>
               <Link to="/Bills" className='billLInk'>
                 {i18n.language === 'ar' ?
@@ -238,7 +238,7 @@ export const Offer = (props) => {
                       {loading && <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></>}
                     </Button> : null}
                     {payer == 'sender' && urlPay ?
-                      <a className='addInFormBTN col-md-4' href={urlPay} target='blank'>
+                      <a className='ant-btn ant-btn-default addInFormBTN col-md-4' href={urlPay} target='blank'>
                         {i18n.language === 'ar' ?
                           "الانتقال للدفع"
                           :
@@ -248,7 +248,7 @@ export const Offer = (props) => {
                       : null
                     }
                     {payer == 'recipient' && urlPay ?
-                      <Button className='addInFormBTN col-md-4' onClick={() => copyText(urlPay)}>
+                      <Button className='ant-btn ant-btn-default addInFormBTN col-md-4' onClick={() => copyText(urlPay)}>
                         {i18n.language === 'ar' ?
                           "نسخ الرابط"
                           :
