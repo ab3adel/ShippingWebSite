@@ -23,6 +23,7 @@
     "react": "^17.0.2",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-animated-css": "^1.2.1",
+    "react-base64-downloader": "^2.1.7",
     "react-bootstrap": "^1.0.0",
     "react-countdown-now": "^2.1.2",
     "react-data-table-component": "^7.5.0",

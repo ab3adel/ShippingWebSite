@@ -8,7 +8,7 @@ export const AddCharges =({visible,setVisible,handleFields,formFields}) =>{
 let [charge,setCharge]=React.useState({Name:'',Value:'',NameError:null,ValueError:null})
     const handleOk=()=>{
 if (charge.Name && charge.Value){
-    console.log(charge)
+ 
     let arr= []
     if (formFields['addedCharges']) {
         arr =[...formFields['addedCharges']]
@@ -41,7 +41,7 @@ const addCharge=(e)=>{
         title={t("ExtraCharges")}
         visible={visible}
         onOk={handleOk}
-       
+        
         onCancel={handleCancel}
         okText={t('Add')}
         className={i18n.language === "ar" ? "myModal arabicAlign" : "myModal"}
