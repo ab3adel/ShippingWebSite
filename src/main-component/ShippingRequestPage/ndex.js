@@ -21,9 +21,11 @@ import { notification } from 'antd'
 const ShippingRequest = () => {
     let history = useHistory();
     const dispatch = useDispatch()
+
     const { profile, types } = useSelector((state) => state.profile)
     const { countries } = useSelector((state) => state.address)
     const { setTypes, setCountries } = bindActionCreators(actionCreators, dispatch)
+    const [checkList,setCheckListError]=useState([])
     const [visible, setVisible] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
     const [disableButton, setDisableButton] = React.useState(false)
@@ -177,7 +179,8 @@ const ShippingRequest = () => {
 
     const handleStage = async (type) => {
 
-        if (checkError()) return
+        if ( type === "Next" && checkError() ) return
+        console.log(type,stage)
         let collection = document.querySelectorAll('.stage')
         if (type === "Next") {
             if (stage === 1) { rateRequest() }
@@ -215,9 +218,14 @@ const ShippingRequest = () => {
     const checkError = () => {
 
         let newFormFields = { ...formFields }
-        let emptyVal = Object.keys(newFormFields)
-            .filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
+        if (checkList.length ===0) {
 
+            let checkListError = Object.keys(newFormFields).filter(ele=>!ele.includes('Error'))
+            setCheckListError(pre=>checkListError)
+        }
+        let checker= checkList.length >0? checkList : Object.keys(newFormFields)
+        let emptyVal =  checker.filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
+         
         if (emptyVal.length === 0) {
 
             let typeObj = types.filter(ele => ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])

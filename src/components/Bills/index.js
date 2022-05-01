@@ -33,6 +33,7 @@ const ProfileInfo = () => {
     const [open,setOpen] =useState(false)
     const [reciepients, setRecipients] = useState([])
     const [paymentUrl,setPaymentUrl]=useState()
+    
     useEffect(() => { !userToken && history.push('/') })
     useEffect( () => {
         fetchOffers();
@@ -384,6 +385,7 @@ const handlePayment =(payer) =>{
                setOpen={setOpen}
                handlePayment={handlePayment}
                paymentUrl={paymentUrl}
+      
 
             />
         </div>

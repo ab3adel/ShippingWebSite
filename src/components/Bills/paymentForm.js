@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
 import {Modal,Radio,Input,Form} from 'antd'
 import {useTranslation} from 'react-i18next'
+
 export const PaymentForm =(props) =>{
     let {open,setOpen,paymentUrl,handlePayment}=props
     const [payer,setPayer]=useState('')
-   
+   let [showLabel,setShowLabel]=useState(false)
     
 const {t,i18n} =useTranslation()
     const handleCancel=() =>{
@@ -25,6 +26,13 @@ const {t,i18n} =useTranslation()
         handlePayment(payer)
 
     }
+    const saveToClipboard=()=>{
+        if (paymentUrl) {
+            navigator.clipboard.writeText(paymentUrl)
+            setShowLabel(true)
+            setTimeout(()=>{setShowLabel(false)},4000)
+        }
+    }
     
 return (
      
@@ -35,6 +43,7 @@ return (
                         onCancel={handleCancel}
                         onOk={handleOk}
                         okText={t('Done')}
+                        
                         className={i18n.language === "ar" ? "myModal arabicAlign" : "myModal"}
                     >
                           
@@ -53,7 +62,8 @@ return (
                                     </Form.Item>
                                         
                                 </div>
-                               {payer && payer==='recipient'? <div className=' row col-md-12 col-sm-12'>
+                               {payer && payer==='recipient'? 
+                               <div className=' row col-md-12 col-sm-12' style={{position:'relative'}}>
                                     <Form.Item
                                     label={i18n.language === 'ar' ? 'انقر لحفظ الرابط' : "click to save to clipboard"}
                                     >
@@ -65,9 +75,15 @@ return (
                                         disabled={!Boolean(paymentUrl)}
                                         value={paymentUrl}
                                         onChange={noChange}
+                                        onClick={saveToClipboard}
                     
                                             />
                                     </Form.Item>
+                                    {showLabel && (
+                                    <div className="savedLabelClipboard">
+                                      {i18n.language ==="ar" ? "تم الحفظ":"saved to clipboard"}
+                                    </div>
+                                    )}
                                 
                                 </div>:""}
                             </div>
