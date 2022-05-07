@@ -32,6 +32,7 @@ const Terms = React.lazy(() => import('../Terms'));
 const Recipients = React.lazy(() => import('../Recipients'));
 const Recipient = React.lazy(() => import('../Recipient'));
 const Bills = React.lazy(() => import('../Bills'));
+const Bill = React.lazy(() => import('../Bill'));
 const Addresses = React.lazy(() => import('../Addresses'));
 
 const loading = (
@@ -100,6 +101,7 @@ const AllRoute = () => {
             <Route path='/Recipients' component={Recipients} />
             <Route path='/Recipient/:id' component={Recipient} />
             <Route path='/Bills' component={Bills} />
+            <Route path='/Bill/:id' component={Bill} />
             <Route path='/Addresses' component={Addresses} />
             <Route path='/Payment/Success' component={Success} />
             <Route path='/shippingrequest' component={ShippingRequest} />

@@ -102,7 +102,9 @@
   "ChargeValue":" Charge Value",
   "InProgress": "In Progress",
   "SuccessfullRequest":"Successfull Request",
-  "Add":"Add"
+  "Add":"Add",
+  "Sender":"Sender",
+  "Payment":"The Payment"
   
 
 }

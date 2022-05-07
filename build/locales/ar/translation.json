@@ -102,7 +102,9 @@
   "ChargeValue":"القيمة",
   "InProgress":"جاري المعالجة",
   "SuccessfullRequest":" تم بنجاح",
-  "Add":"اضف"
+  "Add":"اضف",
+  "Sender":"المرسل",
+  "Payment":"الدفع"
 
 
 }
