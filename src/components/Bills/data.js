@@ -43,7 +43,8 @@ export const details = {
             , name: getI18n().language === "ar" ? 'الحالة' : 'Status'
         },
         { key: 'offer_expiration_date', nestedKey: null, name: getI18n().language === "ar" ? 'تاريخ انتهاء العرض' : 'Offer Expiration Date' },
-        { key: 'payer', nestedKey: null, name: getI18n().language === "ar" ? 'الدافع' : 'The Payer' }
+        { key: 'payer', nestedKey: null, name: getI18n().language === "ar" ? 'الدافع' : 'The Payer' },
+        
 
     ],
     shipmentInfo: [
@@ -115,11 +116,17 @@ export const columns = [
     {
         name: getI18n().language == 'ar' ? ` القبول` : `Acceptence `,
         selector: (row) => {
-            if (row.accepted) {
-                return getI18n().language == 'ar' ? 'مقبول' : 'Accepted'
+            if (Number(row.weight) > 3) {
+
+                if (row.accepted) {
+                    return getI18n().language == 'ar' ? 'مقبول' : 'Accepted'
+                }
+                else {
+                    return getI18n().language == 'ar' ? 'غير مقبول' : 'Unaccepted'
+                }
             }
             else {
-                return getI18n().language == 'ar' ? 'غير مقبول' : 'Unaccepted'
+                return getI18n().language === 'ar' ? 'مقبول' : 'Accepted'
             }
         },
 

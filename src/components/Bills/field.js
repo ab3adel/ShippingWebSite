@@ -6,7 +6,7 @@ export const Field =(props)=>{
 let {title,content,nestedKey,unit}=props
 let theContent=content
 
-if ( nestedKey ) {
+if ( nestedKey && theContent !== null) {
     if (typeof(content) === 'number'){
 
         theContent=nestedKey[content]
@@ -26,7 +26,6 @@ if ( nestedKey ) {
         
     }
 }
-
 
     return (
         <div className="col-sm-6 col-md-4 col-lg-4">

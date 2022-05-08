@@ -1,13 +1,11 @@
 import { notification } from 'antd'
 import './offers.scss'
-import ups from '../../images/shipping-request/ups.svg'
 import React, { useState } from 'react'
 import "../../globalVar"
 import { useTranslation } from 'react-i18next'
-import { Button, Space, Radio, Form } from 'antd'
-import { AddCharges } from './addedcharges'
-import { Link, useHistory } from 'react-router-dom'
-
+import { Button } from 'antd'
+import { Link } from 'react-router-dom'
+import {AddCharges} from '../addedCharges/addedCharge'
 export const Offer = (props) => {
   const { formFields, activeOffer, handleFields, disableButton } = props
   const [t, i18n] = useTranslation();
@@ -44,7 +42,7 @@ export const Offer = (props) => {
         }
       );
       const response = await responsee.json();
-      console.log(response)
+ 
       if (response.transaction && response.transaction.url) {
         setUrlPay(response.transaction.url)
       }
@@ -56,7 +54,7 @@ export const Offer = (props) => {
   };
   const copyText = (text) => {
     navigator.clipboard.writeText(text).then(function () {
-      console.log('Async: Copying to clipboard was successful!');
+     
       notification.success({
         message: i18n.language === 'en' ?
           "Success" :
@@ -71,6 +69,15 @@ export const Offer = (props) => {
     }, function (err) {
       console.error('Async: Could not copy text: ', err);
     });
+  }
+  const addCharges= (name,value) =>{
+    let arr= []
+    if (formFields['addedCharges']) {
+        arr =[...formFields['addedCharges']]
+    }
+    arr.push({name,value})
+    handleFields(pre=>({...pre,addedCharges:arr}))
+   return true
   }
   return (
 
@@ -269,8 +276,7 @@ export const Offer = (props) => {
       <AddCharges
         visible={visible}
         setVisible={setVisible}
-        formFields={formFields}
-        handleFields={handleFields}
+        addCharges={addCharges}
       />
     </div>
   )

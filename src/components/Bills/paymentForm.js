@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {Modal,Radio,Input,Form} from 'antd'
 import {useTranslation} from 'react-i18next'
-
+import './paymentForm.scss'
 export const PaymentForm =(props) =>{
     let {open,setOpen,paymentUrl,handlePayment}=props
     const [payer,setPayer]=useState('')
@@ -62,7 +62,7 @@ return (
                                     </Form.Item>
                                         
                                 </div>
-                               {payer && payer==='recipient'? 
+                               {payer ? payer==='recipient'?
                                <div className=' row col-md-12 col-sm-12' style={{position:'relative'}}>
                                     <Form.Item
                                     label={i18n.language === 'ar' ? 'انقر لحفظ الرابط' : "click to save to clipboard"}
@@ -85,7 +85,14 @@ return (
                                     </div>
                                     )}
                                 
-                                </div>:""}
+                                </div>:
+                                <div className="row col-md-12 senderPayerInfo">
+                                        <p className='text-center'>
+                                          {t('SenderPayer')}
+                                        </p>
+                                        <i class="fa fa-exclamation-circle " aria-hidden="true"></i>
+                                </div> 
+                                :""}
                             </div>
                     </Modal>
 )

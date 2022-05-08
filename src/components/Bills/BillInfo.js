@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { Modal, Carousel, Form, Input, Button, notification, Upload, Radio, message } from 'antd';
-import DataTable from "react-data-table-component";
+import {AddCharges} from '../addedCharges/addedCharge'
 // import SortIcon from "@material-ui/icons/ArrowDownward";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { Base64File } from './base64File'
-import Fade from 'react-reveal/Fade';
+
 import '../../globalVar';
 import { Field } from './field'
 import './styleBills.scss'
@@ -29,6 +29,7 @@ const BillInfo = ({ match }) => {
     const profile = useSelector((state) => state.profile.profile)
     const [t, i18n] = useTranslation();
     let [data, setData] = useState([])
+    let [visible,setVisible]=useState(false)
     let tableData = { data }
 
     const [open, setOpen] = useState(false)
@@ -113,8 +114,56 @@ const BillInfo = ({ match }) => {
                 }
             })
             .catch(err => console.log(err))
+            
     }
+    const addCharges =(name,value) =>{
+        let dataform = new FormData()
+        dataform.append('offer_id',activeBill.id)
+        dataform.append('name',name)
+        dataform.append('value',value)
 
+      let response=  fetch(`${global.apiUrl}api/addedCharge`,
+        {
+            method: 'POST',
+            headers: {
+                Authorization: "Bearer " + userToken,
+                Accept: "application/json",
+            },
+            body: dataform
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            if (res.success) {
+                notification.success({
+                    message: t('SuccessfullRequest'),
+                    description: i18n.language === 'en' ?
+                        "your request has been added successfully" :
+                        "تمت الاضافة  بنجاح",
+                    duration: 5,
+                    rtl: i18n.language === 'ar',
+                    placement: 'bottomRight'
+                })
+               return true
+
+            }
+            else {
+                notification.error({
+                    message: ' Failed',
+                    description: i18n.language === 'en' ?
+                    "your request has been faild" :
+                    "  فشلت اضافة الكلفة",
+                    placement: 'bottomRight',
+                    duration: 4,
+
+                })
+                return false
+            }
+        })
+        .catch(err=>console.log(err))
+        return response
+    }
+    console.log(activeBill)
     return (
         <div className="section bilsSection">
             {profile && activeBill &&
@@ -131,12 +180,20 @@ const BillInfo = ({ match }) => {
                                                 {i18n.language == 'ar' ? `تفاصيل فاتورة` : `Bill Details`}
                                             </h6>
 
-                                            {/* <Button type="primary" className='col-md-3 profileButton' onClick={() => { handlePrev() }} >
-                                                <i className="fa fa-undo" aria-hidden="true"  ></i>
-                                                {i18n.language == 'ar' ? `رجوع` : `Back`}
+                                             <Button type="primary" 
+                                                  className='col-md-3 profileButton' 
+                                                  onClick={() => { setVisible(true) }} 
+                                                  disabled={activeBill && activeBill.paid}>
+                                               <i class="fa fa-plus" aria-hidden="true"></i>
+                                                {t("ExtraCharges")}
 
-                                            </Button> */}
-                                            <Button type="primary" className='col-md-3 profileButton' onClick={() => setOpen(true)} >
+                                               </Button> 
+                                            <Button 
+
+                                                type="primary" 
+                                                className='col-md-3 profileButton' 
+                                                onClick={() => setOpen(true)} 
+                                                disabled={activeBill && activeBill.paid}>
                                                 <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
                                                 {i18n.language == 'ar' ? `دفع` : `Pay`}
 
@@ -157,7 +214,19 @@ const BillInfo = ({ match }) => {
                                                 </h6>
                                                 <div className="row">
                                                     {details.offerInfo.map((ele, index) => {
-
+                                                       
+                                                        if (ele.key === "accepted" && Number(activeBill.weight) <= 3) {
+                                                          
+                                                            return (
+                                                                <Field
+                                                                title={ele.name}
+                                                                content={1}
+                                                                key={index}
+                                                                unit={ele.unit}
+                                                                nestedKey={null}
+                                                            />
+                                                            )
+                                                        }
                                                         return (
                                                             <Field
                                                                 title={ele.name}
@@ -192,14 +261,14 @@ const BillInfo = ({ match }) => {
 
                                                     </div>
                                                     {
-                                                        activeBill.addedCharges && activeBill.addedCharges.length > 0 ?
+                                                        activeBill.added_charges && activeBill.added_charges.length > 0 ?
                                                             <>
                                                                 <h6 className="m-b-20 p-b-5 b-b-default col-md-12 f-w-600  ">
 
-                                                                    {t('AddedCharges')}
+                                                                    {t('ExtraCharges')}
                                                                 </h6>
                                                                 <div className='row col-sm-12'>
-                                                                    {activeBill.addedCharges.map((ele, index) => {
+                                                                    {activeBill.added_charges.map((ele, index) => {
                                                                         return (
 
                                                                             <Field title={ele.name}
@@ -316,6 +385,11 @@ const BillInfo = ({ match }) => {
 
 
             />
+             <AddCharges
+                visible={visible}
+                setVisible={setVisible}
+                addCharges={addCharges}
+             />
         </div>
 
     )
