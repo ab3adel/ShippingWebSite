@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { Modal, Radio, Input, Form, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
@@ -9,6 +10,7 @@ export const PaymentForm = (props) => {
 
     const { t, i18n } = useTranslation()
     const handleCancel = () => {
+
         setOpen(false)
     }
     const charge = { Name: '', Value: '' }
@@ -70,6 +72,7 @@ export const PaymentForm = (props) => {
                             onChange={handleChage}
                             value={payer}
 
+
                         />
                     </Form.Item>
 
@@ -94,6 +97,7 @@ export const PaymentForm = (props) => {
                         {showLabel && (
                             <div className="savedLabelClipboard">
                                 {i18n.language === "ar" ? "تم الحفظ" : "saved to clipboard"}
+
                             </div>
                         )}
 

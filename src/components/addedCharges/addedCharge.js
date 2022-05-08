@@ -1,21 +1,17 @@
-import { NineKPlusTwoTone } from '@mui/icons-material'
 import {Modal,Input,Form} from 'antd'
 import React from 'react'
 import {useTranslation} from 'react-i18next'
 
-export const AddCharges =({visible,setVisible,handleFields,formFields}) =>{
+export const AddCharges =({visible,setVisible,addCharges}) =>{
     const {t,i18n}= useTranslation()
 let [charge,setCharge]=React.useState({Name:'',Value:'',NameError:null,ValueError:null})
     const handleOk=()=>{
 if (charge.Name && charge.Value){
  
-    let arr= []
-    if (formFields['addedCharges']) {
-        arr =[...formFields['addedCharges']]
-    }
-    arr.push({name:charge.Name,value:charge.Value})
-    handleFields(pre=>({...pre,addedCharges:arr}))
-    setCharge({Name:'',Value:'',NameError:null,ValueError:null})
+   if (addCharges(charge.Name,charge.Value)) {
+
+       setCharge({Name:'',Value:'',NameError:null,ValueError:null})
+   }
 }
 else if (!charge.Name) {
 setCharge(pre=>({...pre,NameError:t('Required')}))

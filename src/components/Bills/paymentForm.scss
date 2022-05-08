@@ -1,0 +1,32 @@
+
+
+.row.senderPayerInfo {
+    display:flex;
+    justify-content:space-evenly;
+    align-items: center;
+    color:lightblue;
+    p{
+        color:lightskyblue;
+    }
+    i {
+        margin-bottom: 10px;
+      
+    }
+   
+}
+.ant-modal-root {
+    .ant-modal-wrap{
+
+        .myModal.arabicAlign {
+            .ant-modal-content {
+              .ant-modal-header {
+                  .ant-modal-title {
+                      text-align: left;
+                      display:flex;
+                  }
+                    
+                }
+            }
+        }
+    }
+}
