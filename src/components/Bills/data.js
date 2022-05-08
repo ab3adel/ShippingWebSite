@@ -77,15 +77,15 @@ export const details = {
 }
 export const columns = [
     {
-        name: getI18n().language == 'ar' ? ` ID` : ` ID`,
+        name: getI18n().language == 'ar' ? `ID` : `ID`,
 
         selector: (row) => row.id,
         sortable: true
     },
     {
-        name: getI18n().language == 'ar' ? ` معرف الشحنة` : `Offer Id `,
+        name: getI18n().language == 'ar' ? `معرف الشحنة` : `Shipment Id`,
 
-        selector: (row) => row.offer_id ? row.offer_id : '-',
+        selector: (row) => row.shipment_id ? row.shipment_id : '-',
         sortable: true
     },
     // {
