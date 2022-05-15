@@ -178,16 +178,31 @@ const ShippingRequest = () => {
     }
 
     const handleStage = async (type) => {
-
+        console.log('handleStage')
         if ( type === "Next" && checkError() ) return
-        console.log(type,stage)
+    
         let collection = document.querySelectorAll('.stage')
+       
         if (type === "Next") {
-            if (stage === 1) { rateRequest() }
+            if (stage === 1) { 
+                let done =await rateRequest()
+                console.log(done)
+               if  ( done){
+
+                   collection[stage].classList.add('currentStage')
+                   collection[stage - 1].classList.add('previousStage')
+                   collection[stage - 1].classList.remove('currentStage')
+                   setStage(2)
+               }
+            }
             if (stage === 2) {
 
-                setStage(++stage)
-                collection[stage - 1].classList.add('currentStage')
+                
+              
+                collection[stage -1].classList.add('previousStage')
+                collection[stage-1].classList.remove('currentStage')
+                collection[stage].classList.add('currentStage')
+                setStage(3)
 
             }
             if (stage === 3) return
@@ -198,6 +213,8 @@ const ShippingRequest = () => {
             if (stage === 1) return
             setStage(--stage)
             collection[stage].classList.remove('currentStage')
+          
+
         }
 
 
@@ -279,7 +296,7 @@ const ShippingRequest = () => {
         setLoading(true)
         setSuccess(false)
         setErrorMessage('')
-        let collection = document.querySelectorAll('.stage')
+       
 
 
         const data = {
@@ -327,16 +344,14 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-            console.log(response)
+         
 
             if (!response.messages) {
                 setRateStatus(response)
                 setSuccess(true)
-
                 setLoading(false)
-                setStage(++stage)
-                collection[stage - 1].classList.add('currentStage')
                 goTostart("offersDIV")
+                return true
 
             }
             // else if (response && response.FedEx && response.FedEx.errors) {
@@ -357,7 +372,7 @@ const ShippingRequest = () => {
                 setLoading(false)
                 setErrorMessage(response.messages)
                 setSuccess(false)
-
+                return false
             }
         } catch (err) {
             console.log(err);
@@ -366,6 +381,7 @@ const ShippingRequest = () => {
 
     };
     const saveOffer = () => {
+        let collection = document.querySelectorAll('.stage')
         setLoading(true)
         let formData = {
             company_id: formFields.company_id, serviceType: formFields.serviceType,
@@ -411,6 +427,8 @@ const ShippingRequest = () => {
                     })
                     setDisableButton(true)
                     setActiveOffer({ ...activeOffer, id: res.payload.id, accepted: res.payload.accepted })
+                    collection[2].classList.add('previousStage')
+                    collection[2].classList.remove('currentStage')
 
                 }
                 else if (res.success && formFields.Weight > 3) {
@@ -426,6 +444,8 @@ const ShippingRequest = () => {
                         placement: 'bottomRight'
                     })
                     setDisableButton(true)
+                    collection[2].classList.add('previousStage')
+                    collection[2].classList.remove('currentStage')
 
                 }
                 else {
@@ -440,7 +460,7 @@ const ShippingRequest = () => {
             })
             .catch(err => console.log(err))
     }
-
+console.log(stage)
     return (
         <div>
             {/* <Navbar /> */}
@@ -456,30 +476,30 @@ const ShippingRequest = () => {
                             </div>
                         </div>
                         <div className=" col-md-12 row ">
-                            <div className=" col-md-4 horizonal-align currentStage stage "
+                            <div className=" col-4 col-md-4 col-sm-4 horizonal-align currentStage stage "
                             >
                                 <div className="shipping-icon  d-flex align-times-center">
 
                                     <i class="fa fa-id-card-o" aria-hidden="true"></i>
                                 </div>
-                                <p className="d-flex justify-content-center ">
+                                <p className="d-sm-none d-none d-md-block d-lg-block">
                                     {t('Fill Your Form')}
                                 </p>
                             </div>
-                            <div className=" col-md-4 horizonal-align stage">
+                            <div className=" col-4 col-md-4 col-sm-4 horizonal-align stage">
                                 <div className='shipping-icon'>
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                 </div>
-                                <p>
+                                <p className="d-sm-none d-none  d-md-block d-lg-block ">
 
                                     {t('Choose Best Offer')}
                                 </p>
                             </div>
-                            <div className=" col-md-4 horizonal-align stage">
+                            <div className="  col-4 col-md-4 col-sm-4 horizonal-align stage">
                                 <div className='shipping-icon'>
                                     <i class="fa fa-bus" aria-hidden="true"></i>
                                 </div>
-                                <p>
+                                <p className=" d-none d-sm-none d-md-block ">
 
                                     {t('Ready To Send')}
                                 </p>
