@@ -35,16 +35,14 @@ const ShippingRequest = () => {
         // SenderAddress: '',
         RecipientAddress: ''
         , Type: '', Date: '', Width: '', Length: '', Recipient: "",
-        Category: "", NumberOfPieces: "",
+        Category: "",NumberOfPieces:1,DocumentShipment:'',
         Height: '', Weight: '', Hermonized: "",
-        HermonizedError: "", Price: "", PriceError: "",
-        DocumentShipment: "", ShipmentPurpose: "",
-        //  SenderAddressError: false,
-        DocumentShipmentError: false, ShipmentPurposeError: false,
+        HermonizedError: "", Price: "", PriceError: "", ShipmentPurpose: "",
+         ShipmentPurposeError: false,
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
-        , NumberOfPiecesError: "", GroupPackageCount: '', GroupPackageCountError: false
+       , GroupPackageCount: '', GroupPackageCountError: false
 
     })
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
@@ -178,7 +176,7 @@ const ShippingRequest = () => {
     }
 
     const handleStage = async (type) => {
-        console.log('handleStage')
+       
         if ( type === "Next" && checkError() ) return
     
         let collection = document.querySelectorAll('.stage')
@@ -186,7 +184,7 @@ const ShippingRequest = () => {
         if (type === "Next") {
             if (stage === 1) { 
                 let done =await rateRequest()
-                console.log(done)
+                
                if  ( done){
 
                    collection[stage].classList.add('currentStage')
@@ -196,9 +194,6 @@ const ShippingRequest = () => {
                }
             }
             if (stage === 2) {
-
-                
-              
                 collection[stage -1].classList.add('previousStage')
                 collection[stage-1].classList.remove('currentStage')
                 collection[stage].classList.add('currentStage')
@@ -225,7 +220,14 @@ const ShippingRequest = () => {
             setFormFields({ ...formFields, [name]: value, RecipientAddress: null, [`${name}Error`]: value ? false : true })
 
         }
-
+        else if (name === "Category") {
+            if (value === 2) {
+                setFormFields(pre=>({...pre,[name]:value,DocumentShipment:true, [`${name}Error`]: value || value === false ? false : true }))
+            }
+            else {
+                setFormFields(pre=>({...pre,[name]:value,DocumentShipment:false, [`${name}Error`]: value || value === false ? false : true }))
+            }
+        }
 
         else {
             setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value === false ? false : true })
@@ -242,7 +244,7 @@ const ShippingRequest = () => {
         }
         let checker= checkList.length >0? checkList : Object.keys(newFormFields)
         let emptyVal =  checker.filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
-         
+         console.log(emptyVal)
         if (emptyVal.length === 0) {
 
             let typeObj = types.filter(ele => ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
@@ -309,7 +311,7 @@ const ShippingRequest = () => {
             // GoodsOriginCountryCode: formFields.Country,
             harmonizedCode: formFields.Hermonized,
             unitPrice: formFields.Price,
-            documentShipment: formFields.DocumentShipment,
+            documentShipment:formFields.Category === 2 ? true:false,
             shipmentPurpose: formFields.ShipmentPurpose,
             requestedPackageLineItems: [
                 {
@@ -460,7 +462,7 @@ const ShippingRequest = () => {
             })
             .catch(err => console.log(err))
     }
-console.log(stage)
+
     return (
         <div>
             {/* <Navbar /> */}
