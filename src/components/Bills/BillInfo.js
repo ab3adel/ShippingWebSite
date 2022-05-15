@@ -163,7 +163,7 @@ const BillInfo = ({ match }) => {
             .catch(err => console.log(err))
         return response
     }
-    console.log(activeBill)
+
     return (
         <div className="section bilsSection">
             {profile && activeBill &&

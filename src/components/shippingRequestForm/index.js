@@ -437,7 +437,7 @@ export const ShippingRequestForm = (props) => {
                         </Select>
                     </Form.Item>
                 </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
+                {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('NumberOfPieces')}
                         name='NumberOfPieces'
@@ -456,7 +456,7 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
 
-                </div>
+                </div> */}
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('groupPackageCount')}
@@ -533,7 +533,7 @@ export const ShippingRequestForm = (props) => {
 
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
-                        label={`${t('UnitPrice')}`}
+                        label={`${t('ShipmentPrice')}`}
                         name='Price'
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['PriceError'] ? "error" : ""}
@@ -568,7 +568,7 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
                 </div>
-                <div className='col-md-6 col-lg-4 col-sm-6'>
+                {/* <div className='col-md-6 col-lg-4 col-sm-6'>
 
                     <Form.Item
                         label={t('DocumentShipment')}
@@ -595,7 +595,7 @@ export const ShippingRequestForm = (props) => {
 
                         </Select>
                     </Form.Item>
-                </div>
+                </div> */}
 
                 <Divider orientation='horizonal col-md-6' />
                 <div className=' col-md-12   '>
