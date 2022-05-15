@@ -3,8 +3,29 @@ import './offers.scss'
 import React, { useState } from 'react'
 import "../../globalVar"
 import { useTranslation } from 'react-i18next'
-import { Button } from 'antd'
+import { Button,Popover } from 'antd'
 import { Link } from 'react-router-dom'
+
+import {
+  EmailShareButton,
+  FacebookMessengerShareButton,  
+   
+  TelegramShareButton, 
+  TwitterShareButton,
+  ViberShareButton,
+   WhatsappShareButton, 
+} from "react-share";
+import {
+  EmailIcon,
+  FacebookIcon,
+  FacebookMessengerIcon,
+ 
+  TelegramIcon,
+   TwitterIcon,
+  ViberIcon,
+  WhatsappIcon,
+  
+} from "react-share";
 import {AddCharges} from '../addedCharges/addedCharge'
 export const Offer = (props) => {
   const { formFields, activeOffer, handleFields, disableButton } = props
@@ -79,6 +100,34 @@ export const Offer = (props) => {
     handleFields(pre=>({...pre,addedCharges:arr}))
    return true
   }
+
+
+
+   
+
+  const content = (
+    <div className='IconsCont'>
+  
+  {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
+  </FacebookMessengerShareButton > */}
+  <WhatsappShareButton url={urlPay}   >
+  <  WhatsappIcon size={32} round={true} />
+</WhatsappShareButton >
+<TelegramShareButton url={urlPay}   >
+  <TelegramIcon size={32} round={true} />
+</TelegramShareButton >
+<ViberShareButton url={urlPay}   >
+  <ViberIcon size={32} round={true} />
+</ViberShareButton >
+<EmailShareButton url={urlPay}   >
+  <EmailIcon size={32} round={true} />
+</EmailShareButton >
+
+  
+ 
+    </div>
+  );
+
   return (
 
     <div className="offerContainer">
@@ -255,13 +304,24 @@ export const Offer = (props) => {
                       : null
                     }
                     {payer == 'recipient' && urlPay ?
-                      <Button className='ant-btn ant-btn-default addInFormBTN col-md-4' onClick={() => copyText(urlPay)}>
-                        {i18n.language === 'ar' ?
-                          "نسخ الرابط"
+  <Popover content={content} title={i18n.language === 'ar' ?
+  "مشاركة"
+  :
+  "Share "} trigger="click">
+  <Button className='ant-btn ant-btn-default addInFormBTN col-md-4'>     {i18n.language === 'ar' ?
+                          "مشاركة الرابط"
                           :
-                          "Copy Pay URL"}
+                          "Share Pay URL"}</Button>
+</Popover>
 
-                      </Button>
+
+                      // <Button className='ant-btn ant-btn-default addInFormBTN col-md-4' onClick={() => copyText(urlPay)}>
+                      //   {i18n.language === 'ar' ?
+                      //     "نسخ الرابط"
+                      //     :
+                      //     "Copy Pay URL"}
+
+                      // </Button>
                       : null
                     }
                   </div>

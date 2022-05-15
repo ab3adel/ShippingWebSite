@@ -414,7 +414,8 @@ const NewAddress = (props) => {
                                 value={country}
                                 onChange={handleCountryChange}
                                 // onSearch={onSearch}
-                                listItemHeight={10} listHeight={250}
+                                listItemHeight={10}
+                                //  listHeight={250}
 
                                 placeholder={t('Country')}
                                 direction={i18n === "ar" ? 'rtl' : 'ltr'}
@@ -441,7 +442,8 @@ const NewAddress = (props) => {
                                 autoComplete='none'
                                 showSearch
                                 optionFilterProp="children"
-                                listItemHeight={10} listHeight={250}
+                                listItemHeight={10} 
+                                // listHeight={250}
                                 loading={loadingCities}
                                 disabled={disableCities}
                                 direction={i18n.language === "ar" ? 'rtl' : 'ltr'}

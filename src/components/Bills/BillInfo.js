@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { Modal, Carousel, Form, Input, Button, notification, Upload, Radio, message } from 'antd';
-import {AddCharges} from '../addedCharges/addedCharge'
+import { AddCharges } from '../addedCharges/addedCharge'
 // import SortIcon from "@material-ui/icons/ArrowDownward";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
@@ -29,7 +29,7 @@ const BillInfo = ({ match }) => {
     const profile = useSelector((state) => state.profile.profile)
     const [t, i18n] = useTranslation();
     let [data, setData] = useState([])
-    let [visible,setVisible]=useState(false)
+    let [visible, setVisible] = useState(false)
     let tableData = { data }
 
     const [open, setOpen] = useState(false)
@@ -114,53 +114,53 @@ const BillInfo = ({ match }) => {
                 }
             })
             .catch(err => console.log(err))
-            
+
     }
-    const addCharges =(name,value) =>{
+    const addCharges = (name, value) => {
         let dataform = new FormData()
-        dataform.append('offer_id',activeBill.id)
-        dataform.append('name',name)
-        dataform.append('value',value)
+        dataform.append('offer_id', activeBill.id)
+        dataform.append('name', name)
+        dataform.append('value', value)
 
-      let response=  fetch(`${global.apiUrl}api/addedCharge`,
-        {
-            method: 'POST',
-            headers: {
-                Authorization: "Bearer " + userToken,
-                Accept: "application/json",
-            },
-            body: dataform
-        })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res)
-            if (res.success) {
-                notification.success({
-                    message: t('SuccessfullRequest'),
-                    description: i18n.language === 'en' ?
-                        "your request has been added successfully" :
-                        "تمت الاضافة  بنجاح",
-                    duration: 5,
-                    rtl: i18n.language === 'ar',
-                    placement: 'bottomRight'
-                })
-               return true
+        let response = fetch(`${global.apiUrl}api/addedCharge`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: "Bearer " + userToken,
+                    Accept: "application/json",
+                },
+                body: dataform
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                if (res.success) {
+                    notification.success({
+                        message: t('SuccessfullRequest'),
+                        description: i18n.language === 'en' ?
+                            "your request has been added successfully" :
+                            "تمت الاضافة  بنجاح",
+                        duration: 5,
+                        rtl: i18n.language === 'ar',
+                        placement: 'bottomRight'
+                    })
+                    return true
 
-            }
-            else {
-                notification.error({
-                    message: ' Failed',
-                    description: i18n.language === 'en' ?
-                    "your request has been faild" :
-                    "  فشلت اضافة الكلفة",
-                    placement: 'bottomRight',
-                    duration: 4,
+                }
+                else {
+                    notification.error({
+                        message: ' Failed',
+                        description: i18n.language === 'en' ?
+                            "your request has been faild" :
+                            "  فشلت اضافة الكلفة",
+                        placement: 'bottomRight',
+                        duration: 4,
 
-                })
-                return false
-            }
-        })
-        .catch(err=>console.log(err))
+                    })
+                    return false
+                }
+            })
+            .catch(err => console.log(err))
         return response
     }
     console.log(activeBill)
@@ -176,23 +176,23 @@ const BillInfo = ({ match }) => {
                                     <div className="col-md-12 col-lg-12 bg-c-lite-green user-profile">
                                         <div className="card-block text-center text-white USerCont">
 
-                                            <h6 className="f-w-600 nameProfile ">
+                                            <h6 className="f-w-600 nameProfile  col-md-4 col-lg-5 p-0 ">
                                                 {i18n.language == 'ar' ? `تفاصيل فاتورة` : `Bill Details`}
                                             </h6>
 
-                                             <Button type="primary" 
-                                                  className='col-md-3 profileButton' 
-                                                  onClick={() => { setVisible(true) }} 
-                                                  disabled={activeBill && activeBill.paid}>
-                                               <i class="fa fa-plus" aria-hidden="true"></i>
+                                            <Button type="primary"
+                                                className='col-md-3 profileButton'
+                                                onClick={() => { setVisible(true) }}
+                                                disabled={activeBill && activeBill.paid}>
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
                                                 {t("ExtraCharges")}
 
-                                               </Button> 
-                                            <Button 
+                                            </Button>
+                                            <Button
 
-                                                type="primary" 
-                                                className='col-md-3 profileButton' 
-                                                onClick={() => setOpen(true)} 
+                                                type="primary"
+                                                className='col-md-3 profileButton'
+                                                onClick={() => setOpen(true)}
                                                 disabled={activeBill && activeBill.paid}>
                                                 <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
                                                 {i18n.language == 'ar' ? `دفع` : `Pay`}
@@ -214,17 +214,17 @@ const BillInfo = ({ match }) => {
                                                 </h6>
                                                 <div className="row">
                                                     {details.offerInfo.map((ele, index) => {
-                                                       
+
                                                         if (ele.key === "accepted" && Number(activeBill.weight) <= 3) {
-                                                          
+
                                                             return (
                                                                 <Field
-                                                                title={ele.name}
-                                                                content={1}
-                                                                key={index}
-                                                                unit={ele.unit}
-                                                                nestedKey={null}
-                                                            />
+                                                                    title={ele.name}
+                                                                    content={1}
+                                                                    key={index}
+                                                                    unit={ele.unit}
+                                                                    nestedKey={null}
+                                                                />
                                                             )
                                                         }
                                                         return (
@@ -385,11 +385,11 @@ const BillInfo = ({ match }) => {
 
 
             />
-             <AddCharges
+            <AddCharges
                 visible={visible}
                 setVisible={setVisible}
                 addCharges={addCharges}
-             />
+            />
         </div>
 
     )

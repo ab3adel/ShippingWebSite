@@ -257,3 +257,26 @@ input:-internal-autofill-selected {
 ::-webkit-scrollbar-thumb:hover {
   background: #c60874;
 }
+.ant-popover-title {
+  
+    text-align: start;}
+    .react-share__ShareButton:active ,.react-share__ShareButton:focus {
+      outline:none !important;
+      border : none !important;
+
+
+    }
+    .react-share__ShareButton  {
+      margin-inline-start: 3px;
+
+
+    }
+    .ant-popover-inner-content {
+      padding: 12px 9px;
+  
+  }
+.IconsCont{  display: flex;
+    justify-content: center;
+    column-gap: 3px;
+    row-gap: 3px;
+    flex-flow: wrap;}
