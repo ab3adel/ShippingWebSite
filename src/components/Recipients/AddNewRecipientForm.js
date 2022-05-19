@@ -16,6 +16,7 @@ import 'flagpack/dist/flagpack.css';
 import './formStyle.scss'
 import "../../globalVar"
 // import { setCities } from '../../redux/actions';
+const phoneUtil = require("google-libphonenumber").PhoneNumberUtil.getInstance();
 
 const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refreshRecipints, reseter }) => {
     let history = useHistory();
@@ -41,8 +42,23 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
 
     const onFinishCustomer = (values) => {
         console.log('Success:', values);
+        const number = phoneUtil.parseAndKeepRawInput(values.recipient_phone, phone.short);
+        if (phoneUtil.isValidNumber(number) && phoneUtil.isValidNumberForRegion(number, phone.short)) {
+            onSubmitRecipient(values)
+        }
+        else {
+            useformRecip.setFields([
+                {
+                    name: 'recipient_phone',
+                    errors: [`${i18n.language == 'ar' ?
+                        `الرجاء ادخل رقم هاتف صحيح!` : 'Please Input Valid Phone Number!'}`],
+                },
+            ])
+        }
 
-        onSubmitRecipient(values)
+
+
+
 
     };
 
@@ -267,23 +283,6 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                 </h4>
 
                 </div> */}
-
-                <div className='col-md-6 col-lg-4'>   <Form.Item
-                    label={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
-                    name="recipient_name_en"
-                    // type='email'
-                    rules={[
-                        {
-                            required: true,
-                            message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة الانكليزية!` : 'Please Input English Recipient Name!',
-                        },
-
-                    ]}
-                >
-                    {/* type='email' */}
-                    <Input placeholder={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`} />
-                </Form.Item>
-                </div>
                 <div className='col-md-6 col-lg-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`}
@@ -301,6 +300,23 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                         <Input placeholder={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`} />
                     </Form.Item>
                 </div>
+                <div className='col-md-6 col-lg-4'>   <Form.Item
+                    label={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
+                    name="recipient_name_en"
+                    // type='email'
+                    rules={[
+                        {
+                            required: true,
+                            message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة الانكليزية!` : 'Please Input English Recipient Name!',
+                        },
+
+                    ]}
+                >
+                    {/* type='email' */}
+                    <Input placeholder={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`} />
+                </Form.Item>
+                </div>
+
                 <div className='col-md-6 col-lg-4'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `الهاتف` : `Phone`}
