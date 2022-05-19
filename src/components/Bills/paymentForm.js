@@ -1,27 +1,27 @@
 
 import React, { useState } from 'react'
-import { Modal, Radio, Input, Form, Button,Popover } from 'antd'
+import { Modal, Radio, Input, Form, Button, Popover } from 'antd'
 import { useTranslation } from 'react-i18next'
 import {
     EmailShareButton,
-    FacebookMessengerShareButton,  
-     
-    TelegramShareButton, 
+    FacebookMessengerShareButton,
+
+    TelegramShareButton,
     TwitterShareButton,
     ViberShareButton,
-     WhatsappShareButton, 
-  } from "react-share";
-  import {
+    WhatsappShareButton,
+} from "react-share";
+import {
     EmailIcon,
     FacebookIcon,
     FacebookMessengerIcon,
-   
+
     TelegramIcon,
-     TwitterIcon,
+    TwitterIcon,
     ViberIcon,
     WhatsappIcon,
-    
-  } from "react-share";
+
+} from "react-share";
 export const PaymentForm = (props) => {
     let { open, setOpen, paymentUrl, handlePayment } = props
     const [payer, setPayer] = useState('')
@@ -58,26 +58,26 @@ export const PaymentForm = (props) => {
 
     const content = (
         <div className='IconsCont'>
-      
-      {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
+
+            {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
       </FacebookMessengerShareButton > */}
-      <WhatsappShareButton url={paymentUrl}   >
-      <  WhatsappIcon size={32} round={true} />
-    </WhatsappShareButton >
-    <TelegramShareButton url={paymentUrl}   >
-      <TelegramIcon size={32} round={true} />
-    </TelegramShareButton >
-    <ViberShareButton url={paymentUrl}   >
-      <ViberIcon size={32} round={true} />
-    </ViberShareButton >
-    <EmailShareButton url={paymentUrl}   >
-      <EmailIcon size={32} round={true} />
-    </EmailShareButton >
-    
-      
-     
+            <WhatsappShareButton url={paymentUrl}   >
+                <  WhatsappIcon size={32} round={true} />
+            </WhatsappShareButton >
+            <TelegramShareButton url={paymentUrl}   >
+                <TelegramIcon size={32} round={true} />
+            </TelegramShareButton >
+            <ViberShareButton url={paymentUrl}   >
+                <ViberIcon size={32} round={true} />
+            </ViberShareButton >
+            <EmailShareButton url={paymentUrl}   >
+                <EmailIcon size={32} round={true} />
+            </EmailShareButton >
+
+
+
         </div>
-      );
+    );
 
     return (
 
@@ -120,21 +120,21 @@ export const PaymentForm = (props) => {
                     </Form.Item>
 
                 </div>
-                {payer && paymentUrl&&payer === 'recipient' ?
+                {payer && paymentUrl && payer === 'recipient' ?
                     <div className=' row col-md-12 col-sm-12' style={{ position: 'relative' }}>
                         <Form.Item
                             label={i18n.language === 'ar' ? 'انقر لحفظ الرابط' : "click to save to clipboard"}
                         >
 
-<Popover content={content} title={i18n.language === 'ar' ?
-  "مشاركة"
-  :
-  "Share "} trigger="click">
-  <Button className='ant-btn ant-btn-default addInFormBTN col-md-12' >     {i18n.language === 'ar' ?
-                          "مشاركة الرابط"
-                          :
-                          "Share Pay URL"}</Button>
-</Popover>
+                            <Popover content={content} title={i18n.language === 'ar' ?
+                                "مشاركة"
+                                :
+                                "Share "} trigger="click">
+                                <Button className='ant-btn ant-btn-default addInFormBTN col-md-12' >     {i18n.language === 'ar' ?
+                                    "مشاركة الرابط"
+                                    :
+                                    "Share Pay URL"}</Button>
+                            </Popover>
 
                             {/* <Input type={'text'}
 

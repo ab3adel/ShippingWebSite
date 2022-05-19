@@ -256,20 +256,33 @@ export const ShippingRequestForm = (props) => {
                             value={formFields["Recipient"]}
                             placeholder={t('Recipient')}
                             onChange={(e, v) => handleSelect(e, v, 'Recipient')}
-                            onSearch={onSearch}
-                            listItemHeight={10} listHeight={250}
+                            // onSearch={onSearch}
 
+                            listItemHeight={10} listHeight={250}
+                            optionLabelProp="label"
 
                         >
                             {recipients && recipients !== "EMPTY" && recipients.map((item, index) => {
                                 return (
-                                    <Option key={item.id} value={item.id} >
-                                        <OptionRemovable
-                                            option={i18n.language === 'ar' ? item.name_ar : item.name_en + ' / ' + item.phone}
+                                    <Option key={item.id} value={item.id}
+                                        label={
+                                            <>
+                                                <div className={'d-flex selectLabel'}>
+                                                    {i18n.language === 'ar' ? item.name_ar ? item.name_ar : item.name_en : item.name_en}
+                                                    <i className="fa fa-close" aria-hidden="true"
+                                                        onClick={() => handleFields('Recipient', "")} ></i>
+                                                </div>
+                                            </>
+
+                                        }
+                                    >
+                                        {i18n.language === 'ar' ? item.name_ar + ' / ' : item.name_en + ' / '} <span dir='ltr'>{item.phone}</span>
+                                        {/* <OptionRemovable
+                                            // option={i18n.language === 'ar' ? item.name_ar + ' / ' + item.phone : item.name_en + ' / ' + item.phone}
                                             show={formFields['Recipient'] && index === selectedIndex}
                                             fun={() => handleFields('Recipient', "")}
                                             setSelectedIndex={() => setSelectedIndex(index)}
-                                        />
+                                        /> */}
                                     </Option>)
                             })}
 
@@ -604,6 +617,32 @@ export const ShippingRequestForm = (props) => {
                 </div>
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
                     <Form.Item
+                        name="Weight"
+                        value={formFields["Weight"]}
+                        label={`${t('Weight')} (${i18n.language === 'ar' ? "كجم" : "KG"})`}
+                        rules={[{ required: true, message: t('Required'), },]}
+                        validateStatus={formFields['WeightError'] ? "error" : ""}
+                        help={<InfoLabel infoText={t("WeightDescription")} />}
+                    >
+
+
+
+                        <Input
+                            type="number"
+                            name="Weight"
+                            min='0.00'
+                            max='67.00'
+                            value={formFields["Weight"]}
+                            step="0.5"
+
+                            // stringMode
+                            placeholder={t('Weight')} onChange={handleChange} />
+                    </Form.Item>
+
+
+                </div>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
+                    <Form.Item
                         label={`${t('Width')} (${i18n.language === 'ar' ? "سم" : "CM"})`}
                         name="Width"
                         rules={[{ required: true, message: t('Required'), },]}
@@ -665,32 +704,7 @@ export const ShippingRequestForm = (props) => {
 
 
                 </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
-                    <Form.Item
-                        name="Weight"
-                        value={formFields["Weight"]}
-                        label={`${t('Weight')} (${i18n.language === 'ar' ? "كجم" : "KG"})`}
-                        rules={[{ required: true, message: t('Required'), },]}
-                        validateStatus={formFields['WeightError'] ? "error" : ""}
-                        help={<InfoLabel infoText={t("WeightDescription")} />}
-                    >
 
-
-
-                        <Input
-                            type="number"
-                            name="Weight"
-                            min='0.00'
-                            max='67.00'
-                            value={formFields["Weight"]}
-                            step="0.5"
-
-                            // stringMode
-                            placeholder={t('Weight')} onChange={handleChange} />
-                    </Form.Item>
-
-
-                </div>
                 <Fade top spy={animat} duration={1000} >
                     <div className='col-md-12'>
 

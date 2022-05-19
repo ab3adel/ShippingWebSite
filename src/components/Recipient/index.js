@@ -456,25 +456,25 @@ const RecipientInfo = () => {
                                                                             :
                                                                             <>
                                                                                 <div className="col-md-6">
-                                                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `السطر 1` : `Line 1`}</p>
+                                                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `العنوان الكامل` : `Full Address`}</p>
                                                                                     <h6 className="text-muted f-w-400">{address.line_1}
                                                                                     </h6>
                                                                                 </div>
                                                                                 <div className="col-6 col-sm-6 col-md-6">
-                                                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `السطر 2` : `Line 2`}</p>
+                                                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Address Information`}</p>
                                                                                     <h6 className="text-muted f-w-400">{address.line_2 ? address.line_2 : '-'}
                                                                                     </h6>
                                                                                 </div>
-                                                                                <div className="col-6 col-sm-6 col-md-6">
+                                                                                {/* <div className="col-6 col-sm-6 col-md-6">
                                                                                     <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `السطر 3` : `Line 3`}</p>
                                                                                     <h6 className="text-muted f-w-400">{address.line_3 ? address.line_3 : '-'}
                                                                                     </h6>
-                                                                                </div>
+                                                                                </div> */}
                                                                             </>
 
                                                                         }
 
-
+                                                                        {/* 
                                                                         <div className="col-6 col-sm-6 col-md-3">
                                                                             <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `النوع` : `Type`}</p>
                                                                             <h6 className="text-muted f-w-400">{address.type ? address.type : '-'}
@@ -488,7 +488,7 @@ const RecipientInfo = () => {
                                                                                 i18n.language == 'ar' ? `رئيسي` : `Main`
                                                                             }
                                                                             </h6>
-                                                                        </div>
+                                                                        </div> */}
 
 
 

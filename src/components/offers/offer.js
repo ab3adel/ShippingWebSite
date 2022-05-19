@@ -3,30 +3,30 @@ import './offers.scss'
 import React, { useState } from 'react'
 import "../../globalVar"
 import { useTranslation } from 'react-i18next'
-import { Button,Popover } from 'antd'
+import { Button, Popover } from 'antd'
 import { Link } from 'react-router-dom'
 
 import {
   EmailShareButton,
-  FacebookMessengerShareButton,  
-   
-  TelegramShareButton, 
+  FacebookMessengerShareButton,
+
+  TelegramShareButton,
   TwitterShareButton,
   ViberShareButton,
-   WhatsappShareButton, 
+  WhatsappShareButton,
 } from "react-share";
 import {
   EmailIcon,
   FacebookIcon,
   FacebookMessengerIcon,
- 
+
   TelegramIcon,
-   TwitterIcon,
+  TwitterIcon,
   ViberIcon,
   WhatsappIcon,
-  
+
 } from "react-share";
-import {AddCharges} from '../addedCharges/addedCharge'
+import { AddCharges } from '../addedCharges/addedCharge'
 export const Offer = (props) => {
   const { formFields, activeOffer, handleFields, disableButton } = props
   const [t, i18n] = useTranslation();
@@ -63,7 +63,7 @@ export const Offer = (props) => {
         }
       );
       const response = await responsee.json();
- 
+
       if (response.transaction && response.transaction.url) {
         setUrlPay(response.transaction.url)
       }
@@ -75,7 +75,7 @@ export const Offer = (props) => {
   };
   const copyText = (text) => {
     navigator.clipboard.writeText(text).then(function () {
-     
+
       notification.success({
         message: i18n.language === 'en' ?
           "Success" :
@@ -91,53 +91,53 @@ export const Offer = (props) => {
       console.error('Async: Could not copy text: ', err);
     });
   }
-  const addCharges= (name,value) =>{
-    let arr= []
+  const addCharges = (name, value) => {
+    let arr = []
     if (formFields['addedCharges']) {
-        arr =[...formFields['addedCharges']]
+      arr = [...formFields['addedCharges']]
     }
-    arr.push({name,value})
-    handleFields(pre=>({...pre,addedCharges:arr}))
-   return true
+    arr.push({ name, value })
+    handleFields(pre => ({ ...pre, addedCharges: arr }))
+    return true
   }
 
 
 
-   
+
 
   const content = (
     <div className='IconsCont'>
-  
-  {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
-  </FacebookMessengerShareButton > */}
-  <WhatsappShareButton url={urlPay}   >
-  <  WhatsappIcon size={32} round={true} />
-</WhatsappShareButton >
-<TelegramShareButton url={urlPay}   >
-  <TelegramIcon size={32} round={true} />
-</TelegramShareButton >
-<ViberShareButton url={urlPay}   >
-  <ViberIcon size={32} round={true} />
-</ViberShareButton >
-<EmailShareButton url={urlPay}   >
-  <EmailIcon size={32} round={true} />
-</EmailShareButton >
 
-  
- 
+      {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
+  </FacebookMessengerShareButton > */}
+      <WhatsappShareButton url={urlPay}   >
+        <  WhatsappIcon size={32} round={true} />
+      </WhatsappShareButton >
+      <TelegramShareButton url={urlPay}   >
+        <TelegramIcon size={32} round={true} />
+      </TelegramShareButton >
+      <ViberShareButton url={urlPay}   >
+        <ViberIcon size={32} round={true} />
+      </ViberShareButton >
+      <EmailShareButton url={urlPay}   >
+        <EmailIcon size={32} round={true} />
+      </EmailShareButton >
+
+
+
     </div>
   );
 
   return (
 
     <div className="offerContainer">
-      <div className="row col-md-12 d-flex justify-content-center">
+      <div className="row col-md-12 d-flex justify-content-center m-0">
         <div className='col-md-8 d-flex justify-content-center'>
           <img src={activeOffer['image']} />
         </div>
 
       </div>
-      <div className="row col-md-12">
+      <div className="row col-md-12 m-0">
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
             {t('Name')}
@@ -188,11 +188,11 @@ export const Offer = (props) => {
             <div className='bold'>{formFields['Weight']}{` ${i18n.language === 'ar' ? '(كجم)' : "(KG)"}`}</div>
           </div>
         </div>
-        <div className="col-md-12 col-sm-12 d-flex justify-content-center">
+        <div className="col-md-12 col-sm-12 d-flex justify-content-center m-0">
           {
 
             formFields['addedCharges'] && formFields['addedCharges'].length > 0 ?
-              <div className="row col-md-12 ">
+              <div className="row col-md-12 m-0">
                 <div className="d-flex justify-content-center col-md-12 text-align-center">
                   {t("ExtraCharges")}
                 </div>
@@ -219,7 +219,7 @@ export const Offer = (props) => {
         </div>
 
       </div>
-      <div className='row col-md-12 justify-content-center'>
+      <div className='row col-md-12 justify-content-center m-0'>
         <Button
           className='addInFormBTN col-md-4'
           onClick={() => setVisible(true)}
@@ -231,7 +231,7 @@ export const Offer = (props) => {
       </div>
       {activeOffer.id &&
         <>
-          <div className='row col-md-12 justify-content-center text-center'>
+          <div className='row col-md-12 justify-content-center text-center m-0 '>
             <div className='col-md-12 pt-1 pb-1 '>
               <Link to="/Bills" className='billLInk'>
                 {i18n.language === 'ar' ?
@@ -261,7 +261,7 @@ export const Offer = (props) => {
                       "Choose who will pay"
                     }
                   </div>
-                  <div className='col-md-12 d-flex justify-content-center text-center'>
+                  <div className='col-md-12 d-flex justify-content-center text-center m-0'>
                     <div className={`col-md-4 col-lg-2 selectPay ${payer == "sender" && 'activePayer'}`}
                       onClick={() => onChange('sender')}>
                       {i18n.language === 'ar' ?
@@ -280,7 +280,7 @@ export const Offer = (props) => {
                     </div>
 
                   </div>
-                  <div className='  col-md-12 justify-content-center pt-1 pb-1'>
+                  <div className='  col-md-12 justify-content-center pt-1 pb-1 m-0'>
                     {urlPay === '' ? <Button
                       className='addInFormBTN col-md-4'
                       onClick={() => getURL()}
@@ -304,15 +304,15 @@ export const Offer = (props) => {
                       : null
                     }
                     {payer == 'recipient' && urlPay ?
-  <Popover content={content} title={i18n.language === 'ar' ?
-  "مشاركة"
-  :
-  "Share "} trigger="click">
-  <Button className='ant-btn ant-btn-default addInFormBTN col-md-4'>     {i18n.language === 'ar' ?
+                      <Popover content={content} title={i18n.language === 'ar' ?
+                        "مشاركة"
+                        :
+                        "Share "} trigger="click">
+                        <Button className='ant-btn ant-btn-default addInFormBTN col-md-4'>     {i18n.language === 'ar' ?
                           "مشاركة الرابط"
                           :
                           "Share Pay URL"}</Button>
-</Popover>
+                      </Popover>
 
 
                       // <Button className='ant-btn ant-btn-default addInFormBTN col-md-4' onClick={() => copyText(urlPay)}>

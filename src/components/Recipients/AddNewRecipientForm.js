@@ -378,7 +378,21 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                             listItemHeight={10} listHeight={250}
                         >
                             {countries && countries.map((item) => {
-                                return (<Option key={item.id} value={item.id}>{item.country_name_en}{' / '}{item.country_code}</Option>)
+                                return (
+
+                                    <React.Fragment key={item.id}>
+                                        {item.id == 117 ?
+                                            null
+                                            :
+                                            <Option value={item.id}>{i18n.language === 'ar' ?
+                                                item.country_name_ar ? item.country_name_ar : item.country_name_en
+                                                : item.country_name_en}{' / '}{item.country_code}</Option>
+                                        }
+
+                                    </React.Fragment>
+
+                                    // <Option key={item.id} value={item.id}>{item.country_name_en}{' / '}{item.country_code}</Option>
+                                )
                             })}
 
 
@@ -412,7 +426,11 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                             listItemHeight={10} listHeight={250}
                         >
                             {cities.map((ele, index) => {
-                                return (<Option key={ele.id} value={ele.id}>{ele.name_en}</Option>)
+                                return (<Option key={ele.id} value={ele.id}>  {i18n.language === 'ar' ?
+                                    ele.name_ar ? ele.name_ar : ele.name_en
+                                    :
+
+                                    ele.name_en}</Option>)
                             })}
 
                         </Select>
@@ -559,35 +577,36 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                     <>
                         <div className='col-md-6 col-lg-4'>
                             <Form.Item
-                                label={i18n.language == 'ar' ? `السطر 1` : `Line 1`}
+                                label={i18n.language == 'ar' ? `العنوان الكامل` : `Full Address`}
                                 rules={[
                                     {
                                         required: true,
-                                        message: i18n.language == 'ar' ? `الرجاء ادخل حقل السطر الاول للعنوان` : 'Please Input Address Line 1 !',
+                                        message: i18n.language == 'ar' ? `الرجاء ادخل حقل العنوان الكامل`
+                                            : 'Please Input Full Address Field!',
                                     },
 
                                 ]}
                                 name="line_1"
                             >
 
-                                <Input placeholder={i18n.language == 'ar' ? `السطر 1` : `Line 1`} />
+                                <Input placeholder={i18n.language == 'ar' ? `العنوان الكامل` : `Full Address`} />
                             </Form.Item>
 
 
                         </div>
                         <div className='col-md-6 col-lg-4'>
                             <Form.Item
-                                label={i18n.language == 'ar' ? `السطر 2` : `Line 2`}
+                                label={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`}
 
                                 name="line_2"
                             >
 
-                                <Input placeholder={i18n.language == 'ar' ? `السطر 2` : `Line 2`} />
+                                <Input placeholder={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`} />
                             </Form.Item>
 
 
                         </div>
-                        <div className='col-md-6 col-lg-4'>
+                        {/* <div className='col-md-6 col-lg-4'>
                             <Form.Item
                                 label={i18n.language == 'ar' ? `السطر 3` : `Line 3`}
 
@@ -597,7 +616,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                             </Form.Item>
 
 
-                        </div>
+                        </div> */}
 
                     </>
 

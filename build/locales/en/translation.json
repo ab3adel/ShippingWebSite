@@ -105,7 +105,8 @@
   "Add":"Add",
   "Sender":"Sender",
   "Payment":"The Payment",
-  "SenderPayer":"New Tab will open if sender was chosen as the payer"
+  "SenderPayer":"New Tab will open if sender was chosen as the payer",
+  "ShipmentPrice":"Shipment Price"
   
 
 }
