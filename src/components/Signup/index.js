@@ -10,7 +10,7 @@ import { Row, Col, Upload, Form, Input, Button, Checkbox, Select } from 'antd';
 import { Alert } from 'antd';
 import Fade from 'react-reveal/Fade';
 import "../../globalVar"
-
+const phoneUtil = require("google-libphonenumber").PhoneNumberUtil.getInstance();
 const SignupForm = () => {
     const { Option } = Select;
     let history = useHistory();
@@ -68,7 +68,24 @@ const SignupForm = () => {
             return () => clearTimeout(timer);
         }
         else {
-            onSubmit(values)
+
+
+            const number = phoneUtil.parseAndKeepRawInput(values['customer[phone]'], phone.short);
+            if (phoneUtil.isValidNumber(number) && phoneUtil.isValidNumberForRegion(number, phone.short)) {
+                onSubmit(values)
+            }
+            else {
+                form.setFields([
+                    {
+                        name: 'customer[phone]',
+                        errors: [`${i18n.language == 'ar' ?
+                            `الرجاء ادخل رقم هاتف صحيح!` : 'Please Input Valid Phone Number!'}`],
+                    },
+                ])
+            }
+
+
+
         }
 
     };

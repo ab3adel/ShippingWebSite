@@ -16,6 +16,9 @@ import { useTranslation } from 'react-i18next';
 import '../../globalVar'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCountries } from '../../redux/actions'
+const phoneUtil = require("google-libphonenumber").PhoneNumberUtil.getInstance();
+
+
 const NewAddress = (props) => {
     let { refreshRecipients, recipientID,
         setRefreshRecipients, refreshMyAddress,
@@ -49,7 +52,23 @@ const NewAddress = (props) => {
     const handleOk = (values) => {
         console.log(values, "ok")
 
-        addHandler(values)
+        if (type === "Recipient") {
+            const number = phoneUtil.parseAndKeepRawInput(values['recipient_phone'], phone.short);
+            if (phoneUtil.isValidNumber(number) && phoneUtil.isValidNumberForRegion(number, phone.short)) {
+                addHandler(values)
+            }
+            else {
+                form.setFields([
+                    {
+                        name: 'recipient_phone',
+                        errors: [`${i18n.language == 'ar' ?
+                            `الرجاء ادخل رقم هاتف صحيح!` : 'Please Input Valid Phone Number!'}`],
+                    },
+                ])
+            }
+
+        }
+        else { addHandler(values) }
 
 
     }
@@ -256,23 +275,6 @@ const NewAddress = (props) => {
                     {!isSender && type === "Recipient" && (
 
                         <>
-
-                            <div className='col-md-6'>   <Form.Item
-                                label={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
-                                name="recipient_name_en"
-                                // type='email'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة الانكليزية!` : 'Please Input English Recipient Name!',
-                                    },
-
-                                ]}
-                            >
-                                {/* type='email' */}
-                                <Input placeholder={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`} />
-                            </Form.Item>
-                            </div>
                             <div className='col-md-6'>
                                 <Form.Item
                                     label={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`}
@@ -290,6 +292,23 @@ const NewAddress = (props) => {
                                     <Input placeholder={i18n.language == 'ar' ? `الاسم العربي` : `Arabic Name`} />
                                 </Form.Item>
                             </div>
+                            <div className='col-md-6'>   <Form.Item
+                                label={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`}
+                                name="recipient_name_en"
+                                // type='email'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: i18n.language == 'ar' ? `الرجاء ادخل اسم المستلم باللغة الانكليزية!` : 'Please Input English Recipient Name!',
+                                    },
+
+                                ]}
+                            >
+                                {/* type='email' */}
+                                <Input placeholder={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`} />
+                            </Form.Item>
+                            </div>
+
                             <div className='col-md-6'>
                                 <Form.Item
                                     label={i18n.language == 'ar' ? `الهاتف` : `Phone`}
@@ -573,40 +592,7 @@ const NewAddress = (props) => {
                         </>
                         :
                         <>
-                            <div className=' col-md-6 col-lg-3'>
-                                <Form.Item
-                                    label={i18n.language == 'ar' ? `رمز الولاية` : `State Code`}
-                                    name="state_code"
-                                    rules={[
-                                        {
-                                            required: countryDetails.stateCode,
-                                            message: i18n.language == 'ar' ? `الرجاء ادخل حقل رمز الولاية` : 'Please Input State Code!',
-                                        },
-                                    ]}
-                                >
-                                    <Input disabled={!countryDetails.stateCode} placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
 
-                                </Form.Item>
-
-
-                            </div>
-                            <div className='col-md-6  col-lg-3'>
-                                <Form.Item
-                                    label={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`}
-                                    name="post_code"
-
-                                    rules={[
-                                        {
-                                            required: countryDetails.postalCode,
-                                            message: i18n.language == 'ar' ? `الرجاء ادخل حقل الرمز البريدي` : 'Please Input Postal Code!',
-                                        },
-                                    ]}
-                                >
-                                    <Input disabled={!countryDetails.postalCode} placeholder={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`} />
-                                </Form.Item>
-
-
-                            </div>
                             <div className='col-md-6 col-lg-6'>
                                 <Form.Item
                                     label={i18n.language == 'ar' ? `العنوان الكامل` : `Full Address`}
@@ -639,6 +625,40 @@ const NewAddress = (props) => {
 
 
                             </div>
+                            {countryDetails.stateCode ? <div className=' col-md-6 col-lg-3'>
+                                <Form.Item
+                                    label={i18n.language == 'ar' ? `رمز الولاية` : `State Code`}
+                                    name="state_code"
+                                    rules={[
+                                        {
+                                            required: countryDetails.stateCode,
+                                            message: i18n.language == 'ar' ? `الرجاء ادخل حقل رمز الولاية` : 'Please Input State Code!',
+                                        },
+                                    ]}
+                                >
+                                    <Input disabled={!countryDetails.stateCode} placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
+
+                                </Form.Item>
+
+
+                            </div> : null}
+                            {countryDetails.postalCode ? <div className='col-md-6  col-lg-3'>
+                                <Form.Item
+                                    label={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`}
+                                    name="post_code"
+
+                                    rules={[
+                                        {
+                                            required: countryDetails.postalCode,
+                                            message: i18n.language == 'ar' ? `الرجاء ادخل حقل الرمز البريدي` : 'Please Input Postal Code!',
+                                        },
+                                    ]}
+                                >
+                                    <Input disabled={!countryDetails.postalCode} placeholder={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`} />
+                                </Form.Item>
+
+
+                            </div> : null}
                             {/* <div className='col-md-6 col-lg-6'>
                                 <Form.Item
                                     label={i18n.language == 'ar' ? `السطر 3` : `Line 3`}
