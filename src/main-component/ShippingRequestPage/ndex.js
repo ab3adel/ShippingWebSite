@@ -199,7 +199,8 @@ const ShippingRequest = () => {
                 collection[stage -1].classList.add('previousStage')
                 collection[stage-1].classList.remove('currentStage')
                 collection[stage].classList.add('currentStage')
-                inbetweenStages[0].getAnimations().forEach(ele=>ele.cancel())
+               
+                inbetweenStages[0].style.visibility='hidden';
                 inbetweenStages[1].classList.add('inprogress')
                 setStage(3)
 
@@ -248,7 +249,7 @@ const ShippingRequest = () => {
         }
         let checker= checkList.length >0? checkList : Object.keys(newFormFields)
         let emptyVal =  checker.filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
-         console.log(emptyVal)
+ 
         if (emptyVal.length === 0) {
 
             let typeObj = types.filter(ele => ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
@@ -434,7 +435,7 @@ const ShippingRequest = () => {
                     })
                     setDisableButton(true)
                     setActiveOffer({ ...activeOffer, id: res.payload.id, accepted: res.payload.accepted })
-                    inbetweenStages[1].getAnimations().forEach(ele=>ele.cancel())
+                    inbetweenStages[1].style.visibility='hidden';
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')
 
@@ -452,6 +453,7 @@ const ShippingRequest = () => {
                         placement: 'bottomRight'
                     })
                     setDisableButton(true)
+                    inbetweenStages[1].style.visibility='hidden';
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')
 

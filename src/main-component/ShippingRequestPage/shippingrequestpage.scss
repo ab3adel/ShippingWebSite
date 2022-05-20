@@ -219,10 +219,12 @@
         display:flex;
         align-self: center;
         background: green ;
-        animation: inProgress 1.5s cubic-bezier(0.23, 1, 0.320, 1) infinite alternate-reverse ;
+        animation: inProgress 2s cubic-bezier(0.23, 1, 0.320, 1) infinite forwards ;
         border-radius: 40px;
         
     }
+    
+   
     @keyframes inProgress {
         0% {
             background: linear-gradient(0.25turn ,purple 90%,rgba(173, 4, 173, 0.884) 10% ) ;
@@ -243,11 +245,12 @@
             background:linear-gradient(0.25turn , rgba(173, 4, 173, 0.884) 10% ,purple 90% )
         }
     }
+  
     .previousStage {
         //color:#34ccff;
         color: white;
         background-color: rgba(111, 252, 98, 0.404);
-        animation: radialToGreen 2s ease-in 1 forwards ;
+        animation: radialToGreen 2s ease-in 1 forwards  ;
         p {
             color: white;
             font-size: x-large;
@@ -258,7 +261,8 @@
     .currentStage {
         color: white;
         background-color: purple;
-        animation: radialToPurple 2s ease-in 1 forwards ;
+        animation: radialToPurple 2s ease-in 1 forwards ,
+                   radialProgress 2s cubic-bezier(0.23, 1, 0.320, 1) 2s infinite forwards ;
     
         p {
             color: white;
@@ -280,6 +284,14 @@
         }
         to {
             background:purple;
+        }
+    }
+    @keyframes radialProgress {
+        from {
+            background: linear-gradient(0.25turn, purple  ,rgba(173, 4, 173, 0.884)  ) ;
+        }
+        to {
+            background: linear-gradient(0.25turn,rgba(173, 4, 173, 0.884),purple  );
         }
     }
 }
