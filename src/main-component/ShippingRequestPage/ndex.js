@@ -478,33 +478,36 @@ const ShippingRequest = () => {
                             </div>
                         </div>
                         <div className=" col-md-12 row ">
-                            <div className=" col-4 col-md-4 col-sm-4 horizonal-align currentStage stage "
+                            <div 
+                            className=" col-2 col-md-2 col-sm-2 horizonal-align 
+                                        currentStage stage circleShape "
                             >
                                 <div className="shipping-icon  d-flex align-times-center">
 
                                     <i class="fa fa-id-card-o" aria-hidden="true"></i>
                                 </div>
-                                <p className="d-sm-none d-none d-md-block d-lg-block">
-                                    {t('Fill Your Form')}
-                                </p>
+                              
+                               
                             </div>
-                            <div className=" col-4 col-md-4 col-sm-4 horizonal-align stage">
+                            <div className="col-2 col-md-2 inbetweenStages">
+
+                            </div>
+                            <div className=" col-2 col-md-2 col-sm-2
+                                        horizonal-align stage circleShape">
                                 <div className='shipping-icon'>
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                 </div>
-                                <p className="d-sm-none d-none  d-md-block d-lg-block ">
-
-                                    {t('Choose Best Offer')}
-                                </p>
+                               
                             </div>
-                            <div className="  col-4 col-md-4 col-sm-4 horizonal-align stage">
+                            <div className="col-2 col-md-2 inbetweenStages">
+                                
+                            </div>
+                            <div className="  col-2 col-md-2 col-sm-2
+                                             horizonal-align stage circleShape">
                                 <div className='shipping-icon'>
                                     <i class="fa fa-bus" aria-hidden="true"></i>
                                 </div>
-                                <p className=" d-none d-sm-none d-md-block ">
-
-                                    {t('Ready To Send')}
-                                </p>
+                              
                             </div>
                         </div>
                     </div>

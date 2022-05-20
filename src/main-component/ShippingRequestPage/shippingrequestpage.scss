@@ -211,6 +211,75 @@
             }
         }
     }
+    .circleShape {
+        border-radius: 50%;
+    }
+    .inbetweenStages {
+        min-height: 40px;
+        display:flex;
+        align-self: center;
+        background-color:purple ;
+        animation: inProgress 4s linear infinite forwards ;
+    }
+    @keyframes inProgress {
+        0% {
+            background: linear-gradient(0.25turn ,purple 80%,rgb(226, 216, 216,0.3) 10% ) ;
+        }
+        20% {
+            background: linear-gradient(0.25turn ,purple 70% ,rgb(226, 216, 216,0.3) 10% ,purple 10%) ;
+        }
+        40% {
+            background: linear-gradient(0.25turn ,purple 60% ,rgb(226, 216, 216,0.3) 10% ,purple 20%) ;
+        }
+        60% {
+            background: linear-gradient(0.25turn ,purple 50% ,rgb(226, 216, 216,0.3) 10% ,purple 30%) ;
+        }
+        80% {
+            background: linear-gradient(0.25turn ,purple 40% ,rgb(226, 216, 216,0.3) 10% ,purple 400%) ;
+        }
+        100% {
+            background:linear-gradient(0.25turn ,purple 30%, rgb(226, 216, 216,0.3) 10% ,purple 50%)
+        }
+    }
+    .previousStage {
+        //color:#34ccff;
+        color: white;
+        background-color: rgba(111, 252, 98, 0.404);
+        animation: radialToGreen 2s ease-in 1 forwards ;
+        p {
+            color: white;
+            font-size: x-large;
+            font-weight: bold;
+        }
+    }
+    
+    .currentStage {
+        color: white;
+        background-color: purple;
+        animation: radialToPurple 2s ease-in 1 forwards ;
+    
+        p {
+            color: white;
+            font-size: x-large;
+            font-weight: bold;
+        }
+    }
+    @keyframes radialToGreen {
+        from {
+            background:radial-gradient(green,purple);
+        }
+        to {
+            background:green;
+        }
+    }
+    @keyframes radialToPurple {
+        from {
+            background:radial-gradient(purple,white);
+        }
+        to {
+            background:purple;
+        }
+    }
 }
 
 .shippingRequestSection::before {
@@ -222,28 +291,6 @@
     background: #5457609e;
 }
 
-.previousStage {
-    //color:#34ccff;
-    color: white;
-    background-color: rgba(111, 252, 98, 0.404);
-
-    p {
-        color: white;
-        font-size: x-large;
-        font-weight: bold;
-    }
-}
-
-.currentStage {
-    color: white;
-    background-color: purple;
-
-    p {
-        color: white;
-        font-size: x-large;
-        font-weight: bold;
-    }
-}
 
 .toRight {
     display: flex;
