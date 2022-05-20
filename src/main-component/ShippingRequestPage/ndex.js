@@ -180,6 +180,7 @@ const ShippingRequest = () => {
         if ( type === "Next" && checkError() ) return
     
         let collection = document.querySelectorAll('.stage')
+        let inbetweenStages=document.querySelectorAll('.inbetweenStages')
        
         if (type === "Next") {
             if (stage === 1) { 
@@ -190,6 +191,7 @@ const ShippingRequest = () => {
                    collection[stage].classList.add('currentStage')
                    collection[stage - 1].classList.add('previousStage')
                    collection[stage - 1].classList.remove('currentStage')
+                   inbetweenStages[0].classList.add('inprogress')
                    setStage(2)
                }
             }
@@ -197,6 +199,8 @@ const ShippingRequest = () => {
                 collection[stage -1].classList.add('previousStage')
                 collection[stage-1].classList.remove('currentStage')
                 collection[stage].classList.add('currentStage')
+                inbetweenStages[0].getAnimations().forEach(ele=>ele.cancel())
+                inbetweenStages[1].classList.add('inprogress')
                 setStage(3)
 
             }
@@ -384,6 +388,7 @@ const ShippingRequest = () => {
     };
     const saveOffer = () => {
         let collection = document.querySelectorAll('.stage')
+        let inbetweenStages=document.querySelectorAll('.inbetweenStages')
         setLoading(true)
         let formData = {
             company_id: formFields.company_id, serviceType: formFields.serviceType,
@@ -429,6 +434,7 @@ const ShippingRequest = () => {
                     })
                     setDisableButton(true)
                     setActiveOffer({ ...activeOffer, id: res.payload.id, accepted: res.payload.accepted })
+                    inbetweenStages[1].getAnimations().forEach(ele=>ele.cancel())
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')
 
@@ -489,7 +495,7 @@ const ShippingRequest = () => {
                               
                                
                             </div>
-                            <div className="col-2 col-md-2 inbetweenStages">
+                            <div className="col-2 col-md-2  inbetweenStages">
 
                             </div>
                             <div className=" col-2 col-md-2 col-sm-2
@@ -499,7 +505,7 @@ const ShippingRequest = () => {
                                 </div>
                                
                             </div>
-                            <div className="col-2 col-md-2 inbetweenStages">
+                            <div className="col-2 col-md-2  inbetweenStages">
                                 
                             </div>
                             <div className="  col-2 col-md-2 col-sm-2

@@ -212,33 +212,35 @@
         }
     }
     .circleShape {
-        border-radius: 50%;
+        border-radius: 100%;
     }
-    .inbetweenStages {
+    .inprogress {
         min-height: 40px;
         display:flex;
         align-self: center;
-        background-color:purple ;
-        animation: inProgress 4s linear infinite forwards ;
+        background: green ;
+        animation: inProgress 1.5s cubic-bezier(0.23, 1, 0.320, 1) infinite alternate-reverse ;
+        border-radius: 40px;
+        
     }
     @keyframes inProgress {
         0% {
-            background: linear-gradient(0.25turn ,purple 80%,rgb(226, 216, 216,0.3) 10% ) ;
+            background: linear-gradient(0.25turn ,purple 90%,rgba(173, 4, 173, 0.884) 10% ) ;
         }
         20% {
-            background: linear-gradient(0.25turn ,purple 70% ,rgb(226, 216, 216,0.3) 10% ,purple 10%) ;
+            background: linear-gradient(0.25turn ,purple 70% ,rgba(173, 4, 173, 0.884)10% ,purple ) ;
         }
         40% {
-            background: linear-gradient(0.25turn ,purple 60% ,rgb(226, 216, 216,0.3) 10% ,purple 20%) ;
+            background: linear-gradient(0.25turn ,purple 60% ,rgba(173, 4, 173, 0.884) 10% ,purple ) ;
         }
         60% {
-            background: linear-gradient(0.25turn ,purple 50% ,rgb(226, 216, 216,0.3) 10% ,purple 30%) ;
+            background: linear-gradient(0.25turn ,purple 50% ,rgba(173, 4, 173, 0.884) 10% ,purple ) ;
         }
         80% {
-            background: linear-gradient(0.25turn ,purple 40% ,rgb(226, 216, 216,0.3) 10% ,purple 400%) ;
+            background: linear-gradient(0.25turn ,purple 40% ,rgba(173, 4, 173, 0.884) 10% ,purple ) ;
         }
         100% {
-            background:linear-gradient(0.25turn ,purple 30%, rgb(226, 216, 216,0.3) 10% ,purple 50%)
+            background:linear-gradient(0.25turn , rgba(173, 4, 173, 0.884) 10% ,purple 90% )
         }
     }
     .previousStage {
