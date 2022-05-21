@@ -35,14 +35,14 @@ const ShippingRequest = () => {
         // SenderAddress: '',
         RecipientAddress: ''
         , Type: '', Date: '', Width: '', Length: '', Recipient: "",
-        Category: "",NumberOfPieces:1,DocumentShipment:'',
-        Height: '', Weight: '', Hermonized: "",
-        HermonizedError: "", Price: "", PriceError: "", ShipmentPurpose: "",
+        Category: "",NumberOfPieces:"",DocumentShipment:'',
+        Height: '', Weight: '', Hermonized: '1',
+        HermonizedError: false, Price: "", PriceError: "", ShipmentPurpose:"PERSONAL_USE",
          ShipmentPurposeError: false,
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
-       , GroupPackageCount: '', GroupPackageCountError: false
+       , GroupPackageCount: 1, GroupPackageCountError: false,
 
     })
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
@@ -61,6 +61,9 @@ const ShippingRequest = () => {
     const userToken = JSON.parse(tokenString);
     const [t, i18n] = useTranslation();
     let backImages = [back, pack]
+    let typeDimensions = {"BAG":{Width:10,Height:1,Length:10},
+                          "CARTON":{Width:30,Height:20,Length:30},
+                        "ENVELOPE":{Width:1,Height:1,Length:1}}
     useEffect(() => { !userToken && history.push('/Login') })
     useEffect(() => {
 
@@ -180,6 +183,7 @@ const ShippingRequest = () => {
         if ( type === "Next" && checkError() ) return
     
         let collection = document.querySelectorAll('.stage')
+        let inbetweenStages=document.querySelectorAll('.inbetweenStages')
        
         if (type === "Next") {
             if (stage === 1) { 
@@ -190,6 +194,7 @@ const ShippingRequest = () => {
                    collection[stage].classList.add('currentStage')
                    collection[stage - 1].classList.add('previousStage')
                    collection[stage - 1].classList.remove('currentStage')
+                   inbetweenStages[0].classList.add('inprogress')
                    setStage(2)
                }
             }
@@ -197,6 +202,9 @@ const ShippingRequest = () => {
                 collection[stage -1].classList.add('previousStage')
                 collection[stage-1].classList.remove('currentStage')
                 collection[stage].classList.add('currentStage')
+               
+                inbetweenStages[0].style.visibility='hidden';
+                inbetweenStages[1].classList.add('inprogress')
                 setStage(3)
 
             }
@@ -228,7 +236,14 @@ const ShippingRequest = () => {
                 setFormFields(pre=>({...pre,[name]:value,DocumentShipment:false, [`${name}Error`]: value || value === false ? false : true }))
             }
         }
-
+        else if (name=== "Type") {
+            setFormFields({ ...formFields
+                            , [name]: value
+                            , [`${name}Error`]: value || value === false ? false : true 
+                        ,Width:typeDimensions[value].Width
+                        ,Height:typeDimensions[value].Height
+                        ,Length:typeDimensions[value].Length})
+        }
         else {
             setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value === false ? false : true })
         }
@@ -244,7 +259,7 @@ const ShippingRequest = () => {
         }
         let checker= checkList.length >0? checkList : Object.keys(newFormFields)
         let emptyVal =  checker.filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
-         console.log(emptyVal)
+
         if (emptyVal.length === 0) {
 
             let typeObj = types.filter(ele => ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
@@ -346,8 +361,7 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-         
-
+            console.log(response)
             if (!response.messages) {
                 setRateStatus(response)
                 setSuccess(true)
@@ -384,6 +398,7 @@ const ShippingRequest = () => {
     };
     const saveOffer = () => {
         let collection = document.querySelectorAll('.stage')
+        let inbetweenStages=document.querySelectorAll('.inbetweenStages')
         setLoading(true)
         let formData = {
             company_id: formFields.company_id, serviceType: formFields.serviceType,
@@ -398,7 +413,8 @@ const ShippingRequest = () => {
             weight: formFields.Weight, signatureOptionType: formFields.signatureOptionType,
             recipient_address_id: formFields.RecipientAddress, category_id: formFields.Category,
             customer_id: profile.customer.id, commodityName: formFields.commodityName,
-            addedCharges: formFields.addedCharges ? formFields.addedCharges : []
+            addedCharges: formFields.addedCharges ? formFields.addedCharges : [],
+            payment_method:'online'
         }
 
         fetch(global.apiUrl + 'api/offers', {
@@ -429,6 +445,7 @@ const ShippingRequest = () => {
                     })
                     setDisableButton(true)
                     setActiveOffer({ ...activeOffer, id: res.payload.id, accepted: res.payload.accepted })
+                    inbetweenStages[1].style.visibility='hidden';
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')
 
@@ -446,6 +463,7 @@ const ShippingRequest = () => {
                         placement: 'bottomRight'
                     })
                     setDisableButton(true)
+                    inbetweenStages[1].style.visibility='hidden';
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')
 
@@ -478,33 +496,36 @@ const ShippingRequest = () => {
                             </div>
                         </div>
                         <div className=" col-md-12 row ">
-                            <div className=" col-4 col-md-4 col-sm-4 horizonal-align currentStage stage "
+                            <div 
+                            className=" col-2 col-md-2 col-sm-2 horizonal-align 
+                                        currentStage stage circleShape "
                             >
                                 <div className="shipping-icon  d-flex align-times-center">
 
                                     <i class="fa fa-id-card-o" aria-hidden="true"></i>
                                 </div>
-                                <p className="d-sm-none d-none d-md-block d-lg-block">
-                                    {t('Fill Your Form')}
-                                </p>
+                              
+                               
                             </div>
-                            <div className=" col-4 col-md-4 col-sm-4 horizonal-align stage">
+                            <div className="col-2 col-md-2  inbetweenStages">
+
+                            </div>
+                            <div className=" col-2 col-md-2 col-sm-2
+                                        horizonal-align stage circleShape">
                                 <div className='shipping-icon'>
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                 </div>
-                                <p className="d-sm-none d-none  d-md-block d-lg-block ">
-
-                                    {t('Choose Best Offer')}
-                                </p>
+                               
                             </div>
-                            <div className="  col-4 col-md-4 col-sm-4 horizonal-align stage">
+                            <div className="col-2 col-md-2  inbetweenStages">
+                                
+                            </div>
+                            <div className="  col-2 col-md-2 col-sm-2
+                                             horizonal-align stage circleShape">
                                 <div className='shipping-icon'>
                                     <i class="fa fa-bus" aria-hidden="true"></i>
                                 </div>
-                                <p className=" d-none d-sm-none d-md-block ">
-
-                                    {t('Ready To Send')}
-                                </p>
+                              
                             </div>
                         </div>
                     </div>

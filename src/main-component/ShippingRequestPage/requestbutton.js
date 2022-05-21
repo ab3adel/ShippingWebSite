@@ -35,7 +35,7 @@ export const RequestButton = (props) => {
 
         <div className='col-md-4 buttonContainer'>
 
-            <Button onClick={() => handleButtonFunction(Type)} className='col-md-12' disabled={loading || disableButton}>
+            <Button onClick={() => handleButtonFunction(Type)} className='col-md-12' disabled={loading }>
                 {stage === 3 ?
                     Type === "Next" ?
                         <>
