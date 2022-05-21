@@ -35,14 +35,14 @@ const ShippingRequest = () => {
         // SenderAddress: '',
         RecipientAddress: ''
         , Type: '', Date: '', Width: '', Length: '', Recipient: "",
-        Category: "",NumberOfPieces:1,DocumentShipment:'',
-        Height: '', Weight: '', Hermonized: "",
-        HermonizedError: "", Price: "", PriceError: "", ShipmentPurpose: "",
+        Category: "",NumberOfPieces:"",DocumentShipment:'',
+        Height: '', Weight: '', Hermonized: '1',
+        HermonizedError: false, Price: "", PriceError: "", ShipmentPurpose:"PERSONAL_USE",
          ShipmentPurposeError: false,
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
-       , GroupPackageCount: '', GroupPackageCountError: false
+       , GroupPackageCount: 1, GroupPackageCountError: false,
 
     })
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
@@ -61,6 +61,9 @@ const ShippingRequest = () => {
     const userToken = JSON.parse(tokenString);
     const [t, i18n] = useTranslation();
     let backImages = [back, pack]
+    let typeDimensions = {"BAG":{Width:10,Height:1,Length:10},
+                          "CARTON":{Width:30,Height:20,Length:30},
+                        "ENVELOPE":{Width:1,Height:1,Length:1}}
     useEffect(() => { !userToken && history.push('/Login') })
     useEffect(() => {
 
@@ -233,7 +236,14 @@ const ShippingRequest = () => {
                 setFormFields(pre=>({...pre,[name]:value,DocumentShipment:false, [`${name}Error`]: value || value === false ? false : true }))
             }
         }
-
+        else if (name=== "Type") {
+            setFormFields({ ...formFields
+                            , [name]: value
+                            , [`${name}Error`]: value || value === false ? false : true 
+                        ,Width:typeDimensions[value].Width
+                        ,Height:typeDimensions[value].Height
+                        ,Length:typeDimensions[value].Length})
+        }
         else {
             setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value === false ? false : true })
         }
@@ -249,7 +259,7 @@ const ShippingRequest = () => {
         }
         let checker= checkList.length >0? checkList : Object.keys(newFormFields)
         let emptyVal =  checker.filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
- 
+
         if (emptyVal.length === 0) {
 
             let typeObj = types.filter(ele => ele.name_en === formFields["Type"] || ele.name_ar === formFields["Type"])
@@ -351,8 +361,7 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-         
-
+            console.log(response)
             if (!response.messages) {
                 setRateStatus(response)
                 setSuccess(true)
@@ -404,7 +413,8 @@ const ShippingRequest = () => {
             weight: formFields.Weight, signatureOptionType: formFields.signatureOptionType,
             recipient_address_id: formFields.RecipientAddress, category_id: formFields.Category,
             customer_id: profile.customer.id, commodityName: formFields.commodityName,
-            addedCharges: formFields.addedCharges ? formFields.addedCharges : []
+            addedCharges: formFields.addedCharges ? formFields.addedCharges : [],
+            payment_method:'online'
         }
 
         fetch(global.apiUrl + 'api/offers', {

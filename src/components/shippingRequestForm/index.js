@@ -42,7 +42,8 @@ export const ShippingRequestForm = (props) => {
         , { val: "SAMPLE", item: t("SAMPLE") }, { val: "SOLD", item: t("SOLD") }
         , { val: "COMMERCIAL", item: t("COMMERCIAL") }, { val: "RETURN_AND_REPAIR", item: t("RETURN_AND_REPAIR") }
         , { val: "PERSONAL_USE", item: t('PERSONAL_USE') }]
-
+    
+        
     useEffect(async () => {
         formFields.Recipient && await setAddressArr(recipients ? recipients.filter(item => item.id === formFields.Recipient)[0].addresses : [])
         formRef.current && formRef.current.setFieldsValue({
@@ -450,7 +451,7 @@ export const ShippingRequestForm = (props) => {
                         </Select>
                     </Form.Item>
                 </div>
-                {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('NumberOfPieces')}
                         name='NumberOfPieces'
@@ -469,8 +470,8 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
 
-                </div> */}
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
+                </div> 
+                {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('groupPackageCount')}
                         name='GroupPackageCount'
@@ -488,8 +489,8 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
 
-                </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
+                </div> */}
+                {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('Hermonized')}
                         name='Hermonized'
@@ -502,30 +503,8 @@ export const ShippingRequestForm = (props) => {
                             value={formFields["Hermonized"]}
                             onChange={handleChange} />
                     </Form.Item>
-                </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
-                    <Form.Item
-                        label={t('ShipmentPurpose')}
-                        name='ShipmentPurpose'
-                        rules={[{ required: true, message: t('Required'), },]}
-                        validateStatus={formFields['ShipmentPurposeError'] ? "error" : ""}
-                    >
-                        <Select
-                            placeholder={t('ShipmentPurpose')}
-                            value={formFields["ShipmentPurpose"]}
-                            onChange={(e, v) => handleSelect(e, v, 'ShipmentPurpose')}
-                            listItemHeight={10} listHeight={250}
-                        >
-                            {shipmentPurposes.map((ele, index) => {
-                                return (<Option key={index} value={ele.val}>
-                                    {ele.item}
-                                </Option>)
-                            })}
-
-
-                        </Select>
-                    </Form.Item>
-                </div>
+                </div> */}
+               
                 {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
                     <Form.Item
                         label={`${t('CustomsAmount')}`}

@@ -58,12 +58,18 @@ export const Company = (props) => {
                         <div className='bold'>{deliveryDate}</div>
                     </div>}
                     {success ?
-                        <div className='detail p-0'>
+                        <div className='detail p-0 '>
                             <div > {t('Price')} <span>:</span> </div>
                             <div className='bold'>
                                 {price.toFixed(2)}
                                 {/* {price.toString().slice(0, 5)} */}
-                                {i18n.language === 'ar' ? "(د.ك)" : "(KWd)"} </div>
+                                {i18n.language === 'ar' ? "(د.ك)" : "(KWd)"}
+                             </div>
+                             <div className="note">
+                              
+                                ({companyName === 'Aramex' ? t('NoTax') :t('Tax')})
+                             </div>
+
                         </div>
                         :
                         <div className='detail'>

@@ -218,7 +218,7 @@
         min-height: 40px;
         display:flex;
         align-self: center;
-        background: green ;
+        background: purple ;
         animation: inProgress 2s cubic-bezier(0.23, 1, 0.320, 1) infinite forwards ;
         border-radius: 40px;
         
@@ -227,22 +227,22 @@
    
     @keyframes inProgress {
         0% {
-            background: linear-gradient(0.25turn ,purple 90%,rgba(173, 4, 173, 0.884) 10% ) ;
+            background: linear-gradient(0.25turn ,purple 95%,rgba(173, 4, 173, 0.884) 5% ) ;
         }
         20% {
-            background: linear-gradient(0.25turn ,purple 70% ,rgba(173, 4, 173, 0.884)10% ,purple ) ;
+            background: linear-gradient(0.25turn ,purple 75% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
         }
         40% {
-            background: linear-gradient(0.25turn ,purple 60% ,rgba(173, 4, 173, 0.884) 10% ,purple ) ;
+            background: linear-gradient(0.25turn ,purple 65% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
         }
         60% {
-            background: linear-gradient(0.25turn ,purple 50% ,rgba(173, 4, 173, 0.884) 10% ,purple ) ;
+            background: linear-gradient(0.25turn ,purple 55% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
         }
         80% {
-            background: linear-gradient(0.25turn ,purple 40% ,rgba(173, 4, 173, 0.884) 10% ,purple ) ;
+            background: linear-gradient(0.25turn ,purple 45% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
         }
         100% {
-            background:linear-gradient(0.25turn , rgba(173, 4, 173, 0.884) 10% ,purple 90% )
+            background:linear-gradient(0.25turn , rgba(173, 4, 173, 0.884) 5% ,purple 95% )
         }
     }
   

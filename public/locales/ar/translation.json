@@ -76,7 +76,7 @@
   "Hermonized": "رمز التناغم",
   "provenance country": "بلد المنشأ",
   "UnitPrice": "سعر الواحدة",
-  "Delivery Date": "تاريخ التسليم",
+  "Delivery Date": "تاريخ الوصول المتوقع",
   "DocumentShipment":" شحنة وثائق",
   "ShipmentPurpose":"غرض الشحنة",
   "Documented":"أوراق /وثائق",
@@ -96,8 +96,8 @@
   "PERSONAL_USE":"استخدام شخصي",
   "groupPackageCount":"عدد البكج",
   "NoResponse":"لا يوجد عرض متاح",
-  "ExtraCharges":"تكاليف اضافية",
-  "AddExtraCharges":"اضافة تكاليف",
+  "ExtraCharges":"مبالغ اضافية",
+  "AddExtraCharges":"اضافة مبالغ",
   "ChargeName":"اسم الكلفة ",
   "ChargeValue":"القيمة",
   "InProgress":"جاري المعالجة",
@@ -106,7 +106,9 @@
   "Sender":"المرسل",
   "Payment":"الدفع",
   "SenderPayer":"سيتم فتح نافذة جديدة للدفع عند تحديد المرسل للدفع",
-  "ShipmentPrice":"سعر الشحنة"
+  "ShipmentPrice":"سعر الشحنة",
+  "Tax":" ملاحظة :السعر يتضمن الجمرك ",
+  "NoTax":" ملاحظة:السعر لا يتضمن الجمرك"
 
 
 }
