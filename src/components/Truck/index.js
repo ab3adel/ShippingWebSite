@@ -15,7 +15,7 @@ const TruckArea = (props) => {
     const [t, i18n] = useTranslation();
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        // console.log('Success:', values);
 
         onSubmit(values)
 
@@ -40,12 +40,34 @@ const TruckArea = (props) => {
                 }
             );
             const response = await responsee.json();
-            if (response.shipments) {
-                setLoading(false)
-                success(response.shipments[0])
-            }
-            else {
+            if (response.errors) {
                 error(response.errors)
+                setLoading(false)
+                return
+            }
+            if (data.cName === 'DHL') {
+                if (response.shipments) {
+                    setLoading(false)
+                    success(response.shipments[0])
+                }
+
+            }
+            if (data.cName === 'Aramex') {
+                if (!response.HasErrors) {
+                    setLoading(false)
+                    {
+                        Object.keys(response.TrackingResults).map(item => {
+                            if (response.TrackingResults[item].Value) {
+                                successAramex(response.TrackingResults[item].Value.TrackingResult)
+                                return
+                            }
+
+                        }
+                        )
+                    }
+
+                }
+
             }
 
         } catch (err) {
@@ -83,6 +105,26 @@ const TruckArea = (props) => {
         });
     }
 
+    function successAramex(info) {
+
+        Modal.success({
+            // direction: i18n.language === 'ar' ? 'rtl' : 'ltr',
+            className: '',
+            wrapClassName: "modalMessage",
+            okText: i18n.language === 'ar' ? "اغلاق" : "Close",
+            title: i18n.language === 'ar' ? "نجاح" : "Success",
+            content: (<div dir='ltr' style={{ direction: 'ltr', textAlign: 'left' }}  >
+                {Object.keys(info).map(item => {
+                    return (<p key={item} className='nameR mb-1'>
+                        <b>{item + " :"}</b> {info[item]}</p>)
+
+                }
+                )
+                }
+
+            </div>),
+        });
+    }
     function error(messages) {
         Modal.error({
             direction: i18n.language === 'ar' ? 'rtl' : 'ltr',
@@ -92,7 +134,7 @@ const TruckArea = (props) => {
             title: i18n.language === 'ar' ? "حدث خطأ" : "Error",
             content: (
 
-                <div>
+                <div >
                     {Object.keys(messages).map((item, i) => (
 
                         <p key={item} >{messages[item]}</p>

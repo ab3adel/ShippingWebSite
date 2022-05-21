@@ -14,7 +14,7 @@ export const details = {
             , name: getI18n().language === "ar" ? 'شحنة مستندات' : 'Documents Shipment'
         },
         { key: 'offer_id', nestedKey: null, name: getI18n().language === "ar" ? 'معرف الشحنة' : "Shipment ID" },
-        { key: 'profit_percentage', nestedKey: null, name: getI18n().language === "ar" ? 'نسبة الربح' : "Profit Percentage" },
+        // { key: 'profit_percentage', nestedKey: null, name: getI18n().language === "ar" ? 'نسبة الربح' : "Profit Percentage" },
         { key: 'company', nestedKey: getI18n().language === "ar" ? ['name_ar'] : ['name_en'], name: getI18n().language === "ar" ? 'الشركة' : 'Company' },
         { key: 'totalNetCharge', nestedKey: null, name: getI18n().language === "ar" ? 'المبلغ' : 'The Price', unit: getI18n().language === 'ar' ? "د.ك" : "KWD" },
         { key: 'ship_date', nestedKey: null, name: getI18n().language === "ar" ? 'تاربخ الارسال' : 'Shipment Date' },
@@ -44,20 +44,20 @@ export const details = {
         },
         { key: 'offer_expiration_date', nestedKey: null, name: getI18n().language === "ar" ? 'تاريخ انتهاء العرض' : 'Offer Expiration Date' },
         { key: 'payer', nestedKey: null, name: getI18n().language === "ar" ? 'الدافع' : 'The Payer' },
-        
+
 
     ],
     shipmentInfo: [
         { key: 'NumberOfPieces', nestedKey: null, name: getI18n().language === "ar" ? "عدد القطع" : "Number of Pieces" },
         { key: 'category', nestedKey: getI18n().language === 'ar' ? ['name_ar'] : ['name_en'], name: getI18n().language === "ar" ? "نوع الشحنة" : "Shipment Type" },
-        { key: 'groupPackageCount', nestedKey: null, name: getI18n().language === "ar" ? "عدد البكج" : "Packages Count" },
-        { key: 'harmonizedCode', nestedKey: null, name: getI18n().language === "ar" ? "رمز التناغم" : "Harmonized Code" },
+        // { key: 'groupPackageCount', nestedKey: null, name: getI18n().language === "ar" ? "عدد البكج" : "Packages Count" },
+        // { key: 'harmonizedCode', nestedKey: null, name: getI18n().language === "ar" ? "رمز التناغم" : "Harmonized Code" },
         { key: 'height', nestedKey: null, name: getI18n().language === "ar" ? "الارتفاع" : "Height", unit: getI18n().language === 'ar' ? "سم" : "CM" },
         { key: 'length', nestedKey: null, name: getI18n().language === "ar" ? "الطول" : "Length", unit: getI18n().language === 'ar' ? "سم" : "CM" },
         { key: 'width', nestedKey: null, name: getI18n().language === "ar" ? "العرض" : "Width", unit: getI18n().language === 'ar' ? "سم" : "CM" },
         { key: 'weight', nestedKey: null, name: getI18n().language === "ar" ? "الوزن" : "Weight", unit: getI18n().language === 'ar' ? "كجم" : "KG" },
         { key: 'subPackagingType', nestedKey: null, name: getI18n().language === "ar" ? "نوع التغليف" : "Packaging Type" },
-        { key: 'shipmentPurpose', nestedKey: null, name: getI18n().language === 'ar' ? "غرض الشحنة" : "Shipment Purpose" }
+        // { key: 'shipmentPurpose', nestedKey: null, name: getI18n().language === 'ar' ? "غرض الشحنة" : "Shipment Purpose" }
     ],
     senderInfo: [
         { key: 'name', nestedKey: null, name: getI18n().language === "ar" ? 'الاسم' : 'Name' },

@@ -70,12 +70,13 @@ const BillInfo = ({ match }) => {
     const [activeBill, setActiveBill] = useState('')
 
 
-    const handlePayment = (payer) => {
+    const handlePayment = (payer, method) => {
 
         let dataform = new FormData()
         dataform.append('offer_id', activeBill.id)
         dataform.append('payer', payer)
         dataform.append('lang_code', 'AR')
+        dataform.append('payment_method', payer == 'recipient' ? 'online' : method)
 
         fetch(`${global.apiUrl}api/payment`,
             {
@@ -105,7 +106,20 @@ const BillInfo = ({ match }) => {
                 else {
 
                     if (payer === 'sender') {
-                        window.open(res.transaction.url)
+
+                        if (method === 'online') { window.open(res.transaction.url) }
+                        else {
+                            notification.success({
+                                message: t('SuccessfullRequest'),
+                                description: i18n.language === 'en' ?
+                                    "your request has been added successfully" :
+                                    "تم الحفظ بنجاح",
+                                duration: 5,
+                                rtl: i18n.language === 'ar',
+                                placement: 'bottomRight'
+                            })
+                        }
+
                     }
                     else {
 
@@ -377,14 +391,15 @@ const BillInfo = ({ match }) => {
 
                 </>
             }
-            <PaymentForm
+            {activeBill ? <PaymentForm
                 open={open}
                 setOpen={setOpen}
                 handlePayment={handlePayment}
                 paymentUrl={paymentUrl}
+                recipientPhone={activeBill.recipient.recipient.phone}
 
 
-            />
+            /> : null}
             <AddCharges
                 visible={visible}
                 setVisible={setVisible}

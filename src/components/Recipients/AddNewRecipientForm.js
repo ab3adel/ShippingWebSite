@@ -216,6 +216,10 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
     }
     function onChangeCity(value) {
         setCity(value)
+        let city = cities.find(item => item.id == value)
+        if (city.code) {
+            UpdateRecipientForm.current.setFieldsValue({ state_code: city.code })
+        }
 
     }
     const fetchCities = async (id) => {
@@ -454,13 +458,13 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
 
 
                 </div>
-                <div className=' col-md-4 col-lg-2'>
+                {countryDetails.postalCode ? <div className=' col-md-4 col-lg-2'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `رمز الولاية` : `State Code`}
                         name="state_code"
                         rules={[
                             {
-                                required: countryDetails.postalCode,
+                                required: countryDetails.stateCode,
                                 message: i18n.language == 'ar' ? `الرجاء ادخل حقل رمز الولاية` : 'Please Input State Code!',
                             },
                         ]}
@@ -470,8 +474,8 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                     </Form.Item>
 
 
-                </div>
-                <div className='col-lg-2'>
+                </div> : null}
+                {countryDetails.postalCode ? <div className='col-lg-2'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`}
                         name="post_code"
@@ -487,7 +491,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                     </Form.Item>
 
 
-                </div>
+                </div> : null}
 
 
                 {country === 117 ?

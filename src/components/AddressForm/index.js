@@ -323,9 +323,11 @@ const NewAddress = (props) => {
                                     ]}
                                 >
                                     {/* type='email' */}
-                                    <ConfigProvider locale={en} areaMapper={(area) => {
-                                        return Object.assign(Object.assign({}, area), { emoji: <span className={`fp ${area.short.toLowerCase()}`} /> });
-                                    }}>
+                                    <ConfigProvider locale={en}
+                                        areaMapper={(area) => {
+                                            return Object.assign(Object.assign({}, area), { emoji: <span className={`fp ${area.short.toLowerCase()}`} /> });
+                                        }}
+                                    >
                                         <CountryPhoneInput
                                             dir='ltr'
                                             style={{ direction: "ltr" }}

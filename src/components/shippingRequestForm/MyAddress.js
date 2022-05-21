@@ -29,11 +29,11 @@ const MyAddress = ({ myAddress }) => {
                         <h6 className=" f-w-400">{JSON.parse(myAddress.line_1).Block}
                         </h6>
                     </div>
-                    <div className="addressDetail">
+                    {JSON.parse(myAddress.line_1).Jaddah ? <div className="addressDetail">
 
                         <h6 className=" f-w-400">{JSON.parse(myAddress.line_1).Jaddah}
                         </h6>
-                    </div>
+                    </div> : null}
                     <div className="addressDetail">
 
                         <h6 className="  f-w-400">{JSON.parse(myAddress.line_2).Street}

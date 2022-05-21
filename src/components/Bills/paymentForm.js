@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Modal, Radio, Input, Form, Button, Popover } from 'antd'
 import { useTranslation } from 'react-i18next'
+import ReactWhatsapp from 'react-whatsapp';
 import {
     EmailShareButton,
     FacebookMessengerShareButton,
@@ -23,8 +24,9 @@ import {
 
 } from "react-share";
 export const PaymentForm = (props) => {
-    let { open, setOpen, paymentUrl, handlePayment } = props
-    const [payer, setPayer] = useState('')
+    let { open, setOpen, paymentUrl, handlePayment, recipientPhone } = props
+    const [payer, setPayer] = useState('sender')
+    const [method, setMethod] = useState('online')
     let [showLabel, setShowLabel] = useState(false)
 
     const { t, i18n } = useTranslation()
@@ -34,17 +36,29 @@ export const PaymentForm = (props) => {
     }
     const charge = { Name: '', Value: '' }
     let options = [
+        // { label: t('cash'), value: 'cash' },
         { label: t('Sender'), value: 'sender' },
-        { label: t("Recipient"), value: 'recipient' }
+        { label: t("Recipient"), value: 'recipient' },
+    ]
+    let methodOptions = [
+        { label: t("online"), value: 'online' },
+        { label: t('cash'), value: 'cash' },
+
     ]
     const handleChage = (e) => {
         setPayer(e.target.value)
+        if (e.target.value === 'recipient') {
+            setMethod('online')
+        }
+    }
+    const handleChageMethod = (e) => {
+        setMethod(e.target.value)
     }
     const noChange = () => {
         return
     }
     const handleOk = () => {
-        handlePayment(payer)
+        handlePayment(payer, method)
 
     }
     const saveToClipboard = () => {
@@ -61,9 +75,16 @@ export const PaymentForm = (props) => {
 
             {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
       </FacebookMessengerShareButton > */}
-            <WhatsappShareButton url={paymentUrl}   >
+            {/* <WhatsappShareButton
+                url={`https://wa.me/${recipientPhone}?text=${paymentUrl}`}
+
+            >
                 <  WhatsappIcon size={32} round={true} />
-            </WhatsappShareButton >
+            </WhatsappShareButton > */}
+            <ReactWhatsapp number={recipientPhone} message={paymentUrl}
+                className={"react-share__ShareButton "}>
+                <  WhatsappIcon size={32} round={true} />
+            </ReactWhatsapp>
             <TelegramShareButton url={paymentUrl}   >
                 <TelegramIcon size={32} round={true} />
             </TelegramShareButton >
@@ -109,7 +130,7 @@ export const PaymentForm = (props) => {
                 <div className="row col-md-12 col-sm-12">
                     <Form.Item
                         validateStatus={charge.NameError ? "error" : ""}
-                        label={i18n.language === 'ar' ? "حدد من المسؤول عن الدفع" : "Choose who will pay:"}
+                        label={i18n.language === 'ar' ? "اختر من سيقوم بالدفع" : "Choose who will pay:"}
                     >
                         <Radio.Group options={options}
                             onChange={handleChage}
@@ -120,10 +141,24 @@ export const PaymentForm = (props) => {
                     </Form.Item>
 
                 </div>
+                {payer === 'sender' ? <div className="row col-md-12 col-sm-12">
+                    <Form.Item
+                        validateStatus={charge.NameError ? "error" : ""}
+                        label={i18n.language === 'ar' ? "طريقة الدفع" : "Payment Method"}
+                    >
+                        <Radio.Group options={methodOptions}
+                            onChange={handleChageMethod}
+                            value={method}
+
+
+                        />
+                    </Form.Item>
+
+                </div> : null}
                 {payer && paymentUrl && payer === 'recipient' ?
                     <div className=' row col-md-12 col-sm-12' style={{ position: 'relative' }}>
                         <Form.Item
-                            label={i18n.language === 'ar' ? 'انقر لحفظ الرابط' : "click to save to clipboard"}
+                            label={i18n.language === 'ar' ? 'مشاركة رابط الدفع' : "Share Payment URL"}
                         >
 
                             <Popover content={content} title={i18n.language === 'ar' ?
