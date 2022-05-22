@@ -34,7 +34,7 @@ const BillInfo = ({ match }) => {
 
     const [open, setOpen] = useState(false)
 
-    const [paymentUrl, setPaymentUrl] = useState()
+    const [paymentUrl, setPaymentUrl] = useState('')
 
     useEffect(() => { !userToken && history.push('/') })
     useEffect(() => {

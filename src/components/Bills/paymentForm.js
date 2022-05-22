@@ -69,22 +69,38 @@ export const PaymentForm = (props) => {
         }
     }
 
-
+    const message = () => {
+        if (i18n.language === 'ar') {
+            return `عزيزي العميل  %0a هذا الشحنة للاختبار %0a رابط الدفع : %0a`
+        }
+        else {
+            return `Dear Client %0a This Shipment for Test %0a Pay URL : %0a`
+        }
+    }
     const content = (
         <div className='IconsCont'>
 
             {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
       </FacebookMessengerShareButton > */}
             {/* <WhatsappShareButton
-                url={`https://wa.me/${recipientPhone}?text=${paymentUrl}`}
+                url={`عزيزي العمل \n هذا الشحنة للاختبار \n رابط الدفع : \n${paymentUrl}`}
 
             >
+
                 <  WhatsappIcon size={32} round={true} />
             </WhatsappShareButton > */}
-            <ReactWhatsapp number={recipientPhone} message={paymentUrl}
+            {/* <ReactWhatsapp number={recipientPhone} message={`عزيزي العميل \n هذا الشحنة للاختبار \n رابط الدفع : \n ${paymentUrl.replace("&", "%26") && paymentUrl.replace("&", "%26")}`}
                 className={"react-share__ShareButton "}>
                 <  WhatsappIcon size={32} round={true} />
-            </ReactWhatsapp>
+            </ReactWhatsapp>   */}
+            <button
+
+                onClick={() => { window.open(`https://wa.me/${recipientPhone}/?text=${message()}${paymentUrl.replace("&", "%26")}`) }}
+                // number={'recipientPhone'}
+                className={"react-share__ShareButton "}>
+                <  WhatsappIcon size={32} round={true} />
+            </button>
+
             <TelegramShareButton url={paymentUrl}   >
                 <TelegramIcon size={32} round={true} />
             </TelegramShareButton >

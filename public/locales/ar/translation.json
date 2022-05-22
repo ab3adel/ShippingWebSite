@@ -76,7 +76,7 @@
   "Hermonized": "رمز التناغم",
   "provenance country": "بلد المنشأ",
   "UnitPrice": "سعر الواحدة",
-  "Delivery Date": "تاريخ التسليم",
+  "Delivery Date": "تاريخ الوصول المتوقع",
   "DocumentShipment": " شحنة وثائق",
   "ShipmentPurpose": "غرض الشحنة",
   "Documented": "أوراق /وثائق",
@@ -108,5 +108,8 @@
   "SenderPayer": "سيتم فتح نافذة جديدة للدفع عند تحديد المرسل للدفع",
   "ShipmentPrice": "سعر الشحنة",
   "cash": "كاش",
-  "online": "دفع الكتروني"
+  "online": "دفع الكتروني",
+  "Tax": "السعر يتضمن رسوم الجمارك",
+  "NoTax": "السعر لايتضمن رسوم الجمارك",
+  "P.S": "ملاحظة"
 }

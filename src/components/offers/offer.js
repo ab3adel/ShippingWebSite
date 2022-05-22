@@ -3,9 +3,9 @@ import './offers.scss'
 import React, { useState } from 'react'
 import "../../globalVar"
 import { useTranslation } from 'react-i18next'
-import { Button, Popover } from 'antd'
+import { Button, Popover, Radio, Form } from 'antd'
 import { Link } from 'react-router-dom'
-
+import ReactWhatsapp from 'react-whatsapp';
 import {
   EmailShareButton,
   FacebookMessengerShareButton,
@@ -36,10 +36,12 @@ export const Offer = (props) => {
   const userToken = JSON.parse(tokenString);
   const [loading, setLoading] = useState(false)
   const [urlPay, setUrlPay] = useState('')
-  const onChange = (val) => {
-    setPayer(val)
-  }
+  const [urlToken, setUrlToken] = useState([])
 
+  const onChange = (e) => {
+    setPayer(e.target.value)
+
+  }
   const getURL = async () => {
     setLoading(true)
 
@@ -57,16 +59,32 @@ export const Offer = (props) => {
           body: JSON.stringify({
             offer_id: activeOffer.id,
             lang_code: i18n.language == 'ar' ? 'AR' : 'EN',
-            payer: payer
+            payer: payer == 'cash' ? 'sender' : payer,
+            payment_method: payer == 'cash' ? 'cash' : 'online'
           }),
 
         }
       );
       const response = await responsee.json();
-
+      if (payer === 'cash') {
+        notification.success({
+          message: t('SuccessfullRequest'),
+          description: i18n.language === 'en' ?
+            "your request has been added successfully" :
+            "  تم الحفظ بنجاح",
+          duration: 5,
+          rtl: i18n.language === 'ar',
+          placement: 'bottomRight'
+        })
+        setLoading(false)
+        return
+      }
       if (response.transaction && response.transaction.url) {
         setUrlPay(response.transaction.url)
+        setUrlToken(response.transaction.url.split('&'))
+        if ((payer === 'sender')) { window.open(response.transaction.url) }
       }
+
     } catch (err) {
       console.log(err);
     }
@@ -102,32 +120,57 @@ export const Offer = (props) => {
   }
 
 
+  let options = [
+    { label: t('cash'), value: 'cash' },
+    { label: t('Sender'), value: 'sender' },
+    { label: t("Recipient"), value: 'recipient' },
+  ]
 
-
-
+  const message = () => {
+    if (i18n.language === 'ar') {
+      return `عزيزي العميل  %0a هذا الشحنة للاختبار %0a رابط الدفع : %0a`
+    }
+    else {
+      return `Dear Client %0a This Shipment for Test %0a Pay URL : %0a`
+    }
+  }
   const content = (
-    <div className='IconsCont'>
+    activeOffer.id && activeOffer.recipient ?
+      <div className='IconsCont'>
 
-      {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
-  </FacebookMessengerShareButton > */}
-      <WhatsappShareButton url={urlPay}   >
-        <  WhatsappIcon size={32} round={true} />
-      </WhatsappShareButton >
-      <TelegramShareButton url={urlPay}   >
-        <TelegramIcon size={32} round={true} />
-      </TelegramShareButton >
-      <ViberShareButton url={urlPay}   >
-        <ViberIcon size={32} round={true} />
-      </ViberShareButton >
-      <EmailShareButton url={urlPay}   >
-        <EmailIcon size={32} round={true} />
-      </EmailShareButton >
+        {/* <FacebookMessengerShareButton url={urlPay}   > <FacebookMessengerIcon size={32} round={true} />
+</FacebookMessengerShareButton > */}
+
+        {/* <ReactWhatsapp number={' '}
+          //  number={activeOffer.recipient.phone}
+          message={"  `${urlPay}` + ` ${urlToken[(urlToken.length - 1)]}`}
+          className={"react-share__ShareButton "}>
+          <  WhatsappIcon size={32} round={true} />
+        </ReactWhatsapp> */}
+        <button
+
+          onClick={() => { window.open(`https://wa.me/${activeOffer.recipient.phone}/?text=${message()}${urlPay.replace("&", "%26")}`) }}
+
+          className={"react-share__ShareButton "}>
+          <  WhatsappIcon size={32} round={true} />
+        </button>
+        <TelegramShareButton url={urlPay}   >
+          <TelegramIcon size={32} round={true} />
+        </TelegramShareButton >
+        <ViberShareButton url={urlPay}   >
+          <ViberIcon size={32} round={true} />
+        </ViberShareButton >
+        <EmailShareButton url={urlPay}   >
+          <EmailIcon size={32} round={true} />
+        </EmailShareButton >
 
 
 
-    </div>
+      </div >
+      : null
+
   );
-
+  console.error('AsynactiveOfferactiveOffer activeOffer: ', activeOffer);
   return (
 
     <div className="offerContainer">
@@ -137,7 +180,7 @@ export const Offer = (props) => {
         </div>
 
       </div>
-      <div className="row col-md-12 m-0">
+      <div className="row col-md-12 col-lg-10 mx-auto my-2">
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
             {t('Name')}
@@ -204,10 +247,6 @@ export const Offer = (props) => {
                         <div className='offerDetail ' >
                           {ele.name}
 
-                        </div>
-
-                        <div className='offerDetail ' >
-
                           <div className='bold'>{ele.value}{` ${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}</div>
                         </div>
                       </div>
@@ -262,7 +301,18 @@ export const Offer = (props) => {
                     }
                   </div>
                   <div className='col-md-12 d-flex justify-content-center text-center m-0'>
-                    <div className={`col-md-4 col-lg-2 selectPay ${payer == "sender" && 'activePayer'}`}
+                    <Form.Item
+                    // validateStatus={charge.NameError ? "error" : ""}
+                    // label={i18n.language === 'ar' ? "اختر من سيقوم بالدفع" : "Choose who will pay:"}
+                    >
+                      <Radio.Group options={options}
+                        onChange={onChange}
+                        value={payer}
+
+
+                      />
+                    </Form.Item>
+                    {/* <div className={`col-md-4 col-lg-2 selectPay ${payer == "sender" && 'activePayer'}`}
                       onClick={() => onChange('sender')}>
                       {i18n.language === 'ar' ?
                         "المرسل"
@@ -277,7 +327,7 @@ export const Offer = (props) => {
                         :
                         "Recipient"
                       }
-                    </div>
+                    </div> */}
 
                   </div>
                   <div className='  col-md-12 justify-content-center pt-1 pb-1 m-0'>
@@ -287,22 +337,15 @@ export const Offer = (props) => {
                       disabled={loading}
                     >
 
-                      {i18n.language === 'ar' ?
-                        "الحصول على رابط الدفع"
-                        :
-                        "Get Pay URL"}
-                      {loading && <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></>}
-                    </Button> : null}
-                    {payer == 'sender' && urlPay ?
-                      <a className='ant-btn ant-btn-default addInFormBTN col-md-4' href={urlPay} target='blank'>
-                        {i18n.language === 'ar' ?
-                          "الانتقال للدفع"
-                          :
-                          "Redirect To Pay"}
+                      {payer === 'recipient' ? i18n.language === 'ar' ? "الحصول على رابط الدفع" : "Get Pay URL" : null}
+                      {payer === 'sender' ? i18n.language === 'ar' ? "الذهاب للدفع" : "Go To Payment Page" : null}
+                      {payer === 'cash' ? i18n.language === 'ar' ? "حفظ" : "Save" : null}
 
-                      </a>
-                      : null
-                    }
+
+                      {loading && <>{'  '}  <i className="fa fa-spinner fa-spin" ></i></>}
+                    </Button>
+                      : null}
+
                     {payer == 'recipient' && urlPay ?
                       <Popover content={content} title={i18n.language === 'ar' ?
                         "مشاركة"
@@ -315,13 +358,35 @@ export const Offer = (props) => {
                       </Popover>
 
 
-                      // <Button className='ant-btn ant-btn-default addInFormBTN col-md-4' onClick={() => copyText(urlPay)}>
-                      //   {i18n.language === 'ar' ?
-                      //     "نسخ الرابط"
-                      //     :
-                      //     "Copy Pay URL"}
 
-                      // </Button>
+                      : null
+                    }
+
+                    {payer == 'sender' && urlPay ?
+
+                      <Button
+                        className='addInFormBTN col-md-4'
+                        onClick={() => window.open(urlPay)}
+                        disabled={loading}
+                      >  {payer === 'sender' ? i18n.language === 'ar' ? "الذهاب للدفع" : "Go To Payment Page" : null}
+
+                      </Button>
+
+
+                      : null
+                    }
+
+                    {payer == 'cash' && urlPay ?
+
+                      <Button
+                        className='addInFormBTN col-md-4'
+                        onClick={() => getURL()}
+                        disabled={loading}
+                      >  {i18n.language === 'ar' ? "حفظ" : "Save"}
+
+                      </Button>
+
+
                       : null
                     }
                   </div>
@@ -338,6 +403,7 @@ export const Offer = (props) => {
         setVisible={setVisible}
         addCharges={addCharges}
       />
+
     </div>
   )
 }

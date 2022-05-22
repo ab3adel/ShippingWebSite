@@ -42,8 +42,8 @@ export const ShippingRequestForm = (props) => {
         , { val: "SAMPLE", item: t("SAMPLE") }, { val: "SOLD", item: t("SOLD") }
         , { val: "COMMERCIAL", item: t("COMMERCIAL") }, { val: "RETURN_AND_REPAIR", item: t("RETURN_AND_REPAIR") }
         , { val: "PERSONAL_USE", item: t('PERSONAL_USE') }]
-    
-        
+
+
     useEffect(async () => {
         formFields.Recipient && await setAddressArr(recipients ? recipients.filter(item => item.id === formFields.Recipient)[0].addresses : [])
         formRef.current && formRef.current.setFieldsValue({
@@ -470,7 +470,7 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
 
-                </div> 
+                </div>
                 {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('groupPackageCount')}
@@ -504,7 +504,7 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
                 </div> */}
-               
+
                 {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
                     <Form.Item
                         label={`${t('CustomsAmount')}`}
@@ -525,7 +525,7 @@ export const ShippingRequestForm = (props) => {
 
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
-                        label={`${t('ShipmentPrice')}`}
+                        label={`${t('UnitPrice')}`}
                         name='Price'
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['PriceError'] ? "error" : ""}

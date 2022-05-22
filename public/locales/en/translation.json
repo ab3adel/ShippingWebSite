@@ -109,6 +109,7 @@
   "Payment": "The Payment",
   "SenderPayer": "New Tab will open if sender was chosen as the payer",
   "ShipmentPrice": "Shipment Price",
-  "Tax": "p.s:The price includes Taxes",
-  "NoTax": "p.s:The price doesn't include Taxes"
+  "Tax": "The price includes Taxes",
+  "NoTax": "The price doesn't include Taxes",
+  "P.S": "P.S"
 }

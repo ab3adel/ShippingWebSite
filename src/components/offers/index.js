@@ -79,7 +79,7 @@ const Offers = (props) => {
         div.classList.remove('whiteColor')
     }
     return (
-        <div className='offersContainer container ' id='offersDIV'>
+        <div className='offersContainer container row m-0 p-0' id='offersDIV'>
             {data.map((ele, index) => {
                 return (
                     <Company handleStage={handleStage}
