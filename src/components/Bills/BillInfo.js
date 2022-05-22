@@ -391,15 +391,15 @@ const BillInfo = ({ match }) => {
 
                 </>
             }
-            {activeBill ? <PaymentForm
+            <PaymentForm
                 open={open}
                 setOpen={setOpen}
                 handlePayment={handlePayment}
                 paymentUrl={paymentUrl}
-                recipientPhone={activeBill.recipient.recipient.phone}
+                recipientPhone={activeBill && activeBill.recipient.recipient.phone}
 
 
-            /> : null}
+            />
             <AddCharges
                 visible={visible}
                 setVisible={setVisible}

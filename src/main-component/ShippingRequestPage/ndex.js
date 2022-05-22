@@ -205,7 +205,7 @@ const ShippingRequest = () => {
                 collection[stage - 1].classList.remove('currentStage')
                 collection[stage].classList.add('currentStage')
 
-                inbetweenStages[0].style.visibility = 'hidden';
+                // inbetweenStages[0].style.visibility = 'hidden';
                 inbetweenStages[1].classList.add('inprogress')
                 setStage(3)
 
