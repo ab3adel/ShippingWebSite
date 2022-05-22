@@ -240,7 +240,7 @@ const NewAddress = (props) => {
         else { AddressRef.current.setFieldsValue({ recipient_phone: null }) }
 
     }
-console.log(cities,countries)
+console.log(cities)
     return (
         <Modal
             title={type === "Address" ? t("New Address") : t('Add Recipient')}

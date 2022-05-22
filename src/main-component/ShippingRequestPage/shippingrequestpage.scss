@@ -218,8 +218,8 @@
         min-height: 40px;
         display:flex;
         align-self: center;
-        background: purple ;
-        animation: inProgress 2s cubic-bezier(0.23, 1, 0.320, 1) infinite forwards ;
+        background: rgba(173, 4, 173, 0.884) ;
+        animation: inProgress 3s ease-out 1s infinite forwards ;
         border-radius: 40px;
         
     }
@@ -227,23 +227,23 @@
    
     @keyframes inProgress {
         0% {
-            background: linear-gradient(0.25turn ,purple 95%,rgba(173, 4, 173, 0.884) 5% ) ;
+            background: linear-gradient(0.25turn ,transparent 95%,rgba(173, 4, 173, 0.884) 5% ) ;
         }
         20% {
-            background: linear-gradient(0.25turn ,purple 75% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
+            background: linear-gradient(0.25turn ,transparent 80% ,rgba(173, 4, 173, 0.884) 20%  ) ;
         }
         40% {
-            background: linear-gradient(0.25turn ,purple 65% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
+            background: linear-gradient(0.25turn ,transparent 60% ,rgba(173, 4, 173, 0.884) 40%  ) ;
         }
         60% {
-            background: linear-gradient(0.25turn ,purple 55% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
+            background:linear-gradient(0.25turn , rgba(173, 4, 173, 0.884) 99% ,transparent 1% ); ;
         }
-        80% {
-            background: linear-gradient(0.25turn ,purple 45% ,rgba(173, 4, 173, 0.884) 5% ,purple ) ;
-        }
+      
+    
         100% {
-            background:linear-gradient(0.25turn , rgba(173, 4, 173, 0.884) 5% ,purple 95% )
+            background:linear-gradient(0.25turn , rgba(173, 4, 173, 0.884) 99% ,transparent 1% );
         }
+       
     }
   
     .previousStage {
@@ -260,9 +260,9 @@
     
     .currentStage {
         color: white;
-        background-color: purple;
+        background-color: transparent;
         animation: radialToPurple 2s ease-in 1 forwards ,
-                   radialProgress 2s cubic-bezier(0.23, 1, 0.320, 1) 2s infinite forwards ;
+                   radialProgress 3s cubic-bezier(0.23, 1, 0.320, 1) 4s infinite forwards ;
     
         p {
             color: white;
@@ -287,11 +287,18 @@
         }
     }
     @keyframes radialProgress {
-        from {
-            background: linear-gradient(0.25turn, purple  ,rgba(173, 4, 173, 0.884)  ) ;
+        0% {
+            background: transparent;
         }
-        to {
-            background: linear-gradient(0.25turn,rgba(173, 4, 173, 0.884),purple  );
+    
+        55% {
+            background: transparent;
+        }
+        65% {
+            background: linear-gradient(0.25turn,transparent 50%  ,rgba(173, 4, 173, 0.884) 50% );
+        }
+        100% {
+            background: linear-gradient(0.25turn,rgba(173, 4, 173, 0.884) 99%,transparent 1% );
         }
     }
 }
