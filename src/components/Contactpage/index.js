@@ -23,7 +23,7 @@ const Contactpage = () => {
                                 }
 
                             </p>
-                            <div className="adress">
+                            {/* <div className="adress">
                                 <h3>{i18n.language === 'ar' ? `العنوان` : `Address`}</h3>
                                 <span>
                                     {i18n.language === 'ar' ?
@@ -36,10 +36,10 @@ const Contactpage = () => {
                                 <h3>{i18n.language === 'ar' ? `هاتف` : `Phone`}</h3>
                                 <span>0-123-456-7890</span>
                                 <span>0-123-456-7890</span>
-                            </div>
+                            </div> */}
                             <div className="email">
                                 <h3>{i18n.language === 'ar' ? `البريد الالكتروني` : `Email`}</h3>
-                                <span>sample@gmail.com</span>
+                                <span>info@wodex.online</span>
                             </div>
                         </div>
                     </div>
@@ -50,13 +50,13 @@ const Contactpage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     <div className="col col-xs-12">
                         <div className="contact-map">
                             <iframe title='db' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57763.58882182253!2d55.38442113562169!3d25.195692423227655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2z4Kam4KeB4Kas4Ka-4KaHIC0g4Kam4KeB4Kas4Ka-4KaHIOCmhuCmruCmv-CmsOCmvuCmpCAtIOCmuOCmguCmr-CngeCmleCnjeCmpCDgpobgprDgpqwg4KaG4Kau4Ka_4Kaw4Ka-4Kak!5e0!3m2!1sbn!2sbd!4v1540725271741"></iframe>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

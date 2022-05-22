@@ -15,7 +15,7 @@ const FooterSection = () => {
         <div className="wpo-footer-area">
             <div className="wpo-footer-top">
                 <div className="container">
-                    <div className="row">
+                    <div className="row justify-content-center">
                         <div className="col-lg-3 col-md-6 col-sm-6 footer-t">
                             <div className="wpo-footer-logo">
                                 <img src={logo} alt="" />
@@ -35,28 +35,32 @@ const FooterSection = () => {
                                 } */}
                             </p>
                             <div className="social">
-                                <ul className="d-flex">
+                                <ul className="d-flex p-0">
                                     <li><Link to="/"><i className="fa fa-facebook" aria-hidden="true"></i></Link></li>
                                     <li><Link to="/"><i className="fa fa-twitter" aria-hidden="true"></i></Link></li>
-                                    <li><Link to="/"><i className="fa fa-linkedin" aria-hidden="true"></i></Link></li>
+                                    <li><Link to="/"><i className="fa fa-whatsapp" aria-hidden="true"></i></Link></li>
+                                    <li><Link to="/"><i className="fa fa-instagram" aria-hidden="true"></i></Link></li>
+                                    <li><Link to="/"><i className="fa fa-envelope" aria-hidden="true"></i></Link></li>
+
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-lg-3 col-md-6 col-sm-6 footer-t">
-                            <div className="footer-link">
+                        <div className='col-md-2'></div>
+                        <div className="col-lg-3 col-md-6 col-sm-6 row justify-content-center footer-t">
+                            <div className="footer-link  text-center">
                                 <h3>{i18n.language === 'ar' ? `رابط سريع` : `Quick Link`}</h3>
-                                <ul>
+                                <ul className='p-0'>
                                     <li><Link to="/">{t('Home')}</Link></li>
                                     <li><Link to="/about">{i18n.language === 'ar' ? `من نحن` : `About Us`} </Link></li>
                                     <li><Link style={{ textTransform: 'unset' }} to="/terms-Conditions">{i18n.language === 'ar' ? `الشروط والأحكام` : `Terms and Conditions`} </Link></li>
                                     <li><Link style={{ textTransform: 'unset' }} to="/FAQs">{i18n.language == 'ar' ? `الأسئلة المكررة` : `FAQs`}</Link></li>
-                                    <li><Link to="/">Testimonial</Link></li>
+                                    {/* <li><Link to="/">Testimonial</Link></li> */}
                                     <li><Link to="/contact">{i18n.language === 'ar' ? `تواصل معنا` : `Contact`} </Link></li>
 
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-lg-3 col-md-6 col-sm-6 footer-b">
+                        {/* <div className="col-lg-3 col-md-6 col-sm-6 footer-b">
                             <div className="Recent-News-area">
                                 <h3>{i18n.language == 'ar' ? `آخر الأخبار` : `Recent News`}</h3>
                                 <div className="resent-sub">
@@ -66,8 +70,8 @@ const FooterSection = () => {
                                 <p>There are many variations of passages of Lorem</p>
                                 <span><i className="fa fa-clock-o" aria-hidden="true"></i> Octobor 10, 2018</span>
                             </div>
-                        </div>
-                        <div className="col-lg-3 col-sm-6 col-12">
+                        </div> */}
+                        {/* <div className="col-lg-3 col-sm-6 col-12">
                             <div className="footer-widget instagram">
                                 <h3>{i18n.language == 'ar' ? `انستقرام` : `Instagram`}</h3>
                                 <ul className="d-flex">
@@ -79,7 +83,7 @@ const FooterSection = () => {
                                     <li><Link to="/"><img src={in6} alt="" /></Link></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
