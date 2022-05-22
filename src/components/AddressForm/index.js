@@ -28,6 +28,7 @@ const NewAddress = (props) => {
     const [loadingCities, setLoadingCites] = React.useState(false)
     const [disableCities, setDisableCities] = React.useState(true)
     const [country, setCountry] = useState()
+
     const [form] = Form.useForm()
     const { Option } = Select
     const [countryDetails, setCountryDetails] = useState({ postalCode: false, stateCode: false })
@@ -240,7 +241,18 @@ const NewAddress = (props) => {
         else { AddressRef.current.setFieldsValue({ recipient_phone: null }) }
 
     }
-console.log(cities)
+    const handleStateCode=(value)=>{
+        form.setFieldsValue({'state_code':value})
+    }
+    const citySelected =(e,v) =>{
+ 
+        let city = cities.filter(ele=>ele.id ===e)
+        
+        if (city[0] && city[0].code){ 
+            handleStateCode(city[0].code);
+        }
+    }
+ 
     return (
         <Modal
             title={type === "Address" ? t("New Address") : t('Add Recipient')}
@@ -481,14 +493,17 @@ console.log(cities)
                                 // listHeight={250}
                                 loading={loadingCities}
                                 disabled={disableCities}
+                                onSelect={(e,v)=>citySelected(e,v)}
                                 direction={i18n.language === "ar" ? 'rtl' : 'ltr'}
                                 className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}>
                                 {cities.map((ele, index) => {
-                                    return (<Option key={ele.id} value={ele.id}>
-                                        {i18n.language === 'ar' ?
-                                            ele.name_ar ? ele.name_ar : ele.name_en
-                                            :
-                                            ele.name_en}</Option>)
+                                    return (
+                                        <Option key={ele.id} value={ele.id}>
+                                            {i18n.language === 'ar' ?
+                                                ele.name_ar ? ele.name_ar : ele.name_en
+                                                :
+                                                ele.name_en}
+                                        </Option>)
                                 })}
                             </Select>
                         </Form.Item>
@@ -638,7 +653,9 @@ console.log(cities)
                                         },
                                     ]}
                                 >
-                                    <Input disabled={!countryDetails.stateCode} placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
+                                    <Input disabled={!countryDetails.stateCode} 
+                                          
+                                            placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
 
                                 </Form.Item>
 

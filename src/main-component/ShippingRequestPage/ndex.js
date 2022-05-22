@@ -219,14 +219,14 @@ const ShippingRequest = () => {
 
         if (type === "Previous") {
             if (stage === 1){
-                console.log(stage)
+                
                 inbetweenStages[1].style.visibility='hidden'
                 inbetweenStages[0].style.visibility='hidden'
            
                  return
                 }
             if (stage ===2 ) {
-                console.log(stage)
+        
                 inbetweenStages[1].style.visibility='hidden'
                 inbetweenStages[0].style.visibility='hidden' 
                 collection[0].classList.add('previousStage')
@@ -237,7 +237,7 @@ const ShippingRequest = () => {
                 setStage(1)
             }   
             if (stage ===3) {
-                console.log(stage)
+               
                 inbetweenStages[1].style.visibility='hidden'
                 inbetweenStages[0].style.visibility='visible'
                 collection[2].classList.remove('previousStage')
@@ -393,7 +393,7 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-            console.log(response)
+       
             if (!response.messages ) {
                 setRateStatus(response)
                 setSuccess(true)
