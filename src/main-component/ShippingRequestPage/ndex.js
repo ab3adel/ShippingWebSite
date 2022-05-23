@@ -206,9 +206,9 @@ const ShippingRequest = () => {
                 collection[1].classList.remove('currentStage')
                 collection[2].classList.add('currentStage')
 
-                 inbetweenStages[0].style.visibility = 'hidden';
-                 inbetweenStages[1].style.visibility = 'visible';
+                inbetweenStages[0].classList.remove('inprogress')
                 inbetweenStages[1].classList.add('inprogress')
+              
                 setStage(3)
 
             }
@@ -221,8 +221,8 @@ const ShippingRequest = () => {
                 collection[1].classList.remove('previousStage')
                 collection[1].classList.remove('currentStage')
                
-                inbetweenStages[0].style.visibility = 'hidden';
-                inbetweenStages[1].style.visibility = 'hidden';
+                inbetweenStages[0].classList.remove('inprogress')
+                inbetweenStages[1].classList.remove('inprogress');
                 return
             }
             if (stage === 2) {
@@ -230,7 +230,7 @@ const ShippingRequest = () => {
                 collection[1].classList.remove('currentStage')
                 collection[0].classList.remove('previousStage')
                 collection[0].classList.add('currentStage')
-                inbetweenStages[0].style.visibility = 'hidden';
+                inbetweenStages[0].classList.remove('inprogress')
                 setStage(1)
             }
             if (stage ===3) {
@@ -238,8 +238,8 @@ const ShippingRequest = () => {
                 collection[2].classList.remove('currentStage')
                 collection[1].classList.remove('previousStage')
                 collection[1].classList.add('currentStage')
-                inbetweenStages[1].style.visibility = 'hidden';
-                inbetweenStages[0].style.visibility = 'visible';
+                inbetweenStages[1].classList.remove('inprogress')
+                inbetweenStages[0].classList.add('inprogress')
                 setStage(2)
 
             }
@@ -389,7 +389,7 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-            console.log(response)
+     
             if (response instanceof Array) {
                 setLoading(false)
                 setErrorMessage({ error: i18n.language === 'ar' ? "التصنيف غير مدعوم" : "Category Not Supported" })
@@ -484,8 +484,7 @@ const ShippingRequest = () => {
 
                     }
                     )
-                     inbetweenStages[1].style.visibility = 'hidden';
-
+                    inbetweenStages[1].classList.remove('inprogress')
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')
 
@@ -503,7 +502,7 @@ const ShippingRequest = () => {
                         placement: 'bottomRight'
                     })
                     setDisableButton(true)
-                    inbetweenStages[1].style.visibility = 'hidden';
+                    inbetweenStages[1].classList.remove('inprogress')
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')
 
