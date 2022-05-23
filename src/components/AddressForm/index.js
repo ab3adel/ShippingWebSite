@@ -241,18 +241,20 @@ const NewAddress = (props) => {
         else { AddressRef.current.setFieldsValue({ recipient_phone: null }) }
 
     }
-    const handleStateCode=(value)=>{
-        form.setFieldsValue({'state_code':value})
+    const handleStateCode = (value) => {
+        form.setFieldsValue({ 'state_code': value })
     }
-    const citySelected =(e,v) =>{
- 
-        let city = cities.filter(ele=>ele.id ===e)
-        
-        if (city[0] && city[0].code){ 
-            handleStateCode(city[0].code);
+    const citySelected = (e, v) => {
+
+        let city = cities.filter(ele => ele.id === e)
+
+        if (city[0] && city[0].code) {
+            // handleStateCode(city[0].code);
+            form.setFieldsValue({ 'state_code': city[0].code })
         }
+        else { form.setFieldsValue({ 'state_code': '' }) }
     }
- 
+
     return (
         <Modal
             title={type === "Address" ? t("New Address") : t('Add Recipient')}
@@ -493,7 +495,7 @@ const NewAddress = (props) => {
                                 // listHeight={250}
                                 loading={loadingCities}
                                 disabled={disableCities}
-                                onSelect={(e,v)=>citySelected(e,v)}
+                                onSelect={(e, v) => citySelected(e, v)}
                                 direction={i18n.language === "ar" ? 'rtl' : 'ltr'}
                                 className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}>
                                 {cities.map((ele, index) => {
@@ -653,9 +655,9 @@ const NewAddress = (props) => {
                                         },
                                     ]}
                                 >
-                                    <Input disabled={!countryDetails.stateCode} 
-                                          
-                                            placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
+                                    <Input disabled={!countryDetails.stateCode}
+
+                                        placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
 
                                 </Form.Item>
 

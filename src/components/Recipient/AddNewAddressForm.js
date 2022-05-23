@@ -163,6 +163,11 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
     }
     function onChangeCity(value) {
         setCity(value)
+        let city = cities.find(item => item.id == value)
+        if (city.code) {
+            AddressFormRef.current.setFieldsValue({ state_code: city.code })
+        }
+        else { AddressFormRef.current.setFieldsValue({ state_code: '' }) }
 
     }
     const fetchCities = async (id) => {
@@ -306,7 +311,7 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
 
 
                 </div>
-                <div className=' col-md-4 col-lg-2'>
+                {/* <div className=' col-md-4 col-lg-2'>
                     <Form.Item
                         label={i18n.language == 'ar' ? `رمز الولاية` : `State Code`}
                         name="state_code"
@@ -339,7 +344,7 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
                     </Form.Item>
 
 
-                </div>
+                </div> */}
 
                 {country === 117 ?
                     <>
@@ -488,6 +493,41 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
                     </>
 
                 }
+                {countryDetails.stateCode ? <div className=' col-md-4 col-lg-2'>
+                    <Form.Item
+                        label={i18n.language == 'ar' ? `رمز الولاية` : `State Code`}
+                        name="state_code"
+                        rules={[
+                            {
+                                required: countryDetails.stateCode,
+                                message: i18n.language == 'ar' ? `الرجاء ادخل حقل رمز الولاية` : 'Please Input State Code!',
+                            },
+                        ]}
+                    >
+                        <Input disabled={!countryDetails.stateCode} placeholder={i18n.language == 'ar' ? `رمز الولاية` : `State Code`} />
+
+                    </Form.Item>
+
+
+                </div> : null}
+                {countryDetails.postalCode ? <div className='col-lg-2'>
+                    <Form.Item
+                        label={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`}
+                        name="post_code"
+
+                        rules={[
+                            {
+                                required: countryDetails.postalCode,
+                                message: i18n.language == 'ar' ? `الرجاء ادخل حقل الرمز البريدي` : 'Please Input Postal Code!',
+                            },
+                        ]}
+                    >
+                        <Input disabled={!countryDetails.postalCode} placeholder={i18n.language == 'ar' ? `الرمز البريدي` : `Postal Code`} />
+                    </Form.Item>
+
+
+                </div> : null}
+
 
             </div>
 
