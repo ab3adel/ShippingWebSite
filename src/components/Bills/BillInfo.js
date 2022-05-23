@@ -371,7 +371,14 @@ const BillInfo = ({ match }) => {
                                                             {
                                                                 activeBill.shipment_documents && activeBill.shipment_documents.length > 0 ?
                                                                     activeBill.shipment_documents.map((ele, index) => {
-                                                                        return <Base64File url={ele.url} />
+                                                                        return (
+                                                                            <React.Fragment key={ele.id}>
+                                                                                {activeBill.company_id == 3 ?
+                                                                                    <Base64File url={ele.url} fName={ele.contentType} /> :
+                                                                                    <a className='downURl' href={ele.url} target='_blank' download>{ele.contentType}</a>
+
+                                                                                }
+                                                                            </React.Fragment>)
                                                                     }) : ""
                                                             }
                                                         </div>

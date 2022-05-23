@@ -16,7 +16,7 @@ const FooterSection = () => {
             <div className="wpo-footer-top">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-lg-3 col-md-6 col-sm-6 footer-t">
+                        <div className="col-lg-3 col-md-6 col-sm-6 footer-t  text-center">
                             <div className="wpo-footer-logo">
                                 <img src={logo} alt="" />
                             </div>
@@ -34,7 +34,7 @@ const FooterSection = () => {
                                     "By injected hum or randomised"
                                 } */}
                             </p>
-                            <div className="social">
+                            <div className="social d-flex justify-content-center text-center">
                                 <ul className="d-flex p-0">
                                     <li><Link to="/"><i className="fa fa-facebook" aria-hidden="true"></i></Link></li>
                                     <li><Link to="/"><i className="fa fa-twitter" aria-hidden="true"></i></Link></li>
