@@ -193,19 +193,21 @@ const ShippingRequest = () => {
 
                 if (done) {
 
-                    collection[stage].classList.add('currentStage')
-                    collection[stage - 1].classList.add('previousStage')
-                    collection[stage - 1].classList.remove('currentStage')
+                    collection[1].classList.add('currentStage')
+                    collection[0].classList.add('previousStage')
+                    collection[0].classList.remove('currentStage')
                     inbetweenStages[0].classList.add('inprogress')
+                    inbetweenStages[0].style.visibility='visible'
                     setStage(2)
                 }
             }
             if (stage === 2) {
-                collection[stage - 1].classList.add('previousStage')
-                collection[stage - 1].classList.remove('currentStage')
-                collection[stage].classList.add('currentStage')
+                collection[1].classList.add('previousStage')
+                collection[1].classList.remove('currentStage')
+                collection[2].classList.add('currentStage')
 
-                // inbetweenStages[0].style.visibility = 'hidden';
+                 inbetweenStages[0].style.visibility = 'hidden';
+                 inbetweenStages[1].style.visibility = 'visible';
                 inbetweenStages[1].classList.add('inprogress')
                 setStage(3)
 
@@ -215,9 +217,34 @@ const ShippingRequest = () => {
         }
 
         if (type === "Previous") {
-            if (stage === 1) return
-            setStage(--stage)
-            collection[stage].classList.remove('currentStage')
+            if (stage === 1) {
+                collection[1].classList.remove('previousStage')
+                collection[1].classList.remove('currentStage')
+               
+                inbetweenStages[0].style.visibility = 'hidden';
+                inbetweenStages[1].style.visibility = 'hidden';
+                return
+            }
+            if (stage === 2) {
+                collection[1].classList.remove('previousStage')
+                collection[1].classList.remove('currentStage')
+                collection[0].classList.remove('previousStage')
+                collection[0].classList.add('currentStage')
+                inbetweenStages[0].style.visibility = 'hidden';
+                setStage(1)
+            }
+            if (stage ===3) {
+                collection[2].classList.remove('previousStage')
+                collection[2].classList.remove('currentStage')
+                collection[1].classList.remove('previousStage')
+                collection[1].classList.add('currentStage')
+                inbetweenStages[1].style.visibility = 'hidden';
+                inbetweenStages[0].style.visibility = 'visible';
+                setStage(2)
+
+            }
+            
+         
 
 
         }
@@ -457,7 +484,7 @@ const ShippingRequest = () => {
 
                     }
                     )
-                    // inbetweenStages[1].style.visibility = '';
+                     inbetweenStages[1].style.visibility = 'hidden';
 
                     collection[2].classList.add('previousStage')
                     collection[2].classList.remove('currentStage')

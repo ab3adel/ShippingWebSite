@@ -230,7 +230,7 @@
         display: flex;
         align-self: center;
         background: purple;
-        animation: inProgress 2s cubic-bezier(0.23, 1, 0.320, 1) infinite forwards;
+        animation: inProgress 2.5s ease-out infinite forwards;
         // border-radius: 40px;
 
     }
@@ -238,27 +238,27 @@
 
     @keyframes inProgress {
         0% {
-            background: linear-gradient(0.25turn, purple 95%, rgba(173, 4, 173, 0.884) 5%);
+            background: linear-gradient(0.25turn, transparent 95%, rgba(173, 4, 173, 0.884) 5%);
         }
 
         20% {
-            background: linear-gradient(0.25turn, purple 75%, rgba(173, 4, 173, 0.884) 5%, purple);
+            background: linear-gradient(0.25turn, transparent 75%, rgba(173, 4, 173, 0.884) );
         }
 
         40% {
-            background: linear-gradient(0.25turn, purple 65%, rgba(173, 4, 173, 0.884) 5%, purple);
+            background: linear-gradient(0.25turn, transparent 55%, rgba(173, 4, 173, 0.884) );
         }
 
         60% {
-            background: linear-gradient(0.25turn, purple 55%, rgba(173, 4, 173, 0.884) 5%, purple);
+            background: linear-gradient(0.25turn, transparent 1%, rgba(173, 4, 173, 0.884) );
         }
 
         80% {
-            background: linear-gradient(0.25turn, purple 45%, rgba(173, 4, 173, 0.884) 5%, purple);
+            background:  rgba(173, 4, 173, 0.884) ;
         }
 
         100% {
-            background: linear-gradient(0.25turn, rgba(173, 4, 173, 0.884) 5%, purple 95%)
+            background:  rgba(173, 4, 173, 0.884);
         }
 
     }
@@ -281,8 +281,8 @@
         color: white;
         background-color: purple;
         animation: radialToPurple 2s ease-in 1 forwards,
-            radialProgress 2s cubic-bezier(0.23, 1, 0.320, 1) 2s infinite forwards;
-        box-shadow: 0px 0px 0px 4px #980a94 !important;
+            radialProgress 2.5s linear 2.5s infinite forwards;
+       
 
 
         p {
@@ -323,12 +323,23 @@
     }
 
     @keyframes radialProgress {
-        from {
-            background: linear-gradient(0.25turn, purple, rgba(173, 4, 173, 0.884));
+        0% {
+            background: transparent;
+        }
+        55% {
+            background: transparent;
+        }
+        60% {
+            box-shadow: 0px 0px 0px 1px #980a94 ;
+        }
+        65% {
+            background: linear-gradient(0.25turn, transparent 50%, rgba(173, 4, 173, 0.884) 50%);
+            box-shadow: 0px 0px 0px 4px #980a94 ;
         }
 
-        to {
-            background: linear-gradient(0.25turn, rgba(173, 4, 173, 0.884), purple);
+        100% {
+            background: linear-gradient(0.25turn, rgba(173, 4, 173, 0.884) 99%, transparent 1%);
+            box-shadow: 0px 0px 0px 4px #980a94 ;
         }
     }
 }
