@@ -158,6 +158,7 @@ const BillInfo = ({ match }) => {
                         rtl: i18n.language === 'ar',
                         placement: 'bottomRight'
                     })
+                    window.location.reload()
                     return true
 
                 }

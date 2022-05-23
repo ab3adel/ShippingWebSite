@@ -170,7 +170,17 @@ export const Offer = (props) => {
       : null
 
   );
-  console.error('AsynactiveOfferactiveOffer activeOffer: ', activeOffer);
+ const removeCharge=(order) =>{
+console.log(order)
+    let arr = []
+    if (formFields['addedCharges']) {
+      arr = [...formFields['addedCharges']]
+    }
+   let newArr= arr.filter((ele,index)=>index !== order )
+    handleFields(pre => ({ ...pre, addedCharges: newArr }))
+    return true
+  }
+
   return (
 
     <div className="offerContainer">
@@ -242,13 +252,16 @@ export const Offer = (props) => {
                 {
                   formFields['addedCharges'].map((ele, index) => {
                     return (
-                      <div className="col-md-12 col-sm-12 d-flex justify-content-center" key={index}>
+                      <div className="col-md-12 col-sm-12 d-flex justify-content-center align-items-center" 
+                      key={index}>
 
                         <div className='offerDetail ' >
                           {ele.name}
 
                           <div className='bold'>{ele.value}{` ${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}</div>
                         </div>
+                        <i className="fa fa-close" aria-hidden="true"
+                                                        onClick={() => removeCharge(index)} ></i>
                       </div>
                     )
                   })
