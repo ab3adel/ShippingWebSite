@@ -461,7 +461,7 @@ const RecipientInfo = () => {
                                                                                     </h6>
                                                                                 </div>
                                                                                 <div className="col-6 col-sm-6 col-md-6">
-                                                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Address Information`}</p>
+                                                                                    <p className="m-b-10 f-w-600">{i18n.language == 'ar' ? `علامات مميزة للعنوان` : `Distinctive signs of address`}</p>
                                                                                     <h6 className="text-muted f-w-400">{address.line_2 ? address.line_2 : '-'}
                                                                                     </h6>
                                                                                 </div>
@@ -702,13 +702,13 @@ const RecipientInfo = () => {
                                         label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
                                         name="email"
                                         type='email'
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: i18n.language == 'ar' ? `الرجاء ادخل البريد الالكتروني للمستلم!` : 'Please Input Recipient Email!',
-                                            },
+                                    // rules={[
+                                    //     {
+                                    //         required: true,
+                                    //         message: i18n.language == 'ar' ? `الرجاء ادخل البريد الالكتروني للمستلم!` : 'Please Input Recipient Email!',
+                                    //     },
 
-                                        ]}
+                                    // ]}
                                     >
                                         {/* type='email' */}
                                         <Input type='email' placeholder={`email@example.com`} />

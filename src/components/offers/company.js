@@ -68,13 +68,13 @@ export const Company = (props) => {
                                 <div className='col-6 textStart p-0'> {t('Delivery Date')}<span>:</span> </div>
                                 <div className='col-6 textStart px-2 bold'>{deliveryDate ? deliveryDate : "-"}</div>
                             </div>
-                            <div className="detail note mx-auto">
-                                {/* <div > </div> */}
-                                {/* <div className='bold'> */}
-                                {/* {t('P.S')} <span>:</span> */}
-                                ({companyName === 'Aramex' ? t('NoTax') : t('Tax')})
-                                {/* </div> */}
-                            </div>
+                            {/* <div className="detail note mx-auto">
+                                <div > </div>
+                                <div className='bold'>
+                                {t('P.S')} <span>:</span>
+                                ({companyName !== 'Aramex' ? t('NoTax') : t('Tax')})
+                                </div>
+                            </div> */}
                         </>
                             :
                             <div className='detail mx-auto'>

@@ -28,7 +28,7 @@ import {
 } from "react-share";
 import { AddCharges } from '../addedCharges/addedCharge'
 export const Offer = (props) => {
-  const { formFields, activeOffer, handleFields, disableButton } = props
+  const { formFields, activeOffer, handleFields, disableButton, dateString } = props
   const [t, i18n] = useTranslation();
   const [visible, setVisible] = useState(false)
   const [payer, setPayer] = useState('sender')
@@ -37,6 +37,10 @@ export const Offer = (props) => {
   const [loading, setLoading] = useState(false)
   const [urlPay, setUrlPay] = useState('')
   const [urlToken, setUrlToken] = useState([])
+  const [showShare, setShowShare] = useState(false)
+  const handleVisibleChange = (newVisible) => {
+    setShowShare(newVisible);
+  };
 
   const onChange = (e) => {
     setPayer(e.target.value)
@@ -83,6 +87,7 @@ export const Offer = (props) => {
         setUrlPay(response.transaction.url)
         setUrlToken(response.transaction.url.split('&'))
         if ((payer === 'sender')) { window.open(response.transaction.url) }
+        if (payer === 'recipient') { setShowShare(true) }
       }
 
     } catch (err) {
@@ -170,13 +175,13 @@ export const Offer = (props) => {
       : null
 
   );
- const removeCharge=(order) =>{
-console.log(order)
+  const removeCharge = (order) => {
+    console.log(order)
     let arr = []
     if (formFields['addedCharges']) {
       arr = [...formFields['addedCharges']]
     }
-   let newArr= arr.filter((ele,index)=>index !== order )
+    let newArr = arr.filter((ele, index) => index !== order)
     handleFields(pre => ({ ...pre, addedCharges: newArr }))
     return true
   }
@@ -197,13 +202,13 @@ console.log(order)
             <div className='bold'>{activeOffer['CompanyName']}</div>
           </div>
         </div>
+
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
-            {t('Price')}
-            <div className='bold'>{activeOffer['OfferPrice'].toFixed(2)}{` ${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}</div>
+            {t("Weight")}
+            <div className='bold'>{formFields['Weight']}{` ${i18n.language === 'ar' ? '(كجم)' : "(KG)"}`}</div>
           </div>
         </div>
-
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
             {t("Shipment Type")}
@@ -232,13 +237,13 @@ console.log(order)
           <div className='offerDetail '>
             {/* {t("Date")} */}
             {` ${i18n.language === 'ar' ? 'التاريخ' : "Date"}`}
-            <div className='bold'>{formFields['Date']}</div>
+            <div className='bold'>{dateString}</div>
           </div>
         </div>
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
-            {t("Weight")}
-            <div className='bold'>{formFields['Weight']}{` ${i18n.language === 'ar' ? '(كجم)' : "(KG)"}`}</div>
+            {t('Price')}
+            <div className='bold'>{activeOffer['OfferPrice'].toFixed(2)}{` ${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}</div>
           </div>
         </div>
         <div className="col-md-12 col-sm-12 d-flex justify-content-center m-0">
@@ -252,8 +257,8 @@ console.log(order)
                 {
                   formFields['addedCharges'].map((ele, index) => {
                     return (
-                      <div className="col-md-12 col-sm-12 d-flex justify-content-center align-items-center" 
-                      key={index}>
+                      <div className="col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
+                        key={index}>
 
                         <div className='offerDetail ' >
                           {ele.name}
@@ -261,7 +266,7 @@ console.log(order)
                           <div className='bold'>{ele.value}{` ${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}</div>
                         </div>
                         <i className="fa fa-close" aria-hidden="true"
-                                                        onClick={() => removeCharge(index)} ></i>
+                          onClick={() => removeCharge(index)} ></i>
                       </div>
                     )
                   })
@@ -350,7 +355,7 @@ console.log(order)
                       disabled={loading}
                     >
 
-                      {payer === 'recipient' ? i18n.language === 'ar' ? "الحصول على رابط الدفع" : "Get Pay URL" : null}
+                      {payer === 'recipient' ? i18n.language === 'ar' ? "مشاركة  رابط الدفع" : "Share Pay URL" : null}
                       {payer === 'sender' ? i18n.language === 'ar' ? "الذهاب للدفع" : "Go To Payment Page" : null}
                       {payer === 'cash' ? i18n.language === 'ar' ? "حفظ" : "Save" : null}
 
@@ -363,9 +368,11 @@ console.log(order)
                       <Popover content={content} title={i18n.language === 'ar' ?
                         "مشاركة"
                         :
-                        "Share "} trigger="click">
+                        "Share "} trigger="click"
+                        visible={showShare}
+                        onVisibleChange={handleVisibleChange}>
                         <Button className='ant-btn ant-btn-default addInFormBTN col-md-4'>     {i18n.language === 'ar' ?
-                          "مشاركة الرابط"
+                          "مشاركة  رابط الدفع"
                           :
                           "Share Pay URL"}</Button>
                       </Popover>

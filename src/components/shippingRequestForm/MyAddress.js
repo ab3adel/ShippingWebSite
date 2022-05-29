@@ -7,7 +7,7 @@ const MyAddress = ({ myAddress }) => {
     return (
         <div className="row myAddressRow">
             <div className=" addressDetail ">
-
+                {/* <strong>{i18n.language === 'ar' ? 'الدولة : ' : "Country : "}</strong> */}
                 <h6 className=" f-w-400">{myAddress.city.country.country_name_en}{' / '}{myAddress.country_code}
                 </h6>
             </div>

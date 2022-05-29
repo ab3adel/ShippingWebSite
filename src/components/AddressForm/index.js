@@ -77,7 +77,7 @@ const NewAddress = (props) => {
         let data = {
             customer_id: profile.customer.id,
             address: {
-                city_id: values.city,
+                city_id: isSender ? 134609 : values.city,
                 line_1: country === 117 ?
                     `{"Area":"${values.area}", "Block":"${values.Block}", "Jaddah":"${values.jaddah ? values.jaddah : ""}" }`
                     :
@@ -286,7 +286,7 @@ const NewAddress = (props) => {
                 layout="vertical"
             >
                 <div className='row'>
-                    {!isSender && type === "Recipient" && (
+                    {!isSender && type === "Recipient" ?
 
                         <>
                             <div className='col-md-6'>
@@ -322,7 +322,52 @@ const NewAddress = (props) => {
                                 <Input placeholder={i18n.language == 'ar' ? `الاسم الانكليزي` : `English Name`} />
                             </Form.Item>
                             </div>
+                            <div className='col-md-6'>
+                                <Form.Item
+                                    autoComplete='none'
+                                    name="country"
+                                    label={t('Country')}
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: t('Required')
+                                        }
+                                    ]}
+                                >
+                                    <Select
+                                        autoComplete='none'
+                                        disabled={isSender && type === "Address"}
+                                        showSearch
+                                        optionFilterProp="children"
+                                        value={country}
+                                        onChange={handleCountryChange}
+                                        // onSearch={onSearch}
+                                        listItemHeight={10}
+                                        //  listHeight={250}
 
+                                        placeholder={t('Country')}
+                                        direction={i18n === "ar" ? 'rtl' : 'ltr'}
+                                        className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}>
+                                        {countries.map((item) => {
+                                            return (
+                                                <React.Fragment key={item.id}>
+                                                    {type === "Recipient" && item.id == 117 ?
+                                                        null
+                                                        :
+                                                        <Option value={item.id}>
+                                                            {i18n.language === 'ar' ?
+                                                                item.country_name_ar ? item.country_name_ar : item.country_name_en
+                                                                : item.country_name_en}
+                                                            {' / '}{item.country_code}</Option>
+                                                    }
+
+                                                </React.Fragment>
+
+                                            )
+                                        })}
+                                    </Select>
+                                </Form.Item>
+                            </div>
                             <div className='col-md-6'>
                                 <Form.Item
                                     label={i18n.language == 'ar' ? `الهاتف` : `Phone`}
@@ -358,14 +403,14 @@ const NewAddress = (props) => {
                                 <Form.Item
                                     label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
                                     name="email"
-                                    // type='email'
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: i18n.language == 'ar' ? `الرجاء ادخل البريد الالكتروني للمستلم!` : 'Please Input Recipient Email!',
-                                        },
+                                // type='email'
+                                // rules={[
+                                //     {
+                                //         required: true,
+                                //         message: i18n.language == 'ar' ? `الرجاء ادخل البريد الالكتروني للمستلم!` : 'Please Input Recipient Email!',
+                                //     },
 
-                                    ]}
+                                // ]}
                                 >
                                     {/* type='email' */}
                                     <Input placeholder={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`} />
@@ -373,109 +418,62 @@ const NewAddress = (props) => {
                             </div>
                         </>
 
-
-                    )}
-                    {/* <div className='col-md-6'>
-                        <Form.Item
-                            name="type"
-                            label={t('Type')}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: t('Required')
-                                }
-                            ]}
-                        >
-                            <Select placeholder={t('Type')}
-                                className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}
-                                direction={i18n.language === "ar" ? 'rtl' : 'ltr'}>
-                                {types.map((ele, index) => {
-                                    return (
-                                        <Option value={ele} key={index} >
-                                            <div className={i18n.language === "ar" ? 'toRight' : ""}>
-                                                {ele}
-                                            </div>
-
-                                        </Option>)
-                                })}
-                            </Select>
-                        </Form.Item>
-                    </div>
-                    <div className='col-md-6'>
-                        <Form.Item
-                            name="main"
-                            label={t('Main Address')}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: t('Required')
-                                }
-                            ]}
-                        >
-                            <Select placeholder={t('Main Address')}
-                                className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}
-                                direction={i18n.language === "ar" ? 'rtl' : 'ltr'}>
-                                <Option value={'main'}>
-                                    <div className={i18n.language === "ar" ? 'toRight' : ""}>
-                                        {t('Main')}
-                                    </div>
-                                </Option>
-                                <Option value={'extra'}>
-                                    <div className={i18n.language === "ar" ? 'toRight' : ""}>
-
-                                        {t('Extra')}
-                                    </div>
-                                </Option>
-                            </Select>
-                        </Form.Item>
-                    </div> */}
-                    <div className='col-md-6'>
-                        <Form.Item
-                            autoComplete='none'
-                            name="country"
-                            label={t('Country')}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: t('Required')
-                                }
-                            ]}
-                        >
-                            <Select
-                                autoComplete='none'
-                                disabled={isSender && type === "Address"}
-                                showSearch
-                                optionFilterProp="children"
-                                value={country}
-                                onChange={handleCountryChange}
-                                // onSearch={onSearch}
-                                listItemHeight={10}
-                                //  listHeight={250}
-
-                                placeholder={t('Country')}
-                                direction={i18n === "ar" ? 'rtl' : 'ltr'}
-                                className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}>
-                                {countries.map((item) => {
-                                    return (
-                                        <React.Fragment key={item.id}>
-                                            {type === "Recipient" && item.id == 117 ?
-                                                null
-                                                :
-                                                <Option value={item.id}>
-                                                    {i18n.language === 'ar' ?
-                                                        item.country_name_ar ? item.country_name_ar : item.country_name_en
-                                                        : item.country_name_en}
-                                                    {' / '}{item.country_code}</Option>
+                        :
+                        <>
+                            {isSender ? null :
+                                <div className='col-md-6'  >
+                                    <Form.Item
+                                        autoComplete='none'
+                                        name="country"
+                                        label={t('Country')}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: t('Required')
                                             }
+                                        ]}
+                                    >
+                                        <Select
+                                            autoComplete='none'
+                                            disabled={isSender && type === "Address"}
+                                            showSearch
+                                            optionFilterProp="children"
+                                            value={country}
+                                            onChange={handleCountryChange}
+                                            // onSearch={onSearch}
+                                            listItemHeight={10}
+                                            //  listHeight={250}
 
-                                        </React.Fragment>
+                                            placeholder={t('Country')}
+                                            direction={i18n === "ar" ? 'rtl' : 'ltr'}
+                                            className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}>
+                                            {countries.map((item) => {
+                                                return (
+                                                    <React.Fragment key={item.id}>
+                                                        {type === "Recipient" && item.id == 117 ?
+                                                            null
+                                                            :
+                                                            <Option value={item.id}>
+                                                                {i18n.language === 'ar' ?
+                                                                    item.country_name_ar ? item.country_name_ar : item.country_name_en
+                                                                    : item.country_name_en}
+                                                                {' / '}{item.country_code}</Option>
+                                                        }
 
-                                    )
-                                })}
-                            </Select>
-                        </Form.Item>
-                    </div>
-                    <div className='col-md-6'>
+                                                    </React.Fragment>
+
+                                                )
+                                            })}
+                                        </Select>
+                                    </Form.Item>
+                                </div>
+
+                            }
+                        </>
+
+                    }
+
+                    {isSender ? null : <div className='col-md-6'  >
                         <Form.Item
                             autoComplete='none'
                             name="city"
@@ -509,7 +507,8 @@ const NewAddress = (props) => {
                                 })}
                             </Select>
                         </Form.Item>
-                    </div>
+                    </div>}
+
                     {country === 117 ?
                         <>
                             <div className='col-md-6 col-lg-4'>
@@ -612,7 +611,7 @@ const NewAddress = (props) => {
                         :
                         <>
 
-                            <div className='col-md-6 col-lg-6'>
+                            <div className='col-md-12 col-lg-12'>
                                 <Form.Item
                                     label={i18n.language == 'ar' ? `العنوان الكامل` : `Full Address`}
                                     rules={[
@@ -634,12 +633,12 @@ const NewAddress = (props) => {
                             </div>
                             <div className='col-md-6 col-lg-6'>
                                 <Form.Item
-                                    label={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`}
+                                    label={i18n.language == 'ar' ? `علامات مميزة للعنوان` : `Distinctive signs of address`}
 
                                     name="line_2"
                                 >
 
-                                    <Input placeholder={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`} />
+                                    <Input placeholder={i18n.language == 'ar' ? `علامات مميزة للعنوان` : `Distinctive signs of address`} />
                                 </Form.Item>
 
 

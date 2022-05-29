@@ -83,7 +83,7 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
             // recipient_id: null,
 
             address: {
-                city_id: values.city_id,
+                city_id: 134609,
                 // country_code: values.country_code,
                 line_1: country === 117 ?
                     `{"Area":"${values.area}", "Block":"${values.Block}", "Jaddah":"${values.jaddah ? values.jaddah : ""}" }`
@@ -227,7 +227,7 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
                 </h4>
 
                 </div>
-                <div className='col-md-4 col-lg-3'>
+                <div className='col-md-4 col-lg-3' style={{ display: 'none' }}>
                     <Form.Item
                         label={i18n.language == 'ar' ? `الدولة` : `Country`}
                         name="country_id"
@@ -259,15 +259,15 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
 
 
                 </div>
-                <div className='col-md-4 col-lg-3'>
+                <div className='col-md-4 col-lg-3' style={{ display: 'none' }}>
                     <Form.Item
                         label={i18n.language == 'ar' ? `المدينة` : `City`}
                         name="city_id"
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل حقل مدينة المستلم` : 'Please Input Recipient City !',
-                            }]}
+                    // rules={[
+                    //     {
+                    //         required: true,
+                    //         message: i18n.language == 'ar' ? `الرجاء ادخل حقل مدينة المستلم` : 'Please Input Recipient City !',
+                    //     }]}
                     >
 
                         <Select

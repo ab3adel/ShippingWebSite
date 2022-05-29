@@ -84,7 +84,7 @@ export const columns = [
         sortable: true
     },
     {
-        name: getI18n().language == 'ar' ? `معرف الشحنة` : `Shipment Id`,
+        name: getI18n().language == 'ar' ? `رقم التتبع` : `Tracking Number`,
 
         selector: (row) => row.shipment_id ? row.shipment_id : '-',
         sortable: true

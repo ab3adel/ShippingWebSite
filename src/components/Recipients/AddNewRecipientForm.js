@@ -356,13 +356,13 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                         label={i18n.language == 'ar' ? `البريد الالكتروني` : `Email`}
                         name="email"
                         type='email'
-                        rules={[
-                            {
-                                required: true,
-                                message: i18n.language == 'ar' ? `الرجاء ادخل البريد الالكتروني للمستلم!` : 'Please Input Recipient Email!',
-                            },
+                    // rules={[
+                    //     {
+                    //         required: true,
+                    //         message: i18n.language == 'ar' ? `الرجاء ادخل البريد الالكتروني للمستلم!` : 'Please Input Recipient Email!',
+                    //     },
 
-                        ]}
+                    // ]}
                     >
                         {/* type='email' */}
                         <Input type='email' placeholder={`email@example.com`} />
@@ -583,12 +583,12 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
                         </div>
                         <div className='col-md-6 col-lg-4'>
                             <Form.Item
-                                label={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`}
+                                label={i18n.language == 'ar' ? `علامات مميزة للعنوان` : `Distinctive signs of address`}
 
                                 name="line_2"
                             >
 
-                                <Input placeholder={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`} />
+                                <Input placeholder={i18n.language == 'ar' ? `علامات مميزة للعنوان` : `Distinctive signs of address`} />
                             </Form.Item>
 
 

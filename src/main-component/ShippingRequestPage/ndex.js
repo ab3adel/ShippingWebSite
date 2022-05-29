@@ -35,7 +35,7 @@ const ShippingRequest = () => {
         // SenderAddress: '',
         RecipientAddress: ''
         , Type: '', Date: '', Width: '', Length: '', Recipient: "",
-        Category: "", NumberOfPieces: "", DocumentShipment: '',
+        Category: "", NumberOfPieces: 1, DocumentShipment: '',
         Height: '', Weight: '', Hermonized: '1',
         HermonizedError: false, Price: "", PriceError: "", ShipmentPurpose: "PERSONAL_USE",
         ShipmentPurposeError: false,
@@ -47,6 +47,7 @@ const ShippingRequest = () => {
     })
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
     let [stage, setStage] = useState(1)
+    let [dateString, setDateString] = useState("")
     let [rateStatus, setRateStatus] = useState(1)
     let [myAddress, setMyAddress] = useState()
     let [recipients, setRcipients] = useState()
@@ -197,8 +198,9 @@ const ShippingRequest = () => {
                     collection[0].classList.add('previousStage')
                     collection[0].classList.remove('currentStage')
                     inbetweenStages[0].classList.add('inprogress')
-                    inbetweenStages[0].style.visibility='visible'
+                    inbetweenStages[0].style.visibility = 'visible'
                     setStage(2)
+                    goTostart("indeCator")
                 }
             }
             if (stage === 2) {
@@ -208,9 +210,9 @@ const ShippingRequest = () => {
 
                 inbetweenStages[0].classList.remove('inprogress')
                 inbetweenStages[1].classList.add('inprogress')
-              
-                setStage(3)
 
+                setStage(3)
+                goTostart("indeCator")
             }
             if (stage === 3) return
 
@@ -220,9 +222,10 @@ const ShippingRequest = () => {
             if (stage === 1) {
                 collection[1].classList.remove('previousStage')
                 collection[1].classList.remove('currentStage')
-               
+
                 inbetweenStages[0].classList.remove('inprogress')
                 inbetweenStages[1].classList.remove('inprogress');
+                goTostart("indeCator")
                 return
             }
             if (stage === 2) {
@@ -232,24 +235,31 @@ const ShippingRequest = () => {
                 collection[0].classList.add('currentStage')
                 inbetweenStages[0].classList.remove('inprogress')
                 setStage(1)
+                goTostart("indeCator")
             }
-            if (stage ===3) {
+            if (stage === 3) {
                 collection[2].classList.remove('previousStage')
                 collection[2].classList.remove('currentStage')
                 collection[1].classList.remove('previousStage')
                 collection[1].classList.add('currentStage')
                 inbetweenStages[1].classList.remove('inprogress')
                 inbetweenStages[0].classList.add('inprogress')
+
                 setStage(2)
+                goTostart("indeCator")
 
             }
-            
-         
+
+
 
 
         }
 
 
+    }
+    const handleChangeDate = (date, stringDate) => {
+        handleFields("Date", date)
+        setDateString(stringDate)
     }
     const handleFields = (name, value) => {
         setErrorMessage('')
@@ -348,9 +358,9 @@ const ShippingRequest = () => {
             category_id: formFields.Category,
             xLocale: i18n.language === "ar" ? "ar_AE" : "en_US",
             recipientAddressId: formFields.RecipientAddress,
-            shipDateStamp: formFields.Date,
+            shipDateStamp: dateString,
             NumberOfPieces: formFields.NumberOfPieces,
-            // CustomsValueAmount: formFields.CustomsAmount,
+            CustomsValueAmount: formFields.Price,
             // GoodsOriginCountryCode: formFields.Country,
             harmonizedCode: formFields.Hermonized,
             unitPrice: formFields.Price,
@@ -389,7 +399,7 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-     
+
             if (response instanceof Array) {
                 setLoading(false)
                 setErrorMessage({ error: i18n.language === 'ar' ? "التصنيف غير مدعوم" : "Category Not Supported" })
@@ -399,7 +409,7 @@ const ShippingRequest = () => {
                 setRateStatus(response)
                 setSuccess(true)
                 setLoading(false)
-                goTostart("offersDIV")
+                goTostart("indeCator")
                 return true
 
             }
@@ -429,6 +439,7 @@ const ShippingRequest = () => {
 
 
     };
+    // console.log("formFields",formFields)
     const saveOffer = () => {
         let collection = document.querySelectorAll('.stage')
         let inbetweenStages = document.querySelectorAll('.inbetweenStages')
@@ -436,7 +447,7 @@ const ShippingRequest = () => {
         let formData = {
             company_id: formFields.company_id, serviceType: formFields.serviceType,
             serviceName: formFields.serviceName, serviceCode: formFields.serviceCode,
-            serviceId: formFields.serviceId, ship_date: formFields.Date,
+            serviceId: formFields.serviceId, ship_date: dateString,
             width: formFields.Width, height: formFields.Height, length: formFields.Length,
             subPackagingType: formFields.Type, documentShipment: formFields.DocumentShipment,
             shipmentPurpose: formFields.ShipmentPurpose, harmonizedCode: formFields.Hermonized,
@@ -447,7 +458,7 @@ const ShippingRequest = () => {
             recipient_address_id: formFields.RecipientAddress, category_id: formFields.Category,
             customer_id: profile.customer.id, commodityName: formFields.commodityName,
             addedCharges: formFields.addedCharges ? formFields.addedCharges : [],
-            payment_method: 'online'
+            payment_method: 'online', CustomsValueAmount: formFields.Price,
         }
 
         fetch(global.apiUrl + 'api/offers', {
@@ -569,7 +580,7 @@ const ShippingRequest = () => {
                             </div>
                             <div  className=" col-1"  ></div>
                         </div> */}
-                        <div className=" col-md-9 row ">
+                        <div className=" col-md-9 row " id="indeCator" style={{ direction: "rtl" }}>
 
                             <div
                                 className="   horizonal-align 
@@ -621,6 +632,7 @@ const ShippingRequest = () => {
                                     formFields={formFields}
                                     handleAddressForm={handleAddressForm}
                                     errorMessage={errorMessage}
+                                    handleChangeDate={handleChangeDate}
                                 />
 
                             )}
@@ -635,7 +647,7 @@ const ShippingRequest = () => {
                                 stage === 3 && (<Offer
                                     activeOffer={activeOffer}
                                     handleFields={setFormFields}
-
+                                    dateString={dateString}
                                     formFields={formFields}
                                     disableButton={disableButton}
                                 />)

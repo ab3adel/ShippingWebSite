@@ -225,7 +225,7 @@ const BillInfo = ({ match }) => {
                                             <div className="card-block">
                                                 <h6 className="m-b-20 p-b-5 b-b-default f-w-600 text-center">
 
-                                                    {i18n.language == 'ar' ? `رقم الشحنة` : `Shipment Number`} {' / '}{activeBill.shipment_id ? activeBill.shipment_id : "-"}
+                                                    {i18n.language == 'ar' ? `رقم التتبع` : `Tracking Number`} {' / '}{activeBill.shipment_id ? activeBill.shipment_id : "-"}
                                                 </h6>
                                                 <div className="row">
                                                     {details.offerInfo.map((ele, index) => {

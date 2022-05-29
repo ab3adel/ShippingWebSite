@@ -28,7 +28,34 @@ const WpoFeatures = () => {
                 <div className="row">
                     <div className="col-lg-4 col-md-6">
                         <div className="wpo-features-item-2">
-                            <div className="col-lg-12 col-md-12 col-sm-12">
+                            <div className="col-lg-12 col-md-6 col-sm-12">
+                                <div className="wpo-feature-wrap">
+                                    <div className="wpo-features-icon">
+                                        <i className="fi flaticon-ship"></i>
+                                    </div>
+                                    <div className="wpo-features-text">
+                                        <h3>
+                                            {i18n.language === 'ar' ?
+                                                "الشحن الأسرع"
+                                                :
+                                                " Quickest Cargo"
+                                            }
+
+                                        </h3>
+                                        <p>
+                                            {i18n.language === 'ar' ?
+                                                "قادرين على التعامل مع المركبات و البضائع و نقلها من أي مكان في جميع أنحاء قارات أوروبا و افريقيا و أمريكا و آسيا و استراليا, بما يتماشى مع متطلبات العملاء"
+
+                                                :
+                                                "Able to deal with vehicles and goods and transport them from anywhere throughout the continents of Europe, Africa, America, Asia and Australia, in line with customer requirements"
+                                            }
+
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* <div className="col-lg-12 col-md-12 col-sm-12">
                                 <div className="wpo-feature-wrap">
                                     <div className="wpo-features-icon2">
                                         <i className="fi flaticon-plane"></i>
@@ -79,7 +106,7 @@ const WpoFeatures = () => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="col-lg-4 col-md-6">
@@ -91,7 +118,7 @@ const WpoFeatures = () => {
                     </div>
                     <div className="col-lg-4">
                         <div className="wpo-features-item">
-                            <div className="col-lg-12 col-md-6 col-sm-12">
+                            {/* <div className="col-lg-12 col-md-6 col-sm-12">
                                 <div className="wpo-feature-wrap">
                                     <div className="wpo-features-icon">
                                         <i className="fi flaticon-ship"></i>
@@ -117,7 +144,7 @@ const WpoFeatures = () => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="col-lg-12 col-md-6 col-sm-12">
                                 <div className="wpo-feature-wrap">
                                     <div className="wpo-features-icon">

@@ -46,7 +46,7 @@ const Aboutpage = () => {
             {/* <Navbar /> */}
             <Breadcumb bdtitle={i18n.language === 'ar' ? `من نحن` : `About Us`} bdsub={i18n.language === 'ar' ? `من نحن` : `About Us`} />
             <Features2 />
-            <AboutSection2 />
+            {/* <AboutSection2 /> */}
             {data && <AboutSection4 data={data} />}
             {/* <Mission /> */}
             {/* <TeamSection /> */}

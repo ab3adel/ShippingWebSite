@@ -27,6 +27,7 @@ export const PaymentForm = (props) => {
     let { open, setOpen, paymentUrl, handlePayment, recipientPhone } = props
     const [payer, setPayer] = useState('sender')
     const [method, setMethod] = useState('online')
+    const [showShare, setShowShare] = useState(true)
     let [showLabel, setShowLabel] = useState(false)
 
     const { t, i18n } = useTranslation()
@@ -115,7 +116,9 @@ export const PaymentForm = (props) => {
 
         </div>
     );
-
+    const handleVisibleChange = (newVisible) => {
+        setShowShare(newVisible);
+    };
     return (
 
 
@@ -180,7 +183,11 @@ export const PaymentForm = (props) => {
                             <Popover content={content} title={i18n.language === 'ar' ?
                                 "مشاركة"
                                 :
-                                "Share "} trigger="click">
+                                "Share "} trigger="click"
+                                visible={showShare}
+                                onVisibleChange={handleVisibleChange}
+
+                            >
                                 <Button className='ant-btn ant-btn-default addInFormBTN col-md-12' >     {i18n.language === 'ar' ?
                                     "مشاركة الرابط"
                                     :

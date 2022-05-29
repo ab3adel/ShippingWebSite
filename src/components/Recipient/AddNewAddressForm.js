@@ -468,12 +468,12 @@ const AddNewAddressForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refres
                         </div>
                         <div className='col-md-6 col-lg-4'>
                             <Form.Item
-                                label={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`}
+                                label={i18n.language == 'ar' ? `علامات مميزة للعنوان` : `Distinctive signs of address`}
 
                                 name="line_2"
                             >
 
-                                <Input placeholder={i18n.language == 'ar' ? `إضافة على العنوان` : `Extra Addres Information`} />
+                                <Input placeholder={i18n.language == 'ar' ? `علامات مميزة للعنوان` : `Distinctive signs of address`} />
                             </Form.Item>
 
 

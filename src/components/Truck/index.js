@@ -45,6 +45,11 @@ const TruckArea = (props) => {
                 setLoading(false)
                 return
             }
+            if (response.message) {
+                errorMsg(response.message)
+                setLoading(false)
+                return
+            }
             if (data.cName === 'DHL') {
                 if (response.shipments) {
                     setLoading(false)
@@ -147,7 +152,21 @@ const TruckArea = (props) => {
     }
 
 
+    function errorMsg(msg) {
+        Modal.error({
+            direction: i18n.language === 'ar' ? 'rtl' : 'ltr',
+            className: '',
+            wrapClassName: "modalMessage",
+            okText: i18n.language === 'ar' ? "اغلاق" : "Close",
+            title: i18n.language === 'ar' ? "حدث خطأ" : "Error",
+            content: (
 
+                <div >
+                    <p   >{msg}</p>
+                </div>
+            ),
+        });
+    }
 
     return (
         <section className="wpo-track-section">

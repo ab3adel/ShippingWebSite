@@ -13,7 +13,7 @@ const Contactpage = () => {
                     <div className="col-lg-5 col-md-12">
                         <div className="contact-page-item">
                             <h2>{i18n.language === 'ar' ? `معلومات التواصل` : `Contact Information`}</h2>
-                            <p>
+                            {/* <p>
                                 {i18n.language === 'ar' ?
                                     `خلافًا للاعتقاد الشائع ، فإن لوريم إيبسوم ليس مجرد نص عشوائي.
                                      لها جذور في قطعة من الأدب اللاتيني الكلاسيكي من 45 قبل الميلاد ، مما يجعلها أكثر من 2000 عام.`
@@ -22,7 +22,7 @@ const Contactpage = () => {
                              It has roots in a piece of classNameical Latin literature from 45 BC, making it over 2000 years old.`
                                 }
 
-                            </p>
+                            </p> */}
                             {/* <div className="adress">
                                 <h3>{i18n.language === 'ar' ? `العنوان` : `Address`}</h3>
                                 <span>

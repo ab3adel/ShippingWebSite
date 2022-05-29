@@ -3,7 +3,7 @@ import React, { Component, useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
-import { Select, Form, Input, Button, Divider } from 'antd';
+import { Select, Form, Input, Button, Divider, DatePicker } from 'antd';
 import { Alert } from 'antd';
 import Fade from 'react-reveal/Fade';
 import MyAddress from './MyAddress';
@@ -15,7 +15,7 @@ import { OptionRemovable } from '../OptionRemovable/optionremovable'
 export const ShippingRequestForm = (props) => {
     const { errorMessage, countries,
         profile, typesArr, recipients, handleFields,
-        formFields, handleAddressForm, myAddress } = props
+        formFields, handleAddressForm, myAddress, handleChangeDate } = props
     let history = useHistory();
     const [t, i18n] = useTranslation();
 
@@ -362,12 +362,16 @@ export const ShippingRequestForm = (props) => {
                 </div>}
                 {activeAddress &&
                     <>
-                        <div className='col-md-12 formLabel'> {i18n.language === "ar" ?
+                        <div className=' col-md-12   '>
+                            <div className='col-md-12 formLabel'><i class="fa fa-map-marker" aria-hidden="true"></i> {i18n.language === "ar" ? "عنوان المرسل اليه :" : "Recipient Address:"} </div>
+                            <MyAddress myAddress={activeAddress} />
+                        </div>
+                        {/* <div className='col-md-12 formLabel'> {i18n.language === "ar" ?
                             "معلومات المرسل إليه :"
                             :
                             "Recipent Information :"}
                         </div>
-                        <MyAddress myAddress={activeAddress} />
+                        <MyAddress myAddress={activeAddress} /> */}
                     </>
                 }
                 <Divider orientation='horizonal col-md-6' />
@@ -451,7 +455,7 @@ export const ShippingRequestForm = (props) => {
                         </Select>
                     </Form.Item>
                 </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
+                {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('NumberOfPieces')}
                         name='NumberOfPieces'
@@ -470,7 +474,7 @@ export const ShippingRequestForm = (props) => {
                             onChange={handleChange} />
                     </Form.Item>
 
-                </div>
+                </div> */}
                 {/* <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
                         label={t('groupPackageCount')}
@@ -516,7 +520,7 @@ export const ShippingRequestForm = (props) => {
                             name="CustomsAmount"
                             type="number"
                             min="0"
-                            max='100'
+                            // max='100'
                             placeholder={`(${i18n.language === 'ar' ? "د.ك" : "KWD"})`}
                             value={formFields["CustomsAmount"]}
                             onChange={handleChange} />
@@ -525,7 +529,7 @@ export const ShippingRequestForm = (props) => {
 
                 <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-4'>
                     <Form.Item
-                        label={`${t('UnitPrice')}`}
+                        label={`${t('CustomsAmount')}`}
                         name='Price'
                         rules={[{ required: true, message: t('Required'), },]}
                         validateStatus={formFields['PriceError'] ? "error" : ""}
@@ -551,13 +555,19 @@ export const ShippingRequestForm = (props) => {
                         ]}
                         validateStatus={formFields['DateError'] ? "error" : ""}
                     >
+                        <DatePicker
+                            dropdownClassName="datePopUP"
+                            className=""
+                            name="Date"
+                            placeholder={t('Sending Date')}
+                            value={formFields["Date"]}
+                            onChange={(date, dateString) => handleChangeDate(date, dateString)} />
 
-
-                        <Input
+                        {/* <Input
                             name="Date"
                             type="date"
                             value={formFields["Date"]}
-                            onChange={handleChange} />
+                            onChange={handleChange} /> */}
                     </Form.Item>
                 </div>
                 {/* <div className='col-md-6 col-lg-4 col-sm-6'>
@@ -634,6 +644,7 @@ export const ShippingRequestForm = (props) => {
                             name="Width"
                             min='0'
                             value={formFields["Width"]}
+                            disabled={formFields.Type === "BAG" || formFields.Type === "ENVELOPE"}
                             placeholder={t('Width')}
                             onChange={handleChange} />
                     </Form.Item>
@@ -651,6 +662,7 @@ export const ShippingRequestForm = (props) => {
                     >
                         <Input
                             value={formFields["Height"]}
+                            disabled={formFields.Type === "BAG" || formFields.Type === "ENVELOPE"}
                             type="number"
                             name="Height"
                             min='0'
@@ -675,6 +687,7 @@ export const ShippingRequestForm = (props) => {
                     >
 
                         <Input type="number"
+                            disabled={formFields.Type === "BAG" || formFields.Type === "ENVELOPE"}
                             placeholder={t('Length')}
                             value={formFields["Length"]}
                             name="Length"
