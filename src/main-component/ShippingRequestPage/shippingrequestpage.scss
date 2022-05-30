@@ -75,11 +75,39 @@
     .myAddressRow {
         text-align: start;
         padding-inline: 15px;
+        row-gap: 5px;
     }
 
     .addressDetail {
         position: relative;
-        padding-inline: 15px;
+        padding-inline-start: 15px;
+        display: flex;
+        align-items: center;
+
+        .addrssTitle {
+            position: relative;
+            color: #274091;
+        }
+
+        .colStart {
+            margin-inline-start: 4px;
+            margin-inline-end: 5px;
+            font-weight: 900;
+            display: inline-flex;
+            width: 5px;
+            background: #c60874;
+            height: 74%;
+        }
+
+        .f-w-400 {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            padding-inline-start: 3px;
+            position: relative;
+            font-weight: 500;
+            top: 1px;
+            font-family: "Cairo-Regular";
+        }
     }
 
     .container {

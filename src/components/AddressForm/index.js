@@ -113,7 +113,7 @@ const NewAddress = (props) => {
                 recipient_name_en: values.recipient_name_en,
                 recipient_name_ar: values.recipient_name_ar,
                 recipient_phone: values.recipient_phone,
-                email: values.email,
+                email: values.email ? values.email : '',
             }
         }
 
@@ -595,7 +595,7 @@ const NewAddress = (props) => {
                                     <Input placeholder={t(`Flat`)} />
                                 </Form.Item>
                             </div>
-                            <div className='col-md-6 col-lg-3'>
+                            <div className='col-md-6 col-lg-6'>
                                 <Form.Item
                                     label={t(`PCAIID`)}
                                     // rules={[{

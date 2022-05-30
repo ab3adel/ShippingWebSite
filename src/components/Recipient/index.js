@@ -146,7 +146,7 @@ const RecipientInfo = () => {
         data.append('name_en', values.name_en)
         data.append('phone', values.phone)
         data.append('name_ar', values.name_ar)
-        data.append('email', values.email)
+        data.append('email', values.email ? values.email : "")
 
 
         try {

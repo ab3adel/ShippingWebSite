@@ -129,7 +129,7 @@ const AddNewRecipientForm = ({ setSliderHeightTrigger, sliderHeightTrigger, refr
             recipient_name_en: values.recipient_name_en,
             recipient_name_ar: values.recipient_name_ar,
             recipient_phone: values.recipient_phone,
-            email: values.email,
+            email: values.email ? values.email : '',
             address: {
                 city_id: values.city_id,
                 // country_code: values.country_code,
