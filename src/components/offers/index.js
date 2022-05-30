@@ -6,13 +6,19 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import { Company } from './company'
 const Offers = (props) => {
-    let { setActiveOffer, handleStage, handleFields, rateStatus, success } = props
+    let { setActiveOffer
+        , handleStage
+        , handleFields
+        , rateStatus
+        , success 
+        , expectedArrivalDate} = props
     const [t, i18n] = useTranslation();
     let [data, setData] = useState([])
 
 
     useEffect(() => {
         if (success) {
+            console.log(rateStatus)
             let fedexOutput = null
             let dhlOutput = null
             if (rateStatus && rateStatus.FedEx && rateStatus.FedEx.output && rateStatus.FedEx.output.rateReplyDetails) {
@@ -25,7 +31,8 @@ const Offers = (props) => {
             setData([
                 dhlOutput ? {
                     image: dhl, companyName: 'DHL',
-                    dDate: dhlOutput.deliveryCapabilities.estimatedDeliveryDateAndTime.slice(0, 10)
+                    dDate:dhlOutput.deliveryCapabilities.estimatedDeliveryDateAndTime?
+                      dhlOutput.deliveryCapabilities.estimatedDeliveryDateAndTime.slice(0, 10):expectedArrivalDate
                     , price: dhlOutput.totalNetCharge
                     , msg: rateStatus.DHL.title ? rateStatus.DHL.title : ""
                     , success: rateStatus.DHL.products ? true : false,
@@ -41,7 +48,7 @@ const Offers = (props) => {
                     }
                 ,
                 {
-                    image: ups, companyName: 'Aramex', dDate: "",
+                    image: ups, companyName: 'Aramex', dDate: expectedArrivalDate,
                     price: rateStatus.Aramex.TotalAmount.Value
                     , success: !rateStatus.Aramex.HasErrors, msg: ''
                     , company_id: rateStatus.Aramex.company_id
@@ -51,7 +58,8 @@ const Offers = (props) => {
                 },
                 fedexOutput ? {
                     image: fedex, companyName: 'Fedex',
-                    dDate: fedexOutput && fedexOutput.operationalDetail && fedexOutput.operationalDetail.deliveryDate ? fedexOutput.operationalDetail.deliveryDate.slice(0, 10) : "",
+                    dDate: fedexOutput && fedexOutput.operationalDetail && fedexOutput.operationalDetail.deliveryDate ? 
+                    fedexOutput.operationalDetail.deliveryDate.slice(0, 10) : expectedArrivalDate,
                     price: fedexOutput.ratedShipmentDetails[0].totalNetChargeWithDutiesAndTaxes,
                     success: true, msg: '', serviceType: fedexOutput.serviceType
                     , serviceName: fedexOutput.serviceName, serviceId: fedexOutput.serviceDescription.serviceId,
