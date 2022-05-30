@@ -339,7 +339,7 @@ export const Offer = (props) => {
                 }
               </Link>
             </div>
-            {activeOffer.accepted &&
+            {activeOffer.accepted ?
               <>
                 <div className='col-md-12'>
                   <strong>
@@ -453,11 +453,12 @@ export const Offer = (props) => {
                   </div>
                 </div>
               </>
-
+              : null
             }
 
           </div>
         </>
+
       }
       <AddCharges
         visible={visible}
