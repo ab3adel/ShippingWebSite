@@ -31,6 +31,7 @@ const ShippingRequest = () => {
     const [disableButton, setDisableButton] = React.useState(false)
     const [success, setSuccess] = React.useState()
     const [errorMessage, setErrorMessage] = useState();
+    const [expectedArrivalDate,setExpectedArrivalDate]=useState()
     const [formFields, setFormFields] = useState({
         // SenderAddress: '',
         RecipientAddress: ''
@@ -258,7 +259,13 @@ const ShippingRequest = () => {
 
     }
     const handleChangeDate = (date, stringDate) => {
-        handleFields("Date", date)
+        handleFields("Date",date)
+        let newDate = new Date(Number(date._d))
+        newDate= newDate.setDate(newDate.getDate() + 4)
+        newDate= new Date(newDate).toISOString().slice(0,10)
+      
+        setExpectedArrivalDate(newDate)
+        
         setDateString(stringDate)
     }
     const handleFields = (name, value) => {
@@ -314,6 +321,7 @@ const ShippingRequest = () => {
             if (formFields["Type"] === "CARTON") {
                 let volumeWeight = ((formFields["Height"] * formFields["Width"] * formFields["Length"]) / 5000) * formFields.GroupPackageCount
                 let maxWeight = volumeWeight > formFields["Weight"] ? volumeWeight : formFields["Weight"]
+                console.log(volumeWeight,formFields['Weight'])
                 if (maxWeight > allowed_weight) {
                     setErrorMessage(pre => ({ WeightError: `${t("AllowedWeightError")} ${allowed_weight} KG` }))
                     if (volumeWeight > formFields["Weight"]) {
@@ -326,6 +334,9 @@ const ShippingRequest = () => {
                     }
                     setFormFields(pre => ({ ...pre, ...newFormFields }))
                     return true
+                }
+                else {
+                    handleFields('Weight',maxWeight)
                 }
             }
             return false
@@ -638,8 +649,11 @@ const ShippingRequest = () => {
                             )}
                             {
                                 stage === 2 && (<Offers
-                                    setActiveOffer={setActiveOffer} rateStatus={rateStatus} success={success}
-                                    handleStage={handleStage} handleFields={setFormFields}
+                                    setActiveOffer={setActiveOffer} 
+                                    rateStatus={rateStatus} 
+                                    success={success}
+                                    handleStage={handleStage} handleFields={setFormFields} 
+                                    expectedArrivalDate={expectedArrivalDate}
 
                                 />)
                             }
@@ -650,6 +664,7 @@ const ShippingRequest = () => {
                                     dateString={dateString}
                                     formFields={formFields}
                                     disableButton={disableButton}
+                                    expectedArrivalDate={expectedArrivalDate}
                                 />)
                             }
                             <img src={abimg2} className='loginImg'></img>

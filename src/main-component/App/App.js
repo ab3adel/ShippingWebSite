@@ -1,5 +1,5 @@
 import React from 'react';
-import AllRoute from '../router'
+import AllRoute from '../router/index'
 import 'antd/dist/antd.css';
 import './App.css';
 
