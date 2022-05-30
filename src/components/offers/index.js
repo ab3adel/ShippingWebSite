@@ -10,8 +10,9 @@ const Offers = (props) => {
         , handleStage
         , handleFields
         , rateStatus
-        , success 
-        , expectedArrivalDate} = props
+        , success,
+        formFields
+        , expectedArrivalDate } = props
     const [t, i18n] = useTranslation();
     let [data, setData] = useState([])
 
@@ -31,8 +32,8 @@ const Offers = (props) => {
             setData([
                 dhlOutput ? {
                     image: dhl, companyName: 'DHL',
-                    dDate:dhlOutput.deliveryCapabilities.estimatedDeliveryDateAndTime?
-                      dhlOutput.deliveryCapabilities.estimatedDeliveryDateAndTime.slice(0, 10):expectedArrivalDate
+                    dDate: dhlOutput.deliveryCapabilities.estimatedDeliveryDateAndTime ?
+                        dhlOutput.deliveryCapabilities.estimatedDeliveryDateAndTime.slice(0, 10) : expectedArrivalDate
                     , price: dhlOutput.totalNetCharge
                     , msg: rateStatus.DHL.title ? rateStatus.DHL.title : ""
                     , success: rateStatus.DHL.products ? true : false,
@@ -58,8 +59,8 @@ const Offers = (props) => {
                 },
                 fedexOutput ? {
                     image: fedex, companyName: 'Fedex',
-                    dDate: fedexOutput && fedexOutput.operationalDetail && fedexOutput.operationalDetail.deliveryDate ? 
-                    fedexOutput.operationalDetail.deliveryDate.slice(0, 10) : expectedArrivalDate,
+                    dDate: fedexOutput && fedexOutput.operationalDetail && fedexOutput.operationalDetail.deliveryDate ?
+                        fedexOutput.operationalDetail.deliveryDate.slice(0, 10) : expectedArrivalDate,
                     price: fedexOutput.ratedShipmentDetails[0].totalNetChargeWithDutiesAndTaxes,
                     success: true, msg: '', serviceType: fedexOutput.serviceType
                     , serviceName: fedexOutput.serviceName, serviceId: fedexOutput.serviceDescription.serviceId,
@@ -92,6 +93,7 @@ const Offers = (props) => {
                 return (
                     <Company handleStage={handleStage}
                         companyName={ele.companyName}
+                        formFields={formFields}
                         price={ele.price}
                         image={ele.image}
                         success={ele.success}

@@ -6,9 +6,11 @@ export const Company = (props) => {
     const [t, i18n] = useTranslation();
     let { deliveryDate, setActiveOffer,
         success, msg, image, companyName, price
-        , handleStage, whiteBackground, lightWitheBackground
+        , handleStage, whiteBackground, lightWitheBackground, formFields
         , handleFields } = props
+
     const handleOffer = async () => {
+
         setActiveOffer({
             'image': image,
             'OfferPrice': price,
@@ -18,7 +20,7 @@ export const Company = (props) => {
         // await Object.keys(data).map(async (ele) => {
         //     await handleFields(ele, data[ele])
         // })
-        handleFields(pre =>
+        await handleFields(pre =>
         (
             {
                 ...pre
@@ -36,10 +38,11 @@ export const Company = (props) => {
 
         )
         )
-
         handleStage("Next")
 
+
     }
+
     return (
         <div className="col-md-6 col-lg-4 p-1  mx-0 my-2  " >
             <div className='col-md-12 m-auto  companyParent ' onMouseOver={(e) => whiteBackground(e)}

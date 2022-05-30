@@ -38,7 +38,7 @@ export const Offer = (props) => {
   const [urlPay, setUrlPay] = useState('')
   const [urlToken, setUrlToken] = useState([])
   const [showShare, setShowShare] = useState(false)
-  const [finalCost,setFinalCost]=useState(activeOffer['OfferPrice'])
+  const [finalCost, setFinalCost] = useState(activeOffer['OfferPrice'])
   const handleVisibleChange = (newVisible) => {
     setShowShare(newVisible);
   };
@@ -117,11 +117,11 @@ export const Offer = (props) => {
   }
   const addCharges = (name, value) => {
     let arr = []
-    
+
     if (formFields['addedCharges']) {
       arr = [...formFields['addedCharges']]
     }
-    let newFinalCost=finalCost +Number(value) 
+    let newFinalCost = finalCost + Number(value)
     arr.push({ name, value })
     setFinalCost(newFinalCost)
     handleFields(pre => ({ ...pre, addedCharges: arr }))
@@ -185,7 +185,7 @@ export const Offer = (props) => {
     if (formFields['addedCharges']) {
       arr = [...formFields['addedCharges']]
     }
-    let newFinalCost= finalCost - Number(arr[order].value)
+    let newFinalCost = finalCost - Number(arr[order].value)
     let newArr = arr.filter((ele, index) => index !== order)
     setFinalCost(newFinalCost)
     handleFields(pre => ({ ...pre, addedCharges: newArr }))
@@ -250,8 +250,8 @@ export const Offer = (props) => {
           <div className='offerDetail '>
             {t('Price')}
             <div className='bold'>
-            {activeOffer['OfferPrice'].toFixed(2)}
-            {`${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}
+              {activeOffer['OfferPrice'].toFixed(2)}
+              {`${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}
             </div>
           </div>
         </div>
@@ -280,7 +280,7 @@ export const Offer = (props) => {
                     )
                   })
                 }
-                <div className="col-md-12 col-sm-12 justify-content-center d-flex " >
+                {/* <div className="col-md-12 col-sm-12 justify-content-center d-flex " >
                   <div className='col-md-10 finalCost '>
 
                     <div className="d-flex justify-content-center col-md-12 text-align-center bold">
@@ -294,11 +294,28 @@ export const Offer = (props) => {
                     </span>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div> : ""
           }
         </div>
 
+      </div>
+      <div className='row col-md-12 justify-content-center m-0'>
+        <div className="col-md-12 col-sm-12 justify-content-center d-flex " >
+          <div className='col-md-8 finalCost mb-3'>
+
+            <div className="d-flex justify-content-center col-md-12 text-align-center bold">
+              {t("FinalCost")}
+            </div>
+            <div className="d-flex justify-content-center col-md-12 text-align-center ">
+              {Number(finalCost).toFixed(2)}
+              <span>
+
+                {`${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
       <div className='row col-md-12 justify-content-center m-0'>
         <Button
