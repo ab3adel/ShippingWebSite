@@ -184,7 +184,7 @@ const ShippingRequest = () => {
 
     const handleStage = async (type) => {
 
-        if (type === "Next" && checkError()) return
+        if (type === "Next" && checkError() ) return
 
         let collection = document.querySelectorAll('.stage')
         let inbetweenStages = document.querySelectorAll('.inbetweenStages')
@@ -269,6 +269,7 @@ const ShippingRequest = () => {
         setDateString(stringDate)
     }
     const handleFields = (name, value) => {
+
         setErrorMessage('')
         if (name && name === "Recipient") {
             setFormFields({ ...formFields, [name]: value, RecipientAddress: null, [`${name}Error`]: value ? false : true })
@@ -298,7 +299,7 @@ const ShippingRequest = () => {
 
     }
     const checkError = () => {
-
+  
         let newFormFields = { ...formFields }
         if (checkList.length === 0) {
 
@@ -321,7 +322,6 @@ const ShippingRequest = () => {
             if (formFields["Type"] === "CARTON") {
                 let volumeWeight = ((formFields["Height"] * formFields["Width"] * formFields["Length"]) / 5000) * formFields.GroupPackageCount
                 let maxWeight = volumeWeight > formFields["Weight"] ? volumeWeight : formFields["Weight"]
-                console.log(volumeWeight, formFields['Weight'])
                 if (maxWeight > allowed_weight) {
                     setErrorMessage(pre => ({ WeightError: `${t("AllowedWeightError")} ${allowed_weight} KG` }))
                     if (volumeWeight > formFields["Weight"]) {
@@ -410,7 +410,6 @@ const ShippingRequest = () => {
                 }
             );
             const response = await responsee.json();
-
             if (response instanceof Array) {
                 setLoading(false)
                 setErrorMessage({ error: i18n.language === 'ar' ? "التصنيف غير مدعوم" : "Category Not Supported" })
@@ -452,6 +451,7 @@ const ShippingRequest = () => {
     };
     // console.log("formFields",formFields)
     const saveOffer = () => {
+        
         let collection = document.querySelectorAll('.stage')
         let inbetweenStages = document.querySelectorAll('.inbetweenStages')
         setLoading(true)

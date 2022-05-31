@@ -19,7 +19,7 @@ const Offers = (props) => {
 
     useEffect(() => {
         if (success) {
-            console.log(rateStatus)
+      
             let fedexOutput = null
             let dhlOutput = null
             if (rateStatus && rateStatus.FedEx && rateStatus.FedEx.output && rateStatus.FedEx.output.rateReplyDetails) {

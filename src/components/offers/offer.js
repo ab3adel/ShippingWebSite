@@ -49,7 +49,7 @@ export const Offer = (props) => {
   }
   const getURL = async () => {
     setLoading(true)
-
+console.log(activeOffer)
 
     try {
       const responsee = await fetch(

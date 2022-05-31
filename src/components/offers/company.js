@@ -20,7 +20,10 @@ export const Company = (props) => {
         // await Object.keys(data).map(async (ele) => {
         //     await handleFields(ele, data[ele])
         // })
-        await handleFields(pre =>
+    
+     handleStage("Next")
+    await  handleFields(pre =>
+         
         (
             {
                 ...pre
@@ -38,7 +41,7 @@ export const Company = (props) => {
 
         )
         )
-        handleStage("Next")
+       
 
 
     }
