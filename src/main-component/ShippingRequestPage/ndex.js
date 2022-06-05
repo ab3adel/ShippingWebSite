@@ -184,7 +184,7 @@ const ShippingRequest = () => {
 
     const handleStage = async (type) => {
 
-        if (type === "Next" && checkError() ) return
+        if (type === "Next" && checkError()) return
 
         let collection = document.querySelectorAll('.stage')
         let inbetweenStages = document.querySelectorAll('.inbetweenStages')
@@ -299,7 +299,7 @@ const ShippingRequest = () => {
 
     }
     const checkError = () => {
-  
+
         let newFormFields = { ...formFields }
         if (checkList.length === 0) {
 
@@ -451,7 +451,7 @@ const ShippingRequest = () => {
     };
     // console.log("formFields",formFields)
     const saveOffer = () => {
-        
+
         let collection = document.querySelectorAll('.stage')
         let inbetweenStages = document.querySelectorAll('.inbetweenStages')
         setLoading(true)
@@ -488,7 +488,7 @@ const ShippingRequest = () => {
             })
             .then(res => {
 
-                if (res.success && formFields.Weight <= 3) {
+                if (res.success && res.payload.accepted) {
                     notification.success({
                         message: t('SuccessfullRequest'),
                         description: i18n.language === 'en' ?
@@ -511,7 +511,7 @@ const ShippingRequest = () => {
                     collection[2].classList.remove('currentStage')
 
                 }
-                else if (res.success && formFields.Weight > 3) {
+                else if (res.success && !res.payload.accepted) {
 
 
                     notification.info({
@@ -550,7 +550,7 @@ const ShippingRequest = () => {
                 <div className='container padding-top'>
 
                     <div className='row shippingRequestIntro'>
-                        <div className="row">
+                        <div className="row" id="indeCator" >
 
                             <div className="col-md-12  ">
                                 <h3>{t('Send Shipment')}</h3>
@@ -591,7 +591,7 @@ const ShippingRequest = () => {
                             </div>
                             <div  className=" col-1"  ></div>
                         </div> */}
-                        <div className=" col-md-9 row " id="indeCator" style={{ direction: "rtl" }}>
+                        <div className=" col-md-9 row " style={{ direction: "rtl" }}>
 
                             <div
                                 className="   horizonal-align 

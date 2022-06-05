@@ -59,7 +59,7 @@
   "Next": "Next",
   "Done": "Done",
   "Choose": "Choose",
-  "Price": "Estimated Price",
+  "Price": "Shipping Price",
   "Previous": "Previous",
   "Recipient": "Recipient",
   "Recipients": "Recipients",
@@ -111,5 +111,6 @@
   "ShipmentPrice": "Shipment Price",
   "Tax": "The price includes Taxes",
   "NoTax": "The price doesn't include Taxes",
-  "P.S": "P.S"
+  "P.S": "P.S",
+  "FinalCost":"Total Cost"
 }
