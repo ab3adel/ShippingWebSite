@@ -43,7 +43,7 @@ const ShippingRequest = () => {
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
-        , GroupPackageCount: 1, GroupPackageCountError: false,
+        , GroupPackageCount: 1, GroupPackageCountError: false,ActualWeight:'',ActualWeightError:false
 
     })
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
@@ -87,7 +87,7 @@ const ShippingRequest = () => {
                     }
                 );
                 const response = await responsee.json();
-
+             
                 if (response.success) {
                     response.payload.length > 0 ?
                         setMyAddress(response.payload[0])
@@ -292,7 +292,29 @@ const ShippingRequest = () => {
                 , Height: typeDimensions[value].Height
                 , Length: typeDimensions[value].Length
             })
+            if (formFields.Weight) {
+
+                if (value === 'CARTON' ) {
+                    let volumeWeight = ((typeDimensions["CARTON"].Height * typeDimensions["CARTON"].Width * typeDimensions["CARTON"].Length) / 5000) * formFields.GroupPackageCount
+                    let maxWeight = volumeWeight > formFields.Weight ? volumeWeight : formFields.Weight
+                    setFormFields(pre=>({...pre,ActualWeight:maxWeight}))
+                }
+                else {
+                    setFormFields(pre=>({...pre,ActualWeight:formFields.Weight}))
+                }
+            }
         }
+        else if (name === "Weight") {
+            if (formFields.Type === 'CARTON') {
+                let volumeWeight = ((typeDimensions["CARTON"].Height * typeDimensions["CARTON"].Width * typeDimensions["CARTON"].Length) / 5000) * formFields.GroupPackageCount
+                let maxWeight = volumeWeight > value ? volumeWeight : value
+                setFormFields(pre=>({...pre,Weight:value,ActualWeight:maxWeight}))
+
+            }
+            else {
+                setFormFields(pre=>({...pre,Weight:value,ActualWeight:value}))
+            }
+        }  
         else {
             setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value === false ? false : true })
         }
@@ -303,11 +325,11 @@ const ShippingRequest = () => {
         let newFormFields = { ...formFields }
         if (checkList.length === 0) {
 
-            let checkListError = Object.keys(newFormFields).filter(ele => !ele.includes('Error'))
+            let checkListError = Object.keys(newFormFields).filter(ele => !ele.includes('Error') && ele !== "ActualWeight")
             setCheckListError(pre => checkListError)
         }
         let checker = checkList.length > 0 ? checkList : Object.keys(newFormFields)
-        let emptyVal = checker.filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false)
+        let emptyVal = checker.filter(ele => !newFormFields[ele] && !ele.includes('Error') && newFormFields[ele] !== false && ele !== "ActualWeight")
 
         if (emptyVal.length === 0) {
 
@@ -336,7 +358,7 @@ const ShippingRequest = () => {
                     return true
                 }
                 else {
-                    handleFields('Weight', maxWeight)
+                    handleFields('ActualWeight', maxWeight)
                 }
             }
             return false

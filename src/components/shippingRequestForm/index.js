@@ -321,13 +321,17 @@ export const ShippingRequestForm = (props) => {
                             direction={i18n.language === "ar" ? "rtl" : "ltr"}
                             className={i18n.language === "ar" ? "arabicAlign" : "englishAlign"}>
                             {addressArr.length > 0 && addressArr.map((ele, index) => {
+                                console.log (addressArr)
                                 return (
                                     <Option key={ele.id} vlaue={ele.id}>
                                         <div className={i18n.language === "ar" ? 'toRight' : ""}>
-                                            {`${ele.city.country.country_name_en} (${ele.country_code}) / ${ele.city.name_en} / ${ele.city.country.id === 117 ? `${JSON.parse(ele.line_1).Area} / ${JSON.parse(ele.line_1).Block} / ${JSON.parse(ele.line_2).Street}`
+                                            {
+                                                ele.city ?
+                                                `${ele.city.country.country_name_en} (${ele.country_code}) / ${ele.city.name_en} / ${ele.city.country.id === 117 ? `${JSON.parse(ele.line_1).Area} / ${JSON.parse(ele.line_1).Block} / ${JSON.parse(ele.line_2).Street}`
                                                 :
                                                 ele.line_1
                                                 }`
+                                                :''
                                             }
                                         </div>
                                     </Option>)
@@ -691,6 +695,27 @@ export const ShippingRequestForm = (props) => {
                             placeholder={t('Length')}
                             value={formFields["Length"]}
                             name="Length"
+                            onChange={handleChange} />
+                    </Form.Item>
+
+
+                </div>
+                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
+                    <Form.Item
+                        min='0'
+                        name="ActualWeight"
+                        label={`${t('ActualWeight')} (${i18n.language === 'ar' ? "كغ" : "KG"})`}
+                        rules={[{ required: true, message: t('Required'), },]}
+                        validateStatus={formFields['LengthError'] ? "error" : ""}
+                        validateTrigger={t('Required')}
+                        help={<InfoLabel infoText={t("ActualWeightDescription")} />}
+                    >
+
+                        <Input type="number"
+                            disabled={true}
+                            placeholder={t('ActualWeight')}
+                            value={formFields["ActualWeight"]}
+                            name="ActualWeight"
                             onChange={handleChange} />
                     </Form.Item>
 

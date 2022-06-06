@@ -10,18 +10,28 @@ const MyAddress = ({ myAddress }) => {
                 <strong className='colStart'></strong>
 
                 <strong className='addrssTitle'>{i18n.language === 'ar' ? 'الدولة : ' : "Country : "}</strong>
-                <strong className=" f-w-400">{i18n.language === 'ar' ? myAddress.city.country.country_name_ar ? myAddress.city.country.country_name_ar : myAddress.city.country.country_name_en : myAddress.city.country.country_name_en}{' / '}{myAddress.country_code}
+                <strong className=" f-w-400">
+                {
+                    myAddress.city ?
+                    i18n.language === 'ar' ? myAddress.city.country.country_name_ar ? myAddress.city.country.country_name_ar : myAddress.city.country.country_name_en : myAddress.city.country.country_name_en +' / ' +myAddress.country_code
+                    : "No Country Available !!"
+                }
+                
                 </strong>
             </div>
             <div className="addressDetail">
                 <strong className='colStart'></strong>
 
                 <strong className='addrssTitle'>{i18n.language === 'ar' ? 'المدينة : ' : "City : "}</strong>
-                <strong className="  f-w-400">{i18n.language === 'ar' ? myAddress.city.name_ar ? myAddress.city.name_ar : myAddress.city.name_en : myAddress.city.name_en}
+                <strong className="  f-w-400">{
+                    myAddress.city ?
+                    i18n.language === 'ar' ? myAddress.city.name_ar ? myAddress.city.name_ar : myAddress.city.name_en : myAddress.city.name_en
+                    :'No City Available !!'}
                 </strong>
             </div>
 
-            {myAddress.city.country_id === 117 ?
+            {myAddress.city ?
+                myAddress.city.country_id === 117 ?
                 <>
                     <div className="addressDetail">
                         <strong className='colStart'></strong>
@@ -85,7 +95,7 @@ const MyAddress = ({ myAddress }) => {
                     </div>}
                 </>
 
-            }
+            : ""}
 
 
 
