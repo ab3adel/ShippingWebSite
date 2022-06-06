@@ -202,6 +202,7 @@ console.log(activeOffer)
 
       </div>
       <div className="row col-md-12 col-lg-10 mx-auto my-2">
+      
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
             {t('Name')}
@@ -209,12 +210,25 @@ console.log(activeOffer)
           </div>
         </div>
 
-        <div className="col-md-6 col-sm-12 d-flex justify-content-center">
+        <div className="col-md-6 col-sm-12 d-flex justify-content-center flex-direction-column">
           <div className='offerDetail '>
             {t("Weight")}
             <div className='bold'>{formFields['Weight']}{` ${i18n.language === 'ar' ? '(كجم)' : "(KG)"}`}</div>
+             
           </div>
+         
         </div>
+        <div className="row col-md-12 col-sm-12 d-flex justify-content-center">
+              <div className="note row col-md-12 col-sm-12">
+                    <p>
+                    
+                    </p>
+                
+                      <p>
+                        {t("ActualWeightDescription")}
+                      </p> 
+              </div>
+      </div>
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
             {t("Shipment Type")}
@@ -297,6 +311,7 @@ console.log(activeOffer)
                 </div> */}
               </div> : ""
           }
+         
         </div>
 
       </div>
@@ -317,6 +332,7 @@ console.log(activeOffer)
           </div>
         </div>
       </div>
+      
       <div className='row col-md-12 justify-content-center m-0'>
         <Button
           className='addInFormBTN col-md-4'
@@ -371,22 +387,7 @@ console.log(activeOffer)
 
                       />
                     </Form.Item>
-                    {/* <div className={`col-md-4 col-lg-2 selectPay ${payer == "sender" && 'activePayer'}`}
-                      onClick={() => onChange('sender')}>
-                      {i18n.language === 'ar' ?
-                        "المرسل"
-                        :
-                        "Sender"
-                      }
-                    </div>
-                    <div className={`col-md-4 col-lg-2 selectPay ${payer == "recipient" && 'activePayer'}`}
-                      onClick={() => onChange('recipient')}>
-                      {i18n.language === 'ar' ?
-                        "المرسل إليه"
-                        :
-                        "Recipient"
-                      }
-                    </div> */}
+                   
 
                   </div>
                   <div className='  col-md-12 justify-content-center pt-1 pb-1 m-0'>
@@ -455,7 +456,7 @@ console.log(activeOffer)
               </>
               : null
             }
-
+           
           </div>
         </>
 

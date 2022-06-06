@@ -108,6 +108,10 @@ a.addInFormBTN {
             font-weight: bold;
         }
     }
+    .note {
+        display: flex;
+        justify-content: space-evenly;
+    }
     .finalCost {
         border: 1px solid #c60874;
         background: #ffffff63;

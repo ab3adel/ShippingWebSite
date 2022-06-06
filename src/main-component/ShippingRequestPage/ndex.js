@@ -563,7 +563,13 @@ const ShippingRequest = () => {
             })
             .catch(err => console.log(err))
     }
-
+    useEffect(()=>{
+        let newFormFields= {...formFields}
+        newFormFields.Weight=3
+       newFormFields.Price=3
+       setFormFields(pre=>({...pre,...newFormFields}))
+        
+    },[])
     return (
         <div>
             {/* <Navbar /> */}
