@@ -49,7 +49,7 @@ export const Offer = (props) => {
   }
   const getURL = async () => {
     setLoading(true)
-console.log(activeOffer)
+    console.log(activeOffer)
 
     try {
       const responsee = await fetch(
@@ -202,7 +202,7 @@ console.log(activeOffer)
 
       </div>
       <div className="row col-md-12 col-lg-10 mx-auto my-2">
-      
+
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
             {t('Name')}
@@ -214,21 +214,11 @@ console.log(activeOffer)
           <div className='offerDetail '>
             {t("Weight")}
             <div className='bold'>{formFields['Weight']}{` ${i18n.language === 'ar' ? '(كجم)' : "(KG)"}`}</div>
-             
+
           </div>
-         
+
         </div>
-        <div className="row col-md-12 col-sm-12 d-flex justify-content-center">
-              <div className="note row col-md-12 col-sm-12">
-                    <p>
-                    
-                    </p>
-                
-                      <p>
-                        {t("ActualWeightDescription")}
-                      </p> 
-              </div>
-      </div>
+
         <div className="col-md-6 col-sm-12 d-flex justify-content-center">
           <div className='offerDetail '>
             {t("Shipment Type")}
@@ -267,6 +257,17 @@ console.log(activeOffer)
               {activeOffer['OfferPrice'].toFixed(2)}
               {`${i18n.language === 'ar' ? '(د.ك)' : "(KWD)"}`}
             </div>
+          </div>
+        </div>
+        <div className="row col-md-12 col-sm-12 d-flex justify-content-center">
+          <div className="note row col-md-12 col-sm-12">
+            <p>
+
+            </p>
+
+            <p>
+              {t("ActualWeightDescription")}
+            </p>
           </div>
         </div>
         <div className="col-md-12 col-sm-12 d-flex justify-content-center m-0">
@@ -311,7 +312,7 @@ console.log(activeOffer)
                 </div> */}
               </div> : ""
           }
-         
+
         </div>
 
       </div>
@@ -332,7 +333,7 @@ console.log(activeOffer)
           </div>
         </div>
       </div>
-      
+
       <div className='row col-md-12 justify-content-center m-0'>
         <Button
           className='addInFormBTN col-md-4'
@@ -387,7 +388,7 @@ console.log(activeOffer)
 
                       />
                     </Form.Item>
-                   
+
 
                   </div>
                   <div className='  col-md-12 justify-content-center pt-1 pb-1 m-0'>
@@ -456,7 +457,7 @@ console.log(activeOffer)
               </>
               : null
             }
-           
+
           </div>
         </>
 
