@@ -687,7 +687,8 @@ const ShippingRequest = () => {
                                 />)
                             }
                             {
-                                stage === 3 && (<Offer
+                                stage === 3 && (
+                                    <Offer
                                     activeOffer={activeOffer}
                                     handleFields={setFormFields}
                                     dateString={dateString}

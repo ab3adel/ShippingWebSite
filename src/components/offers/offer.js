@@ -191,7 +191,7 @@ export const Offer = (props) => {
     handleFields(pre => ({ ...pre, addedCharges: newArr }))
     return true
   }
-
+console.log(formFields)
   return (
 
     <div className="offerContainer">
@@ -214,6 +214,22 @@ export const Offer = (props) => {
           <div className='offerDetail '>
             {t("Weight")}
             <div className='bold'>{formFields['Weight']}{` ${i18n.language === 'ar' ? '(كجم)' : "(KG)"}`}</div>
+
+          </div>
+
+        </div>
+        <div className="col-md-6 col-sm-12 d-flex justify-content-center flex-direction-column">
+          <div className='offerDetail '>
+            {t("ActualWeight")}
+            <div className='bold'>{formFields['ActualWeight']}{` ${i18n.language === 'ar' ? '(كجم)' : "(KG)"}`}</div>
+
+          </div>
+
+        </div>
+        <div className="col-md-6 col-sm-12 d-flex justify-content-center flex-direction-column">
+          <div className='offerDetail '>
+            {t("DeliveryDate")}
+            <div className='bold'>{formFields['delivery_date_time']}</div>
 
           </div>
 

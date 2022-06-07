@@ -701,27 +701,7 @@ export const ShippingRequestForm = (props) => {
 
 
                 </div>
-                <div className='col-6 col-xs-6 col-sm-6  col-md-6 col-lg-3'>
-                    <Form.Item
-                        min='0'
-                        name="ActualWeight"
-                        label={`${t('ActualWeight')} (${i18n.language === 'ar' ? "كغ" : "KG"})`}
-                        rules={[{ required: true, message: t('Required'), },]}
-                        validateStatus={formFields['LengthError'] ? "error" : ""}
-                        validateTrigger={t('Required')}
-                        help={<InfoLabel infoText={t("ActualWeightDescription")} />}
-                    >
-
-                        <Input type="number"
-                            disabled={true}
-                            placeholder={t('ActualWeight')}
-                            value={formFields["ActualWeight"]}
-                            name="ActualWeight"
-                            onChange={handleChange} />
-                    </Form.Item>
-
-
-                </div>
+               
 
                 <Fade top spy={animat} duration={1000} >
                     <div className='col-md-12'>

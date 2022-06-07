@@ -77,6 +77,7 @@
   "provenance country": "بلد المنشأ",
   "UnitPrice": "سعر الواحدة",
   "Delivery Date": "تاريخ الوصول المتوقع",
+  "DeliveryDate":"تاريخ الوصول",
   "DocumentShipment": " شحنة وثائق",
   "ShipmentPurpose": "غرض الشحنة",
   "Documented": "أوراق /وثائق",

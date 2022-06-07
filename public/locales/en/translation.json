@@ -115,5 +115,6 @@
   "FinalCost":"Total Cost",
   "ActualWeight":"Actual Weight",
   "ActualWeightDescription":"Actual Weight is the result of differentiation between real weight and volume wieght",
-  "Note":"Note"
+  "Note":"Note",
+  "DeliveryDate":"Delivery Date"
 }
