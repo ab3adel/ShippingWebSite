@@ -261,3 +261,24 @@
    margin-inline-end: 12px;
    margin-block: 4px;
  }
+
+ .loadexport {
+   background: #6c70ae;
+   display: flex;
+   height: 100vh;
+   width: 100%;
+   align-content: center;
+   align-items: center;
+   justify-content: center;
+
+   div {
+     color: white;
+     font-size: 2rem;
+     direction: ltr;
+   }
+
+   i {
+     color: white;
+     font-size: 100px;
+   }
+ }

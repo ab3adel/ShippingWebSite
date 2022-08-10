@@ -228,7 +228,9 @@ const NewAddress = (props) => {
             cont.postal_aware == 0 && AddressRef.current.setFieldsValue({ post_code: '', });
             cont.state_or_province == 0 && AddressRef.current.setFieldsValue({ state_code: '', });
             AddressRef.current.setFieldsValue({ city: null, });
+            setPhone({ short: cont.country_code })
         }
+
         fetchCities(value)
 
     }

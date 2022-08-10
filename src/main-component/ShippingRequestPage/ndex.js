@@ -37,15 +37,16 @@ const ShippingRequest = () => {
         RecipientAddress: ''
         , Type: '', Date: '', Width: '', Length: '', Recipient: "",
         Category: "", NumberOfPieces: 1, DocumentShipment: '',
-        Height: '', Weight: '', Hermonized: '1',
-        HermonizedError: false, Price: "", PriceError: "", ShipmentPurpose: "PERSONAL_USE",
+        Height: '', Weight: '', Hermonized: '080211',
+        HermonizedError: false, Price: "", PriceError: "", ShipmentPurpose: "PERSONAL_EFFECTS",
         ShipmentPurposeError: false,
         RecipientAddressError: false, TypeError: false,
         DateError: false, WidthError: false, LengthError: false,
         HeightError: false, WeightError: false, RecipientError: false, CategoryError: false
-        , GroupPackageCount: 1, GroupPackageCountError: false,ActualWeight:'',ActualWeightError:false
+        , GroupPackageCount: 1, GroupPackageCountError: false, ActualWeight: '', ActualWeightError: false
 
     })
+    // "PERSONAL_EFFECTS"
     const [addressFormType, setAddressFormType] = useState({ type: "address", isSender: true })
     let [stage, setStage] = useState(1)
     let [dateString, setDateString] = useState("")
@@ -65,7 +66,7 @@ const ShippingRequest = () => {
     let backImages = [back, pack]
     let typeDimensions = {
         "BAG": { Width: 10, Height: 1, Length: 10 },
-        "CARTON": { Width: 30, Height: 20, Length: 30 },
+        "CARTON": { Width: 0, Height: 0, Length: 0 },
         "ENVELOPE": { Width: 1, Height: 1, Length: 1 }
     }
     useEffect(() => { !userToken && history.push('/Login') })
@@ -87,7 +88,7 @@ const ShippingRequest = () => {
                     }
                 );
                 const response = await responsee.json();
-             
+
                 if (response.success) {
                     response.payload.length > 0 ?
                         setMyAddress(response.payload[0])
@@ -294,13 +295,13 @@ const ShippingRequest = () => {
             })
             if (formFields.Weight) {
 
-                if (value === 'CARTON' ) {
+                if (value === 'CARTON') {
                     let volumeWeight = ((typeDimensions["CARTON"].Height * typeDimensions["CARTON"].Width * typeDimensions["CARTON"].Length) / 5000) * formFields.GroupPackageCount
                     let maxWeight = volumeWeight > formFields.Weight ? volumeWeight : formFields.Weight
-                    setFormFields(pre=>({...pre,ActualWeight:maxWeight}))
+                    setFormFields(pre => ({ ...pre, ActualWeight: maxWeight }))
                 }
                 else {
-                    setFormFields(pre=>({...pre,ActualWeight:formFields.Weight}))
+                    setFormFields(pre => ({ ...pre, ActualWeight: formFields.Weight }))
                 }
             }
         }
@@ -308,13 +309,13 @@ const ShippingRequest = () => {
             if (formFields.Type === 'CARTON') {
                 let volumeWeight = ((typeDimensions["CARTON"].Height * typeDimensions["CARTON"].Width * typeDimensions["CARTON"].Length) / 5000) * formFields.GroupPackageCount
                 let maxWeight = volumeWeight > value ? volumeWeight : value
-                setFormFields(pre=>({...pre,Weight:value,ActualWeight:maxWeight}))
+                setFormFields(pre => ({ ...pre, Weight: value, ActualWeight: maxWeight }))
 
             }
             else {
-                setFormFields(pre=>({...pre,Weight:value,ActualWeight:value}))
+                setFormFields(pre => ({ ...pre, Weight: value, ActualWeight: value }))
             }
-        }  
+        }
         else {
             setFormFields({ ...formFields, [name]: value, [`${name}Error`]: value || value === false ? false : true })
         }
@@ -478,12 +479,19 @@ const ShippingRequest = () => {
         let inbetweenStages = document.querySelectorAll('.inbetweenStages')
         setLoading(true)
         let formData = {
-            company_id: formFields.company_id, serviceType: formFields.serviceType,
-            serviceName: formFields.serviceName, serviceCode: formFields.serviceCode,
-            serviceId: formFields.serviceId, ship_date: dateString,
-            width: formFields.Width, height: formFields.Height, length: formFields.Length,
-            subPackagingType: formFields.Type, documentShipment: formFields.DocumentShipment,
-            shipmentPurpose: formFields.ShipmentPurpose, harmonizedCode: formFields.Hermonized,
+            company_id: formFields.company_id,
+            serviceType: formFields.serviceType,
+            serviceName: formFields.serviceName,
+            serviceCode: formFields.serviceCode,
+            serviceId: formFields.serviceId,
+            ship_date: dateString,
+            width: formFields.Width,
+            height: formFields.Height,
+            length: formFields.Length,
+            subPackagingType: formFields.Type,
+            documentShipment: formFields.DocumentShipment,
+            shipmentPurpose: formFields.ShipmentPurpose,
+            harmonizedCode: formFields.Hermonized,
             unitPrice: formFields.Price, totalNetCharge: formFields.totalNetCharge,
             required_documents: formFields.required_documents, delivery_date_time: formFields.delivery_date_time,
             NumberOfPieces: formFields.NumberOfPieces, groupPackageCount: formFields.GroupPackageCount,
@@ -563,13 +571,13 @@ const ShippingRequest = () => {
             })
             .catch(err => console.log(err))
     }
-    useEffect(()=>{
-        let newFormFields= {...formFields}
-        newFormFields.Weight=3
-       newFormFields.Price=3
-       setFormFields(pre=>({...pre,...newFormFields}))
-        
-    },[])
+    useEffect(() => {
+        let newFormFields = { ...formFields }
+        newFormFields.Weight = 3
+        newFormFields.Price = 3
+        setFormFields(pre => ({ ...pre, ...newFormFields }))
+
+    }, [])
     return (
         <div>
             {/* <Navbar /> */}
@@ -689,13 +697,13 @@ const ShippingRequest = () => {
                             {
                                 stage === 3 && (
                                     <Offer
-                                    activeOffer={activeOffer}
-                                    handleFields={setFormFields}
-                                    dateString={dateString}
-                                    formFields={formFields}
-                                    disableButton={disableButton}
-                                    expectedArrivalDate={expectedArrivalDate}
-                                />)
+                                        activeOffer={activeOffer}
+                                        handleFields={setFormFields}
+                                        dateString={dateString}
+                                        formFields={formFields}
+                                        disableButton={disableButton}
+                                        expectedArrivalDate={expectedArrivalDate}
+                                    />)
                             }
                             <img src={abimg2} className='loginImg'></img>
                         </div>

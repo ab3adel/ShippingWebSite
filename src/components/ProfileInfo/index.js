@@ -19,7 +19,7 @@ const ProfileInfo = () => {
     const tokenString = localStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
     const dispatch = useDispatch()
-    const { refreshProfile, setProfile } = bindActionCreators(actionCreators, dispatch)
+    const { refreshProfile, setProfile, clearProfile } = bindActionCreators(actionCreators, dispatch)
     const profile = useSelector((state) => state.profile.profile)
     const [t, i18n] = useTranslation();
     const [addAttachModal, setAddAttachModal] = useState(false)
@@ -201,7 +201,7 @@ const ProfileInfo = () => {
     const onFinishPass = (values) => {
         console.log('Success:', values);
 
-        if (values.new_password != values.password_confirmation) {
+        if (values.password != values.password_confirmation) {
             setAnimat(!animat)
             setErrorMessage({
                 credentials: i18n.language == 'ar' ?
@@ -215,8 +215,8 @@ const ProfileInfo = () => {
             return () => clearTimeout(timer);
         }
         else {
-            // onSubmitPasswordChange(values)
-            handleClosePassModal()
+            onSubmitPasswordChange(values)
+
         }
 
     };
@@ -224,7 +224,57 @@ const ProfileInfo = () => {
     const onFinishFailedPass = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const onSubmitPasswordChange = async (data) => {
 
+        setErrorMessage('')
+        setSuccessAdd('')
+        setLoading(true)
+        var regData = new FormData()
+
+        regData.append('password', data.password)
+        regData.append('password_confirmation', data.password_confirmation)
+        regData.append('_method', 'put')
+
+
+        try {
+            const responsee = await fetch(
+                `${global.apiUrl}api/users/${profile.id}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: "Bearer " + userToken,
+                        Accept: "application/json",
+                    },
+                    body: regData,
+
+                }
+            );
+            const response = await responsee.json();
+            if (response.success) {
+                setLoading(false)
+                handleClosePassModal()
+                localStorage.clear()
+                clearProfile()
+
+                history.push('/Login')
+            }
+            else {
+                setLoading(false)
+                setAnimat(!animat)
+                setErrorMessage(response.errors)
+
+
+                const timer = setTimeout(() => { setErrorMessage('') }, 8000);
+                return () => clearTimeout(timer);
+
+            }
+        } catch (err) {
+            console.log(err);
+        }
+
+        setLoading(false)
+
+    };
     const handleCloseCategoriesModal = () => {
         setSelectedtCategories('')
         categoriesForm.resetFields();
@@ -368,7 +418,7 @@ const ProfileInfo = () => {
                                                         <h6 className="f-w-600 nameProfile ">
                                                             {profile.name}
                                                         </h6>
-                                                        <p className='comp'>  {profile.customer && profile.customer.company ? profile.customer.company :
+                                                        <p className='comp'>  {profile.customer && profile.customer.company && profile.customer.company != 'undefined' ? profile.customer.company :
                                                             i18n.language == 'ar' ? 'الشركة غير معرفة' : 'No Company'}</p>
                                                         <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleNext() }} >
                                                             <i className="fa fa-pencil-square-o" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `تعديل` : `Update`}
@@ -379,7 +429,10 @@ const ProfileInfo = () => {
                                                             {i18n.language == 'ar' ? `إضافة تصنيفات` : `Add Categories`}
 
                                                         </Button>
+                                                        <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleOpenPassModal() }} >
+                                                            <i className="fa fa-lock" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `تغيير كلمة المرور` : `Change Password`}
 
+                                                        </Button>
                                                         {/* <Button type="primary" className='col-md-8 profileButton' onClick={() => { handleOpenAttachModal() }} >
                                                             <i className="fa fa-paperclip" aria-hidden="true"  ></i> {i18n.language == 'ar' ? `اضافة مرفق` : `Add Attachment`}
 
@@ -758,7 +811,7 @@ const ProfileInfo = () => {
 
                     <Modal
                         wrapClassName='attachModal'
-                        title={i18n.language == 'ar' ? `تغيير كلمة المرور` : `change Password`}
+                        title={i18n.language == 'ar' ? `تغيير كلمة المرور` : `Change Password`}
                         centered
                         visible={passwordModal}
                         // onOk={() => handleSaveAttach()}
@@ -832,26 +885,8 @@ const ProfileInfo = () => {
 
                                 <div className='col-md-12'>
                                     <Form.Item
-                                        label={i18n.language == 'ar' ? `كلمة المرور` : `Password`}
-                                        name="password"
-                                        // type='email' 
-                                        autoComplete='off'
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: i18n.language == 'ar' ? `الرجاء ادخل كلمة المرور الحالية!` : 'Please input Your Password!',
-                                            },
-
-                                        ]}
-                                    >
-
-                                        <Input.Password placeholder='********' autoComplete='off' />
-                                    </Form.Item>
-                                </div>
-                                <div className='col-md-12'>
-                                    <Form.Item
                                         label={i18n.language == 'ar' ? `كلمة المرور الجديدة` : `New Password`}
-                                        name="new_password"
+                                        name="password"
                                         // type='email'
                                         autoComplete='off'
 

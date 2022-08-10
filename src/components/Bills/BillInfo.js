@@ -14,6 +14,9 @@ import { Field } from './field'
 import './styleBills.scss'
 import { details, columns } from "./data";
 import { PaymentForm } from './paymentForm'
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
+import Invoice from './invoice'
 // import "./styles.css";
 
 
@@ -178,7 +181,33 @@ const BillInfo = ({ match }) => {
             .catch(err => console.log(err))
         return response
     }
+    const handleExportWithFunction = () => {
+        const input = document.getElementById('PDFCONT');
+        // , {
+        //     scale: 2,
 
+        // }
+        html2canvas(input)
+            .then((canvas) => {
+                var width = canvas.width;
+                var height = canvas.height;
+                var millimeters = {
+                    width: 0,
+                    height: 0,
+                };
+                millimeters.width = Math.floor(width * 0.264583);
+                millimeters.height = Math.floor(height * 0.264583);
+
+                var imgData = canvas.toDataURL(
+                    'image/png');
+                var doc = new jsPDF("p", "mm", [millimeters.width, millimeters.height]);
+                // doc.deletePage(1);"p", "mm", 'a4'
+                // doc.addPage(millimeters.width, millimeters.height);
+                doc.addImage(imgData, 'PNG', 0, 0);
+                doc.save(`${new Date().toISOString().toString().slice(0, 19)}.pdf`);
+            })
+            ;
+    }
     return (
         <div className="section bilsSection">
             {profile && activeBill &&
@@ -368,6 +397,7 @@ const BillInfo = ({ match }) => {
                                                         {i18n.language == 'ar' ? ` مستندات` : `Documents`}
                                                     </h6>
                                                         <div className="col-sm-12 row">
+                                                            <a className='downURl' onClick={() => handleExportWithFunction()} >{i18n.language == 'ar' ? ` تحميل فاتورة ووديكس` : `Download Wodex Invoice`}</a>
                                                             {
                                                                 activeBill.shipment_documents && activeBill.shipment_documents.length > 0 ?
                                                                     activeBill.shipment_documents.map((ele, index) => {
@@ -413,6 +443,8 @@ const BillInfo = ({ match }) => {
                 setVisible={setVisible}
                 addCharges={addCharges}
             />
+            {activeBill ? <div style={{ height: '0px', overflow: 'hidden' }} > <Invoice bill={activeBill && activeBill} /></div> : null}
+
         </div>
 
     )

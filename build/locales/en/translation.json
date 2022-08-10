@@ -98,7 +98,7 @@
   "NoResponse": "No available offer",
   "ExtraCharges": "Extra Charges",
   "AddExtraCharges": "Add Extra Charges",
-  "ChargeName": " Charge Name",
+  "ChargeName": " Description",
   "ChargeValue": " Charge Value",
   "InProgress": "In Progress",
   "SuccessfullRequest": "Successfull Request",
@@ -112,5 +112,9 @@
   "Tax": "The price includes Taxes",
   "NoTax": "The price doesn't include Taxes",
   "P.S": "P.S",
-  "FinalCost":"Total Cost"
+  "FinalCost":"Total Cost",
+  "ActualWeight":"Actual Weight",
+  "ActualWeightDescription":"Actual Weight is the result of differentiation between real weight and volume wieght",
+  "Note":"Note",
+  "DeliveryDate":"Delivery Date"
 }

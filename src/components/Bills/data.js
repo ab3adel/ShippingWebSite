@@ -13,7 +13,7 @@ export const details = {
             }
             , name: getI18n().language === "ar" ? 'شحنة مستندات' : 'Documents Shipment'
         },
-        { key: 'offer_id', nestedKey: null, name: getI18n().language === "ar" ? 'رقم التتبع' : "Tracking Number" },
+        // { key: 'shipment_id', nestedKey: null, name: getI18n().language === "ar" ? 'رقم التتبع' : "Tracking Number" },
         // { key: 'profit_percentage', nestedKey: null, name: getI18n().language === "ar" ? 'نسبة الربح' : "Profit Percentage" },
         { key: 'company', nestedKey: getI18n().language === "ar" ? ['name_ar'] : ['name_en'], name: getI18n().language === "ar" ? 'الشركة' : 'Company' },
         { key: 'totalNetCharge', nestedKey: null, name: getI18n().language === "ar" ? 'المبلغ' : 'The Price', unit: getI18n().language === 'ar' ? "د.ك" : "KWD" },
@@ -153,7 +153,7 @@ export const columns = [
     },
     {
         name: getI18n().language === 'ar' ? 'المرسل اليه' : 'Recipient',
-        selector: (row) => getI18n().language === 'ar' ? row.recipient.recipient.name_ar : row.recipient.recipient.name_en
+        selector: (row) => getI18n().language === 'ar' ? row.recipient.recipient ? row.recipient.recipient.name_ar : "-" : row.recipient.recipient ? row.recipient.recipient.name_en : "-"
     },
 
     //     {

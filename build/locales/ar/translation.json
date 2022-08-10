@@ -77,6 +77,7 @@
   "provenance country": "بلد المنشأ",
   "UnitPrice": "سعر الواحدة",
   "Delivery Date": "تاريخ الوصول المتوقع",
+  "DeliveryDate":"تاريخ الوصول",
   "DocumentShipment": " شحنة وثائق",
   "ShipmentPurpose": "غرض الشحنة",
   "Documented": "أوراق /وثائق",
@@ -98,7 +99,7 @@
   "NoResponse": "لا يوجد عرض متاح",
   "ExtraCharges": "مبالغ اضافية",
   "AddExtraCharges": "اضافة مبالغ اضافية",
-  "ChargeName": "اسم الكلفة ",
+  "ChargeName": " الوصف ",
   "ChargeValue": "القيمة",
   "InProgress": "جاري المعالجة",
   "SuccessfullRequest": " تم بنجاح",
@@ -112,5 +113,8 @@
   "Tax": "السعر يتضمن رسوم الجمارك",
   "NoTax": "السعر لايتضمن رسوم الجمارك",
   "P.S": "ملاحظة",
-  "FinalCost":"السعر الاجمالي"
+  "FinalCost":"السعر الاجمالي",
+  "ActualWeight":"الوزن الفعلي",
+  "ActualWeightDescription":"الوزن الفعلي هو ناتج مفاضلة الوزن الحقيقي والوزن الحجمي",
+  "Note":"ملاحظة"
 }

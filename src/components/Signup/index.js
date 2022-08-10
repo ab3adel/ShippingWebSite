@@ -251,7 +251,7 @@ const SignupForm = () => {
 
                     ]}
                 >
-                    {/* type='email' */}
+
                     <Input placeholder={i18n.language == 'ar' ? `الاسم` : `Name`} />
                 </Form.Item>
                 </div>

@@ -72,7 +72,36 @@ const ProfileInfo = () => {
         rowsPerPageText: i18n.language == 'ar' ? `عدد الاسطر في الصفحة` : `Rows Per Page`,
 
     };
+    const conditionalRowStyles = [
+        {
+            when: row => row.paid == 1,
+            style: {
+                backgroundColor: '#0d7a0d',
+                color: 'white',
+                cursor: 'pointer',
+                '&:hover': {
+                    backgroundColor: '#0d7a0d59',
+                    color: 'black'
+                },
 
+
+            },
+        },
+
+        {
+            when: row => row.paid == 0,
+            style: {
+                backgroundColor: '#bf1919',
+                color: 'white',
+                cursor: 'pointer',
+                '&:hover': {
+                    backgroundColor: '#bf19199c',
+                    color: 'black'
+                },
+
+            },
+        },
+    ];
     return (
         <div className="section bilsSection ">
             {profile &&
@@ -125,6 +154,7 @@ const ProfileInfo = () => {
                                                     rtl={false}
                                                     paginationComponentOptions={paginationComponentOptions}
                                                     dense
+                                                    conditionalRowStyles={conditionalRowStyles}
                                                 />
                                             </DataTableExtensions>
                                         </div>
